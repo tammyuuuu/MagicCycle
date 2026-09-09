@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ETF 今日提醒 2026-09-09</title>
+<style>
+ body{margin:0;font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f2f5f9;color:#233}
+ .wrap{max-width:640px;margin:0 auto;padding:12px}
+ header{background:#102a43;color:#fff;padding:12px 16px}
+ h1{font-size:17px;margin:4px 0}
+ .card{background:#fff;border-radius:12px;padding:14px;margin:12px 0;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+ .t{font-size:16px;font-weight:700;margin-bottom:6px}
+ .code{color:#1565c0}
+ .meta{font-size:13px;color:#455a64;margin:2px 0}
+ .chip{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;margin:3px 3px 0 0}
+ .chip.on{background:#c8e6c9;color:#1b5e20}
+ .chip.on.red{background:#ffcdd2;color:#b71c1c}
+ .chip.off{background:#eceff1;color:#90a4ae}
+ .adv{font-size:16px;font-weight:700;margin:8px 0}
+ .adv.ok{color:#1b5e20} .adv.warn{color:#b26a00}
+ .muted{color:#90a4ae;font-size:12px}
+ .red{color:#b71c1c}
+ details{margin-top:6px}
+ summary{cursor:pointer;font-size:13.5px;color:#1565c0;padding:4px 0}
+ .refs{margin:6px 0 2px 0;padding-left:18px;font-size:13px}
+ .posrow{display:flex;gap:10px;flex-wrap:wrap;align-items:end;padding:6px 0}
+ .posrow label{font-size:12px;color:#546e7a;display:block}
+ input[type=number]{width:96px;padding:5px;border:1px solid #cfd8dc;border-radius:6px}
+ .btn{background:#1565c0;color:#fff;border:0;border-radius:7px;padding:7px 14px;cursor:pointer}
+ .ok{color:#1b5e20;font-weight:600} .warn{color:#b26a00;font-weight:600} .bad{color:#b71c1c;font-weight:600}
+ .err{color:#b71c1c;font-size:13px}
+ footer{color:#90a4ae;font-size:12px;text-align:center;padding:16px}
+</style></head><body>
+<header><h1>📈 宽基 ETF 今日买卖提醒</h1><div style="font-size:12px;opacity:.8">生成于 2026-09-09 13:48 · 使用内置默认规则</div></header>
+<div class="wrap">
+<div class="card">
+  <div class="t"><span class="code">510500</span> 中证500ETF <span class="muted">中证500</span>
+      <span class="chip off">非定投日</span></div>
+  <div class="meta">数据日 2026-09-09 · 收盘 <b>7.778</b> ·
+      分位 <b>89.29%</b> ·
+      历史最大涨幅 <b>118%</b> ·
+      日均波动 <b>1.64%</b></div>
+  <div class="meta muted">5年区间：4.146 ~ 9.045</div>
+  <div style="margin:6px 0"><span class='chip off'>跌幅深 A</span><span class='chip off'>低位 B</span><span class='chip on red'>过热 D</span> <span class="muted">C涨幅/E回撤需填持仓判断</span></div>
+  <div class='adv warn'>🛑 过热 → 暂停定投，持有观望（0 元）</div>
+  <details>
+    <summary>填我的实际持仓，精判断今天该买/卖</summary>
+    <div class="posrow">
+      <label><input type="checkbox" id="hol_0"> 持有</label>
+      <span><label>平均成本</label><input type="number" step="0.001" id="ac_0" placeholder="如 5.2"></span>
+      <span><label>持仓期最高价</label><input type="number" step="0.001" id="pk_0" placeholder="如 8.0"></span>
+      <button class="btn" onclick="decide(0)">判断</button>
+    </div>
+    <div id="dec_0"></div>
+  </details>
+  <details>
+    <summary>卖出规则触发参考</summary>
+    <ul class='refs'><li><span class='muted'>○</span> E 高位回撤保护：E触发：持仓最高≥8.0326</li><li><span class='muted'>○</span> C 涨幅足够 + D 估值过热：C触发：成本≤4.8893；D过热</li><li><span class='muted'>○</span> C 涨幅足够：C触发：成本≤4.8893</li><li><b class='red'>●</b> D 估值过热：D过热</li></ul>
+  </details>
+</div>
+
+<div class="card">
+  <div class="t"><span class="code">588000</span> 科创50ETF <span class="muted">科创50</span>
+      <span class="chip off">非定投日</span></div>
+  <div class="meta">数据日 2026-09-09 · 收盘 <b>1.666</b> ·
+      分位 <b>92.94%</b> ·
+      历史最大涨幅 <b>247%</b> ·
+      日均波动 <b>2.86%</b></div>
+  <div class="meta muted">5年区间：0.674 ~ 2.344</div>
+  <div style="margin:6px 0"><span class='chip off'>跌幅深 A</span><span class='chip off'>低位 B</span><span class='chip on red'>过热 D</span> <span class="muted">C涨幅/E回撤需填持仓判断</span></div>
+  <div class='adv warn'>🛑 过热 → 暂停定投，持有观望（0 元）</div>
+  <details>
+    <summary>填我的实际持仓，精判断今天该买/卖</summary>
+    <div class="posrow">
+      <label><input type="checkbox" id="hol_1"> 持有</label>
+      <span><label>平均成本</label><input type="number" step="0.001" id="ac_1" placeholder="如 5.2"></span>
+      <span><label>持仓期最高价</label><input type="number" step="0.001" id="pk_1" placeholder="如 8.0"></span>
+      <button class="btn" onclick="decide(1)">判断</button>
+    </div>
+    <div id="dec_1"></div>
+  </details>
+  <details>
+    <summary>卖出规则触发参考</summary>
+    <ul class='refs'><li><span class='muted'>○</span> E 高位回撤保护：E触发：持仓最高≥1.7613</li><li><span class='muted'>○</span> C 涨幅足够 + D 估值过热：C触发：成本≤0.7441；D过热</li><li><span class='muted'>○</span> C 涨幅足够：C触发：成本≤0.7441</li><li><b class='red'>●</b> D 估值过热：D过热</li></ul>
+  </details>
+</div>
+<footer>数据：AkShare（东方财富/新浪）· 仅供策略研究，非投资建议</footer></div>
+<script>
+var REPS = [{"date": "2026-09-09", "is_monday": false, "today_is_dca_day": false, "close": 7.778, "hist_high": 9.045, "hist_low": 4.146, "max_gain": 1.1816, "pct": 89.29, "vol": 0.0164, "A_跌幅足够深": false, "B_分位点低": false, "D_过热": true, "暂停定投": true, "建议定投金额": 0.0, "定投档位": "不投", "sell_hints": [{"id": "e", "name": "E 高位回撤保护（持仓期高点回撤≥日均波动×N）", "action": "clear", "conds": ["E"], "active": false, "note": "", "ref": {"type": "peak", "value": 8.0326, "meaning": "持仓期间最高价 ≥ 此值则触发 E 回撤清仓保护"}, "likely": true, "name_short": "回撤保护E"}, {"id": "cd", "name": "C 涨幅足够 + D 估值过热", "action": "clear", "conds": ["C", "D"], "active": false, "note": "D 已过热", "ref": null, "ref2": {"type": "cost", "value": 4.8893, "meaning": "你的摊薄平均成本 ≤ 此值则满足 C 涨幅条件"}, "name_short": "涨幅C"}, {"id": "c_only", "name": "C 涨幅足够（未过热，卖出50%）", "action": "trim_half", "conds": ["C"], "active": false, "note": "", "ref": null, "ref2": {"type": "cost", "value": 4.8893, "meaning": "你的摊薄平均成本 ≤ 此值则满足 C 涨幅条件"}, "name_short": "涨幅C"}, {"id": "d_only", "name": "D 估值过热（暂停定投，持有观望）", "action": "pause", "conds": ["D"], "active": true, "note": "当前过热，建议暂停定投、持有观望", "ref": null}], "params": {"hist_window": 1260, "percentile_window": 1260, "vol_window": 60, "a_cut": 0.5, "p_low": 30, "gain_trigger": 0.5, "p_high": 70, "dd_mult": 2.0, "amount_ab": 30, "amount_a": 20, "amount_b": 10, "initial_cash": 20000, "fee_rate": 0.0001, "min_fee": 0.0, "slippage": 0.0, "lot": 1}, "sell_rules": [{"id": "e", "name": "E 高位回撤保护（持仓期高点回撤≥日均波动×N）", "conds": ["E"], "action": "clear", "priority": 1, "enabled": true}, {"id": "cd", "name": "C 涨幅足够 + D 估值过热", "conds": ["C", "D"], "action": "clear", "priority": 2, "enabled": true}, {"id": "c_only", "name": "C 涨幅足够（未过热，卖出50%）", "conds": ["C"], "action": "trim_half", "priority": 3, "enabled": true}, {"id": "d_only", "name": "D 估值过热（暂停定投，持有观望）", "conds": ["D"], "action": "pause", "priority": 4, "enabled": true}]}, {"date": "2026-09-09", "is_monday": false, "today_is_dca_day": false, "close": 1.666, "hist_high": 2.344, "hist_low": 0.674, "max_gain": 2.4777, "pct": 92.94, "vol": 0.0286, "A_跌幅足够深": false, "B_分位点低": false, "D_过热": true, "暂停定投": true, "建议定投金额": 0.0, "定投档位": "不投", "sell_hints": [{"id": "e", "name": "E 高位回撤保护（持仓期高点回撤≥日均波动×N）", "action": "clear", "conds": ["E"], "active": false, "note": "", "ref": {"type": "peak", "value": 1.7613, "meaning": "持仓期间最高价 ≥ 此值则触发 E 回撤清仓保护"}, "likely": true, "name_short": "回撤保护E"}, {"id": "cd", "name": "C 涨幅足够 + D 估值过热", "action": "clear", "conds": ["C", "D"], "active": false, "note": "D 已过热", "ref": null, "ref2": {"type": "cost", "value": 0.7441, "meaning": "你的摊薄平均成本 ≤ 此值则满足 C 涨幅条件"}, "name_short": "涨幅C"}, {"id": "c_only", "name": "C 涨幅足够（未过热，卖出50%）", "action": "trim_half", "conds": ["C"], "active": false, "note": "", "ref": null, "ref2": {"type": "cost", "value": 0.7441, "meaning": "你的摊薄平均成本 ≤ 此值则满足 C 涨幅条件"}, "name_short": "涨幅C"}, {"id": "d_only", "name": "D 估值过热（暂停定投，持有观望）", "action": "pause", "conds": ["D"], "active": true, "note": "当前过热，建议暂停定投、持有观望", "ref": null}], "params": {"hist_window": 1260, "percentile_window": 1260, "vol_window": 60, "a_cut": 0.5, "p_low": 30, "gain_trigger": 0.5, "p_high": 70, "dd_mult": 2.0, "amount_ab": 30, "amount_a": 20, "amount_b": 10, "initial_cash": 20000, "fee_rate": 0.0001, "min_fee": 0.0, "slippage": 0.0, "lot": 1}, "sell_rules": [{"id": "e", "name": "E 高位回撤保护（持仓期高点回撤≥日均波动×N）", "conds": ["E"], "action": "clear", "priority": 1, "enabled": true}, {"id": "cd", "name": "C 涨幅足够 + D 估值过热", "conds": ["C", "D"], "action": "clear", "priority": 2, "enabled": true}, {"id": "c_only", "name": "C 涨幅足够（未过热，卖出50%）", "conds": ["C"], "action": "trim_half", "priority": 3, "enabled": true}, {"id": "d_only", "name": "D 估值过热（暂停定投，持有观望）", "conds": ["D"], "action": "pause", "priority": 4, "enabled": true}]}];
+var LABEL = {clear:'清仓(全部卖出)',trim_half:'卖出50%',pause:'暂停定投'};
+function decide(i){
+  var rep=REPS[i], p=rep.params;
+  var hol=document.getElementById('hol_'+i).checked;
+  var ac=parseFloat(document.getElementById('ac_'+i).value), pk=parseFloat(document.getElementById('pk_'+i).value);
+  var close=rep.close, mg=rep.max_gain, vol=rep.vol;
+  var cond={A:rep['A_跌幅足够深'],B:rep['B_分位点低'],D:rep['D_过热']};
+  if(hol&&ac>0&&mg) cond.C = (close/ac-1) >= mg*p.gain_trigger;
+  if(hol&&pk>0&&vol) cond.E = pk>=close && (pk-close)/pk >= vol*p.dd_mult;
+  // 定投判断
+  var paused = cond.D && rep.sell_rules.some(r=>r.enabled&&r.action==='pause'&&(r.conds||[]).indexOf('D')>=0);
+  var amt=0, tier='', cls='ok';
+  if(paused){tier='🛑 过热→暂停定投(0元)';cls='warn';}
+  else if(cond.A&&cond.B){amt=p.amount_ab;tier='A且B';}
+  else if(cond.A){amt=p.amount_a;tier='仅A';}
+  else if(cond.B){amt=p.amount_b;tier='仅B';}
+  else {tier='不满足买入条件';cls='warn';}
+  // 仓位决策（首个命中）
+  var sats=Object.keys(cond).filter(k=>cond[k]); var decision=null;
+  var rules=rep.sell_rules.slice().sort((a,b)=>a.priority-b.priority);
+  for(var j=0;j<rules.length;j++){var r=rules[j]; if(!r.enabled) continue; var need=r.conds||[];
+    var fire = (need.length===1&&need[0]==='C') ? (cond.C&&!cond.D) : need.every(x=>cond[x]);
+    if(fire){decision=r; break;} }
+  var box=document.getElementById('dec_'+i);
+  var c='<div class="meta">'+'当前条件：'+Object.keys(cond).filter(k=>cond[k]).map(k=>k+'✓').join(' ')||'—'+'</div>';
+  c+='<div class="'+cls+'">定投：'+(amt>0?'可投 '+amt+' 元（'+tier+'）':tier)+'</div>';
+  if(!hol) c+='<div class="muted">未填“持有”，仅看定投资格。</div>';
+  else if(decision) c+='<div class="bad">卖出建议：'+LABEL[decision.action]+'（'+decision.name.split('（')[0]+'）</div>';
+  else c+='<div class="ok">无卖出/减仓信号，继续持有。</div>';
+  box.innerHTML=c;
+}
+</script></body></html>
