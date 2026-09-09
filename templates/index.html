@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>宽基 ETF 监测 · 规则回测</title>
+<style>
+  :root{--c1:#1565c0;--c2:#2e7d32;--c3:#c62828;--bg:#f5f7fa;--card:#fff;--line:#e2e6ec;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:#263238}
+  header{background:#102a43;color:#fff;padding:14px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  header h1{font-size:18px;margin:0;font-weight:600}
+  nav a{color:#cfe0f3;margin-right:6px;text-decoration:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:14px}
+  nav a.active{background:#2c4a67;color:#fff}
+  main{padding:18px 22px;max-width:1200px;margin:0 auto}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:16px}
+  .card h2{font-size:16px;margin:2px 0 12px;color:#102a43}
+  .grid{display:grid;gap:10px}
+  .g2{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+  label{font-size:13px;color:#546e7a;display:block;margin-bottom:2px}
+  input[type=number],input[type=text],input[type=date],select{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:6px;font-size:14px}
+  .btn{border:0;border-radius:7px;padding:8px 16px;font-size:14px;cursor:pointer;margin-right:8px}
+  .btn.primary{background:var(--c1);color:#fff}
+  .btn.green{background:var(--c2);color:#fff}
+  .btn.gray{background:#eceff1;color:#37474f}
+  .btn.red{background:var(--c3);color:#fff}
+  table{border-collapse:collapse;width:100%;font-size:13.5px}
+  th,td{border:1px solid var(--line);padding:5px 8px;text-align:left}
+  th{background:#eef3f9}
+  tr:nth-child(even) td{background:#fafbfc}
+  .row{display:flex;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+  .chip{display:inline-block;padding:2px 8px;border-radius:20px;font-size:12px;margin:2px 3px 2px 0}
+  .chip.on{background:#c8e6c9;color:#1b5e20}
+  .chip.off{background:#eee;color:#888}
+  .chip.red{background:#ffcdd2;color:#b71c1c}
+  .ok{color:#1b5e20;font-weight:600}
+  .warn{color:#b26a00;font-weight:600}
+  .bad{color:#b71c1c;font-weight:600}
+  .muted{color:#90a4ae;font-size:12px}
+  pre{background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto;font-size:12.5px;white-space:pre-wrap;line-height:1.5}
+  .hidden{display:none}
+  .bignum{font-size:20px;font-weight:700;margin:4px 8px 0 0}
+  .tabs{display:flex;gap:2px;border-bottom:2px solid #e2e6ec;margin-bottom:14px}
+  .tabs button{background:none;border:0;padding:9px 16px;font-size:15px;cursor:pointer;border-bottom:3px solid transparent}
+  .tabs button.active{border-bottom-color:var(--c1);color:var(--c1);font-weight:600}
+  .err{color:#b71c1c;padding:8px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:900px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>📈 宽基 ETF 监测 · 规则回测</h1>
+  <nav id="topnav">
+    <a data-t="today" class="active">今日提醒</a>
+    <a data-t="rules">规则编辑</a>
+    <a data-t="bt">定投回测</a>
+  </nav>
+</header>
+
+<main>
+  <!-- ================= 今日提醒 ================= -->
+  <section id="sec-today">
+    <div class="card">
+      <h2>今日买卖点提醒 <span class="muted">（规则见“规则编辑”页签；可填持仓成本做精确判断）</span></h2>
+      <button class="btn green" onclick="loadAlerts()">刷新今日提醒</button>
+      <button class="btn gray" onclick="loadAlerts()">（打开页面自动载入）</button>
+      <div id="todayOut"></div>
+    </div>
+  </section>
+
+  <!-- ================= 规则编辑 ================= -->
+  <section id="sec-rules" class="hidden">
+    <div class="card">
+      <h2>① 策略参数（历史窗口、阈值、定投金额档）</h2>
+      <div class="grid g2" id="paramGrid"></div>
+      <p class="muted">金额默认 30/20/10 元用于“信号验证”（按 1 份粒度可买）。实盘请按一手 100 份并放大金额；历史窗口、阈值都可调。</p>
+    </div>
+
+    <div class="card">
+      <h2>② 卖出 / 仓位管理规则　<button class="btn gray" onclick="addRule()">+ 添加规则</button>
+        <button class="btn gray" onclick="saveRules()">💾 保存为默认规则</button>
+        <button class="btn gray" onclick="loadDefault()">载入内置默认</button>
+        <button class="btn gray" onclick="loadSaved()">载入已保存</button>
+      </h2>
+      <p class="muted">每条规则 = “当【条件】同时满足 → 执行【操作】”，按列表从上到下优先级判断，命中即停（首个命中生效）。</p>
+      <div id="rulesList"></div>
+    </div>
+
+    <div class="card">
+      <h2>③ 买入档位（每周定投）</h2>
+      <p class="muted">固定逻辑：A且B→档1；仅A→档2；仅B→档3；都不满足→0；过热(启用 D 暂停规则时)→暂停。金额在“①策略参数”里改。</p>
+    </div>
+  </section>
+
+  <!-- ================= 定投回测 ================= -->
+  <section id="sec-bt" class="hidden">
+    <div class="card">
+      <h2>条件定投回测（看收益结果）</h2>
+      <div class="grid g2">
+        <div><label>标的</label><select id="btEtf"></select></div>
+        <div><label>开始日期</label><input type="date" id="btStart"></div>
+        <div><label>绘制图表</label><select id="btPlot"><option value="1">是</option><option value="0">否</option></select></div>
+        <div><label>&nbsp;</label><button class="btn primary" onclick="runBt()">▶ 开始回测</button></div>
+      </div>
+      <div id="btOut"></div>
+    </div>
+  </section>
+</main>
+
+<footer style="color:#90a4ae;font-size:12px;text-align:center;padding:20px">
+  数据来源 AkShare（东方财富/新浪）；仅供策略研究，不构成投资建议。
+</footer>
+
+<script>
+// ---------------- 全局状态 ----------------
+let STATE = null;         // /api/state
+let currentRules = [];    // 规则行
+
+// ---------------- 工具 ----------------
+const $ = s => document.querySelector(s);
+const pctKeys = ["投入收益率(占总投入)","总资产收益率(含闲置资金)","最大回撤(总资产)"];
+function numFmt(v){ if(typeof v!=='number') return v; return Number.isInteger(v)? v.toLocaleString('zh-CN') : v.toLocaleString('zh-CN',{maximumFractionDigits:2}); }
+
+function metricsTable(m){
+  if(!m) return '<div class="muted">无数据</div>';
+  let h='<table><tr><th>指标</th><th>数值</th></tr>';
+  for(const k in m){
+    let v=m[k]; let style='';
+    if(typeof v==='number'){
+      if(pctKeys.includes(k)){ style = v<0? ' class="bad"' : (v>0?' class="ok"':''); v=(v*100).toFixed(2)+'%'; }
+      else v=numFmt(v);
+    }
+    h+=`<tr><td>${k}</td><td${style}>${v}</td></tr>`;
+  }
+  return h+'</table>';
+}
+function chips(cond){ // 只渲染 cond 中给出的条件
+  const map={'A':'跌幅足够深 A','B':'分位点低 B','C':'涨幅达标 C','D':'估值过热 D','E':'回撤保护 E'};
+  let s='';
+  for(const k in map){ if(!(k in cond)) continue; s+=`<span class="chip ${cond[k]?'on red':'off'}">${map[k]}</span>`; }
+  return s;
+}
+
+// ---------------- 参数表单 ----------------
+function buildParams(){
+  STATE.params_label = STATE.params_label || {};
+  const grid=$('#paramGrid'); grid.innerHTML='';
+  const order=['hist_window','percentile_window','vol_window','a_cut','p_low','gain_trigger','p_high','dd_mult','amount_ab','amount_a','amount_b','initial_cash','fee_rate','min_fee','lot'];
+  for(const k of order){
+    const lbl=(STATE.params_label[k]||k);
+    const d=document.createElement('div');
+    const step=(k.includes('window')||k.includes('amount')||k==='initial_cash')?1:(k==='lot')?1:0.01;
+    d.innerHTML=`<label>${lbl}</label><input type="number" id="p_${k}" step="${step}" value="${STATE.defaults[k]??''}">`;
+    grid.appendChild(d);
+  }
+}
+function collectParams(){
+  const p={};
+  for(const k of Object.keys(STATE.defaults)){
+    const el=$('#p_'+k); if(!el) continue;
+    let v=parseFloat(el.value); if(el.value==='') v=STATE.defaults[k];
+    p[k]=v;
+  }
+  return p;
+}
+
+// ---------------- 规则编辑 ----------------
+function condLabel(c){ const m={'A':'A 跌幅深','B':'B 分位点低','C':'C 涨幅足','D':'D 过热','E':'E 高位回撤'}; return m[c]||c; }
+function ruleActions(){ return STATE.rule_actions.map(a=>`<option value="${a.value}">${a.label}</option>`).join(''); }
+function renderRules(){
+  const box=$('#rulesList'); box.innerHTML='';
+  currentRules.forEach((r,i)=>{
+    const div=document.createElement('div'); div.className='row';
+    div.dataset.i=i;
+    const condsHtml=STATE.rule_conditions.map(c=>{
+      const chk = r.conds && r.conds.includes(c.value)?'checked':'';
+      return `<label style="margin-right:2px"><input type="checkbox" class="rc" value="${c.value}" ${chk} style="width:auto">${condLabel(c.value)}</label>`;
+    }).join(' ');
+    div.innerHTML=`
+      <span style="width:18px">${i+1}.</span>
+      <label style="margin:0"><input type="checkbox" class="ren" ${r.enabled?'checked':''} style="width:auto">启用</label>
+      <span>满足</span>
+      <span class="conds" style="white-space:nowrap">${condsHtml}</span>
+      <span>→ 执行</span>
+      <select class="ract" style="width:170px">${ruleActions()}</select>
+      <input type="text" class="rname" value="${(r.name||'').replace(/"/g,'&quot;')}" style="flex:1;min-width:150px" placeholder="备注名称">
+      <button class="btn gray" onclick="delRule(${i})" style="padding:3px 10px">删除</button>`;
+    box.appendChild(div);
+    // 回填 action
+    div.querySelector('.ract').value = r.action||'clear';
+  });
+}
+function collectRules(){
+  const rows=[...document.querySelectorAll('#rulesList .row')];
+  return rows.map((row,i)=>{
+    const conds=[...row.querySelectorAll('.rc')].filter(x=>x.checked).map(x=>x.value);
+    return {
+      id: ('r'+(i+1)),
+      name: row.querySelector('.rname').value,
+      conds: conds,
+      action: row.querySelector('.ract').value,
+      priority: i+1,
+      enabled: row.querySelector('.ren').checked,
+    };
+  });
+}
+function addRule(){ currentRules.push({id:'r'+(currentRules.length+1),name:'新规则',conds:['E'],action:'clear',priority:currentRules.length+1,enabled:true}); renderRules(); }
+function delRule(i){ currentRules.splice(i,1); renderRules(); }
+function loadDefault(){ currentRules=JSON.parse(JSON.stringify(STATE.sell_rules)); renderRules(); }
+function loadSaved(){
+  if(STATE.saved){
+    applySaved(STATE.saved); alert('已载入保存的规则。');
+  } else alert('还没有保存过规则。');
+}
+function applySaved(saved){
+  if(saved.params) for(const k in saved.params){ const el=$('#p_'+k); if(el) el.value=saved.params[k]; }
+  if(saved.sell_rules){ currentRules=JSON.parse(JSON.stringify(saved.sell_rules)); renderRules(); }
+}
+async function saveRules(){
+  const payload={params:collectParams(),sell_rules:collectRules()};
+  const r=await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  const j=await r.json();
+  alert(j.ok?('规则已保存：'+j.path):('失败 '+JSON.stringify(j)));
+}
+
+// ---------------- 今日提醒 ----------------
+async function loadAlerts(){
+  const box=$('#todayOut'); box.innerHTML='<div>加载中…（首次需联网拉数据，稍候）</div>';
+  const payload={params:collectParams(),sell_rules:collectRules()};
+  try{
+    const r=await fetch('/api/alerts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const list=await r.json();
+    box.innerHTML='';
+    for(const it of list){
+      const card=document.createElement('div'); card.className='card';
+      if(it.error){ card.innerHTML=`<b>${it.code} ${it.name}</b><div class="err">${it.error}</div>`; box.appendChild(card); continue; }
+      const rep=it.rep;
+      const d=rep.date;
+      card.innerHTML=`
+        <h2>${it.code} ${it.name} <span class="muted">${it.index}</span>
+          <span class="chip ${rep.today_is_dca_day?'on':'off'}">${rep.today_is_dca_day?'本周定投日':'非定投日'}</span>
+        </h2>
+        <p style="margin:2px 0">
+          数据日 ${d} · 收盘 <b>${rep.close}</b> ·
+          分位点 <b>${rep.pct==null?'—':rep.pct+'%'}</b> ·
+          历史最大涨幅 <b>${(rep.max_gain*100).toFixed(1)}%</b> ·
+          日均波动 <b>${(rep.vol*100).toFixed(2)}%</b>
+          <span class="muted">区间 ${rep.hist_low}~${rep.hist_high}</span>
+        </p>
+        <div style="margin:6px 0">${chips({A:rep['A_跌幅足够深'],B:rep['B_分位点低'],D:rep['D_过热']})}<span class="muted">C涨幅/E回撤需结合持仓，在下方填持仓后判断</span></div>
+        <div style="margin:4px 0">
+          定投建议：<b class="${rep['暂停定投']?'warn':'ok'}">${rep['暂停定投']?'过热→暂停定投(0元)':'可投 '+rep['建议定投金额']+' 元（'+rep['定投档位']+'）'}</b>
+        </div>
+        <details>
+          <summary style="cursor:pointer">⚙️ 填我的实际持仓，精确判断今天该买/卖</summary>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:end;padding:8px 0">
+            <label>是否持有<input type="checkbox" id="hol_${it.code}" style="width:auto;margin-left:4px"></label>
+            <div><label>摊薄平均成本</label><input type="number" step="0.001" id="ac_${it.code}" style="width:120px"></div>
+            <div><label>持仓期间最高价</label><input type="number" step="0.001" id="pk_${it.code}" style="width:120px"></div>
+            <button class="btn green" onclick="decide('${it.code}')">判断</button>
+          </div>
+          <div id="dec_${it.code}"></div>
+        </details>
+        <details>
+          <summary style="cursor:pointer">📄 详细提醒文本 / 触发临界参考价</summary>
+          <pre>${it.text.replace(/</g,'&lt;')}</pre>
+        </details>`;
+      box.appendChild(card);
+    }
+  }catch(e){ box.innerHTML='<div class="err">'+e+'</div>'; }
+}
+
+async function decide(code){
+  const box=$('#dec_'+code);
+  const payload={
+    etf:code, params:collectParams(), sell_rules:collectRules(),
+    holding:$('#hol_'+code).checked,
+    avg_cost:$('#ac_'+code).value?parseFloat($('#ac_'+code).value):null,
+    peak:$('#pk_'+code).value?parseFloat($('#pk_'+code).value):null,
+  };
+  box.innerHTML='判断中…';
+  const r=await fetch('/api/decide',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  const j=await r.json();
+  if(j.error){ box.innerHTML='<div class="err">'+j.error+'</div>'; return; }
+  const d=j.decision;
+  const cond=chips(d.cond);
+  let decHtml;
+  if(!d.holding){
+    decHtml=`<p class="muted">你当前未持有 ${j.name}。策略只提醒“是否该开始/继续定投”。</p>`;
+  } else if(d.decisions.length===0){
+    decHtml=`<p class="ok">今日无卖出/减仓信号，继续持有即可。</p>`;
+  } else {
+    const x=d.decisions[0];
+    const color = x.action==='clear'?'bad':x.action==='trim_half'?'warn':'ok';
+    decHtml=`<p class="${color}" style="font-size:15px">⚠ 今日建议：<b>${x.label}</b>（${x.name}）</p>`;
+  }
+  box.innerHTML=`
+    <div>当前条件：${cond}</div>
+    <div>定投判断：<b>${d.buy_amount>0?('可投 '+d.buy_amount+' 元'):d.buy_tier}</b></div>
+    ${decHtml}`;
+}
+
+// ---------------- 定投回测 ----------------
+function buildBtEtf(){
+  const sel=$('#btEtf'); sel.innerHTML=STATE.etfs.map(e=>`<option value="${e.code}">${e.code} ${e.name}</option>`).join('');
+}
+async function runBt(){
+  const box=$('#btOut');
+  box.innerHTML='<div>回测中…（首次需联网/读缓存，请稍候）</div>';
+  const payload={
+    etf:$('#btEtf').value,
+    start: $('#btStart').value? $('#btStart').value.replace(/-/g,''): '20160101',
+    params: collectParams(), sell_rules: collectRules(),
+    plot: $('#btPlot').value==='1',
+  };
+  try{
+    const r=await fetch('/api/backtest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const j=await r.json();
+    if(j.error){ box.innerHTML='<div class="err">'+j.error+'</div>'; return; }
+    let ev='<table><tr><th>日期</th><th>动作</th><th>说明</th></tr>';
+    (j.events||[]).forEach(e=>{ ev+=`<tr><td>${e.date.slice(0,10)}</td><td>${e.kind}</td><td>${e.detail.replace(/</g,'&lt;')}</td></tr>`; });
+    ev+='</table>';
+    box.innerHTML=`
+      <h3>${j.etf} ${j.name}　<span class="muted">${j.period}</span></h3>
+      <div class="two">
+        <div><h4>条件定投（策略）</h4>${metricsTable(j.strategy)}</div>
+        <div><h4>无脑定投（基准：每期固定档1金额、不择时）</h4>${metricsTable(j.benchmark)}</div>
+      </div>
+      ${j.chart?`<div style="text-align:center;margin-top:10px"><img src="${j.chart}" style="max-width:100%"></div>`:''}
+      <details><summary>动作日志（最近30条）</summary>${ev}</details>`;
+  }catch(e){ box.innerHTML='<div class="err">'+e+'</div>'; }
+}
+
+// ---------------- 页签与初始化 ----------------
+document.querySelectorAll('#topnav a').forEach(a=>{
+  a.onclick=()=>{
+    document.querySelectorAll('#topnav a').forEach(x=>x.classList.remove('active'));
+    a.classList.add('active');
+    ['today','rules','bt'].forEach(t=>$('#sec-'+t).classList.toggle('hidden', t!==a.dataset.t));
+    if(a.dataset.t==='today') loadAlerts();
+  };
+});
+
+async function init(){
+  const r=await fetch('/api/state'); STATE=await r.json();
+  buildParams(); buildBtEtf();
+  const today=new Date(); today.setMonth(today.getMonth()-120);
+  $('#btStart').value = today.toISOString().slice(0,10); // 默认近10年
+  if(STATE.saved) applySaved(STATE.saved);
+  else currentRules=JSON.parse(JSON.stringify(STATE.sell_rules));
+  renderRules();
+  loadAlerts();
+}
+init();
+</script>
+</body>
+</html>

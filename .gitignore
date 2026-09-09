@@ -1,0 +1,9 @@
+# 数据缓存
+data_cache/
+# 回测输出
+results/
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
