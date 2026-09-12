@@ -111,33 +111,53 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ETF 今日提醒 {gen_time[:10]}</title>
 <style>
- body{{margin:0;font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#f2f5f9;color:#233}}
- .wrap{{max-width:640px;margin:0 auto;padding:12px}}
- header{{background:#102a43;color:#fff;padding:12px 16px}}
- h1{{font-size:17px;margin:4px 0}}
- .card{{background:#fff;border-radius:12px;padding:14px;margin:12px 0;box-shadow:0 1px 3px rgba(0,0,0,.08)}}
- .t{{font-size:16px;font-weight:700;margin-bottom:6px}}
- .code{{color:#1565c0}}
- .meta{{font-size:13px;color:#455a64;margin:2px 0}}
- .chip{{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;margin:3px 3px 0 0}}
- .chip.on{{background:#c8e6c9;color:#1b5e20}}
- .chip.on.red{{background:#ffcdd2;color:#b71c1c}}
- .chip.off{{background:#eceff1;color:#90a4ae}}
- .adv{{font-size:16px;font-weight:700;margin:8px 0}}
- .adv.ok{{color:#1b5e20}} .adv.warn{{color:#b26a00}}
- .muted{{color:#90a4ae;font-size:12px}}
- .red{{color:#b71c1c}}
+ /* 梵高油画配色：群青夜空 + 麦金 + 米白画布（中度浓度） */
+ :root{{--night:#141f45;--ultra:#1e2d63;--cobalt:#2f5aa8;--gold:#e8b21f;--gold-lt:#f2c744;
+   --amber:#a8620a;--crimson:#9c2f24;--cypress:#2f5a3c;--canvas:#f4ecda;--card:#fbf6ea;
+   --ink:#2b1f14;--line:#d8c9a8}}
+ *{{box-sizing:border-box}}
+ body{{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);
+   background:
+     radial-gradient(120% 80% at 10% 0%,rgba(47,90,168,.18) 0%,rgba(47,90,168,0) 55%),
+     radial-gradient(90% 60% at 90% 6%,rgba(232,178,31,.20) 0%,rgba(232,178,31,0) 60%),
+     radial-gradient(100% 70% at 80% 100%,rgba(30,45,99,.14) 0%,rgba(30,45,99,0) 65%),
+     repeating-linear-gradient(45deg,rgba(43,31,20,.022) 0 2px,rgba(43,31,20,0) 2px 5px),
+     repeating-linear-gradient(-45deg,rgba(43,31,20,.018) 0 2px,rgba(43,31,20,0) 2px 5px),
+     var(--canvas)}}
+ /* 暗角，像画布边缘压深 */
+ body::after{{content:"";position:fixed;inset:0;pointer-events:none;z-index:9;
+   background:radial-gradient(125% 105% at 50% 42%,rgba(0,0,0,0) 55%,rgba(20,31,69,.13) 100%)}}
+ .wrap{{max-width:640px;margin:0 auto;padding:12px;position:relative;z-index:1}}
+ header{{position:relative;z-index:2;background:linear-gradient(135deg,var(--night) 0%,var(--ultra) 55%,#2a3f7d 100%);
+   color:#fdf6e3;padding:13px 16px;border-bottom:3px solid var(--gold);box-shadow:0 2px 6px rgba(20,31,69,.28)}}
+ h1{{font-family:Georgia,"Songti SC","SimSun",serif;font-size:19px;margin:4px 0;font-weight:600;letter-spacing:.4px}}
+ .card{{background:linear-gradient(160deg,#fdf9ee 0%,var(--card) 50%,#f7efdd 100%);border:1px solid var(--line);
+   border-radius:10px;padding:14px;margin:12px 0;
+   box-shadow:0 2px 6px rgba(43,31,20,.10),inset 0 1px 0 rgba(255,255,255,.85)}}
+ .t{{font-size:16px;font-weight:700;margin-bottom:6px;font-family:Georgia,"Songti SC",serif}}
+ .code{{color:var(--cobalt);letter-spacing:.5px}}
+ .meta{{font-size:13px;color:#5c4a35;margin:2px 0}}
+ .chip{{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;margin:3px 3px 0 0;border:1px solid transparent}}
+ .chip.on{{background:#d9e3c6;color:#315a35;border-color:#bccfa3}}
+ .chip.on.red{{background:#f1d5c9;color:var(--crimson);border-color:#dfb4a4}}
+ .chip.off{{background:#ece2cd;color:#9c8f79;border-color:#ddd0b6}}
+ .adv{{font-size:16px;font-weight:700;margin:8px 0;font-family:Georgia,"Songti SC",serif}}
+ .adv.ok{{color:var(--cypress)}} .adv.warn{{color:var(--amber)}}
+ .muted{{color:#9c8f79;font-size:12px}}
+ .red{{color:var(--crimson)}}
  details{{margin-top:6px}}
- summary{{cursor:pointer;font-size:13.5px;color:#1565c0;padding:4px 0}}
+ summary{{cursor:pointer;font-size:13.5px;color:var(--cobalt);padding:4px 0}}
  .refs{{margin:6px 0 2px 0;padding-left:18px;font-size:13px}}
  .posrow{{display:flex;gap:10px;flex-wrap:wrap;align-items:end;padding:6px 0}}
- .posrow label{{font-size:12px;color:#546e7a;display:block}}
- input[type=number]{{width:96px;padding:5px;border:1px solid #cfd8dc;border-radius:6px}}
- .btn{{background:#1565c0;color:#fff;border:0;border-radius:7px;padding:7px 14px;cursor:pointer}}
- .ok{{color:#1b5e20;font-weight:600}} .warn{{color:#b26a00;font-weight:600}} .bad{{color:#b71c1c;font-weight:600}}
- .err{{color:#b71c1c;font-size:13px}}
- .notice{{background:#fff3e0;color:#b26a00;border:1px solid #ffe0b2;border-radius:10px;padding:10px 12px;margin:12px 0;font-size:13px;font-weight:600;line-height:1.5}}
- footer{{color:#90a4ae;font-size:12px;text-align:center;padding:16px}}
+ .posrow label{{font-size:12px;color:#6b5a44;display:block}}
+ input[type=number]{{width:96px;padding:5px;border:1px solid var(--line);border-radius:6px;background:#fdfaf1;color:var(--ink);font-family:Georgia,serif}}
+ .btn{{background:linear-gradient(180deg,#3a6ac0,var(--cobalt));color:#fdf6e3;border:1px solid #24487f;
+   border-radius:7px;padding:7px 14px;cursor:pointer;font-weight:600;box-shadow:0 2px 5px rgba(20,31,69,.22)}}
+ .ok{{color:var(--cypress);font-weight:600}} .warn{{color:var(--amber);font-weight:600}} .bad{{color:var(--crimson);font-weight:600}}
+ .err{{color:var(--crimson);font-size:13px}}
+ .notice{{background:#f8ecc9;color:#8a5a10;border:1px solid #e6cf94;border-left:4px solid var(--gold);
+   border-radius:10px;padding:10px 12px;margin:12px 0;font-size:13px;font-weight:600;line-height:1.5}}
+ footer{{color:#9c8f79;font-size:12px;text-align:center;padding:16px}}
 </style></head><body>
 <header><h1>📈 宽基 ETF 今日买卖提醒</h1><div style="font-size:12px;opacity:.8">生成于 {gen_time}{' · 使用网页保存的规则' if using_saved else ' · 使用内置默认规则'}</div></header>
 <div class="wrap">{notice}{body}

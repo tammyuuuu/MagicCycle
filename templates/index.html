@@ -5,45 +5,63 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>宽基 ETF 监测 · 规则回测</title>
 <style>
-  :root{--c1:#1565c0;--c2:#2e7d32;--c3:#c62828;--bg:#f5f7fa;--card:#fff;--line:#e2e6ec;}
+  /* 梵高油画配色：群青夜空 + 麦金 + 米白画布（中度浓度） */
+  :root{
+    --vg-night:#141f45;--vg-ultra:#1e2d63;--vg-cobalt:#2f5aa8;
+    --vg-gold:#e8b21f;--vg-amber:#a8620a;--vg-crimson:#9c2f24;--vg-cypress:#2f5a3c;
+    --vg-canvas:#f4ecda;--vg-card:#fbf6ea;--vg-ink:#2b1f14;--vg-line:#d8c9a8;
+    --c1:var(--vg-cobalt);--c2:var(--vg-cypress);--c3:var(--vg-crimson);
+    --bg:var(--vg-canvas);--card:var(--vg-card);--line:var(--vg-line);
+  }
   *{box-sizing:border-box}
-  body{margin:0;font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:#263238}
-  header{background:#102a43;color:#fff;padding:14px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-  header h1{font-size:18px;margin:0;font-weight:600}
-  nav a{color:#cfe0f3;margin-right:6px;text-decoration:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:14px}
-  nav a.active{background:#2c4a67;color:#fff}
+  body{margin:0;font-family:"PingFang SC","Microsoft YaHei",sans-serif;color:var(--vg-ink);
+    background:
+      radial-gradient(120% 80% at 8% 0%,rgba(47,90,168,.16) 0%,rgba(47,90,168,0) 55%),
+      radial-gradient(90% 60% at 92% 4%,rgba(232,178,31,.18) 0%,rgba(232,178,31,0) 60%),
+      radial-gradient(100% 70% at 70% 100%,rgba(30,45,99,.12) 0%,rgba(30,45,99,0) 65%),
+      repeating-linear-gradient(45deg,rgba(43,31,20,.02) 0 2px,rgba(43,31,20,0) 2px 5px),
+      repeating-linear-gradient(-45deg,rgba(43,31,20,.016) 0 2px,rgba(43,31,20,0) 2px 5px),
+      var(--vg-canvas);background-attachment:fixed}
+  header{background:linear-gradient(135deg,var(--vg-night) 0%,var(--vg-ultra) 55%,#2a3f7d 100%);
+    color:#fdf6e3;padding:14px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+    border-bottom:3px solid var(--vg-gold)}
+  header h1{font-family:Georgia,"Songti SC","SimSun",serif;font-size:19px;margin:0;font-weight:600;letter-spacing:.4px}
+  nav a{color:#e2d7bb;margin-right:6px;text-decoration:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:14px;border:1px solid transparent}
+  nav a.active{background:rgba(232,178,31,.16);color:#f2c744;border-color:rgba(232,178,31,.45)}
   main{padding:18px 22px;max-width:1200px;margin:0 auto}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:16px}
-  .card h2{font-size:16px;margin:2px 0 12px;color:#102a43}
+  .card{background:linear-gradient(160deg,#fdf9ee 0%,var(--card) 50%,#f7efdd 100%);border:1px solid var(--vg-line);
+    border-radius:10px;padding:16px 18px;margin-bottom:16px;
+    box-shadow:0 2px 6px rgba(43,31,20,.10),inset 0 1px 0 rgba(255,255,255,.85)}
+  .card h2{font-size:16px;margin:2px 0 12px;color:var(--vg-ultra);font-family:Georgia,"Songti SC",serif}
   .grid{display:grid;gap:10px}
   .g2{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
-  label{font-size:13px;color:#546e7a;display:block;margin-bottom:2px}
-  input[type=number],input[type=text],input[type=date],select{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:6px;font-size:14px}
-  .btn{border:0;border-radius:7px;padding:8px 16px;font-size:14px;cursor:pointer;margin-right:8px}
-  .btn.primary{background:var(--c1);color:#fff}
-  .btn.green{background:var(--c2);color:#fff}
-  .btn.gray{background:#eceff1;color:#37474f}
-  .btn.red{background:var(--c3);color:#fff}
+  label{font-size:13px;color:#6b5a44;display:block;margin-bottom:2px}
+  input[type=number],input[type=text],input[type=date],select{width:100%;padding:6px 8px;border:1px solid var(--vg-line);border-radius:6px;font-size:14px;background:#fdfaf1;color:var(--vg-ink)}
+  .btn{border:1px solid #c9b894;border-radius:7px;padding:8px 16px;font-size:14px;cursor:pointer;margin-right:8px;box-shadow:0 2px 4px rgba(43,31,20,.10)}
+  .btn.primary{background:linear-gradient(180deg,#3a6ac0,var(--vg-cobalt));border-color:#24487f;color:#fdf6e3;font-weight:600}
+  .btn.green{background:linear-gradient(180deg,#3f7150,var(--vg-cypress));border-color:#27492f;color:#f3efe0;font-weight:600}
+  .btn.gray{background:linear-gradient(180deg,#f2e9d6,#e7dbc0);color:#5c4a35}
+  .btn.red{background:linear-gradient(180deg,#b8463a,var(--vg-crimson));border-color:#7d251c;color:#fdf1ec;font-weight:600}
   table{border-collapse:collapse;width:100%;font-size:13.5px}
-  th,td{border:1px solid var(--line);padding:5px 8px;text-align:left}
-  th{background:#eef3f9}
-  tr:nth-child(even) td{background:#fafbfc}
-  .row{display:flex;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px dashed var(--line);flex-wrap:wrap}
-  .chip{display:inline-block;padding:2px 8px;border-radius:20px;font-size:12px;margin:2px 3px 2px 0}
-  .chip.on{background:#c8e6c9;color:#1b5e20}
-  .chip.off{background:#eee;color:#888}
-  .chip.red{background:#ffcdd2;color:#b71c1c}
-  .ok{color:#1b5e20;font-weight:600}
-  .warn{color:#b26a00;font-weight:600}
-  .bad{color:#b71c1c;font-weight:600}
-  .muted{color:#90a4ae;font-size:12px}
-  pre{background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto;font-size:12.5px;white-space:pre-wrap;line-height:1.5}
+  th,td{border:1px solid var(--vg-line);padding:5px 8px;text-align:left}
+  th{background:#efe3c6;color:#4a3a24;font-weight:600}
+  tr:nth-child(even) td{background:#fdf9ee}
+  .row{display:flex;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px dashed var(--vg-line);flex-wrap:wrap}
+  .chip{display:inline-block;padding:2px 8px;border-radius:20px;font-size:12px;margin:2px 3px 2px 0;border:1px solid transparent}
+  .chip.on{background:#d9e3c6;color:#315a35;border-color:#bccfa3}
+  .chip.off{background:#ece2cd;color:#9c8f79;border-color:#ddd0b6}
+  .chip.red{background:#f1d5c9;color:var(--vg-crimson);border-color:#dfb4a4}
+  .ok{color:var(--vg-cypress);font-weight:600}
+  .warn{color:var(--vg-amber);font-weight:600}
+  .bad{color:var(--vg-crimson);font-weight:600}
+  .muted{color:#9c8f79;font-size:12px}
+  pre{background:#f8f1e0;border:1px solid var(--vg-line);border-radius:8px;padding:10px;overflow:auto;font-size:12.5px;white-space:pre-wrap;line-height:1.5}
   .hidden{display:none}
-  .bignum{font-size:20px;font-weight:700;margin:4px 8px 0 0}
-  .tabs{display:flex;gap:2px;border-bottom:2px solid #e2e6ec;margin-bottom:14px}
-  .tabs button{background:none;border:0;padding:9px 16px;font-size:15px;cursor:pointer;border-bottom:3px solid transparent}
-  .tabs button.active{border-bottom-color:var(--c1);color:var(--c1);font-weight:600}
-  .err{color:#b71c1c;padding:8px}
+  .bignum{font-size:20px;font-weight:700;margin:4px 8px 0 0;font-family:Georgia,"Songti SC",serif}
+  .tabs{display:flex;gap:2px;border-bottom:2px solid var(--vg-line);margin-bottom:14px}
+  .tabs button{background:none;border:0;padding:9px 16px;font-size:15px;cursor:pointer;border-bottom:3px solid transparent;color:#6b5a44}
+  .tabs button.active{border-bottom-color:var(--vg-gold);color:var(--vg-cobalt);font-weight:600}
+  .err{color:var(--vg-crimson);padding:8px}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   @media(max-width:900px){.two{grid-template-columns:1fr}}
 </style>
@@ -108,7 +126,7 @@
   </section>
 </main>
 
-<footer style="color:#90a4ae;font-size:12px;text-align:center;padding:20px">
+<footer style="color:#9c8f79;font-size:12px;text-align:center;padding:20px">
   数据来源 AkShare（东方财富/新浪）；仅供策略研究，不构成投资建议。
 </footer>
 
