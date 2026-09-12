@@ -40,8 +40,12 @@ def _load_rules():
     return None, None
 
 
-def _build_page(etfs_reps, gen_time: str, using_saved: bool) -> str:
-    """生成单文件 HTML 字符串。etfs_reps 结构见下方 main()。"""
+def _build_page(etfs_reps, gen_time: str, using_saved: bool,
+                stale_note: str = None) -> str:
+    """生成单文件 HTML 字符串。etfs_reps 结构见下方 main()。
+
+    stale_note: 有 ETF 因网络故障沿用旧缓存时的提示文案（正常情况为 None）。
+    """
     cards = []
     for i, item in enumerate(etfs_reps):
         code, name, idx = item["code"], item["name"], item["index"]
@@ -100,6 +104,7 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool) -> str:
   </details>
 </div>""")
     body = "\n".join(cards)
+    notice = (f'<div class="notice">{stale_note}</div>' if stale_note else "")
     rep_json = json.dumps([i["rep"] for i in etfs_reps], ensure_ascii=False)
     return f"""<!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
@@ -131,10 +136,11 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool) -> str:
  .btn{{background:#1565c0;color:#fff;border:0;border-radius:7px;padding:7px 14px;cursor:pointer}}
  .ok{{color:#1b5e20;font-weight:600}} .warn{{color:#b26a00;font-weight:600}} .bad{{color:#b71c1c;font-weight:600}}
  .err{{color:#b71c1c;font-size:13px}}
+ .notice{{background:#fff3e0;color:#b26a00;border:1px solid #ffe0b2;border-radius:10px;padding:10px 12px;margin:12px 0;font-size:13px;font-weight:600;line-height:1.5}}
  footer{{color:#90a4ae;font-size:12px;text-align:center;padding:16px}}
 </style></head><body>
 <header><h1>📈 宽基 ETF 今日买卖提醒</h1><div style="font-size:12px;opacity:.8">生成于 {gen_time}{' · 使用网页保存的规则' if using_saved else ' · 使用内置默认规则'}</div></header>
-<div class="wrap">{body}
+<div class="wrap">{notice}{body}
 <footer>数据：AkShare（东方财富/新浪）· 仅供策略研究，非投资建议</footer></div>
 <script>
 var REPS = {rep_json};
@@ -177,10 +183,14 @@ def main(out_path: str = DEFAULT_OUT):
     using_saved = params is not None and rules is not None
 
     etfs_reps = []
+    stale_notes = []
     for item in cfg.TARGET_ETFS:
         try:
             df = fetcher.fetch_etf_daily(item["code"], start="20100101",
                                          end="20500101")
+            # 网络故障时 fetch_etf_daily 会退回本地旧缓存，并在 attrs 里留标记
+            if df.attrs.get("stale_note"):
+                stale_notes.append(df.attrs["stale_note"])
             rep = alerts.analyze_latest(df.tail(1400), params, sell_rules=rules)
             etfs_reps.append({"code": item["code"], "name": item["name"],
                               "index": item["index"], "rep": rep})
@@ -190,7 +200,9 @@ def main(out_path: str = DEFAULT_OUT):
                               "rep": {"error": f"{type(e).__name__}: {e}"}})
 
     gen_time = datetime.now().strftime("%Y-%m-%d %H:%M")
-    html = _build_page(etfs_reps, gen_time, using_saved)
+    stale_note = ("⚠ 网络异常：以下为本地旧数据，未能更新到最新交易日（"
+                  + "；".join(stale_notes) + "）") if stale_notes else None
+    html = _build_page(etfs_reps, gen_time, using_saved, stale_note)
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)

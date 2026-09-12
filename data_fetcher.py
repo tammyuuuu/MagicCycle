@@ -18,6 +18,7 @@
 """
 
 import os
+import socket
 import time
 from datetime import datetime, timedelta
 
@@ -26,6 +27,10 @@ import pandas as pd
 import requests
 
 from config import ADJUST, CACHE_DIR
+
+# akshare 内部有请求不带 timeout（如新浪源），网络半死时会一直挂着不返回。
+# 设一个全局 socket 默认超时，保证任何请求最终都会失败退出，而不是卡死整个刷新。
+socket.setdefaulttimeout(20)
 
 # AkShare 中文列名 -> 本项目统一使用的英文列名
 # （东财源返回中文列名需要映射；新浪源返回的本来就是英文列名）
@@ -165,6 +170,34 @@ def _combine(cached: pd.DataFrame, fresh: pd.DataFrame) -> pd.DataFrame:
     return fresh
 
 
+def _stale_cache(code: str):
+    """挑一份可用的本地旧缓存（网络全挂时的兜底）。
+
+    优先前复权口径（东财 / 腾讯，两者价格一致），并在其中取数据最新的那份；
+    两个都没有才用新浪（不复权）。返回 (DataFrame, 源名)，都没有则 (None, None)。
+    """
+    def _load(source):
+        path = _cache_path(code, source)
+        if not os.path.exists(path):
+            return None
+        try:
+            df = _trim_incomplete(_read_cache(path))
+        except Exception:
+            return None          # 缓存文件损坏，当作没有
+        return df if df is not None and not df.empty else None
+
+    best = None
+    for source in ("eastmoney", "tencent"):
+        df = _load(source)
+        if df is not None and (best is None or df.index.max() > best[0].index.max()):
+            best = (df, source)
+    if best is not None:
+        return best
+
+    df = _load("sina")
+    return (df, "sina") if df is not None else (None, None)
+
+
 # =============================================================
 # 腾讯日线（免费、无 token，价格口径与东财前复权一致）
 # =============================================================
@@ -262,6 +295,9 @@ def fetch_etf_daily(code: str, start: str = "20150101", end: str = "20500101",
     返回
     ----
     DataFrame，date 为升序索引。
+
+    三个源都拉不到时（通常断网/开机没联网），若允许用缓存则退回本地旧缓存，
+    并在 df.attrs["stale_note"] 里标注数据截止日，供调用方提示用户。
     """
     _ensure_cache_dir()
     errors = []
@@ -328,6 +364,19 @@ def fetch_etf_daily(code: str, start: str = "20150101", end: str = "20500101",
     except Exception as e:
         errors.append(f"新浪源 {type(e).__name__}: {e}")
         _mark_src(code, "sina", False)
+
+    # ---- 三个源全挂：退回本地旧缓存 ----
+    # 断网/开机没联网时，本地哪怕只差一天的数据也比整页“数据/计算失败”有用。
+    # 只在允许用缓存时兜底；force=True / use_cache=False 属显式要求联网，仍照旧报错。
+    if use_cache and not force:
+        stale, src_name = _stale_cache(code)
+        if stale is not None:
+            last = stale.index.max().date()
+            note = f"{code} 截至 {last}"
+            print(f"    [警告] 数据源均不可用，改用本地旧缓存：{code}“{src_name}”"
+                  f"（数据截至 {last}）")
+            stale.attrs["stale_note"] = note
+            return stale
 
     raise ConnectionError(f"获取 {code} 失败：" + "；".join(errors))
 
