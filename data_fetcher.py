@@ -299,6 +299,11 @@ def fetch_etf_daily(code: str, start: str = "20150101", end: str = "20500101",
     三个源都拉不到时（通常断网/开机没联网），若允许用缓存则退回本地旧缓存，
     并在 df.attrs["stale_note"] 里标注数据截止日，供调用方提示用户。
     """
+    from config import TARGET_ETFS
+    item = next((x for x in TARGET_ETFS if x.get("code") == code), {})
+    # 场外联接基金可指定对应的场内目标 ETF 作为择时信号代理。
+    code = item.get("signal_code", code)
+
     _ensure_cache_dir()
     errors = []
 

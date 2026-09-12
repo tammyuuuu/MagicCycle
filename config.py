@@ -11,6 +11,10 @@
 TARGET_ETFS = [
     {"code": "510500", "name": "中证500ETF", "index": "中证500"},
     {"code": "588000", "name": "科创50ETF",  "index": "科创50"},
+    {"code": "024418", "name": "华夏科创半导体材料设备ETF联接C",
+     "index": "上证科创板半导体材料设备主题", "signal_code": "588170",
+     "signal_name": "科创半导体ETF华夏",
+     "strategy_type": "industry"},
     # 其他常用宽基（按需放开注释）：
     # {"code": "510300", "name": "沪深300ETF",  "index": "沪深300"},
     # {"code": "510050", "name": "上证50ETF",   "index": "上证50"},

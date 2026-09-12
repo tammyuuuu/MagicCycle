@@ -167,7 +167,8 @@ def render_text(rep: dict, name: str = "") -> str:
 # 结合“我的实际持仓”做精确决策（实盘验证用）
 # =============================================================
 def decide_today(rep: dict, holding: bool = False, avg_cost: float = None,
-                 peak: float = None, sell_rules: list = None) -> dict:
+                 peak: float = None, sell_rules: list = None,
+                 current_return: float = None) -> dict:
     """
     在 rep（analyze_latest 的结果）基础上，给出你实际持仓情况下今天该怎么做的决策。
       holding : 是否持有该 ETF
@@ -189,7 +190,10 @@ def decide_today(rep: dict, holding: bool = False, avg_cost: float = None,
     cond = {"A": bool(rep["A_跌幅足够深"]),
             "B": bool(rep["B_分位点低"]),
             "D": bool(rep["D_过热"])}
-    if holding and avg_cost and avg_cost > 0 and mg:
+    if holding and current_return is not None and mg:
+        # 联接基金与目标 ETF 的价格尺度不同，按支付宝显示的实际持仓收益判断 C。
+        cond["C"] = float(current_return) / 100 >= mg * g_trig
+    elif holding and avg_cost and avg_cost > 0 and mg:
         cond["C"] = (close / avg_cost - 1.0) >= mg * g_trig
     if holding and peak and peak > 0 and vol:
         cond["E"] = peak >= close and (peak - close) / peak >= vol * dd_mult
@@ -227,7 +231,18 @@ def decide_today(rep: dict, holding: bool = False, avg_cost: float = None,
                               "action": act, "label": label})
             break   # 只给出最高优先级的一条仓位建议
 
+    if not holding:
+        sell_advice = "当前未持有，无需卖出"
+    elif not decisions or decisions[0]["action"] == "pause":
+        sell_advice = "暂不卖出，继续观察"
+    elif decisions[0]["action"] == "trim_half":
+        sell_advice = "卖出 50%"
+    else:
+        sell_advice = "全部卖出"
+
     return {"buy_amount": buy_amount, "buy_tier": buy_tier,
             "cond": {k: bool(v) for k, v in cond.items()},
             "holding": bool(holding), "avg_cost": avg_cost, "peak": peak,
+            "current_return": current_return,
+            "sell_advice": sell_advice,
             "decisions": decisions}

@@ -22,6 +22,7 @@ import config as cfg
 import data_fetcher as fetcher
 import dca
 import alerts
+import industry_strategy
 from dca import DCA_DEFAULTS, DEFAULT_SELL_RULES
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -53,6 +54,12 @@ def _load_saved():
         except Exception:
             return None
     return None
+
+
+def _analyze_item(df, item, params=None, rules=None):
+    if item.get("strategy_type") == "industry":
+        return industry_strategy.analyze_latest(df.tail(1400), item.get("industry_profile"))
+    return alerts.analyze_latest(df.tail(1400), params, sell_rules=rules)
 
 
 def _as_plain(o):
@@ -134,6 +141,8 @@ def api_backtest():
     start = body.get("start", "20160101")
     try:
         df, item = _load_data(etf)
+        if item.get("strategy_type") == "industry":
+            return jsonify({"error": "该标的使用行业策略，不能套用宽基定投回测"}), 400
         if start:
             df = df[df.index >= pd.Timestamp(start)]
         if len(df) < 60:
@@ -174,10 +183,14 @@ def api_alerts():
     for item in etfs:
         try:
             df = _get_df(item["code"])
-            rep = alerts.analyze_latest(df.tail(1400), params, sell_rules=rules)
+            rep = _analyze_item(df, item, params, rules)
             out.append({"code": item["code"], "name": item["name"],
                         "index": item["index"], "rep": rep,
-                        "text": alerts.render_text(rep, f"{item['code']} {item['name']}")})
+                        "signal_code": item.get("signal_code"),
+                        "signal_name": item.get("signal_name"),
+                        "strategy_type": item.get("strategy_type", "broad"),
+                        "text": ("行业策略已单独计算" if item.get("strategy_type") == "industry"
+                                 else alerts.render_text(rep, f"{item['code']} {item['name']}"))})
         except Exception as e:
             out.append({"code": item["code"], "name": item["name"],
                         "error": f"{type(e).__name__}: {e}"})
@@ -192,13 +205,16 @@ def api_decide():
     etf = body.get("etf")
     try:
         df, item = _load_data(etf)
-        rep = alerts.analyze_latest(df.tail(1400), params, sell_rules=rules)
-        dec = alerts.decide_today(
-            rep,
-            holding=bool(body.get("holding", False)),
-            avg_cost=body.get("avg_cost"),
-            peak=body.get("peak"),
-            sell_rules=rules)
+        rep = _analyze_item(df, item, params, rules)
+        if item.get("strategy_type") == "industry":
+            dec = industry_strategy.decide(
+                rep, holding=bool(body.get("holding", False)),
+                current_return=body.get("current_return"))
+        else:
+            dec = alerts.decide_today(
+                rep, holding=bool(body.get("holding", False)),
+                avg_cost=body.get("avg_cost"), peak=body.get("peak"),
+                current_return=body.get("current_return"), sell_rules=rules)
         return jsonify(_as_plain({"ok": True, "rep": rep, "decision": dec,
                                   "name": item["name"]}))
     except Exception as e:

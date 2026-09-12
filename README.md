@@ -26,6 +26,12 @@ cycle/
 └── data_cache/        # 本地行情缓存（自动生成）
 ```
 
+### 两个 index.html 的关系
+
+- `templates/index.html` 是本地 Flask 应用的源页面，可以编辑规则、请求接口和运行回测。
+- `docs/index.html` 是 `python export_alerts.py` 自动生成的静态发布文件，供 GitHub Pages 使用，不应手工修改。
+- 两个页面共用 `templates/_strategy_guide.html` 中的策略说明。修改策略介绍时只需维护这一处，再重新运行导出命令。
+
 ## 安装
 
 ```bash
