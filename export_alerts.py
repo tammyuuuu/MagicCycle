@@ -172,7 +172,7 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
     return f"""<!DOCTYPE html>
 <!-- 自动生成文件：请勿直接编辑。源页面在 templates/index.html，策略说明在 templates/_asset_guide.html。 -->
 <html lang="zh-CN"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#202e4b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -312,7 +312,32 @@ function decide(i){{
 
 }}
 for(var i=0;i<REPS.length;i++) fillHolding(i);
-</script></body></html>"""
+</script><style>
+/* Mobile layout: fit the viewport and avoid focus-triggered input zoom. */
+html{{-webkit-text-size-adjust:100%;text-size-adjust:100%}}
+img,svg,canvas{{max-width:100%}}
+@media(max-width:760px){{
+  body{{width:100%;overflow-wrap:anywhere}}
+  .wrap,.grid,.two,.asset-list{{min-width:0}}
+  .wrap>* , .grid>* , .two>* , .asset-list>*{{min-width:0}}
+  header{{padding:24px 16px 20px}}
+  .wrap,main{{padding:16px 12px 28px}}
+  .card{{padding:16px}}
+  nav{{gap:4px}}nav a{{padding:8px 10px}}
+  input[type=number],input[type=text],input[type=date],textarea,select{{font-size:16px;max-width:100%;min-height:44px}}
+  .g2{{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .posrow>*{{min-width:0;max-width:100%}}
+  table{{width:100%;overflow-wrap:anywhere}}
+  th,td{{white-space:normal}}
+  .axis-scroll{{overflow:visible;padding:5px 0 8px}}
+  .state-rail{{min-width:0;width:100%}}
+  .state-step{{min-width:0;padding:2px 1px;font-size:10px;overflow-wrap:anywhere}}
+  .state-dot{{width:16px;height:16px;border-width:3px}}
+  .state-step.is-current .state-dot{{width:20px;height:20px}}
+  .state-rail:before{{top:12px}}
+}}
+@media(max-width:360px){{.g2{{grid-template-columns:1fr}}nav a{{padding:8px}}.card{{padding:12px}}}}
+</style></body></html>"""
 
 
 def main(out_path: str = DEFAULT_OUT):

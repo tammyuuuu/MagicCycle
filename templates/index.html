@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>ETF 策略工作台</title>
 <style>
 
@@ -62,21 +62,24 @@ pre{background:#f2f3ef;border:1px solid var(--line);border-radius:8px;padding:16
 </style>
 </head>
 <body>
+{% include "_status_rail.html" %}
 <header>
   <h1>ETF 策略工作台</h1>
   <nav id="topnav">
     <a data-t="today" class="active">今日提醒</a>
+    <a data-t="plan">投资配置</a>
+    <a data-t="diary">投资日记</a>
     <a data-t="guide">策略说明</a>
-    <a data-t="rules">规则编辑</a>
-    <a data-t="bt">定投回测</a>
+
   </nav>
 </header>
 
 <main>
+{% include "_invest_tools.html" %}
   <!-- ================= 今日提醒 ================= -->
   <section id="sec-today">
     <div class="card">
-      <h2>今日策略提醒 <span class="muted">（宽基与行业使用各自的判断规则）</span></h2>
+      <h2>今日策略提醒 <span class="muted">（四类资产分别判断）</span></h2>
       <button class="btn green" onclick="loadAlerts()">刷新今日提醒</button>
       <span class="muted">打开页面时自动载入</span>
       <div id="todayOut"></div>
@@ -84,7 +87,7 @@ pre{background:#f2f3ef;border:1px solid var(--line);border-radius:8px;padding:16
   </section>
 
   <section id="sec-guide" class="hidden">
-    {% include "_strategy_guide.html" %}
+    {% include "_asset_guide.html" %}
   </section>
 
   <!-- ================= 规则编辑 ================= -->
@@ -137,6 +140,7 @@ let currentRules = [];    // 规则行
 
 // ---------------- 工具 ----------------
 const $ = s => document.querySelector(s);
+function safeText(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 const pctKeys = ["投入收益率(占总投入)","总资产收益率(含闲置资金)","最大回撤(总资产)"];
 function numFmt(v){ if(typeof v!=='number') return v; return Number.isInteger(v)? v.toLocaleString('zh-CN') : v.toLocaleString('zh-CN',{maximumFractionDigits:2}); }
 
@@ -244,13 +248,7 @@ async function saveRules(){
 
 // ---------------- 今日提醒 ----------------
 function industryDecision(rep, returnRate){
-  const rr=returnRate/100;
-  if(rep.risk_exit) return {action:'clear',sell:'全部卖出：中期趋势已确认破坏'};
-  if(rr>=rep.profile.profit_clear&&(rep.chasing||rep.trend_weak)) return {action:'clear',sell:'全部卖出：盈利后走势过热或转弱'};
-  if(rr>=rep.profile.profit_trim&&rep.chasing) return {action:'trim_half',sell:'卖出 50%：盈利后进入过热区'};
-  if(rr<0&&rep.rebound_failure) return {action:'clear',sell:'全部卖出：反弹至压力区后再次转弱'};
-  if(rep.defensive_watch) return {action:'watch',sell:'暂不卖出，防守观察；连续两周跌破 MA120 则退出'};
-  return {action:'hold',sell:'暂不卖出，继续观察'};
+  return {action:rep.status,sell:rep.reason};
 }
 
 const holdingKey=code=>'etf_holding_'+code;
@@ -272,66 +270,31 @@ function deleteHolding(code){
 }
 
 async function loadAlerts(){
-  const box=$('#todayOut'); box.innerHTML='<div>加载中…（首次需联网拉数据，稍候）</div>';
+  const box=$('#todayOut');
+  const selectedCategory=box.querySelector('.today-categories')?.dataset.selectedCategory||box.dataset.selectedCategory||'broad';
+  box.dataset.selectedCategory=selectedCategory;
+  box.innerHTML='<div>加载中…（首次需联网拉数据，稍候）</div>';
   const payload={params:collectParams(),sell_rules:collectRules()};
   try{
     const r=await fetch('/api/alerts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const list=await r.json();
-    box.innerHTML=`<section class="asset-section"><h2>宽基 ETF</h2><div class="asset-list" id="broadList"></div></section>
-      <section class="asset-section"><h2>行业 ETF</h2><div class="asset-list" id="industryList"></div></section>`;
+    window.STRATEGY_SUMMARIES=list.map(it=>it.summary).filter(Boolean);
+    box.innerHTML={{ today_categories | tojson }};
+    selectTodayCategory(box.querySelector('[data-category="'+box.dataset.selectedCategory+'"]'));
     for(const it of list){
-      const card=document.createElement('div'); card.className='card';
-      const target=it.strategy_type==='industry'?$('#industryList'):$('#broadList');
+      const card=document.createElement('div'); card.className='card';card.dataset.assetSymbol=it.code;
+      const meta=STATE.etfs.find(e=>e.code===it.code)||it;
+      const target=meta.strategy_mode==='us_monthly_trend'?$('#usList'):meta.asset_type==='macro_asset'?$('#macroList'):meta.asset_type==='stock'?$('#stockList'):meta.asset_type==='sector_etf'?$('#industryList'):$('#broadList');
       if(it.error){ card.innerHTML=`<b>${it.code} ${it.name}</b><div class="err">${it.error}</div>`; target.appendChild(card); continue; }
-      const rep=it.rep;
-      const d=rep.date;
-      const pos=getSavedHolding(it.code);
-      const principal=pos&&pos.market_value!=null&&pos.return_rate>-100 ? pos.market_value/(1+pos.return_rate/100) : null;
-      const recovery=pos&&pos.return_rate<0 ? -pos.return_rate/(100+pos.return_rate)*100 : 0;
-      const industryDec=(it.strategy_type==='industry'&&pos) ? industryDecision(rep,pos.return_rate) : null;
-      const holdingSummary=pos ? `<div class="adv ${pos.return_rate<0?'warn':'ok'}">
-        已保存持仓${pos.market_value!=null?' '+pos.market_value.toFixed(2)+' 元':''} · 成本价 ${pos.avg_cost.toFixed(4)} · 收益率 ${pos.return_rate.toFixed(2)}%<br>
-        ${principal!=null?`<span class="muted">估算投入 ${principal.toFixed(2)} 元，浮盈亏 ${(pos.market_value-principal).toFixed(2)} 元；回到成本价还需上涨 ${recovery.toFixed(2)}%</span><br>`:''}
-        <span>当前结论：加仓—${rep['暂停定投']?'暂停':('可投 '+rep['建议定投金额']+' 元')}；卖出—${industryDec?industryDec.sell:'暂不卖出，继续观察'}</span>
-      </div>` : '';
-      const signalNote=it.signal_code ? `<div class="meta">择时信号参考场内 ${it.signal_code} ${it.signal_name||''}；实际申购、赎回按 024418 的确认净值为准。</div>` : '';
-      card.innerHTML=`
-        <h2>${it.code} ${it.name} <span class="muted">${it.index}</span>
-          <span class="chip ${rep.today_is_dca_day?'on':'off'}">${rep.today_is_dca_day?'本周定投日':'非定投日'}</span>
-        </h2>
-        <p style="margin:2px 0">
-          数据日 ${d} · 收盘 <b>${rep.close}</b> ·
-          ${it.strategy_type==='industry' ? `MA20 <b>${rep.ma20}</b> · MA60 <b>${rep.ma60}</b> · MA120 <b>${rep.ma120}</b> · 250日高点回撤 <b>${(rep.drawdown250*100).toFixed(1)}%</b>` : `分位点 <b>${rep.pct==null?'—':rep.pct+'%'}</b> · 历史最大涨幅 <b>${(rep.max_gain*100).toFixed(1)}%</b> · 日均波动 <b>${(rep.vol*100).toFixed(2)}%</b>`}
-          <span class="muted">区间 ${rep.hist_low}~${rep.hist_high}</span>
-        </p>
-        <div style="margin:6px 0">${it.strategy_type==='industry' ?
-          `<span class="chip ${rep.trend_weak?'on red':'off'}">短期趋势转弱</span><span class="chip ${rep.recovered_fast?'on':'off'}">MA20恢复</span><span class="chip ${rep.defensive_watch?'on red':'off'}">防守观察</span>` :
-          `${chips({A:rep['A_跌幅足够深'],B:rep['B_分位点低'],D:rep['D_过热']})}<span class="muted">C涨幅/E回撤需结合持仓，在下方填持仓后判断</span>`}</div>
-        <div style="margin:4px 0">
-          定投建议：<b class="${rep['暂停定投']?'warn':'ok'}">${rep['暂停定投']?'过热→暂停定投(0元)':'可投 '+rep['建议定投金额']+' 元（'+rep['定投档位']+'）'}</b>
-        </div>
-        ${holdingSummary}
-        ${signalNote}
-        <details>
-          <summary style="cursor:pointer">⚙️ 填我的实际持仓，精确判断今天该买/卖</summary>
-          <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:end;padding:8px 0">
-            <label>是否持有<input type="checkbox" id="hol_${it.code}" ${pos?'checked':''} style="width:auto;margin-left:4px"></label>
-            <div><label>当前持有金额（可不填）</label><input type="number" step="0.01" id="mv_${it.code}" value="${pos&&pos.market_value!=null?pos.market_value:''}" style="width:130px"></div>
-            <div><label>摊薄平均成本</label><input type="number" step="0.0001" id="ac_${it.code}" value="${pos?pos.avg_cost:''}" style="width:120px"></div>
-            <div><label>支付宝当前收益率 %</label><input type="number" step="0.01" id="rr_${it.code}" value="${pos?pos.return_rate:''}" style="width:120px"></div>
-            <div><label>${it.signal_code?'参考ETF持有期最高价（可不填）':'持仓期间最高价'}</label><input type="number" step="0.001" id="pk_${it.code}" value="${pos&&pos.peak!=null?pos.peak:''}" style="width:140px"></div>
-            <button class="btn green" onclick="decide('${it.code}')">判断</button>
-            <button class="btn gray" onclick="saveHolding('${it.code}')">保存持仓</button>
-            <button class="btn red" onclick="deleteHolding('${it.code}')">删除持仓</button>
-          </div>
-          <div id="dec_${it.code}"></div>
-        </details>
-        <details>
-          <summary style="cursor:pointer">📄 详细提醒文本 / 触发临界参考价</summary>
-          <pre>${it.text.replace(/</g,'&lt;')}</pre>
-        </details>`;
+      const s=it.summary, m=s.metrics, pos=getSavedHolding(it.code);
+      card.innerHTML=`<h2>${safeText(it.name)} <span class="muted">${safeText(it.code)}</span></h2>
+        <p>数据日 ${s.date} · 当前 ${m.price} · 当日涨跌 ${m.day_change_pct==null?'暂无':m.day_change_pct.toFixed(2)+'%'}</p>
+        ${assetStateRail(s)}${it.signal_code?`<p class="muted">参考行情：${it.signal_code}；并非联接基金实际净值。</p>`:''}
+        <details><summary>查看判断依据</summary>${assetStrategyBasis(s)}</details>
+`;
       target.appendChild(card);
     }
+    refreshValuationPreference();
   }catch(e){ box.innerHTML='<div class="err">'+e+'</div>'; }
 }
 
@@ -348,33 +311,19 @@ async function decide(code){
   const r=await fetch('/api/decide',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
   const j=await r.json();
   if(j.error){ box.innerHTML='<div class="err">'+j.error+'</div>'; return; }
-  const d=j.decision;
-  if(j.rep.strategy_type==='industry'){
-    const color=d.action==='clear'?'bad':d.action==='trim_half'?'warn':'ok';
-    box.innerHTML=`<div>加仓建议：<b>${d.buy_tier}</b></div><p class="${color}">卖出建议：<b>${d.sell_advice}</b></p>`;
-    return;
-  }
-  const cond=chips(d.cond);
-  let decHtml;
-  if(!d.holding){
-    decHtml=`<p class="muted">卖出建议：当前未持有，无需卖出。</p>`;
-  } else if(d.decisions.length===0){
-    decHtml=`<p class="ok">卖出建议：<b>暂不卖出，继续观察</b>。今日没有触发退出信号。</p>`;
-  } else {
-    const x=d.decisions[0];
-    const color = x.action==='clear'?'bad':x.action==='trim_half'?'warn':'ok';
-    const sellText = x.action==='pause' ? '暂不卖出，继续观察' : x.label;
-    decHtml=`<p class="${color}" style="font-size:15px">卖出建议：<b>${sellText}</b>（${x.name}）</p>`;
-  }
-  box.innerHTML=`
-    <div>当前条件：${cond}</div>
-    <div>加仓建议：<b>${d.buy_amount>0?('可投 '+d.buy_amount+' 元'):d.buy_tier}</b></div>
-    ${decHtml}`;
+  const s=j.summary;
+  box.innerHTML=`${assetStateRail(s)}`;
+  const mainPosition=$('#rr_'+code).closest('.card').querySelector('.state-position');
+  if(mainPosition)mainPosition.outerHTML=assetStateRail(s);
+  const basis=$('#rr_'+code).closest('.card').querySelector('.strategy-basis');
+  if(basis)basis.outerHTML=assetStrategyBasis(s);
+
+
 }
 
 // ---------------- 定投回测 ----------------
 function buildBtEtf(){
-  const sel=$('#btEtf'); sel.innerHTML=STATE.etfs.filter(e=>e.strategy_type!=='industry').map(e=>`<option value="${e.code}">${e.code} ${e.name}</option>`).join('');
+  const sel=$('#btEtf'); sel.innerHTML=STATE.etfs.filter(e=>e.asset_type==='broad_etf'&&e.strategy_mode!=='us_monthly_trend').map(e=>`<option value="${e.code}">${e.code} ${e.name}</option>`).join('');
 }
 async function runBt(){
   const box=$('#btOut');
@@ -408,6 +357,7 @@ document.querySelectorAll('#topnav a').forEach(a=>{
   a.onclick=()=>{
     document.querySelectorAll('#topnav a').forEach(x=>x.classList.remove('active'));
     a.classList.add('active');
+    showInvestmentTab(a.dataset.t);
     ['today','guide','rules','bt'].forEach(t=>$('#sec-'+t).classList.toggle('hidden', t!==a.dataset.t));
     if(a.dataset.t==='today') loadAlerts();
   };
@@ -425,5 +375,31 @@ async function init(){
 }
 init();
 </script>
+<style>
+/* Mobile layout: fit the viewport and avoid focus-triggered input zoom. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg,canvas{max-width:100%}
+@media(max-width:760px){
+  body{width:100%;overflow-wrap:anywhere}
+  .wrap,.grid,.two,.asset-list{min-width:0}
+  .wrap>* , .grid>* , .two>* , .asset-list>*{min-width:0}
+  header{padding:24px 16px 20px}
+  .wrap,main{padding:16px 12px 28px}
+  .card{padding:16px}
+  nav{gap:4px}nav a{padding:8px 10px}
+  input[type=number],input[type=text],input[type=date],textarea,select{font-size:16px;max-width:100%;min-height:44px}
+  .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .posrow>*{min-width:0;max-width:100%}
+  table{width:100%;overflow-wrap:anywhere}
+  th,td{white-space:normal}
+  .axis-scroll{overflow:visible;padding:5px 0 8px}
+  .state-rail{min-width:0;width:100%}
+  .state-step{min-width:0;padding:2px 1px;font-size:10px;overflow-wrap:anywhere}
+  .state-dot{width:16px;height:16px;border-width:3px}
+  .state-step.is-current .state-dot{width:20px;height:20px}
+  .state-rail:before{top:12px}
+}
+@media(max-width:360px){.g2{grid-template-columns:1fr}nav a{padding:8px}.card{padding:12px}}
+</style>
 </body>
 </html>
