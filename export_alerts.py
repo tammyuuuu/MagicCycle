@@ -11,20 +11,23 @@ https://<你的用户名>.github.io/<仓库名>/ 查看。
 规则来源：优先读取 rules.json（网页里保存的规则）；没有则用内置默认。
 """
 
+import valuation_data
 import json
 import os
 import sys
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 import config as cfg
 import data_fetcher as fetcher
 import alerts
 import industry_strategy
+import strategies
+from asset_states import STATE_CATALOG, render_rail, render_basis, render_guide, render_today_categories, DISPLAY_STATUS_MAP
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RULES_PATH = os.path.join(BASE_DIR, "rules.json")
 DEFAULT_OUT = os.path.join(BASE_DIR, "docs", "index.html")
-GUIDE_PATH = os.path.join(BASE_DIR, "templates", "_strategy_guide.html")
+GUIDE_PATH = os.path.join(BASE_DIR, "templates", "_asset_guide.html")
 
 
 def _load_rules():
@@ -42,6 +45,19 @@ def _load_rules():
     return None, None
 
 
+def _summary_card(summary, extra=""):
+    from html import escape
+    metric = summary["metrics"]
+    delta = metric["day_change_pct"]
+    change = f"{delta:+.2f}%" if delta is not None else "暂无"
+    labels = {"price":"收盘价格", "day_change_pct":"当日涨跌（%）", "historical_percentile":"历史价格位置（%）", "drawdown":"距阶段高点涨跌（%）", "rsi14":"相对强弱（RSI14）", "ma5":"5日平均价格", "ma10":"10日平均价格", "ma20":"20日平均价格", "ma60":"60日平均价格", "ma120":"120日平均价格", "ma20_slope":"短期平均价格变化", "volatility":"日收益波动率", "atr":"平均真实波幅", "volume_ratio":"成交量相对20日均量"}
+    basis = {labels.get(k,k): v for k, v in metric.items() if v is not None}
+    return (f'<div class="card" data-asset-symbol="{escape(summary["symbol"], quote=True)}"><h2>{escape(summary["name"])} <span class="muted">{escape(summary["symbol"])}</span></h2>'
+            f'<p>数据日 {summary["date"]} · 当前 {metric["price"]} · 当日涨跌 {change}</p>'
+            f'{render_rail(summary)}'
+            f'<details><summary>查看判断依据</summary>{render_basis(summary)}</details>{extra}</div>')
+
+
 def _build_page(etfs_reps, gen_time: str, using_saved: bool,
                 stale_note: str = None) -> str:
     """生成单文件 HTML 字符串。etfs_reps 结构见下方 main()。
@@ -56,6 +72,13 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
         if rep.get("error"):
             cards.append(f'<div class="card"><div class="t">{code} {name}</div>'
                          f'<div class="err">数据/计算失败：{rep["error"]}</div></div>')
+            continue
+        summary = item.get("summary")
+        if summary:
+            extra = ""
+            if item.get("signal_code"):
+                extra += f'<p class="muted">参考行情：{item["signal_code"]}；并非联接基金实际净值。</p>'
+            cards.append(_summary_card(summary, extra))
             continue
         chips = ("<span class='chip " + ("on" if rep["A_跌幅足够深"] else "off") + "'>大幅回撤（A）</span>"
                  + "<span class='chip " + ("on" if rep["B_分位点低"] else "off") + "'>历史低位（B）</span>"
@@ -124,23 +147,38 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
   </details>
 </div>""")
     broad_cards = [c for c, item in zip(cards, etfs_reps)
-                   if item.get("strategy_type") != "industry"]
+                   if item.get("asset_type", "broad_etf") == "broad_etf"]
     industry_cards = [c for c, item in zip(cards, etfs_reps)
                       if item.get("strategy_type") == "industry"]
     with open(GUIDE_PATH, "r", encoding="utf-8") as f:
-        guide = f.read()
-    today_page = (f'<section class="asset-section"><h2>宽基 ETF</h2><div class="asset-list">'
-                  f'{"".join(broad_cards)}</div></section>'
-                  f'<section class="asset-section"><h2>行业 ETF</h2><div class="asset-list">'
-                  f'{"".join(industry_cards)}</div></section>')
+        guide = f.read().replace("{{ strategy_guide | safe }}", render_guide())
+    from correlation_data import investment_script as build_investment_script
+    investment_script = build_investment_script()
+    with open(os.path.join(BASE_DIR, "templates", "_invest_tools.html"), encoding="utf-8") as f:
+        investment_tools = f.read().replace("{{ investment_script | safe }}", investment_script)
+    categories = {'broad': [], 'us': [], 'industry': [], 'macro': [], 'stock': []}
+    for card, item in zip(cards, etfs_reps):
+        key = ('us' if item.get('strategy_mode') == 'us_monthly_trend' else
+               {'sector_etf': 'industry', 'macro_asset': 'macro', 'stock': 'stock'}.get(item.get('asset_type'), 'broad'))
+        categories[key].append(card)
+    today_page = render_today_categories({key: ''.join(value) for key, value in categories.items()})
     body = (f'<section id="page-today" class="page-section">{today_page}</section>'
-            f'<section id="page-guide" class="page-section hidden">{guide}</section>')
+            f'<section id="page-guide" class="page-section hidden">{guide}</section>{investment_tools}')
     notice = (f'<div class="notice">{stale_note}</div>' if stale_note else "")
+    with open(os.path.join(BASE_DIR, "templates", "_status_rail.html"), encoding="utf-8") as f:
+        status_assets = f.read().replace("{{ asset_state_catalog | tojson }}", json.dumps(STATE_CATALOG, ensure_ascii=False)).replace("{{ asset_state_map | tojson }}", json.dumps(DISPLAY_STATUS_MAP, ensure_ascii=False))
     rep_json = json.dumps([i["rep"] for i in etfs_reps], ensure_ascii=False)
     return f"""<!DOCTYPE html>
-<!-- 自动生成文件：请勿直接编辑。源页面在 templates/index.html，策略说明在 templates/_strategy_guide.html。 -->
+<!-- 自动生成文件：请勿直接编辑。源页面在 templates/index.html，策略说明在 templates/_asset_guide.html。 -->
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#202e4b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MagicCycle">
+<link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
+<link rel="manifest" href="./manifest.webmanifest">
 <title>ETF 策略观察 {gen_time[:10]}</title>
 <style>
 
@@ -198,19 +236,23 @@ pre{{background:#f2f3ef;border:1px solid var(--line);border-radius:8px;padding:1
 .strategy-guide{{grid-column:1/-1}}.strategy-guide h3{{font-size:15px;color:var(--cobalt);margin:4px 0 12px}}.strategy-guide p{{margin:8px 0 18px}}
 .page-section{{grid-column:1/-1;min-width:0}}.hidden{{display:none!important}}
 @media(max-width:760px){{header{{padding:30px 20px 24px}}header h1,h1{{font-size:22px;letter-spacing:1px}}.wrap,main{{padding:18px 14px 28px}}.wrap,.two,.asset-list{{grid-template-columns:1fr;gap:16px}}.card{{padding:20px;border-radius:12px}}.t{{font-size:17px}}.g2{{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}}.card h2 .btn{{margin-top:8px}}th,td{{padding:8px 5px;font-size:12px}}header::before{{right:-230px}}}}
-</style></head><body>
+</style></head><body>{status_assets}
 <header><h1>ETF 策略观察</h1><div style="font-size:12px;opacity:.8">生成于 {gen_time}{' · 使用网页保存的规则' if using_saved else ' · 使用内置默认规则'}</div>
-<nav id="topnav"><a data-page="today" class="active">今日提醒</a><a data-page="guide">策略说明</a></nav></header>
+<nav id="topnav"><a data-page="today" class="active">今日提醒</a><a data-page="plan">投资配置</a><a data-page="diary">投资日记</a><a data-page="guide">策略说明</a></nav></header>
 <div class="wrap">{notice}{body}
 <footer>数据：AkShare（东方财富/新浪）· 仅供策略研究，非投资建议</footer></div>
 <script>
 var REPS = {rep_json};
+var SUMMARIES = {json.dumps([i.get("summary") for i in etfs_reps], ensure_ascii=False)};
+window.STRATEGY_SUMMARIES=SUMMARIES;
+refreshValuationPreference();
 var CODES = {json.dumps([i['code'] for i in etfs_reps], ensure_ascii=False)};
 var LABEL = {{clear:'清仓(全部卖出)',trim_half:'卖出50%',pause:'暂停定投'}};
 document.querySelectorAll('#topnav a').forEach(function(a){{
   a.onclick=function(){{
     document.querySelectorAll('#topnav a').forEach(function(x){{x.classList.remove('active');}});
     a.classList.add('active');
+    showInvestmentTab(a.dataset.page);
     ['today','guide'].forEach(function(name){{
       document.getElementById('page-'+name).classList.toggle('hidden',name!==a.dataset.page);
     }});
@@ -219,6 +261,7 @@ document.querySelectorAll('#topnav a').forEach(function(a){{
 function holdingKey(i){{return 'etf_holding_'+CODES[i];}}
 function savedHolding(i){{try{{return JSON.parse(localStorage.getItem(holdingKey(i)))||null;}}catch(e){{return null;}}}}
 function fillHolding(i){{
+  if(!document.getElementById('hol_'+i)) return;
   var p=savedHolding(i); if(!p)return;
   document.getElementById('hol_'+i).checked=true;
   document.getElementById('mv_'+i).value=p.market_value==null?'':p.market_value;
@@ -229,7 +272,7 @@ function fillHolding(i){{
   var recovery=p.return_rate<0?-p.return_rate/(100+p.return_rate)*100:0;
   var text='已保存持仓'+(p.market_value!=null?' '+Number(p.market_value).toFixed(2)+' 元':'')+' · 成本价 '+Number(p.avg_cost).toFixed(4)+' · 收益率 '+Number(p.return_rate).toFixed(2)+'%';
   if(principal!=null) text+='<br><span class="muted">估算投入 '+principal.toFixed(2)+' 元，浮盈亏 '+(p.market_value-principal).toFixed(2)+' 元；回到成本价还需上涨 '+recovery.toFixed(2)+'%</span>';
-  document.getElementById('holding_summary_'+i).innerHTML='<div class="adv '+(p.return_rate<0?'warn':'ok')+'">'+text+'</div>';
+  if(document.getElementById('holding_summary_'+i)) document.getElementById('holding_summary_'+i).innerHTML='<div class="adv '+(p.return_rate<0?'warn':'ok')+'">'+text+'</div>';
 }}
 function saveHolding(i){{
   var avg=parseFloat(document.getElementById('ac_'+i).value),rr=parseFloat(document.getElementById('rr_'+i).value);
@@ -241,8 +284,14 @@ function saveHolding(i){{
 function deleteHolding(i){{
   localStorage.removeItem(holdingKey(i));
   ['hol_','mv_','ac_','rr_','pk_'].forEach(function(prefix){{var e=document.getElementById(prefix+i);if(e) e.type==='checkbox'?e.checked=false:e.value='';}});
-  document.getElementById('holding_summary_'+i).innerHTML='';
+  if(document.getElementById('holding_summary_'+i)) document.getElementById('holding_summary_'+i).innerHTML='';
   document.getElementById('dec_'+i).innerHTML='<div class="muted">持仓已删除。</div>';
+}}
+function updateAssetPosition(i,status,action,reason){{
+  var summary=Object.assign({{}},SUMMARIES[i],{{status:status,action:action,reason:reason,details:Object.assign({{}},SUMMARIES[i].details,{{holding:document.getElementById('hol_'+i).checked}})}}),box=document.getElementById('dec_'+i);
+  box.innerHTML=assetStateRail(summary);
+  var card=box.closest('.card'),main=card&&card.querySelector('.state-position');
+  if(main)main.outerHTML=assetStateRail(summary);
 }}
 function decide(i){{
   var rep=REPS[i], p=rep.params;
@@ -250,41 +299,15 @@ function decide(i){{
   var ac=parseFloat(document.getElementById('ac_'+i).value), rr=parseFloat(document.getElementById('rr_'+i).value), pk=parseFloat(document.getElementById('pk_'+i).value);
   var close=rep.close, mg=rep.max_gain, vol=rep.vol;
   if(rep.strategy_type==='industry'){{
-    var sell='暂不卖出，继续观察', color='ok';
-    if(rep.risk_exit){{sell='全部卖出：中期趋势已确认破坏';color='bad';}}
-    else if(!isNaN(rr)&&rr/100>=rep.profile.profit_clear&&(rep.chasing||rep.trend_weak)){{sell='全部卖出：盈利后走势过热或转弱';color='bad';}}
-    else if(!isNaN(rr)&&rr/100>=rep.profile.profit_trim&&rep.chasing){{sell='卖出 50%：盈利后进入过热区';color='warn';}}
-    else if(!isNaN(rr)&&rr<0&&rep.rebound_failure){{sell='全部卖出：反弹至压力区后再次转弱';color='bad';}}
-    else if(rep.defensive_watch) sell='暂不卖出，防守观察；连续两周跌破 MA120 则退出';
-    document.getElementById('dec_'+i).innerHTML='<div>加仓建议：<b>'+rep.add_advice+'</b></div><div class="'+color+'">卖出建议：<b>'+sell+'</b></div>';
+    updateAssetPosition(i,SUMMARIES[i].status,SUMMARIES[i].action,SUMMARIES[i].reason);
     return;
   }}
-  var cond={{A:rep['A_跌幅足够深'],B:rep['B_分位点低'],D:rep['D_过热']}};
-  if(hol&&!isNaN(rr)&&mg) cond.C = rr/100 >= mg*p.gain_trigger;
-  else if(hol&&ac>0&&mg) cond.C = (close/ac-1) >= mg*p.gain_trigger;
-  if(hol&&pk>0&&vol) cond.E = pk>=close && (pk-close)/pk >= vol*p.dd_mult;
-  // 定投判断
-  var paused = cond.D && rep.sell_rules.some(r=>r.enabled&&r.action==='pause'&&(r.conds||[]).indexOf('D')>=0);
-  var amt=0, tier='', cls='ok';
-  if(paused){{tier='🛑 过热→暂停定投(0元)';cls='warn';}}
-  else if(cond.A&&cond.B){{amt=p.amount_ab;tier='A且B';}}
-  else if(cond.A){{amt=p.amount_a;tier='仅A';}}
-  else if(cond.B){{amt=p.amount_b;tier='仅B';}}
-  else {{tier='不满足买入条件';cls='warn';}}
-  // 仓位决策（首个命中）
-  var sats=Object.keys(cond).filter(k=>cond[k]); var decision=null;
-  var rules=rep.sell_rules.slice().sort((a,b)=>a.priority-b.priority);
-  for(var j=0;j<rules.length;j++){{var r=rules[j]; if(!r.enabled) continue; var need=r.conds||[];
-    var fire = (need.length===1&&need[0]==='C') ? (cond.C&&!cond.D) : need.every(x=>cond[x]);
-    if(fire){{decision=r; break;}} }}
-  var box=document.getElementById('dec_'+i);
-  var c='<div class="meta">'+'当前条件：'+Object.keys(cond).filter(k=>cond[k]).map(k=>k+'✓').join(' ')||'—'+'</div>';
-  c+='<div class="'+cls+'">加仓建议：'+(amt>0?'可投 '+amt+' 元（'+tier+'）':tier)+'</div>';
-  if(!hol) c+='<div class="muted">卖出建议：当前未持有，无需卖出。</div>';
-  else if(decision&&decision.action==='clear') c+='<div class="bad">卖出建议：全部卖出（'+decision.name.split('（')[0]+'）</div>';
-  else if(decision&&decision.action==='trim_half') c+='<div class="warn">卖出建议：卖出 50%（'+decision.name.split('（')[0]+'）</div>';
-  else c+='<div class="ok">卖出建议：暂不卖出，继续观察。今日没有触发退出信号。</div>';
-  box.innerHTML=c;
+  var s=SUMMARIES[i], high=s.details.position==='high', threshold=(rep.max_gain||0)*rep.params.gain_trigger;
+  var action=s.action, reason=s.reason, nextStatus=s.status;
+  if(hol&&isNaN(rr)&&ac>0) rr=(close/ac-1)*100;
+  if(hol&&!isNaN(rr)&&threshold>0&&rr/100>=threshold&&high){{nextStatus='reduce';action='考虑适度减仓';reason='已有明显盈利，当前价格位置偏高。';}}
+  updateAssetPosition(i,nextStatus,action,reason);
+
 }}
 for(var i=0;i<REPS.length;i++) fillHolding(i);
 </script></body></html>"""
@@ -303,23 +326,24 @@ def main(out_path: str = DEFAULT_OUT):
             # 网络故障时 fetch_etf_daily 会退回本地旧缓存，并在 attrs 里留标记
             if df.attrs.get("stale_note"):
                 stale_notes.append(df.attrs["stale_note"])
-            rep = (industry_strategy.analyze_latest(df.tail(1400), item.get("industry_profile"))
-                   if item.get("strategy_type") == "industry"
-                   else alerts.analyze_latest(df.tail(1400), params, sell_rules=rules))
-            etfs_reps.append({**item, "rep": rep})
+            summary = strategies.analyze_asset(df, valuation_data.attach_valuation(item, df.index[-1].date().isoformat()), overrides=params if item.get("asset_type") == "broad_etf" else None, sell_rules=rules)
+            rep = summary["details"]["legacy"] or {"date": summary["date"], "close": summary["metrics"]["price"]}
+            etfs_reps.append({**item, "rep": rep, "summary": summary})
         except Exception as e:
-            etfs_reps.append({"code": item["code"], "name": item["name"],
-                              "index": item["index"],
+            etfs_reps.append({**item,
                               "rep": {"error": f"{type(e).__name__}: {e}"}})
 
-    gen_time = datetime.now().strftime("%Y-%m-%d %H:%M")
-    stale_note = ("⚠ 网络异常：以下为本地旧数据，未能更新到最新交易日（"
+    gen_time = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M")
+    stale_note = ("⚠ 网络异常：使用本地缓存，是否为最新交易日尚未核实；休市期间无新增行情（"
                   + "；".join(stale_notes) + "）") if stale_notes else None
     html = _build_page(etfs_reps, gen_time, using_saved, stale_note)
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"已生成：{out_path}")
+    json_path = os.path.splitext(out_path)[0] + ".json"
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump([i.get("summary") or {"symbol": i["code"], "name": i["name"], "asset_type": i.get("asset_type"), "status": "error", "action": "数据暂不可用", "reason": "行情获取或计算失败，请稍后刷新。", "risk_level": "unknown", "metrics": {}, "details": {"error": i["rep"].get("error")}} for i in etfs_reps], f, ensure_ascii=False, indent=2, allow_nan=False)
+    print(f"已生成：{out_path} 和 {json_path}")
     print("下一步：把 docs/ 提交推送后，在 GitHub 仓库 Settings → Pages")
     print("        选 Deploy from a branch: main / docs，即可手机访问")
     print("        https://<你的用户名>.github.io/<仓库名>/")
