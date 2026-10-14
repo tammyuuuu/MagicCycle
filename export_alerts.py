@@ -176,12 +176,12 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
 <meta name="theme-color" content="#202e4b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="MagicCycle">
+<meta name="apple-mobile-web-app-title" content="星循">
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
 <link rel="manifest" href="./manifest.webmanifest">
 <script src="./pwa.js" defer></script>
-<title>ETF 策略观察 {gen_time[:10]}</title>
+<title>星循 · 观察周期，记录投资</title>
 <style>
 
 /* Gallery palette: warm paper, ultramarine and restrained ochre. */
@@ -239,8 +239,8 @@ pre{{background:#f2f3ef;border:1px solid var(--line);border-radius:8px;padding:1
 .page-section{{grid-column:1/-1;min-width:0}}.hidden{{display:none!important}}
 @media(max-width:760px){{header{{padding:30px 20px 24px}}header h1,h1{{font-size:22px;letter-spacing:1px}}.wrap,main{{padding:18px 14px 28px}}.wrap,.two,.asset-list{{grid-template-columns:1fr;gap:16px}}.card{{padding:20px;border-radius:12px}}.t{{font-size:17px}}.g2{{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}}.card h2 .btn{{margin-top:8px}}th,td{{padding:8px 5px;font-size:12px}}header::before{{right:-230px}}}}
 </style></head><body>{status_assets}
-<header><h1>ETF 策略观察</h1><div style="font-size:12px;opacity:.8">生成于 {gen_time}{' · 使用网页保存的规则' if using_saved else ' · 使用内置默认规则'}</div>
-<nav id="topnav"><a data-page="today" class="active">今日提醒</a><a data-page="plan">投资配置</a><a data-page="diary">投资日记</a><a data-page="guide">策略说明</a></nav></header>
+<header><div class="brand-heading"><h1>星循</h1><span class="brand-tagline">观察周期，记录投资</span></div><div style="font-size:12px;opacity:.8">生成于 {gen_time}{' · 使用网页保存的规则' if using_saved else ' · 使用内置默认规则'}</div>
+<nav id="topnav"><a data-page="today" class="active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2m6 2V2M8 10h8m-8 4h5"/></svg><span>今日提醒</span></a><a data-page="plan"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M6 16v-5m6 5V5m6 11V8"/></svg><span>投资配置</span></a><a data-page="diary"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6C9 4 5 4 3 5v15c3-1 6-1 9 1 3-2 6-2 9-1V5c-2-1-6-1-9 1v15Z"/></svg><span>投资日记</span></a><a data-page="guide"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2 6-6 2 2-6 6-2Z"/></svg><span>策略说明</span></a></nav></header>
 <div class="wrap">{notice}{body}
 <footer>数据：AkShare（东方财富/新浪）· 仅供策略研究，非投资建议</footer></div>
 <script>
@@ -313,6 +313,10 @@ function decide(i){{
 }}
 for(var i=0;i<REPS.length;i++) fillHolding(i);
 </script><style>
+.brand-heading{{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:10px;position:relative}}
+.brand-heading h1{{margin:0;flex-shrink:0}}
+.brand-tagline{{font-family:Georgia,"Songti SC","STSong","SimSun",serif;font-size:14px;font-weight:400;letter-spacing:1px;color:#8e9aaf;line-height:1.6}}
+@media(max-width:760px){{.brand-heading{{gap:12px;flex-wrap:nowrap}}.brand-tagline{{font-size:12px;letter-spacing:0}}}}
 /* Mobile layout: fit the viewport and avoid focus-triggered input zoom. */
 html{{-webkit-text-size-adjust:100%;text-size-adjust:100%}}
 img,svg,canvas{{max-width:100%}}
@@ -337,6 +341,34 @@ img,svg,canvas{{max-width:100%}}
   .state-rail:before{{top:12px}}
 }}
 @media(max-width:360px){{.g2{{grid-template-columns:1fr}}nav a{{padding:8px}}.card{{padding:12px}}}}
+
+/* Fixed mobile navigation with room for the home indicator. */
+@media(max-width:760px){{
+  body{{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}}
+  #topnav{{position:fixed;left:0;right:0;bottom:0;z-index:1000;margin:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:#202e4b;border-top:1px solid #c3a15d40;box-shadow:0 -4px 18px #101a2d16}}
+  #topnav a{{display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px 2px;font-size:13px;white-space:nowrap;letter-spacing:0}}
+  html{{scroll-padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
+}}
+
+/* Compact sticky masthead for mobile. */
+@media(max-width:760px){{
+  header{{position:sticky;top:0;z-index:900;padding:10px 16px 9px;box-shadow:0 2px 10px #101a2d12}}
+  header .brand-heading{{margin-bottom:3px;gap:12px}}
+  header .brand-heading h1{{font-size:22px;line-height:1.3;letter-spacing:2px}}
+  header .brand-tagline{{font-size:11px;line-height:1.4}}
+  header>.brand-heading+div{{font-size:10px!important;line-height:1.5;letter-spacing:0}}
+  header::before{{display:none}}
+  html{{scroll-padding-top:80px}}
+}}
+.tab-icon{{display:none}}
+@media(max-width:760px){{
+  #topnav{{gap:0;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));border-top:1px solid #ffffff12;box-shadow:0 -3px 16px #101a2d12}}
+  #topnav a{{flex-direction:column;gap:4px;min-height:52px;border:0;border-radius:0;background:transparent;color:#9ba9bf;font-size:10px;font-weight:500;line-height:1.3;padding:5px 2px;position:relative;-webkit-tap-highlight-color:transparent;touch-action:manipulation}}
+  #topnav .tab-icon{{display:block;width:22px;height:22px;flex-shrink:0}}
+  #topnav a.active{{background:transparent;border:0;color:#e7cd96}}
+  #topnav a.active::before{{content:"";position:absolute;top:0;width:34px;height:30px;border-radius:10px;background:#e7cd9612;pointer-events:none}}
+  #topnav a:active{{opacity:.65}}
+}}
 </style></body></html>"""
 
 
