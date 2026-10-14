@@ -15,6 +15,7 @@ import valuation_data
 import json
 import os
 import sys
+import shutil
 from datetime import datetime, timezone, timedelta
 
 import config as cfg
@@ -179,6 +180,7 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
 <link rel="manifest" href="./manifest.webmanifest">
+<script src="./pwa.js" defer></script>
 <title>ETF 策略观察 {gen_time[:10]}</title>
 <style>
 
@@ -338,6 +340,13 @@ def main(out_path: str = DEFAULT_OUT):
                   + "；".join(stale_notes) + "）") if stale_notes else None
     html = _build_page(etfs_reps, gen_time, using_saved, stale_note)
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    # PWA resources live beside the exported HTML, including for --out.
+    output_dir = os.path.dirname(os.path.abspath(out_path))
+    source_dir = os.path.join(BASE_DIR, "docs")
+    if os.path.normcase(output_dir) != os.path.normcase(source_dir):
+        for asset in ("pwa.js", "sw.js", "manifest.webmanifest"):
+            shutil.copy2(os.path.join(source_dir, asset), output_dir)
+        shutil.copytree(os.path.join(source_dir, "icons"), os.path.join(output_dir, "icons"), dirs_exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
     json_path = os.path.splitext(out_path)[0] + ".json"
