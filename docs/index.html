@@ -223,7 +223,7 @@ if(!el('diaryForm')?.addEventListener)return;
 let summaries=[],entries=[];const diaryKey='investment_diary_v1',planKey='investment_plan_v1';
 try{const saved=JSON.parse(localStorage.getItem(diaryKey)||'[]');if(!Array.isArray(saved))throw Error();entries=saved.map(validateEntry);}catch(e){el('journalStatus').textContent='已有日记格式异常，请先导出备份检查；本页不会覆盖原数据。';}
 let storageValid=true;try{const raw=localStorage.getItem(diaryKey);if(raw){const data=JSON.parse(raw);if(!Array.isArray(data))throw Error();data.forEach(validateEntry);}}catch(e){storageValid=false;}
-function persist(next){if(!storageValid){el('journalStatus').textContent='原日记数据异常，保存已暂停，请先备份。';return false;}try{localStorage.setItem(diaryKey,JSON.stringify(next));entries=next;return true;}catch(e){el('journalStatus').textContent='保存失败：浏览器存储不可用或空间不足，请导出备份。';return false;}}
+function persist(next){if(!storageValid){el('journalStatus').textContent='原日记数据异常，保存已暂停，请先备份。';return false;}try{localStorage.setItem(diaryKey,JSON.stringify(next));entries=next;window.dispatchEvent(new Event('investment-diary-changed'));return true;}catch(e){el('journalStatus').textContent='保存失败：浏览器存储不可用或空间不足，请导出备份。';return false;}}
 el('journalType').innerHTML=types.filter(t=>t[0]!=='cash').map(([k,label])=>`<option value="${k}">${label}</option>`).join('');el('journalDate').value=today();
 function hint(){const s=snapshotFor(summaries,el('journalCode').value.trim(),el('journalDate').value);el('journalSnapshot').textContent=s?`保存时将附上 ${s.date} 行情：收盘 ${s.metrics.price}，当日涨跌 ${s.metrics.day_change_pct??'暂无'}%。`:'该代码在所选日期暂无行情，保存时标记“行情缺失”，不会用其他日期替代。';}
 el('journalCode').oninput=()=>{const s=summaries.find(x=>x.symbol===el('journalCode').value.trim());if(s){el('journalName').value=s.name;el('journalType').value=s.asset_type;}hint();};el('journalDate').onchange=hint;
@@ -240,6 +240,42 @@ el('journalImport').onchange=async e=>{try{const file=e.target.files[0];if(!file
 window.setInvestmentSummaries=function(list){summaries=list.filter(Boolean);hint();};
 window.showInvestmentTab=function(name){['plan','diary'].forEach(t=>el('invest-'+t).classList.toggle('hidden',name!==t));};
 hint();render();
+})();
+
+(function(){
+const money=x=>Math.floor((x+1e-9)*100)/100;
+function calculate(budget,codes,summaries,entries,date,premiums={},budgetMonth=date.slice(0,7)){
+ if(!Number.isFinite(budget)||budget<0||!codes.length||new Set(codes).size!==codes.length)throw Error('请输入有效月预算，并选择ETF。');
+ entries.forEach(window.InvestmentLogic.validateEntry);
+ const month=budgetMonth,buys=entries.filter(e=>e.date.slice(0,7)===month&&['买入','加仓'].includes(e.action));
+ const spent=money(buys.reduce((n,e)=>n+e.amount,0));let remaining=Math.max(0,money(budget-spent));
+ const rows=codes.map(code=>{
+  const s=summaries.find(s=>s.symbol===code),used=money(buys.filter(e=>e.code===code).reduce((n,e)=>n+e.amount,0)),cap=money(budget/codes.length);
+  let fraction=({buy:0.5,normal_buy:0.5,add:1,buy_more:1,small_buy:0.25,allocate:0.5,starter:0.1}[s?.status]||0),reason=s?.reason||'暂无行情';
+  if(!s||s.date!==date||s.details?.data_warning||s.details?.insufficient_history||s.risk_level==='high'||!Number.isFinite(s.metrics?.price)||s.metrics.price<=0){fraction=0;reason='行情日期不一致、数据不足或风险条件未通过，先留现金';}
+  if(s?.details?.strategy_mode==='us_monthly_trend'&&fraction){const p=premiums[code];if(!Number.isFinite(p)||p>2){fraction=0;reason='请核对最新溢价；未填写或高于2%，暂停新增投入（试行上限）';}}
+  const target=money(cap*fraction),amount=Math.min(remaining,Math.max(0,money(target-used)));remaining=money(remaining-amount);
+  return {code,name:s?.name||code,cap,used,target,amount,reason};
+ });
+ return {month,budget,spent,remaining:Math.max(0,money(budget-spent)),suggested:money(rows.reduce((n,r)=>n+r.amount,0)),rows,overBudget:spent>budget};
+}
+window.MonthlyBudgetLogic={calculate};
+const root=document.getElementById('invest-plan');if(!root)return;
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const card=document.createElement('div');card.className='card';root.prepend(card);
+const month=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit'}).format(new Date()),key='monthly_budget_v1_'+month;
+const assets=window.CORRELATION_PRICES||[];
+card.innerHTML=`<h2>每月投入预算</h2><p>${esc(month)} · 总月预算固定，所选ETF各分一等份；无买点的份额留现金。</p><form id="monthlyBudgetForm"><label>每月可投入金额（元） <input id="monthlyBudgetAmount" type="number" min="0" step="0.01" required></label><div class="review-choices">${assets.map(a=>`<label><input type="checkbox" name="monthlyAsset" value="${esc(a.code)}">${esc(a.name)}</label>`).join('')}</div><p class="muted">美股ETF下单前填写最新溢价（%），每次打开页面重新核对；高于2%暂停买入。2%是试行执行上限，并非回测最优值。</p>${assets.filter(a=>['513100','513500'].includes(a.code)).map(a=>`<label>${esc(a.name)}溢价 <input type="number" step="0.01" data-monthly-premium="${esc(a.code)}" style="width:100px"> % </label>`).join('')}<p><button class="btn">保存预算并计算本次投入</button></p></form><p id="monthlyBudgetStatus" role="status"></p><div id="monthlyBudgetResult"></div><p class="muted">买入累计到该ETF月额度的50%，加仓累计到100%；其他小额买入沿用对应档位。重复信号仅补足差额，不重复投入。成交后务必记入投资日记，实际买入和加仓都会占用月额度，卖出不恢复额度。有成交后本月预算与标的锁定。未用金额留现金，不自动滚入下月；无买点不要求卖出原持仓。金额上限不含佣金，下单请预留费用并按100份取整。预算与日记保存在当前浏览器，换设备不会自动同步。这是预算控制试行规则，尚未证明最优。</p>`;
+const el=id=>document.getElementById(id);let plan=null,broken=false;
+function readEntries(){const e=JSON.parse(localStorage.getItem('investment_diary_v1')||'[]');if(!Array.isArray(e))throw Error('日记格式异常，停止计算');e.forEach(window.InvestmentLogic.validateEntry);return e;}
+try{plan=JSON.parse(localStorage.getItem(key)||'null');if(plan&&(!Number.isFinite(plan.budget)||plan.budget<0||!Array.isArray(plan.codes)||!plan.codes.length||new Set(plan.codes).size!==plan.codes.length||plan.codes.some(c=>!assets.some(a=>a.code===c))))throw Error('本月预算数据异常');if(plan){el('monthlyBudgetAmount').value=plan.budget;card.querySelectorAll('[name=monthlyAsset]').forEach(i=>i.checked=plan.codes.includes(i.value));}}catch(e){broken=true;el('monthlyBudgetStatus').textContent='预算读取失败，停止计算，请检查浏览器保存数据。';}
+function render(){try{if(broken||!plan)return;const raw=window.STRATEGY_SUMMARIES||[],summaries=window.summaryWithValuationYears?raw.map(s=>window.summaryWithValuationYears(s,window.selectedValuationYears())):raw,premiums={};card.querySelectorAll('[data-monthly-premium]').forEach(i=>{if(i.value.trim())premiums[i.dataset.monthlyPremium]=Number(i.value);});const entries=readEntries(),r=calculate(plan.budget,plan.codes,summaries,entries,window.InvestmentLogic.marketContext().date,premiums,month);const locked=entries.some(e=>e.date.slice(0,7)===month&&['买入','加仓'].includes(e.action));el('monthlyBudgetAmount').disabled=locked;card.querySelectorAll('[name=monthlyAsset]').forEach(i=>i.disabled=locked);el('monthlyBudgetResult').innerHTML=`<p>本月已买 ${r.spent.toFixed(2)} 元 · 剩余月额度 ${r.remaining.toFixed(2)} 元 · 本次建议 ${r.suggested.toFixed(2)} 元</p>${r.overBudget?'<p>本月实际买入已超过预算，暂停新增投入。</p>':''}<div style="overflow:auto"><table><tr><th>ETF</th><th>月额度</th><th>已买</th><th>本次投入</th></tr>${r.rows.map(x=>`<tr><td>${esc(x.name)}</td><td>${x.cap.toFixed(2)}</td><td>${x.used.toFixed(2)}</td><td><b>${x.amount.toFixed(2)}元</b></td></tr><tr><td colspan="4" class="muted">${esc(x.reason)}</td></tr>`).join('')}</table></div>`;}catch(e){el('monthlyBudgetResult').innerHTML='';el('monthlyBudgetStatus').textContent='停止计算：'+e.message;}}
+el('monthlyBudgetForm').onsubmit=e=>{e.preventDefault();try{if(broken)throw Error('原预算异常，请先检查保存数据');const entries=readEntries(),locked=entries.some(e=>e.date.slice(0,7)===month&&['买入','加仓'].includes(e.action));if(locked&&!plan)throw Error('本月已有成交但未设置预算，请下月启用；不能事后推定原预算');const next=locked?plan:{budget:Number(el('monthlyBudgetAmount').value),codes:[...card.querySelectorAll('[name=monthlyAsset]:checked')].map(i=>i.value)};calculate(next.budget,next.codes,[],entries,month+'-01');localStorage.setItem(key,JSON.stringify(next));plan=next;el('monthlyBudgetStatus').textContent='已保存；建议不会自动记为成交。';render();}catch(e){el('monthlyBudgetStatus').textContent=e.message;}};
+const previous=window.setInvestmentSummaries;window.setInvestmentSummaries=function(list){previous(list);render();};
+document.getElementById('diaryForm')?.addEventListener('submit',render);
+document.getElementById('journalList')?.addEventListener('click',render);
+window.addEventListener('investment-diary-changed',render);
+window.addEventListener('storage',render);card.querySelectorAll('[data-monthly-premium]').forEach(i=>i.oninput=render);render();
 })();
 </script>
 
