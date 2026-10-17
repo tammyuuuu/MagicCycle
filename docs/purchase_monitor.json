@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-16T18:50:02+08:00",
+  "updated_at": "2026-10-17T10:17:01+08:00",
   "quota_source": "https://qdiilimit.com/",
   "source_type": "第三方公开公告汇总；并非渠道交易确认",
   "rows": [
@@ -17,12 +17,12 @@
         "retail_limit": "无代销",
         "direct_limit": "200",
         "notice": "仅直销·无代销渠道 直销 2026-07-20",
-        "source_date": "2026-10-16"
+        "source_date": "2026-10-17"
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_021000.html",
-      "nav_date": "2026-10-14",
-      "unit_nav": 2.3049,
+      "nav_date": "2026-10-15",
+      "unit_nav": 2.3038,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -42,12 +42,12 @@
         "retail_limit": "10",
         "direct_limit": "100",
         "notice": "代销 2026-09-23 直销 2026-09-23",
-        "source_date": "2026-10-16"
+        "source_date": "2026-10-17"
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_019441.html",
-      "nav_date": "2026-10-14",
-      "unit_nav": 1.7001,
+      "nav_date": "2026-10-15",
+      "unit_nav": 1.6994,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -67,12 +67,12 @@
         "retail_limit": "100",
         "direct_limit": "无直销",
         "notice": "代销 2026-09-01 仅代销·无直销渠道",
-        "source_date": "2026-10-16"
+        "source_date": "2026-10-17"
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_022525.html",
-      "nav_date": "2026-10-14",
-      "unit_nav": 2.0263,
+      "nav_date": "2026-10-15",
+      "unit_nav": 2.0253,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -92,12 +92,12 @@
         "retail_limit": "10",
         "direct_limit": "10",
         "notice": "代销 2026-07-27 直销 2026-07-27",
-        "source_date": "2026-10-16"
+        "source_date": "2026-10-17"
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_017641.html",
-      "nav_date": "2026-10-14",
-      "unit_nav": 1.7037,
+      "nav_date": "2026-10-15",
+      "unit_nav": 1.7088,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -117,12 +117,12 @@
         "retail_limit": "100",
         "direct_limit": "无直销",
         "notice": "代销 2026-09-01 仅代销·无直销渠道",
-        "source_date": "2026-10-16"
+        "source_date": "2026-10-17"
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_022523.html",
-      "nav_date": "2026-10-14",
-      "unit_nav": 2.2112,
+      "nav_date": "2026-10-15",
+      "unit_nav": 2.2155,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -140,8 +140,8 @@
       "quota": null,
       "quota_state": "未取得当日额度，不判断可买",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_006484.html",
-      "nav_date": "2026-10-15",
-      "unit_nav": 1.059,
+      "nav_date": "2026-10-16",
+      "unit_nav": 1.0595,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
