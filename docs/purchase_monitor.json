@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-19T14:45:33+08:00",
+  "updated_at": "2026-10-19T20:04:27+08:00",
   "quota_source": "https://qdiilimit.com/",
   "source_type": "第三方公开公告汇总；并非渠道交易确认",
   "rows": [
@@ -21,8 +21,8 @@
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_021000.html",
-      "nav_date": "2026-10-15",
-      "unit_nav": 2.3038,
+      "nav_date": "2026-10-16",
+      "unit_nav": 2.2475,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -71,8 +71,8 @@
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_022525.html",
-      "nav_date": "2026-10-15",
-      "unit_nav": 2.0253,
+      "nav_date": "2026-10-16",
+      "unit_nav": 1.9763,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -96,8 +96,8 @@
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_017641.html",
-      "nav_date": "2026-10-15",
-      "unit_nav": 1.7088,
+      "nav_date": "2026-10-16",
+      "unit_nav": 1.6897,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -121,8 +121,13 @@
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_022523.html",
-      "nav_state": "获取失败",
-      "nav_error": "HTTPSConnectionPool(host='api.fund.eastmoney.com', port=443): Read timed out. (read timeout=10)"
+      "nav_date": "2026-10-16",
+      "unit_nav": 2.1947,
+      "income_per_10000": null,
+      "yield_7d_pct": null,
+      "nav_purchase_status": "限制大额申购",
+      "nav_redeem_status": "开放赎回",
+      "nav_state": "近期披露"
     },
     {
       "code": "006484",
@@ -135,8 +140,13 @@
       "quota": null,
       "quota_state": "未取得当日额度，不判断可买",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_006484.html",
-      "nav_state": "获取失败",
-      "nav_error": "HTTPSConnectionPool(host='api.fund.eastmoney.com', port=443): Read timed out. (read timeout=10)"
+      "nav_date": "2026-10-19",
+      "unit_nav": 1.0597,
+      "income_per_10000": null,
+      "yield_7d_pct": null,
+      "nav_purchase_status": "限制大额申购",
+      "nav_redeem_status": "开放赎回",
+      "nav_state": "近期披露"
     }
   ],
   "future_alerts": [],
