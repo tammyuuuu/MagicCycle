@@ -1,0 +1,38 @@
+[
+  {
+    "index": "沪深300",
+    "index_code": "000300",
+    "role": "direct",
+    "rows": 259,
+    "span": [
+      "2005-04-29",
+      "2026-10-21"
+    ],
+    "source": "akshare stock_index_pe_lg (乐咕乐股)",
+    "path": "raw\\pe_沪深300.csv"
+  },
+  {
+    "index": "中证500",
+    "index_code": "000905",
+    "role": "direct",
+    "rows": 238,
+    "span": [
+      "2007-01-31",
+      "2026-10-21"
+    ],
+    "source": "akshare stock_index_pe_lg (乐咕乐股)",
+    "path": "raw\\pe_中证500.csv"
+  },
+  {
+    "index": "上证红利",
+    "index_code": "000015",
+    "role": "proxy_for_中证红利",
+    "rows": 262,
+    "span": [
+      "2005-01-31",
+      "2026-10-21"
+    ],
+    "source": "akshare stock_index_pe_lg (乐咕乐股)",
+    "path": "raw\\pe_上证红利.csv"
+  }
+]

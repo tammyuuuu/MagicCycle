@@ -1,0 +1,18 @@
+{
+  "html_bytes": 10104619,
+  "html_gzip": 2952307,
+  "css_bytes": 31533,
+  "style_blocks": 5,
+  "sources": {
+    "templates/index.html": 27095,
+    "templates/_invest_tools.html": 18316,
+    "templates/_status_rail.html": 10493,
+    "templates/_mobile_ui.html": 10706,
+    "export_alerts.py": 33900,
+    "investment_workspace.js": 33554,
+    "correlation_data.py": 1808,
+    "run_tests.py": 2602,
+    "docs/sw.js": 2685,
+    "docs/index.html": 10104619
+  }
+}

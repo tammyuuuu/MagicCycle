@@ -1,0 +1,26 @@
+[
+  {
+    "file": "investment_workspace.js",
+    "before": 43913,
+    "after": 34253,
+    "reduced": 9660
+  },
+  {
+    "file": "templates/_invest_tools.html",
+    "before": 14224,
+    "after": 9720,
+    "reduced": 4504
+  },
+  {
+    "file": "templates/_styles.html",
+    "before": 22007,
+    "after": 21591,
+    "reduced": 416
+  },
+  {
+    "file": "docs/index.html",
+    "before": 10192690,
+    "after": 10178074,
+    "reduced": 14616
+  }
+]

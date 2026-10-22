@@ -1,0 +1,3887 @@
+[
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/alerts.cpython-314.pyc",
+    "destination": null,
+    "bytes": 15712,
+    "sha256": "b7d3c13f1a861e3759b58b1e666946dde776a6689ab7740732c861cedc0d4b4a"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/app.cpython-314.pyc",
+    "destination": null,
+    "bytes": 19758,
+    "sha256": "e90424e07ce8a3a38365152c86be066666a53c3d5850c294e68ade2753808211"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/asset_states.cpython-314.pyc",
+    "destination": null,
+    "bytes": 31601,
+    "sha256": "5c53a521a9129ad58328c683c59e0a7d9887b1bdbf45fbb14dba8ec8a43ff120"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/backtest.cpython-314.pyc",
+    "destination": null,
+    "bytes": 18529,
+    "sha256": "f317d5c61d56f0d1f584b40b76f2dcb9cde2bfbd614e84a955cf64544ce02ab9"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/broad_individual_strategy.cpython-314.pyc",
+    "destination": null,
+    "bytes": 12870,
+    "sha256": "894a0180e14a139704beb47b78184e4d31bea5518c3b3ffe3e60e2862466d190"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/broad_signal_rules.cpython-314.pyc",
+    "destination": null,
+    "bytes": 6135,
+    "sha256": "ccc222c3a09496be0ecade01a6a325c46213f7925f94f15af7d980ff1394d3db"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/config.cpython-314.pyc",
+    "destination": null,
+    "bytes": 2132,
+    "sha256": "a71bb858cfa8359624f6343634252aeb0d0061e3aea94b14beadce9932969030"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/correlation_data.cpython-314.pyc",
+    "destination": null,
+    "bytes": 4498,
+    "sha256": "4cf923c5adcd9e2fb4e8d3d394ffc8ed0f03cf6105a0f01912f44ccb58988812"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/data_fetcher.cpython-314.pyc",
+    "destination": null,
+    "bytes": 22876,
+    "sha256": "ee473909303f1aa23c4877dde58a956607e09bdbc7f9fa16129e98ee233b805b"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/dca.cpython-314.pyc",
+    "destination": null,
+    "bytes": 29044,
+    "sha256": "86a23ace20243b70c252a84f1136af53852f4c8c1d3b6938d7d20638393856a1"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/export_alerts.cpython-314.pyc",
+    "destination": null,
+    "bytes": 40104,
+    "sha256": "59d0c1b829d8c4d053135327dc9699f6c17b253d051d1cee41126e5be08fba6a"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/fetch_sector_valuation.cpython-314.pyc",
+    "destination": null,
+    "bytes": 9700,
+    "sha256": "5091d7f390c2f85b27adb918f15ca5eda4c61434f22220b2ef624b0a03fd8cf7"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/gold_strategy.cpython-314.pyc",
+    "destination": null,
+    "bytes": 5707,
+    "sha256": "dbddb7bcb54790f03bc9cd5a1f4e570608cb11993f28219e3a78d9fb13ab7808"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/indicators.cpython-314.pyc",
+    "destination": null,
+    "bytes": 7420,
+    "sha256": "e5bf3d78a46abb40e4efb7a25e7bcd57a452552d3dc435777089de3b8abd6ff7"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/industry_strategy.cpython-314.pyc",
+    "destination": null,
+    "bytes": 9814,
+    "sha256": "1627ad8a76790e90d83fdde250d9b63f579bd08d460bf348ee289a23ce02c8d6"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/monitor.cpython-314.pyc",
+    "destination": null,
+    "bytes": 7128,
+    "sha256": "796094cbc31c95d6bf56ab1c99a5d686af01dd76cf6e2f9984d98f6b0962f546"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/purchase_monitor.cpython-314.pyc",
+    "destination": null,
+    "bytes": 12667,
+    "sha256": "ad8054014a30bf4b997aa93811c76fc45bb75d3f0a80e35a4de6828219174841"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/research_broad_individual.cpython-314.pyc",
+    "destination": null,
+    "bytes": 39975,
+    "sha256": "ec34adfa5a3addb63bd85a37d46151ef8a2fe60ec6b3cda586e947004005c95b"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/research_broad_valuation.cpython-314.pyc",
+    "destination": null,
+    "bytes": 31776,
+    "sha256": "a92d2784fb164ca18f807b074595af1176cf88075816f81c7f770e45e285d04b"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/research_csi300_entry_windows.cpython-314.pyc",
+    "destination": null,
+    "bytes": 9613,
+    "sha256": "32ec0f7dc53a342c4968a98493af1cd86a53ab895fb4d12b89a4f7436bc39bd7"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/research_csi300_search.cpython-314.pyc",
+    "destination": null,
+    "bytes": 22538,
+    "sha256": "f0a2219b4ce5009f3e43ff365c0af3859bf3459046c9f9279fa08f41975a2f01"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/research_monthly_execution.cpython-314.pyc",
+    "destination": null,
+    "bytes": 24384,
+    "sha256": "ef4f33a2d953b90dbe5d055f7671975df8df8a13cfd1d7b2df58faf06553d9e6"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/research_sector_partial_exit.cpython-314.pyc",
+    "destination": null,
+    "bytes": 20156,
+    "sha256": "2ba70c642e4e0f16d4ded0715a814a9d462e8aa029c174ac7565909fea9bd573"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/research_sector_trend.cpython-314.pyc",
+    "destination": null,
+    "bytes": 13005,
+    "sha256": "ddcbf233575a4b27e6c2282be903e493719aeb46245718a577e1e8b8c10248f4"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/research_sector_valuation_comparison.cpython-314.pyc",
+    "destination": null,
+    "bytes": 21841,
+    "sha256": "a145a904e152bcb2591b19f5274cd0578b178c53434f94759772ea1dbeb0967a"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/research_star50_search.cpython-314.pyc",
+    "destination": null,
+    "bytes": 10563,
+    "sha256": "2e7694f743e8027630185651dddccff58d764a88ba3ddc68e03b3c881fc603de"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/research_us_etf_extended.cpython-314.pyc",
+    "destination": null,
+    "bytes": 28825,
+    "sha256": "4fa58b3b9f2ff9c09b435120455806afa67e6b73a36902ed73a422a8c060e248"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/stock_watch.cpython-314.pyc",
+    "destination": null,
+    "bytes": 2471,
+    "sha256": "a5e9d021276491e62d87c2f8a32ee7254866d418fa85c7984dade1d5685e5efb"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/strategies.cpython-314.pyc",
+    "destination": null,
+    "bytes": 33936,
+    "sha256": "783d149aecd1ef4f5632d77f7d28e9d942b9b2335ef54dd9216dc135939466d3"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/strategy_config.cpython-314.pyc",
+    "destination": null,
+    "bytes": 1265,
+    "sha256": "9ac4dac011b356ac8421fca451b048ffca0486cf2a96235626b43f2b448c5b01"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/test_broad_individual_strategy.cpython-314.pyc",
+    "destination": null,
+    "bytes": 15698,
+    "sha256": "bacbd6eec1aa6580b4e691f8dfa8d570a584c2a943f284a5794a005a073b78a1"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/test_broad_valuation_research.cpython-314.pyc",
+    "destination": null,
+    "bytes": 9896,
+    "sha256": "3877a2ad724bbd014265811703450bb0b09d7c76354011ca64549d1eb5cad3ab"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/test_monthly_execution.cpython-314.pyc",
+    "destination": null,
+    "bytes": 7768,
+    "sha256": "c1f4e2906dbc894e624d5707caf04ef546f1b89c681a99eb17820970a5a7f2f2"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/test_purchase_monitor.cpython-314.pyc",
+    "destination": null,
+    "bytes": 7384,
+    "sha256": "dccc02f3887e8e384c306d6e77c52b0c598adcdbe27198d3feea40c305d1018e"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/test_valuation_data.cpython-314.pyc",
+    "destination": null,
+    "bytes": 6380,
+    "sha256": "1387a99cba80eb4b5a3341d41a733f4e54a012f497371017bfedaec279d8b762"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/us_etf_strategy.cpython-314.pyc",
+    "destination": null,
+    "bytes": 1415,
+    "sha256": "0cf3a36293ea02e67453d7a38f7a977733720220c10a0e9dc4f7ead0e96aa901"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/us_guidance.cpython-314.pyc",
+    "destination": null,
+    "bytes": 9224,
+    "sha256": "ce4fee2fc8696f80e7643abf51944a5a81830f13eaa30ba8790c215eb88c7638"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "__pycache__/valuation_data.cpython-314.pyc",
+    "destination": null,
+    "bytes": 11676,
+    "sha256": "859901f7b69f1481610c4e96bd22d0ccb6257c48e84bb0478bfa9e010aa259ef"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "research_xingxun_v1/__pycache__/allocation_study.cpython-314.pyc",
+    "destination": null,
+    "bytes": 13133,
+    "sha256": "4b1542e8f3f90118f8af4ae118e58d2140b60d53706ad27c0c6901b3ea49226b"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "research_xingxun_v1/__pycache__/capital_pool.cpython-314.pyc",
+    "destination": null,
+    "bytes": 19051,
+    "sha256": "8bd1b7495de61ca5b0debd091d323edcb31a5417e55cf5c24da71aba627670dd"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "research_xingxun_v1/__pycache__/cost_model.cpython-314.pyc",
+    "destination": null,
+    "bytes": 6986,
+    "sha256": "bf3533cd68a628928029377231e3905000bbe955bbcadeb3c04d45fa67d872a2"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "research_xingxun_v1/__pycache__/data_prep.cpython-314.pyc",
+    "destination": null,
+    "bytes": 24912,
+    "sha256": "5681a1eda6150ae3cd97fa78af436437649338515f0384a07e7131f2128fce67"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "research_xingxun_v1/__pycache__/fetch_data.cpython-314.pyc",
+    "destination": null,
+    "bytes": 5337,
+    "sha256": "9b76a7a554ac7c7a6e4c92ca8b966e6333d143567090e3df72ff0baf56ce427a"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "research_xingxun_v1/__pycache__/otc_engine.cpython-314.pyc",
+    "destination": null,
+    "bytes": 11284,
+    "sha256": "11351dccef8436ded6b8ff01340b61e6407d56767128bac39ac9d1c09c4c5210"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "research_xingxun_v1/__pycache__/pool6_data.cpython-314.pyc",
+    "destination": null,
+    "bytes": 12094,
+    "sha256": "e2686bc04368df965d79e3047a96dceb469cda4527ba6829ec6421ddaf236699"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "research_xingxun_v1/__pycache__/round6_alloc.cpython-314.pyc",
+    "destination": null,
+    "bytes": 35377,
+    "sha256": "bcc60911f8f98cc13a2e4f46d9861b8bf85d06841d49e2f6c73802e4c97ddea2"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "research_xingxun_v1/__pycache__/run_round2.cpython-314.pyc",
+    "destination": null,
+    "bytes": 30489,
+    "sha256": "f0c3a61425cacfc00f789b79b7e511bd2a494b58e83097705e8f08919a938ac7"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "research_xingxun_v1/__pycache__/signal_journal.cpython-314.pyc",
+    "destination": null,
+    "bytes": 3857,
+    "sha256": "8ec5f33f383c4e2ac00f283aeda3e731915cab61bddb65792b2b8a441d4cc7da"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "research_xingxun_v1/__pycache__/strategy_lib.cpython-314.pyc",
+    "destination": null,
+    "bytes": 8974,
+    "sha256": "ebcd7d6db9ad22357b5957dd8985ccd5cb3ef14d99971e14109e0df9ba49feca"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "research_xingxun_v1/__pycache__/weight_engine.cpython-314.pyc",
+    "destination": null,
+    "bytes": 11716,
+    "sha256": "53b9e29349828fcd47d43fad7e2a9ea4d9a3b2b4e0ce159309ee7a9cb63686d4"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/def_flask_1440_comparison.png",
+    "destination": null,
+    "bytes": 56419,
+    "sha256": "3caf802040d416eb476dbd8bb19a51c0430b184253121a4484b2e03d064759d1"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/def_flask_1440_D_card.png",
+    "destination": null,
+    "bytes": 19930,
+    "sha256": "a05739e8e43d1b737f033148f52ef9b24a84e40842085793009ee2de9e6655c5"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/def_flask_1440_today.png",
+    "destination": null,
+    "bytes": 101110,
+    "sha256": "9ce5277e16e5702622ef036d372bef9257265bf7e996bfac812a61aab6be6de7"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/def_flask_375_comparison.png",
+    "destination": null,
+    "bytes": 44902,
+    "sha256": "22c409432fb4b262abc11a0d784a0246ffcea1910e6486f54439782e75b72ab4"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/def_flask_375_D_card.png",
+    "destination": null,
+    "bytes": 19025,
+    "sha256": "8694329e8d1336b902d555fc53415d5e52d86a1ba41ca60b0cce9e3d8af0ff33"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/def_flask_375_today.png",
+    "destination": null,
+    "bytes": 57537,
+    "sha256": "8a28b3ae5b3dbf7ea1262f5f34f5faaedc26d443502d9baad5bd45d9eb9c7cf4"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/def_static_1440_D_card.png",
+    "destination": null,
+    "bytes": 19912,
+    "sha256": "dc5b46d0f7120ccc620863a33533c664f0985c095c9e79a73988f72aa5a0048a"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/def_static_375_D_card.png",
+    "destination": null,
+    "bytes": 19028,
+    "sha256": "a4acc90a19a439c9061dd57d03673f81cc79e453e7c74d39e73f96d9f5e629f2"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/desktop_lab.png",
+    "destination": null,
+    "bytes": 251395,
+    "sha256": "c39e3a6b43af714e2001ddf72f3d0f7b809fad5599d793f293cf78a3a9faf61d"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_1440_lab.png",
+    "destination": null,
+    "bytes": 385484,
+    "sha256": "cc95fc400654b43d7e736e22a09c3fd125b654d1cde09f331fdc7cafbe9e3f6b"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_1440_lab_viewport.png",
+    "destination": null,
+    "bytes": 73598,
+    "sha256": "72bcaa10fe8491433c74a5fc8c56d14b9d6c0b13132cbcb706b2ef04d2dd6851"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_1440_plan.png",
+    "destination": null,
+    "bytes": 217781,
+    "sha256": "6748b8e51fad05d37fe90e8df2427f6946a5c095fdf95a59222142bb4b03b78f"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_1440_plan_viewport.png",
+    "destination": null,
+    "bytes": 68392,
+    "sha256": "dccc51186e6560b0bf672382a72289cfde9603bbb9acb4f3c770e0ccb20f1103"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_1440_review.png",
+    "destination": null,
+    "bytes": 164602,
+    "sha256": "4ad679f9fd4142de7bc64d06ce422ec823765d2f49cc88572cd597d9455de814"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_1440_review_viewport.png",
+    "destination": null,
+    "bytes": 58239,
+    "sha256": "366850d469a1715ea575b7e72fbae6904a1c76c6baa9350900d35b04cccf454d"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_1440_today.png",
+    "destination": null,
+    "bytes": 261881,
+    "sha256": "48f1b43e4a29a17da928915edba3b4ff3b212cffd1d0c51f65bea355f6d5cbe1"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_1440_today_viewport.png",
+    "destination": null,
+    "bytes": 101110,
+    "sha256": "9ce5277e16e5702622ef036d372bef9257265bf7e996bfac812a61aab6be6de7"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_375_lab.png",
+    "destination": null,
+    "bytes": 377683,
+    "sha256": "9e58d751a5aaa3e1d043e85bc14ac2fa590189037b2087a32fbf161d9f557261"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_375_lab_viewport.png",
+    "destination": null,
+    "bytes": 54089,
+    "sha256": "b939bbd78e18f71161f36f5eccd054dc2d4d4de5b9bbb3f78ef0a656ca65deb8"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_375_plan.png",
+    "destination": null,
+    "bytes": 183403,
+    "sha256": "8b4a48528d83b5d09430b9f7c0446e5162bcda3718c2a26581602b4bc36b10d2"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_375_plan_viewport.png",
+    "destination": null,
+    "bytes": 49357,
+    "sha256": "8b619332bfbb2ac86bc82ff03e5dd667cb0c4dc62f63c9a4ca639229f444f187"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_375_review.png",
+    "destination": null,
+    "bytes": 130748,
+    "sha256": "99414fa6e84c4aad5da71444a7fbb3c99050bfe6decfec19342b82d5863badea"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_375_review_viewport.png",
+    "destination": null,
+    "bytes": 45008,
+    "sha256": "270bb0f9a3742b525df086cb815eb87175bbc071ca4b1508e635d806dd38dc11"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_375_today.png",
+    "destination": null,
+    "bytes": 239567,
+    "sha256": "e84ed4f347658aac6a923e83863a11420c02ec74ba745f8032cabd3ef3865db2"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_375_today_viewport.png",
+    "destination": null,
+    "bytes": 57537,
+    "sha256": "8a28b3ae5b3dbf7ea1262f5f34f5faaedc26d443502d9baad5bd45d9eb9c7cf4"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/mobile_lab.png",
+    "destination": null,
+    "bytes": 193187,
+    "sha256": "f8036acb230c868bd242153ab6610c50e3c1dfe02bf0c60a3c2a246267e6a003"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/simple_flask_1440.png",
+    "destination": null,
+    "bytes": 137162,
+    "sha256": "73683a88b428efecb2fd8fec4e4c85c8c5d68fb0e98fad6aaf5c65dbb9e9d9ec"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/simple_flask_375.png",
+    "destination": null,
+    "bytes": 114516,
+    "sha256": "ac641e6c5baf4d555630f930babe959352f1eb6b3e784ff2d139e8e379934123"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_1440_lab.png",
+    "destination": null,
+    "bytes": 391232,
+    "sha256": "2b0330051bd2421e6b5937e031be2edf50bbbeaba0a61ed8704bd9a2d35c9715"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_1440_lab_viewport.png",
+    "destination": null,
+    "bytes": 74858,
+    "sha256": "a83d2502f453cbbc51989d0abf616dfbaaa6b01b8acf7d53639e41bf576614ef"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_1440_plan.png",
+    "destination": null,
+    "bytes": 223196,
+    "sha256": "dd7e05ab46a72292eed21926b795271cc7e604c04b5084dfdf734a306750339c"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_1440_plan_viewport.png",
+    "destination": null,
+    "bytes": 71742,
+    "sha256": "4d8ee7af8f1a4a6851e96aeaad4911b6602edfe37990356f06ac31c59ad07e96"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_1440_review.png",
+    "destination": null,
+    "bytes": 169257,
+    "sha256": "aa5c814edeb82e48b3ca81f80d890d809d0b378ec7e49a223bf9a59cc4fa44ad"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_1440_today.png",
+    "destination": null,
+    "bytes": 255491,
+    "sha256": "cd7e9f66f736d2446b55b07552722e6f9d7e73f3773d52ad637a8dcedb0bcd6b"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_1440_today_viewport.png",
+    "destination": null,
+    "bytes": 103035,
+    "sha256": "f653e991a3b9035d35d90a68e5a75029498828c7aeeb89653b7e7de46fae7d5f"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_375_lab.png",
+    "destination": null,
+    "bytes": 378348,
+    "sha256": "4486fbbddbed8110f8d436647f1abd0c88701e97eea9672992f3f83e6d9fce4e"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_375_lab_viewport.png",
+    "destination": null,
+    "bytes": 54069,
+    "sha256": "da4920bd3221086f17c0649d01a3183198acd301f6ff9c77717610cc2c070b89"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_375_plan.png",
+    "destination": null,
+    "bytes": 186637,
+    "sha256": "48e42883f25e859bbcd67d6356074edea986523ed531c5ec109f1ea6216ec209"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_375_plan_viewport.png",
+    "destination": null,
+    "bytes": 51694,
+    "sha256": "fe2d9f84976e7c833f735a1639cdc08ddaef64a883abdbe792f0141a65dca0bb"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_375_review.png",
+    "destination": null,
+    "bytes": 133278,
+    "sha256": "93231b6d7da361e8e692e7f17363ff0634ef6c9226b8b4a3f0293fd75fe9e6f8"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_375_today.png",
+    "destination": null,
+    "bytes": 231508,
+    "sha256": "f71a2834c48fc1137fce59ab6ac57ef4b0a0fb0ae630d0e026daa2a3cc356930"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/static_375_today_viewport.png",
+    "destination": null,
+    "bytes": 60374,
+    "sha256": "09807b1db4685d719bf89d95532c9a9c4357ee9943f846036fbc55cabdfc5a5c"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_preview.html",
+    "destination": null,
+    "bytes": 10047966,
+    "sha256": "2c63000f50f9c3a3ae23f130929c86992625b148837efe8bd5af4e300ffb30e7"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/regression_export.html",
+    "destination": null,
+    "bytes": 10073609,
+    "sha256": "4f8191994cf9ea46cb9a57ac8d9ba29bd3899d7911ae4f148cc9a60faf0b6b8f"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "mobile-preview.jpg",
+    "destination": null,
+    "bytes": 23534,
+    "sha256": "0ef1f465a3c6cb584f0dfa56aa7b15a8a08f5553138930ac673eb92ad158b32c"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "_ping.txt",
+    "destination": null,
+    "bytes": 12,
+    "sha256": "c2b17e63c9c194ce744a683d1fe66b135ad9669f7b3959cf9ff0f28d9f27424a"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_data/daily_causal_v3_20261022.json",
+    "destination": "archive/20261022/superseded_workspace_data.zip!/workspace_data/daily_causal_v3_20261022.json",
+    "bytes": 2110948,
+    "sha256": "21c4d93c797753571566a682cf83976824bbcdf0c7264bd938a96bd78dcb3298"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_data/daily_causal_v3_20261022_715379601b.json",
+    "destination": "archive/20261022/superseded_workspace_data.zip!/workspace_data/daily_causal_v3_20261022_715379601b.json",
+    "bytes": 2153797,
+    "sha256": "83e65d320ddc3b31c18e45405f32757a04c8559ce30958a3e42c925cfbf2bdde"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_data/daily_causal_v3_def_20261022_b2636a3d68.json",
+    "destination": "archive/20261022/superseded_workspace_data.zip!/workspace_data/daily_causal_v3_def_20261022_b2636a3d68.json",
+    "bytes": 9144155,
+    "sha256": "f9ed4bc317b513e167f48de55418a836ae1b6fed3109e0516a48dd4299b12367"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_data/daily_causal_v3_def_20261022_f650d8eccb.json",
+    "destination": "archive/20261022/superseded_workspace_data.zip!/workspace_data/daily_causal_v3_def_20261022_f650d8eccb.json",
+    "bytes": 9143474,
+    "sha256": "227857efbb8fce63af11205aca386f40dbc816927668259d2835d8a7674a7bfa"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_data/daily_causal_v3_l34_20261022_a8d85f1d41.json",
+    "destination": "archive/20261022/superseded_workspace_data.zip!/workspace_data/daily_causal_v3_l34_20261022_a8d85f1d41.json",
+    "bytes": 3085957,
+    "sha256": "9a990a4a2f3976ecf6c3706ccdd28c3eb29ab801a8f8ed7f0ce54e187172a9c1"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_data/daily_causal_v3_l34_20261022_fb15557c19.json",
+    "destination": "archive/20261022/superseded_workspace_data.zip!/workspace_data/daily_causal_v3_l34_20261022_fb15557c19.json",
+    "bytes": 3085957,
+    "sha256": "0b2aefc59632648dbc61df4669e195c7bd22072bd5551b42a2bd171c6dc7dbef"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_upgrade.py",
+    "destination": "archive/20261022/one_time_patches.zip!/workspace_upgrade.py",
+    "bytes": 3016,
+    "sha256": "957f40c067910badc0e53c29625fd6d5183694c2f41d74b428b1fc63dc022eb8"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_layout.html",
+    "destination": "archive/20261022/one_time_patches.zip!/workspace_layout.html",
+    "bytes": 14141,
+    "sha256": "0bed80f94e654683e33b240582cc1d58bae7789ef83a1434bb44b68339f9089d"
+  },
+  {
+    "action": "archive",
+    "path": "correctness_20261022/edit_ledger.py",
+    "destination": "archive/20261022/one_time_patches.zip!/correctness_20261022/edit_ledger.py",
+    "bytes": 10683,
+    "sha256": "a675bdca0659bb22d9ced371c8779795f00ef6e0da7058915e7581e3d03f8579"
+  },
+  {
+    "action": "archive",
+    "path": "correctness_20261022/edit_research.py",
+    "destination": "archive/20261022/one_time_patches.zip!/correctness_20261022/edit_research.py",
+    "bytes": 1633,
+    "sha256": "af7054a4a403f2d3c0a2e283abf96c95b069a2676a36016df2046223de5b1d27"
+  },
+  {
+    "action": "archive",
+    "path": "correctness_20261022/edit_ui.py",
+    "destination": "archive/20261022/one_time_patches.zip!/correctness_20261022/edit_ui.py",
+    "bytes": 5997,
+    "sha256": "28f7df6c43aeda8241a1a66608c49ac54bab781f4d08a280e8dede11c0a18b25"
+  },
+  {
+    "action": "archive",
+    "path": "correctness_20261022/cleanup_ui.py",
+    "destination": "archive/20261022/one_time_patches.zip!/correctness_20261022/cleanup_ui.py",
+    "bytes": 1225,
+    "sha256": "928596ec9386d493d7529fb80badf50e0011a4b8aa2d08ae8e6b11fc717cc20d"
+  },
+  {
+    "action": "archive",
+    "path": "correctness_20261022/final_adjustments.py",
+    "destination": "archive/20261022/one_time_patches.zip!/correctness_20261022/final_adjustments.py",
+    "bytes": 806,
+    "sha256": "454ffbfc120564df9cb0efecaa598c0db46156abd22814093828485470dd1525"
+  },
+  {
+    "action": "archive",
+    "path": "correctness_20261022/finish_ui.py",
+    "destination": "archive/20261022/one_time_patches.zip!/correctness_20261022/finish_ui.py",
+    "bytes": 4202,
+    "sha256": "6a4c6f2dbe6cd63d4627d7f2af8b48a0edf65a1e5893bf303b61cf21718e26d3"
+  },
+  {
+    "action": "archive",
+    "path": "results/510500_ma_cross_20150105_20260909.png",
+    "destination": "archive/20261022/historical_results.zip!/results/510500_ma_cross_20150105_20260909.png",
+    "bytes": 196651,
+    "sha256": "32cb3179c4bcc976ae07bacf838bff2262d1f267c2d8db0b2b56d103a0fc5928"
+  },
+  {
+    "action": "archive",
+    "path": "results/510500_ma_cross_20150105_20260909_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/510500_ma_cross_20150105_20260909_trades.csv",
+    "bytes": 2167,
+    "sha256": "3412ed9b65db50e0d648676dd273ab2871c49ee6f9107987242d20cd952c8874"
+  },
+  {
+    "action": "archive",
+    "path": "results/510500_rsi_reversal_20200102_20260909.png",
+    "destination": "archive/20261022/historical_results.zip!/results/510500_rsi_reversal_20200102_20260909.png",
+    "bytes": 191240,
+    "sha256": "8135d5fc2cede11285c56410202f561324f33ef0016abcc9fe8a1b8d6d8a8707"
+  },
+  {
+    "action": "archive",
+    "path": "results/510500_rsi_reversal_20200102_20260909_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/510500_rsi_reversal_20200102_20260909_trades.csv",
+    "bytes": 1675,
+    "sha256": "4f4eaf1bd509e34204f12bc9eae6df1db4a6b5392bcff33d4b3d99559fcb5f92"
+  },
+  {
+    "action": "archive",
+    "path": "results/588000_dca_20210104_20260909.png",
+    "destination": "archive/20261022/historical_results.zip!/results/588000_dca_20210104_20260909.png",
+    "bytes": 162020,
+    "sha256": "e0f9c92eaf316337d27160c0acd8d4d7f4da9a31838cbab2c9019e85a3a1195d"
+  },
+  {
+    "action": "archive",
+    "path": "results/588000_dca_20210104_20260909_events.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/588000_dca_20210104_20260909_events.csv",
+    "bytes": 18644,
+    "sha256": "5157db1c566db57e4052f92ecaa5f8a86248fba2776aad6e23759f72f8c59d6a"
+  },
+  {
+    "action": "archive",
+    "path": "results/588000_ma_cross_20210104_20260908.png",
+    "destination": "archive/20261022/historical_results.zip!/results/588000_ma_cross_20210104_20260908.png",
+    "bytes": 175259,
+    "sha256": "c35c07134dbcce8e7514702c31fd438a78ca69dae8868316f3efe6f24d598c9b"
+  },
+  {
+    "action": "archive",
+    "path": "results/588000_ma_cross_20210104_20260908_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/588000_ma_cross_20210104_20260908_trades.csv",
+    "bytes": 983,
+    "sha256": "540fcb1a8791be75ff47f0b6e61a9e32801f46bb879cf25077d805db0c910f4a"
+  },
+  {
+    "action": "archive",
+    "path": "results/actual_strategy_outputs.json",
+    "destination": "archive/20261022/historical_results.zip!/results/actual_strategy_outputs.json",
+    "bytes": 18445,
+    "sha256": "3200dece050c7bc358c2677f0f062376f0ce4e6ad437432cf596c33cd030fe46"
+  },
+  {
+    "action": "archive",
+    "path": "results/check_investment_tools.js",
+    "destination": "archive/20261022/historical_results.zip!/results/check_investment_tools.js",
+    "bytes": 4437,
+    "sha256": "a02ca3697dd10b909878d0074e870fadaac8297990b6ebaad0ec93b3b6df2872"
+  },
+  {
+    "action": "archive",
+    "path": "results/check_scripts.js",
+    "destination": "archive/20261022/historical_results.zip!/results/check_scripts.js",
+    "bytes": 2275,
+    "sha256": "4b5ce5d9c7e446f57192172b34a3f84cc9ed038ab62582e87bbd444930c4e663"
+  },
+  {
+    "action": "archive",
+    "path": "results/correlation_scripts.json",
+    "destination": "archive/20261022/historical_results.zip!/results/correlation_scripts.json",
+    "bytes": 501568,
+    "sha256": "7fe06159561b0467648572918e2399695766e082d6c8f00c89a5e11a1c599441"
+  },
+  {
+    "action": "archive",
+    "path": "results/local_render.html",
+    "destination": "archive/20261022/historical_results.zip!/results/local_render.html",
+    "bytes": 62451,
+    "sha256": "6e2e29ac713b92b739b8502d08109d9e66c9e5286421ea6d3723ea9694861ed6"
+  },
+  {
+    "action": "archive",
+    "path": "results/today_tabs_local.html",
+    "destination": "archive/20261022/historical_results.zip!/results/today_tabs_local.html",
+    "bytes": 458287,
+    "sha256": "9ee167f40ceb0c2b402293e6e4e3ef12143d68088fa250c062894a1670e5c959"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/510300_focus_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/510300_focus_curve.csv",
+    "bytes": 302965,
+    "sha256": "a1f2f468206e2b768e3e5371c53f854bf8996f82a2ed917570e2c889de2cf6d4"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/510300_focus_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/510300_focus_trades.csv",
+    "bytes": 446,
+    "sha256": "48a028096eaea2bc70191c0a48439012464c060d60a427eac78a0ca58f14390c"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/510300_hold_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/510300_hold_curve.csv",
+    "bytes": 322722,
+    "sha256": "874adeb605b3b8a3b9a9c1be632270050bde4a35379bf52ffd1924260f942fec"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/510300_selected_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/510300_selected_curve.csv",
+    "bytes": 302965,
+    "sha256": "a1f2f468206e2b768e3e5371c53f854bf8996f82a2ed917570e2c889de2cf6d4"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/510300_selected_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/510300_selected_trades.csv",
+    "bytes": 446,
+    "sha256": "48a028096eaea2bc70191c0a48439012464c060d60a427eac78a0ca58f14390c"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/510500_focus_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/510500_focus_curve.csv",
+    "bytes": 293619,
+    "sha256": "c9b238f3e68ccc4f7b77bd17a68b03f2292446a1ed338293d1611f626e49d94f"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/510500_focus_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/510500_focus_trades.csv",
+    "bytes": 295,
+    "sha256": "a4288aafa9b2ee7441caeab59b882d51ca3848d04bb063439eaf16707e8fcc9c"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/510500_hold_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/510500_hold_curve.csv",
+    "bytes": 300267,
+    "sha256": "7e3f08fcda4a5e999f0af5b8370acf5ef126efc5ecfd7c413e69fd562f6b5965"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/510500_secondary_focus_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/510500_secondary_focus_curve.csv",
+    "bytes": 293530,
+    "sha256": "5702a7f119f675def58088b4fc7319a2532a674bef7d049ed2e3aaa322bf76a9"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/510500_secondary_focus_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/510500_secondary_focus_trades.csv",
+    "bytes": 4879,
+    "sha256": "91d6803f8a9a29382c09d9e63035bca8f4e4bd645f9278c8a44f4503c5354a47"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/510500_selected_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/510500_selected_curve.csv",
+    "bytes": 293619,
+    "sha256": "c9b238f3e68ccc4f7b77bd17a68b03f2292446a1ed338293d1611f626e49d94f"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/510500_selected_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/510500_selected_trades.csv",
+    "bytes": 295,
+    "sha256": "a4288aafa9b2ee7441caeab59b882d51ca3848d04bb063439eaf16707e8fcc9c"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/588000_focus_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/588000_focus_curve.csv",
+    "bytes": 71452,
+    "sha256": "a2c032b3a1d548eb3857e07f1ef1d91544330849508cd51f97726b69a48baf54"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/588000_focus_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/588000_focus_trades.csv",
+    "bytes": 6239,
+    "sha256": "14d34d1ba8cea5bdaf73ea574d9a287e776184362b90b6656abbd7750d5c91d3"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/588000_hold_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/588000_hold_curve.csv",
+    "bytes": 77619,
+    "sha256": "f12fb4b1f5c6f4b6a69ffa12853f1a0186b3da4c6a1d2611aa120179fb312fa0"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/588000_selected_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/588000_selected_curve.csv",
+    "bytes": 64128,
+    "sha256": "3aa10ea10f283dbe400bb8a19a30cbc6e5b89946e08c2ec3e27bcc5d44ab8c13"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/588000_selected_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/588000_selected_trades.csv",
+    "bytes": 853,
+    "sha256": "61c9ca4a37e2c6d95e98db1b0d44e5eddc1fcdb13a17507412622cd389c4332a"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/local_page.html",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/local_page.html",
+    "bytes": 462859,
+    "sha256": "0ce4fb016364489c805fe09985041312dcb0c0158e0b22fc425a9934e23ce909"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_individual/replacement_comparison.json",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_individual/replacement_comparison.json",
+    "bytes": 3746,
+    "sha256": "228e9ae8efe7aeb7a76c5d04b660be95d28f013899d9a2ce8c8c78cce073d479"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510300_fixed_hold_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510300_fixed_hold_curve.csv",
+    "bytes": 322722,
+    "sha256": "8093b3d810220b18f0cdfa16bdb6fb28b6938a1bfa8c80353c042d7fd6821889"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510300_fixed_hold_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510300_fixed_hold_trades.csv",
+    "bytes": 117,
+    "sha256": "3c9e839551dd995a2a5e3130109e0c16278207b19435ecc947ee3cfe438e4961"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510300_fixed_strategy_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510300_fixed_strategy_curve.csv",
+    "bytes": 290980,
+    "sha256": "cfd72c3c3773877243fa567acc75e026c6ccc34c353e82e7b8e2e42cf45b03ca"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510300_fixed_strategy_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510300_fixed_strategy_trades.csv",
+    "bytes": 852,
+    "sha256": "bc83207e33c7af36bb2f0a6642bc45640bf2049da6ffbf934a1b215ac4f2492d"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510300_monthly_hold_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510300_monthly_hold_curve.csv",
+    "bytes": 314880,
+    "sha256": "cfc0fec6652e2c70bd287571981129ee69e5dbe4e1a7aaa39975181406515d15"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510300_monthly_hold_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510300_monthly_hold_trades.csv",
+    "bytes": 8677,
+    "sha256": "fae79902c39862ab4937df1bb53e2a5d5cf70b439d6b2bbe4a2ba712d8772d13"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510300_monthly_strategy_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510300_monthly_strategy_curve.csv",
+    "bytes": 290624,
+    "sha256": "c81b315bb25511e93d3d8e6e2dea628c3841ecf4a5c57bcbe5e90d10041a9960"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510300_monthly_strategy_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510300_monthly_strategy_trades.csv",
+    "bytes": 2742,
+    "sha256": "3c8eeaaf9bc3220e3d2ee7eb6642f422e1eb2d7d4a391b0b7b9b0572ad49dae2"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510500_fixed_hold_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510500_fixed_hold_curve.csv",
+    "bytes": 300267,
+    "sha256": "27b7135c5073c54e010f82f0f7db757c2e4c40a7239e76de5465f854c8c0aed1"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510500_fixed_hold_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510500_fixed_hold_trades.csv",
+    "bytes": 100,
+    "sha256": "49c9122a1595f34bf656da08cec09807508d1df25d9c24312bd7d4bbf00abd28"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510500_fixed_strategy_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510500_fixed_strategy_curve.csv",
+    "bytes": 241959,
+    "sha256": "016082922801d5a71e737726d0416ae38dceef104ff1ca03dbdef28fd157a3b7"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510500_fixed_strategy_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510500_fixed_strategy_trades.csv",
+    "bytes": 431,
+    "sha256": "544d52dbd2f7140d82e3bb5710794307f579b6e71aee90060ab9412b54fb05a8"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510500_monthly_hold_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510500_monthly_hold_curve.csv",
+    "bytes": 298401,
+    "sha256": "9fe65e44fa9fb26111927afc259308496864d0d9a8f7f9d355e0923e7a4e15cc"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510500_monthly_hold_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510500_monthly_hold_trades.csv",
+    "bytes": 8113,
+    "sha256": "0667e43cf20b473e6552b2b15eed0a949fd4214b3f05248e2b239184f352f1f5"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510500_monthly_strategy_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510500_monthly_strategy_curve.csv",
+    "bytes": 245448,
+    "sha256": "4c6a368d29c3e6e210f15d6452ea13395837cdb7bab114b80a2a73d31681307e"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/510500_monthly_strategy_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/510500_monthly_strategy_trades.csv",
+    "bytes": 2265,
+    "sha256": "bab6137eb89f59d0978813040883733318bdf3c81a2178993fddccaba81f6bb5"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/588000_fixed_hold_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/588000_fixed_hold_curve.csv",
+    "bytes": 30441,
+    "sha256": "8b442c84b8d314760816b54e9f4861bcfa3c9d61668ce591f7b00f4a7b01947b"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/588000_fixed_hold_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/588000_fixed_hold_trades.csv",
+    "bytes": 100,
+    "sha256": "93529453679a6ce3f9d7467edd3d6bce5450704df04f4050bcf942feb28aaea6"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/588000_fixed_strategy_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/588000_fixed_strategy_curve.csv",
+    "bytes": 15044,
+    "sha256": "6a036c594ebe7e1adc3cc8b0fc29a93037f4757719ffa43c6273e11eabc4ab8f"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/588000_fixed_strategy_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/588000_fixed_strategy_trades.csv",
+    "bytes": 2,
+    "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/588000_monthly_hold_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/588000_monthly_hold_curve.csv",
+    "bytes": 29529,
+    "sha256": "db3294567835fbb514b9a0c144053606a10b233f2a5a7472c9b08aad640063b1"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/588000_monthly_hold_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/588000_monthly_hold_trades.csv",
+    "bytes": 848,
+    "sha256": "0bbb28bd63cdcc4e2433ee395ca9f7069c51a0f468c68f5ba0f889137b8ab667"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/588000_monthly_strategy_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/588000_monthly_strategy_curve.csv",
+    "bytes": 13583,
+    "sha256": "bd65abeaa47795efd3974dec0b1ffce459614974f7ccb182bed13fbd8f03acd9"
+  },
+  {
+    "action": "archive",
+    "path": "results/broad_valuation/588000_monthly_strategy_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/broad_valuation/588000_monthly_strategy_trades.csv",
+    "bytes": 2,
+    "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/page_script_0.js",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/page_script_0.js",
+    "bytes": 7869,
+    "sha256": "823edd2bc178f7861da30d9b2676b67af8dc8fcdb8251d0d8f6019b81c8d063c"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/page_script_1.js",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/page_script_1.js",
+    "bytes": 18013,
+    "sha256": "f8e84b45848799771c9a7a0c3835ca7144ae83f1433c06f4a7ce5394144ca16f"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/page_script_2.js",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/page_script_2.js",
+    "bytes": 40824,
+    "sha256": "8265f4ac21de751ce291c216320ebb67853d48c52ca0f4aa73e4e7bb583ea9b8"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/仅20日涨幅15%_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/仅20日涨幅15%_curve.csv",
+    "bytes": 75936,
+    "sha256": "73490f098514612ab630f4b77ea1f174ab6a85250995b74b1f13aaf5ac6d12ec"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/仅20日涨幅15%_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/仅20日涨幅15%_trades.csv",
+    "bytes": 2381,
+    "sha256": "005d53babca0756d6a9b6ffb795b1e0534377fb70bee34fb515511fc59a5e15e"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/仅60日偏离15%_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/仅60日偏离15%_curve.csv",
+    "bytes": 75982,
+    "sha256": "2cb19b07055cd6c5fe319378fad73382226901b6121aedffddf613a20aafe1c0"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/仅60日偏离15%_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/仅60日偏离15%_trades.csv",
+    "bytes": 2391,
+    "sha256": "b4eee227cc6765e0816da0266e922648d0c8a4d2e1c67ee7ecec4192e94901dc"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/双指标10%减半后转弱退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/双指标10%减半后转弱退出_curve.csv",
+    "bytes": 75636,
+    "sha256": "bb8d4440824d19451572de178a4ccc46692b6d818dcdf8af774a07e578c27520"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/双指标10%减半后转弱退出_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/双指标10%减半后转弱退出_trades.csv",
+    "bytes": 2719,
+    "sha256": "9d4b01eaab34ee7cc0cb68c59437227a9c2e7a55f961fa19465cb2333eba23a1"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/双指标15%减半后转弱退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/双指标15%减半后转弱退出_curve.csv",
+    "bytes": 75936,
+    "sha256": "73490f098514612ab630f4b77ea1f174ab6a85250995b74b1f13aaf5ac6d12ec"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/双指标15%减半后转弱退出_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/双指标15%减半后转弱退出_trades.csv",
+    "bytes": 2381,
+    "sha256": "005d53babca0756d6a9b6ffb795b1e0534377fb70bee34fb515511fc59a5e15e"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/双指标15%只减半_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/双指标15%只减半_curve.csv",
+    "bytes": 76131,
+    "sha256": "b621eac26d05c6011c261aa50c8ae6ccc893134ffc46a65c09069305f8a0413a"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/双指标15%只减半_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/双指标15%只减半_trades.csv",
+    "bytes": 2277,
+    "sha256": "c8d1f799c7f8b2edcc5f3705cc639dbe71f1304ac7f708de733a6cc41ef6caa4"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/双指标20%减半后转弱退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/双指标20%减半后转弱退出_curve.csv",
+    "bytes": 76173,
+    "sha256": "ec2948691839f0b6f0f745e2a99910a00741a7d320a1b39188d104c33eb2eedf"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/双指标20%减半后转弱退出_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/双指标20%减半后转弱退出_trades.csv",
+    "bytes": 2256,
+    "sha256": "93c6dc00ac12b07b0fa21078a476cd181eea64c49518058f44bf0e7098775394"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/普通120日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/普通120日均线_curve.csv",
+    "bytes": 76291,
+    "sha256": "492c54132b6e648b14017e021de3db788f56da3d0c03e4b60ae74b66713de4ac"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/普通120日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/普通120日均线_trades.csv",
+    "bytes": 1949,
+    "sha256": "11299b2b197e90bc1de56731a82680648de7d5d0fd4d9b630fab61a6a8360ddb"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/长期持有_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/长期持有_curve.csv",
+    "bytes": 76727,
+    "sha256": "870f3eb188ca8e42519c106e78801e46d9df65835514531d245481691fae7aab"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/长期持有_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/长期持有_trades.csv",
+    "bytes": 94,
+    "sha256": "5da16ae760b6d586c803861d32b8f753e3c03fe9fcc8ba66259bb558a2b9df9f"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/长期持有加10%过热减半_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/长期持有加10%过热减半_curve.csv",
+    "bytes": 77537,
+    "sha256": "5d64d0ac0f97b5947c1502f1f5702c58f4990c9836fddc41977313b4c878343f"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/长期持有加10%过热减半_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/长期持有加10%过热减半_trades.csv",
+    "bytes": 674,
+    "sha256": "15a46e614c76f119101762f2442990b088953889796ea4a9c1a14333f65d55a2"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/长期持有加15%过热减半_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/长期持有加15%过热减半_curve.csv",
+    "bytes": 76661,
+    "sha256": "938be46ea81c59ddb1c419dc6ab60e9be34823dd8cfeca1acf2c17551816c5e1"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/长期持有加15%过热减半_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/长期持有加15%过热减半_trades.csv",
+    "bytes": 437,
+    "sha256": "dcb3ee9234c2af610541f823d2bec4cc4604ac66a7f4f2580a3a6f06894c58d6"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/长期持有加15%过热减半转弱退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/长期持有加15%过热减半转弱退出_curve.csv",
+    "bytes": 76609,
+    "sha256": "4a3171df7e3284003afc57df38f7ec809357aaee46e18b2693e7af0afd5ed3e1"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/长期持有加15%过热减半转弱退出_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/长期持有加15%过热减半转弱退出_trades.csv",
+    "bytes": 548,
+    "sha256": "45ac50b0f4ef8b716043790d4177ebdc1c2f531d38b8316e3fae3df589869191"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/长期持有加20%过热减半_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/长期持有加20%过热减半_curve.csv",
+    "bytes": 76842,
+    "sha256": "485ae0a64934d0880e3b3bf170a26d83a6e43e54e1b00c59d8755a4fe4d91e53"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_heat/长期持有加20%过热减半_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_heat/长期持有加20%过热减半_trades.csv",
+    "bytes": 326,
+    "sha256": "341772c23c5f4021867e589110008dc20cf90649d21ee7760522426b2f2d1f02"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_rebound/回撤10%买入_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_rebound/回撤10%买入_curve.csv",
+    "bytes": 46595,
+    "sha256": "c62f1a1587722a3ca3e06740a20deaca7a9fea404effd54e205f30e17c6c980f"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_rebound/回撤10%买入_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_rebound/回撤10%买入_trades.csv",
+    "bytes": 295,
+    "sha256": "8aa33fb36f81620f03aa063b7068415fc797d6a50951fcb6f318314275d79711"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_rebound/回撤15%买入_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_rebound/回撤15%买入_curve.csv",
+    "bytes": 46570,
+    "sha256": "ec6631e0d560b81bd650fd7fd10dbdf141889cbc5539b6937ee67d3f077713bb"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_rebound/回撤15%买入_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_rebound/回撤15%买入_trades.csv",
+    "bytes": 140,
+    "sha256": "0f8edf14f91a551b3fba5b881f5a43dac304e6dd84d194269311a8ab16810ae9"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_rebound/回撤5%买入_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_rebound/回撤5%买入_curve.csv",
+    "bytes": 46449,
+    "sha256": "8adb642c8a9a96a7a9ee570ecac16e9a4a5fae57f1dd87c47744e4e2f8a56ee9"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_rebound/回撤5%买入_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_rebound/回撤5%买入_trades.csv",
+    "bytes": 517,
+    "sha256": "6893c13978513b4f51dce559c15e4362fea56626bb03b6f41595f1a9a67e6aed"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_rebound/长期持有_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_rebound/长期持有_curve.csv",
+    "bytes": 45873,
+    "sha256": "731b7ca43def02a376bef8361dcd0fd80c12ce5672da74d1ccfad5d7130a6cdf"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_rebound/长期持有_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_rebound/长期持有_trades.csv",
+    "bytes": 72,
+    "sha256": "7302da260df9ad9ce6eac0a7f2714d6fbb1d3049ecdda56649d1b957060d003f"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/120日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/120日均线_curve.csv",
+    "bytes": 45914,
+    "sha256": "f3f61ea3d0448856f1944f0ff14f2a9dc079679096df7f782f805b3d5e8d9f2f"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/120日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/120日均线_trades.csv",
+    "bytes": 1425,
+    "sha256": "a1404ade4cf09a7a3d0f377f2e74bf5b1cb0a9a71f865e439284688002f21a80"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/120日均线向上_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/120日均线向上_curve.csv",
+    "bytes": 45742,
+    "sha256": "380dfcfa405938ef62775db5301b718cc25822624c9334eda1c937d66b3a5abf"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/120日均线向上_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/120日均线向上_trades.csv",
+    "bytes": 724,
+    "sha256": "1d47e85e6ad5ca6a9b34542efde1e79deb33398dc02f772d0c596bd32eeb1b70"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/200日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/200日均线_curve.csv",
+    "bytes": 45264,
+    "sha256": "0049ec360e1093514707d022da972db7ac7a9b92dbaa13e1ab7a5bb106aec3d7"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/200日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/200日均线_trades.csv",
+    "bytes": 1222,
+    "sha256": "28e5458c10b374a3020cb9d4c0e177642ed0828b513d77c092638821895ad989"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/20日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/20日均线_curve.csv",
+    "bytes": 45383,
+    "sha256": "a2d393dff7df21453696cb2df0e80ca69a558eb4b78b994a115aa3fac27d7046"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/20日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/20日均线_trades.csv",
+    "bytes": 6680,
+    "sha256": "3835487141cd87aa40d7cf4de81b608f6a912da3ff8c759b6dba0c5da91e2313"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/60日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/60日均线_curve.csv",
+    "bytes": 46024,
+    "sha256": "b010f081c27d755736563b8bedb92fb88f8a9fea367f7f53747cc88fdf8deb8d"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/60日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/60日均线_trades.csv",
+    "bytes": 3139,
+    "sha256": "7ce870081cbebcf5421013de4f10a4373a0170472067869d01a062b77938d51b"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/回撤5%买入、跌破120日线退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/回撤5%买入、跌破120日线退出_curve.csv",
+    "bytes": 46188,
+    "sha256": "f6f7e08e636a20cb4afc1457bf2bb98051e3a53a4730159bf24aa31a6634bda1"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/回撤5%买入、跌破120日线退出_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/回撤5%买入、跌破120日线退出_trades.csv",
+    "bytes": 1424,
+    "sha256": "16a26e69a7739b303a030cec4a3f6cc2e6abbab4858b19cab9d5b94cdc25a77e"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/长期持有_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/长期持有_curve.csv",
+    "bytes": 45873,
+    "sha256": "731b7ca43def02a376bef8361dcd0fd80c12ce5672da74d1ccfad5d7130a6cdf"
+  },
+  {
+    "action": "archive",
+    "path": "results/gold_strategy/长期持有_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/gold_strategy/长期持有_trades.csv",
+    "bytes": 72,
+    "sha256": "7302da260df9ad9ce6eac0a7f2714d6fbb1d3049ecdda56649d1b957060d003f"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_drop_research/510300_events.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_drop_research/510300_events.csv",
+    "bytes": 33507,
+    "sha256": "01e901359818bfdddb5eaeb617cb35bb3fecbcd457f683f21627829cd15edd10"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_drop_research/510300_first_touch_5pct.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_drop_research/510300_first_touch_5pct.csv",
+    "bytes": 10952,
+    "sha256": "4d67f1d423bc59df70d411c4c7c05d7211071b066610e9880234115d839b8a70"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_drop_research/510500_events.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_drop_research/510500_events.csv",
+    "bytes": 31633,
+    "sha256": "1be4c23a931d553dac323f0cc86b327e516bea626acfb189887d93022105155a"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_drop_research/510500_first_touch_5pct.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_drop_research/510500_first_touch_5pct.csv",
+    "bytes": 10057,
+    "sha256": "9b292c94bedc59c762dd1c2efd8a8c5fb20414bfbc48fe29ac6ab1daa6ecbcb2"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_drop_research/588000_events.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_drop_research/588000_events.csv",
+    "bytes": 13429,
+    "sha256": "cdf11d6a4874b0bc275b2d04ad96b8bdaf54d06c51ff4ba6de3a59e44a089998"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_drop_research/588000_first_touch_5pct.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_drop_research/588000_first_touch_5pct.csv",
+    "bytes": 7061,
+    "sha256": "0b42195622229a952b3937db56c4a43a65599d96ffbcdb197f23b8df038b3cc6"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_drop_research/drawdown_intervals.json",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_drop_research/drawdown_intervals.json",
+    "bytes": 1886,
+    "sha256": "2fd175273f9956c21dce140eefbafb536311d290534f565363e0a49c519d065c"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_execution/513100_dca_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_execution/513100_dca_curve.csv",
+    "bytes": 278653,
+    "sha256": "93e86cdf22fbd53248e0ef75d661212a4c1e7914b9f93b0d0201cf7e9873febe"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_execution/513100_dca_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_execution/513100_dca_trades.csv",
+    "bytes": 8141,
+    "sha256": "b44a6692e3d2a5239fbbb406179aa94ad97ccb178d085f925f34b832e1525306"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_execution/513100_half_dca_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_execution/513100_half_dca_curve.csv",
+    "bytes": 278611,
+    "sha256": "7e1023f476403b66b4a8c9e1369d729fad5cab8f8aaac7d83e0136739784ed8d"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_execution/513100_half_dca_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_execution/513100_half_dca_trades.csv",
+    "bytes": 8131,
+    "sha256": "6ae659de64425e7d37aefb668a3000658b57b840ff76be02907eea0fd83e524a"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_execution/513100_strategy_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_execution/513100_strategy_curve.csv",
+    "bytes": 271762,
+    "sha256": "0bb3c311297424859ef19f3db818f98ac4ca5bd2705a6505d14829673ef31d2e"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_execution/513100_strategy_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_execution/513100_strategy_trades.csv",
+    "bytes": 8584,
+    "sha256": "9acc4e83dbc4b81e65f0f6e8e3fc4830e28e72ea54d9347781f9f516e523c566"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_execution/513500_dca_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_execution/513500_dca_curve.csv",
+    "bytes": 280387,
+    "sha256": "8aa7d9914d0e58b2ae8323557a875870dd70fca05ef2681781066946ac538f64"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_execution/513500_dca_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_execution/513500_dca_trades.csv",
+    "bytes": 8135,
+    "sha256": "a255c525ed9b8fcfe108c5d696f46a38f4bb4c65476e56589d54716f4d512ac6"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_execution/513500_half_dca_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_execution/513500_half_dca_curve.csv",
+    "bytes": 272443,
+    "sha256": "7198915ca40bafb0f5d9413c1a70d6abfa592c2691db6a92412290e04a5bd22a"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_execution/513500_half_dca_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_execution/513500_half_dca_trades.csv",
+    "bytes": 8135,
+    "sha256": "648439d1aa5f9e7cfdc4f0d15088caec878b051320a28c6c3f9887d735d0b416"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_execution/513500_strategy_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_execution/513500_strategy_curve.csv",
+    "bytes": 266896,
+    "sha256": "32d619075e9ec64ee94ee92be603bb623f73b8cd2b33d928417b604828477d77"
+  },
+  {
+    "action": "archive",
+    "path": "results/monthly_execution/513500_strategy_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/monthly_execution/513500_strategy_trades.csv",
+    "bytes": 8852,
+    "sha256": "e59200d0ae9c00ef1a6d1c05537d2fbce0ab6d614ea34725d5fb32fba4a3a125"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/512760_75%预算、2%回调加仓_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/512760_75%预算、2%回调加仓_curve.csv",
+    "bytes": 89101,
+    "sha256": "3c5dd8ebfb62574057c1334b76c6bf20cc0bb0e5dcda35ed73a22b99b7edcf93"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/512760_75%预算、2%回调加仓_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/512760_75%预算、2%回调加仓_trades.csv",
+    "bytes": 13443,
+    "sha256": "bf52f5d55b938c7ba41b19fb71bdb098386f57131b5a2a8642cdcafcd3bdb4b0"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/512760_半预算、1%回调加仓_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、1%回调加仓_curve.csv",
+    "bytes": 89219,
+    "sha256": "324f0fc000a0071bbe956d7892a6edadee8f4d6849a60f3a164efd6f6a5b21c9"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/512760_半预算、1%回调加仓_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、1%回调加仓_trades.csv",
+    "bytes": 12478,
+    "sha256": "0ce4e17294c4f734201f61bd73512034148ae9525a9fb719cc6bac2188101c5d"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/512760_半预算、2%回调加仓_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、2%回调加仓_curve.csv",
+    "bytes": 89117,
+    "sha256": "f1a3f7ba4eff6dbe4b44effc1e213e8c36f76c1de14565210b51692f7b949488"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/512760_半预算、2%回调加仓_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、2%回调加仓_trades.csv",
+    "bytes": 12910,
+    "sha256": "fa814db762a18cf16371289bfd13d2bbbc577b037e6a39ce71e1b87e84086272"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/512760_半预算、3%回调加仓_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、3%回调加仓_curve.csv",
+    "bytes": 88981,
+    "sha256": "31969b6e35aad38533e8812a3458b7c32e74d8392aa712a5baac467ab1f2eea7"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/512760_半预算、3%回调加仓_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、3%回调加仓_trades.csv",
+    "bytes": 13459,
+    "sha256": "c7d38f898f2cd57447876a5dae8481a88625c9eddcfc7e9c7484252fc70c3b38"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/512760_半预算、不加仓_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、不加仓_curve.csv",
+    "bytes": 89085,
+    "sha256": "a1ec33bf76fffb6a01107e36a449a09f5fb595c41920817b85ab5b2087517769"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/512760_半预算、不加仓_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、不加仓_trades.csv",
+    "bytes": 10517,
+    "sha256": "19e2f98064dad52269384ffa220941fbd9539deb45ae632c1b20b6e9960ec8ad"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/512760_当前：首次全部买入_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/512760_当前：首次全部买入_curve.csv",
+    "bytes": 89213,
+    "sha256": "b6e06398daf93a691ebaa219f6366c07f9a18cd3f9cd15b835cd879bb399f7bd"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/512760_当前：首次全部买入_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/512760_当前：首次全部买入_trades.csv",
+    "bytes": 12333,
+    "sha256": "fea1e249db09f83a61104c70cdaeed7bde84cfed892409f4426f0c15be3c3e6c"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/588170_75%预算、2%回调加仓_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/588170_75%预算、2%回调加仓_curve.csv",
+    "bytes": 13175,
+    "sha256": "62a39f11a7cb0117effd73ba031c0fa27d0bc245f2e94a5adc301522378c696f"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/588170_75%预算、2%回调加仓_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/588170_75%预算、2%回调加仓_trades.csv",
+    "bytes": 1862,
+    "sha256": "a8db12d538d09d1a5ca2c96a7aeecd3ecccec7beb34d1c9fce69931eb28f620e"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/588170_半预算、1%回调加仓_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、1%回调加仓_curve.csv",
+    "bytes": 12939,
+    "sha256": "77822aa7a2c393b5fe517aeaaad2f5f1bc031f8aeae2daeb3ea66d7cfd174f2e"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/588170_半预算、1%回调加仓_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、1%回调加仓_trades.csv",
+    "bytes": 1703,
+    "sha256": "f6474c76adbe420b1b79905c7d383710c25b5066905d6df1f905f56a9d17c457"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/588170_半预算、2%回调加仓_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、2%回调加仓_curve.csv",
+    "bytes": 12939,
+    "sha256": "77822aa7a2c393b5fe517aeaaad2f5f1bc031f8aeae2daeb3ea66d7cfd174f2e"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/588170_半预算、2%回调加仓_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、2%回调加仓_trades.csv",
+    "bytes": 1703,
+    "sha256": "f6474c76adbe420b1b79905c7d383710c25b5066905d6df1f905f56a9d17c457"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/588170_半预算、3%回调加仓_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、3%回调加仓_curve.csv",
+    "bytes": 12996,
+    "sha256": "59a63c4c7460383b9d62568d1a27f37a43371285ec3308abcb4b386ec457e524"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/588170_半预算、3%回调加仓_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、3%回调加仓_trades.csv",
+    "bytes": 1863,
+    "sha256": "99eea223336d068b319130cb396767627288773e7fa8b7f5e990e5255ca2ad7b"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/588170_半预算、不加仓_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、不加仓_curve.csv",
+    "bytes": 12955,
+    "sha256": "7480713d6baab78b7a384a92d59de466c67c47f935a08c62ed62f3565ed7fdf9"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/588170_半预算、不加仓_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、不加仓_trades.csv",
+    "bytes": 1578,
+    "sha256": "93c153c315e86b82a8655f54be19bd51907243067a612302e48b211ad18aed19"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/588170_当前：首次全部买入_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/588170_当前：首次全部买入_curve.csv",
+    "bytes": 13201,
+    "sha256": "c9a0d291aa48598ce07eaa8840a582ee2476d7eaa87da9e6ba612bc29d2d9a9d"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_add/588170_当前：首次全部买入_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_add/588170_当前：首次全部买入_trades.csv",
+    "bytes": 1790,
+    "sha256": "ffb39a382ed34f1ae908b6f3ed4ba37a2caccdd652de0da95be7e88f096b0d17"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_20日·上下1%缓冲_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·上下1%缓冲_curve.csv",
+    "bytes": 59734,
+    "sha256": "ed8fe2663011080972e01b53cc7df3a89be845115b1f30576d0a9b1351a67bb7"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_20日·上下1%缓冲_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·上下1%缓冲_trades.csv",
+    "bytes": 4079,
+    "sha256": "7c2ec7f4016d6d1117495bcdf81fbf94a62970aaab4896799a5dfd523c80b2f8"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_20日·上下2%缓冲_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·上下2%缓冲_curve.csv",
+    "bytes": 59597,
+    "sha256": "d109ddc524c7999cccff34741d8e84a63eb12f87d2f267bfa41d5adccd645aab"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_20日·上下2%缓冲_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·上下2%缓冲_trades.csv",
+    "bytes": 2956,
+    "sha256": "2f88f7b81a077c0487b9839746679bfe6d5800c7e20ff3f9b792832fa25bc249"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_20日·买入确认2天_卖出立即_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·买入确认2天_卖出立即_curve.csv",
+    "bytes": 59927,
+    "sha256": "0e8e358c013258ce91d8a36ff9ce53d50d98ec240d291f5a692b2ec8e6915b04"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_20日·买入确认2天_卖出立即_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·买入确认2天_卖出立即_trades.csv",
+    "bytes": 4889,
+    "sha256": "9ef4ea80dc78e27d88a8a6fe5043f3355a04fd98b29a5295de90509b3baec4c1"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_20日·买卖均确认2天_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·买卖均确认2天_curve.csv",
+    "bytes": 59859,
+    "sha256": "7030a06a1413889ee68760c47990fed807c0a108f16e03875d594157e43e6f1f"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_20日·买卖均确认2天_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·买卖均确认2天_trades.csv",
+    "bytes": 4221,
+    "sha256": "bcf92cc53a1019faaa9e9c6fe12787e811bbab531241f8c6dbd8d3e07282e342"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_20日·买卖均确认3天_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·买卖均确认3天_curve.csv",
+    "bytes": 59559,
+    "sha256": "052f6ed1a843977d7b23756ab27b88dacf0c11e5ccd5ad84d084855799af4f67"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_20日·买卖均确认3天_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·买卖均确认3天_trades.csv",
+    "bytes": 3351,
+    "sha256": "7eab6def292d20f9a8e32e6192e4577e8f9a274b909f0c13f2cfebbb79759d48"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_20日·立即判断_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·立即判断_curve.csv",
+    "bytes": 59721,
+    "sha256": "76fc5f7dbe2e6052dc4e509e93b943ecd906ac83e57f790a2b0a794a6e23bfe2"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_20日·立即判断_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·立即判断_trades.csv",
+    "bytes": 6479,
+    "sha256": "13b9d7347c93cd781d9eece725ceb139d34267bed8c944f8d429b337a339cd30"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_30日·上下1%缓冲_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·上下1%缓冲_curve.csv",
+    "bytes": 60061,
+    "sha256": "4a29546425251d4d532a870e2083062eb2b62e681c632483fdb56856ccc4a41f"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_30日·上下1%缓冲_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·上下1%缓冲_trades.csv",
+    "bytes": 3162,
+    "sha256": "ddd2849d6ba0520ac443240107a25f4662527c44fe6e7e1d811c4c5a5a7d5d9f"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_30日·上下2%缓冲_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·上下2%缓冲_curve.csv",
+    "bytes": 60049,
+    "sha256": "e8d1abebd14e078d284350dc9d4049e93fa722d1958019cf17cc10424e5063ac"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_30日·上下2%缓冲_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·上下2%缓冲_trades.csv",
+    "bytes": 2602,
+    "sha256": "663bd03a76a8750e4d14f64fc8a79d5dda81d37bf1054d42e8b342a646f8d871"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_30日·买入确认2天_卖出立即_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·买入确认2天_卖出立即_curve.csv",
+    "bytes": 59677,
+    "sha256": "dc82fa971d566de413e9270ab7b1f5302a62732eea99ea1d68a02dbd5a10b193"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_30日·买入确认2天_卖出立即_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·买入确认2天_卖出立即_trades.csv",
+    "bytes": 4009,
+    "sha256": "395b57e46979804bb78c723f34a7997b717273fc9062a9e056dc42b68e4fbf5d"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_30日·买卖均确认2天_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·买卖均确认2天_curve.csv",
+    "bytes": 59773,
+    "sha256": "bfaa546fdf521c418de840d2d9c73b39c7056a41e992cf77d3e0c4afdaae0023"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_30日·买卖均确认2天_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·买卖均确认2天_trades.csv",
+    "bytes": 3374,
+    "sha256": "9c70dccc1d296a2dc529f7528cc52b75eb5f3022955f31bae5c93bc2dad9ba95"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_30日·买卖均确认3天_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·买卖均确认3天_curve.csv",
+    "bytes": 59881,
+    "sha256": "8d67f02f4ef8eaf632a1f9d8b13e9b7bece84c9dc9348a61ec4e552b6deba676"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_30日·买卖均确认3天_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·买卖均确认3天_trades.csv",
+    "bytes": 2922,
+    "sha256": "44f0f0e0106b03599e422448d1bd06627080d876f46ac05d2698f8e5fed42178"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_30日·立即判断_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·立即判断_curve.csv",
+    "bytes": 59812,
+    "sha256": "13f19e08077daa9bb3371ed15ce633fe2b7f1841043efb9f5b574709c59f1b3c"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_30日·立即判断_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·立即判断_trades.csv",
+    "bytes": 5072,
+    "sha256": "13bf17325bf10f5f2132838a3dd3034d1b36abfd7ad8c9143a65b90ca4d0bea0"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_持有不择时_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_持有不择时_curve.csv",
+    "bytes": 57896,
+    "sha256": "c40fc52208ba20f5537cd4b7909c9576d505b6d8d129790caef87d875cae8a5b"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/512760_持有不择时_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/512760_持有不择时_trades.csv",
+    "bytes": 74,
+    "sha256": "d35a41fb75080e39d49263e792a16e0ec8d6f8e9372bb3e6b65954ff492855c1"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_20日·上下1%缓冲_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·上下1%缓冲_curve.csv",
+    "bytes": 8753,
+    "sha256": "5ecb1ed23f10b8ce3a88dd6d358547ba7faba72195f76ef7253ec87a11607dd5"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_20日·上下1%缓冲_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·上下1%缓冲_trades.csv",
+    "bytes": 952,
+    "sha256": "09fa3ed49fba2638dcdd106d5bbe90dec556d8db0893ffb2cb98456321e84c17"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_20日·上下2%缓冲_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·上下2%缓冲_curve.csv",
+    "bytes": 8701,
+    "sha256": "d5459244a461b35246d3cc8055c5b4c1489568e3ef1d45d51ab9f895fc196171"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_20日·上下2%缓冲_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·上下2%缓冲_trades.csv",
+    "bytes": 837,
+    "sha256": "659c83b69b3016283e36538949a976dab90ed935f4dbc1d6613996640cc5bbc5"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_20日·买入确认2天_卖出立即_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·买入确认2天_卖出立即_curve.csv",
+    "bytes": 8738,
+    "sha256": "13a3db56a3a1c8c4d6b90d4f534d51ed9a4c9eebd48144c8a9d075d4164970f0"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_20日·买入确认2天_卖出立即_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·买入确认2天_卖出立即_trades.csv",
+    "bytes": 849,
+    "sha256": "62658d45287a33b40101b9c0b2964d5e2826d0c7d92adf0e8e686a4491554bcf"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_20日·买卖均确认2天_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·买卖均确认2天_curve.csv",
+    "bytes": 8717,
+    "sha256": "515cf79b7155ee5054ea956b2c88977a2173fc160aede9f8d598a4d13f9d69c4"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_20日·买卖均确认2天_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·买卖均确认2天_trades.csv",
+    "bytes": 760,
+    "sha256": "c1bf7de6695e87592b5ead973564852f307a7a5a2b350376691757b03695175b"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_20日·买卖均确认3天_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·买卖均确认3天_curve.csv",
+    "bytes": 8711,
+    "sha256": "0bf068f58840babe099468747d569f30a93f812ee74af1117a11a83739155367"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_20日·买卖均确认3天_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·买卖均确认3天_trades.csv",
+    "bytes": 724,
+    "sha256": "80b2b8f222dedb07d3237ccea08465365a868df7914111a1e6464427eb909bb8"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_20日·立即判断_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·立即判断_curve.csv",
+    "bytes": 8755,
+    "sha256": "8b84369a5f9473a88c65057866332467d403721dd9d3e8daa26452476eb85f0f"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_20日·立即判断_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·立即判断_trades.csv",
+    "bytes": 987,
+    "sha256": "54985b04051c766345a11ce7fb2f0001b0481eab5e82ea93f062ba787ffcb647"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_30日·上下1%缓冲_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·上下1%缓冲_curve.csv",
+    "bytes": 8639,
+    "sha256": "d8a2d93730ea6fb4d181fdbbe48f123a5e0f04c9c9ac3fd0e83164739fa4266c"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_30日·上下1%缓冲_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·上下1%缓冲_trades.csv",
+    "bytes": 590,
+    "sha256": "ca8fac387f3b0d5608c95f5e9690a19dcf5025b1cf172a07d69ae4162ecde7a5"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_30日·上下2%缓冲_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·上下2%缓冲_curve.csv",
+    "bytes": 8791,
+    "sha256": "130ff0b1ba8163c48fa4373d9188ab4554358fd66a7242d4d0d4b37279d1bf49"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_30日·上下2%缓冲_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·上下2%缓冲_trades.csv",
+    "bytes": 520,
+    "sha256": "e38c6500cf9e09afdc1712858c833ea41c50deb7150c0e37514bff3feed817bf"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_30日·买入确认2天_卖出立即_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·买入确认2天_卖出立即_curve.csv",
+    "bytes": 8778,
+    "sha256": "d55710d7066245da5d1cf2ef6bc52f33bf3740c932aebc3b0675bc23cf86e90e"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_30日·买入确认2天_卖出立即_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·买入确认2天_卖出立即_trades.csv",
+    "bytes": 848,
+    "sha256": "484b516cc29b23cabfcc3c757c8093b061f9381fdfcef59ba91fc280cdeb8d7f"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_30日·买卖均确认2天_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·买卖均确认2天_curve.csv",
+    "bytes": 8735,
+    "sha256": "95d8071d45bb0acf43a99b4e3dd613c6f6a56ffbedb46408428746d0f51a0aca"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_30日·买卖均确认2天_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·买卖均确认2天_trades.csv",
+    "bytes": 681,
+    "sha256": "70554b733d49e658ef9e3b92d07140ee11726196ff3fe73353e5edac30879a73"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_30日·买卖均确认3天_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·买卖均确认3天_curve.csv",
+    "bytes": 8778,
+    "sha256": "6293ba4b85db9dc01ae97430d954654ac805c3242e9a66595f88794b1ae85d83"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_30日·买卖均确认3天_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·买卖均确认3天_trades.csv",
+    "bytes": 484,
+    "sha256": "10e0a754ce9b6091de810ef7367d1e7a4cf9faa3a3588cad16363f96add6fbae"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_30日·立即判断_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·立即判断_curve.csv",
+    "bytes": 8782,
+    "sha256": "2851138804e7f968865ec349b9206f59ee8944f85335b5dfa8dd1efd69e7c87a"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_30日·立即判断_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·立即判断_trades.csv",
+    "bytes": 904,
+    "sha256": "0195d34e165f7e2ca586d66286adca90dafd612a55f5fbc2376f064773dd9512"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_持有不择时_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_持有不择时_curve.csv",
+    "bytes": 8587,
+    "sha256": "192a9be7ba5362b09d6874f1e3accc4314bb0d32dd059031785803f86928097f"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_confirmation/588170_持有不择时_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_confirmation/588170_持有不择时_trades.csv",
+    "bytes": 74,
+    "sha256": "a6cbf65930ec56e71fffedfa2bcbd244809479cd26bdfe22b4ff52c8e8e202ee"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/120日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/120日均线_curve.csv",
+    "bytes": 59724,
+    "sha256": "c230664f18e1edceb3f4254ce75ef90f952877911c09c955d22d03cee5090259"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/120日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/120日均线_trades.csv",
+    "bytes": 3282,
+    "sha256": "c4ef086342504916c244d83d573210e2f7fb4b32322ab6517b0b0b6ed59b35ae"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/20_60日均线交叉_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/20_60日均线交叉_curve.csv",
+    "bytes": 59982,
+    "sha256": "c5c82a165dfbab7a89a428dd51b3ece9b006a6a3cbd99faa2423949603fa5314"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/20_60日均线交叉_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/20_60日均线交叉_trades.csv",
+    "bytes": 1389,
+    "sha256": "41282d3ac051260932ee9fe7ee430219c49a263ffb9726cea9d5b984bcc8e118"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/20日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/20日均线_curve.csv",
+    "bytes": 59721,
+    "sha256": "76fc5f7dbe2e6052dc4e509e93b943ecd906ac83e57f790a2b0a794a6e23bfe2"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/20日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/20日均线_trades.csv",
+    "bytes": 6479,
+    "sha256": "13b9d7347c93cd781d9eece725ceb139d34267bed8c944f8d429b337a339cd30"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/60日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/60日均线_curve.csv",
+    "bytes": 59844,
+    "sha256": "920542282b8c7a8064b4e67209a2d7f2673f0474e8fddf22b43bc547f8e4d047"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/60日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/60日均线_trades.csv",
+    "bytes": 3966,
+    "sha256": "0bb34dae4a3065e449050815dbf151829112147daa430c3086f7994576eee557"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/60日均线±2%缓冲_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/60日均线±2%缓冲_curve.csv",
+    "bytes": 59762,
+    "sha256": "1bbb52db6c156ffb57b21590cfe62c471cee7d96c06c30607b789e99e169d8c5"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/60日均线±2%缓冲_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/60日均线±2%缓冲_trades.csv",
+    "bytes": 1803,
+    "sha256": "61f9289c9c290ba91597dd04c5aeffc67761aa300d252e74be8a76a233c1749f"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/60日均线向上_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/60日均线向上_curve.csv",
+    "bytes": 60112,
+    "sha256": "04d4131db15d7d38d7ca9ed6ef44f81c70de7ce9a8f7ae9e176336a8f1277115"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/60日均线向上_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/60日均线向上_trades.csv",
+    "bytes": 3479,
+    "sha256": "95e6eb31f4cd89f3c24eebefc6027b5ab7365f7cdd62c316290a8831b2d28369"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/持有不择时_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/持有不择时_curve.csv",
+    "bytes": 57896,
+    "sha256": "c40fc52208ba20f5537cd4b7909c9576d505b6d8d129790caef87d875cae8a5b"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_long_history/持有不择时_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_long_history/持有不择时_trades.csv",
+    "bytes": 74,
+    "sha256": "d35a41fb75080e39d49263e792a16e0ec8d6f8e9372bb3e6b65954ff492855c1"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/512760_先减半，连续2天线下退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_先减半，连续2天线下退出_curve.csv",
+    "bytes": 98218,
+    "sha256": "0c13890865527a1c074fb8bff8dcef95e6441e9425bc20de557fe9eb3c403a75"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/512760_先减半，连续2天线下退出_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_先减半，连续2天线下退出_trades.csv",
+    "bytes": 12333,
+    "sha256": "fea1e249db09f83a61104c70cdaeed7bde84cfed892409f4426f0c15be3c3e6c"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/512760_先减半，连续3天线下退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_先减半，连续3天线下退出_curve.csv",
+    "bytes": 98287,
+    "sha256": "f0a7cc951965c02608c3e5f0723e183a6537b3d1d4eb9612fbc7b1c3cf49629a"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/512760_先减半，连续3天线下退出_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_先减半，连续3天线下退出_trades.csv",
+    "bytes": 11787,
+    "sha256": "7571494306a36eeedcb5b1490cea20d32f49a7ed6f656bd73e2574649081d223"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/512760_跌破立即退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_跌破立即退出_curve.csv",
+    "bytes": 97952,
+    "sha256": "6b4dc30d11480c1280fc1c1cdba053c315796f953d28b9f8afec6fb58081e9b2"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/512760_跌破立即退出_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_跌破立即退出_trades.csv",
+    "bytes": 8999,
+    "sha256": "80d2b295df47a9ae3fc09464267ecbf3bcb4196d9c219561888cfc0d1501b0cd"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/512760_连续2天线下再全部退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_连续2天线下再全部退出_curve.csv",
+    "bytes": 98189,
+    "sha256": "6e60df0f02e09fc175bf01fd139fff3ea67dd7c7f00b273da42a568edf4aa776"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/512760_连续2天线下再全部退出_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_连续2天线下再全部退出_trades.csv",
+    "bytes": 6830,
+    "sha256": "08383596c210b58ed72b8d36966fd66f741486da667e5856a1e19aa9529afde2"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/588170_先减半，连续2天线下退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_先减半，连续2天线下退出_curve.csv",
+    "bytes": 14509,
+    "sha256": "6f50eff78c72c362c4c6e8d376275e66506172f5c056ba2fa5c0b98b6d9c93c6"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/588170_先减半，连续2天线下退出_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_先减半，连续2天线下退出_trades.csv",
+    "bytes": 1790,
+    "sha256": "ffb39a382ed34f1ae908b6f3ed4ba37a2caccdd652de0da95be7e88f096b0d17"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/588170_先减半，连续3天线下退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_先减半，连续3天线下退出_curve.csv",
+    "bytes": 14533,
+    "sha256": "874b27b8f227fe045f43be8c19a1e20ab301fdfcf177af32ca474562012b6444"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/588170_先减半，连续3天线下退出_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_先减半，连续3天线下退出_trades.csv",
+    "bytes": 1689,
+    "sha256": "94e2da13dbfc4969e65c03b4cc747f054fa5c61aa06fc84906778cd1e9f4504d"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/588170_跌破立即退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_跌破立即退出_curve.csv",
+    "bytes": 14446,
+    "sha256": "42696605c79f52bd2c16d4536738fe2203037351439333c94bc712bddc3020e1"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/588170_跌破立即退出_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_跌破立即退出_trades.csv",
+    "bytes": 1333,
+    "sha256": "30c8c79f8dc9a2c55fb4d3b7075983a595adcfc6d9c1204dcd1e763424fa7a28"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/588170_连续2天线下再全部退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_连续2天线下再全部退出_curve.csv",
+    "bytes": 14467,
+    "sha256": "394916eeeee39bef7bd61131bf15411fac8189d9f368bfd713cf8d7a56de1cc9"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_partial_exit/588170_连续2天线下再全部退出_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_连续2天线下再全部退出_trades.csv",
+    "bytes": 1244,
+    "sha256": "3dfb09c78bc71f9df339a7460b8d8d9fb3f7fb7b95e7193a5c5efbc79fc97023"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/120日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/120日均线_curve.csv",
+    "bytes": 8675,
+    "sha256": "60a99bfda97c057714249367729e8e757af13613ba02d88608efb16ca1deabe1"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/120日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/120日均线_trades.csv",
+    "bytes": 294,
+    "sha256": "5b7a0956ae10bb611e11e441a3d79cd8955dceb5f92ff75784e06103d531b141"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/20_60日均线交叉_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/20_60日均线交叉_curve.csv",
+    "bytes": 8703,
+    "sha256": "940f28af823ec6398679308534b7771a31f257f8f0020c235205f5b5eba9a3ae"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/20_60日均线交叉_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/20_60日均线交叉_trades.csv",
+    "bytes": 269,
+    "sha256": "55b1b5971fa9d544f86a300e29161a2dc658a5b18d0136d10072474e9ef44115"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/20日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/20日均线_curve.csv",
+    "bytes": 8755,
+    "sha256": "8b84369a5f9473a88c65057866332467d403721dd9d3e8daa26452476eb85f0f"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/20日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/20日均线_trades.csv",
+    "bytes": 987,
+    "sha256": "54985b04051c766345a11ce7fb2f0001b0481eab5e82ea93f062ba787ffcb647"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/60日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/60日均线_curve.csv",
+    "bytes": 8722,
+    "sha256": "bf9d7c23d00cb101f046f84bab817c67f9516a7d6041606eeed88070dc80bfef"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/60日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/60日均线_trades.csv",
+    "bytes": 777,
+    "sha256": "f93aa3647717e2ca5d3e0cff962981c79904e9a662273aee63ec6ecb1783cfa2"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/60日均线±2%缓冲_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/60日均线±2%缓冲_curve.csv",
+    "bytes": 8766,
+    "sha256": "69251a8750d4713fe309c4bf87533b8575f416e479341e112a6d7b41f5391cd0"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/60日均线±2%缓冲_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/60日均线±2%缓冲_trades.csv",
+    "bytes": 436,
+    "sha256": "547bc381dd5abfdf720cfeb70ab39c591d8a0e64416454fd0809a78b3149abcf"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/60日均线向上_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/60日均线向上_curve.csv",
+    "bytes": 8752,
+    "sha256": "b5d39ac65a03731e83d8757a0359202c236d1761c7eeaa78962ac9a829dfebb9"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/60日均线向上_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/60日均线向上_trades.csv",
+    "bytes": 867,
+    "sha256": "6f6da1380d3bdc3088fad9d2c4be08f14aa4c6e66cf3beb25954fc6f8cc57058"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/持有不择时_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/持有不择时_curve.csv",
+    "bytes": 8587,
+    "sha256": "192a9be7ba5362b09d6874f1e3accc4314bb0d32dd059031785803f86928097f"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_trend_research/持有不择时_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_trend_research/持有不择时_trades.csv",
+    "bytes": 74,
+    "sha256": "a6cbf65930ec56e71fffedfa2bcbd244809479cd26bdfe22b4ff52c8e8e202ee"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_20日均线_2%_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_2%_curve.csv",
+    "bytes": 35487,
+    "sha256": "e2a2e2599d375b7b2fa9eed8e887a15f69a400f77781611eb110c898ba1c51cf"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_20日均线_2%_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_2%_trades.csv",
+    "bytes": 1916,
+    "sha256": "e6dc1f291958c61adf0d6222009bc9d9e8a1cecbe04b9d7fe486ad996a442c01"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_20日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_curve.csv",
+    "bytes": 35434,
+    "sha256": "23dfa22d745cb365bca2a8692cbe575ccdef857583763ff83baa24b0bcb51b6d"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_20日均线_PB不超90_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_PB不超90_curve.csv",
+    "bytes": 35398,
+    "sha256": "35a27b2c8a7b9dcd232d476ab811aa62ce79b464da066e3d8a5baa2ef7ce7f4c"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_20日均线_PB不超90_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_PB不超90_trades.csv",
+    "bytes": 3478,
+    "sha256": "5826ffbc1d8a7c458aceb1854b9850f58c263e84044752dd5a4615171eb95840"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_20日均线_PE不超90_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_PE不超90_curve.csv",
+    "bytes": 35552,
+    "sha256": "ca4e7c939f07c294ac3b1813f60314b31e919a38ee4ab50a02c6cd70ce3a60ef"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_20日均线_PE不超90_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_PE不超90_trades.csv",
+    "bytes": 3528,
+    "sha256": "7cf9dd72a802196f276936e787a3e78e0b514187975882b14711ac640b58a401"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_20日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_trades.csv",
+    "bytes": 4002,
+    "sha256": "3b1779b53fa8d38db7d29b3aa63fcc9caf02ee84d5ff8cffd775cb740c2ae141"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_20日均线每周判断_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线每周判断_curve.csv",
+    "bytes": 35315,
+    "sha256": "2b36f70ac979c3dab64bbb397431480a768bf9e60fd4e3ac7ea9e9e52c2d1ffb"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_20日均线每周判断_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线每周判断_trades.csv",
+    "bytes": 2297,
+    "sha256": "9720729b179e6fe1495e48779a25d7c7a7122e0056e7bdddfcf496fdf758b499"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_30日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_30日均线_curve.csv",
+    "bytes": 35405,
+    "sha256": "09c36fd297fc98f5ddfc3119f211462a63e98e2efa761de96541dff643251d2d"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_30日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_30日均线_trades.csv",
+    "bytes": 3403,
+    "sha256": "0f9b3deab9b21dee912471420a0908ce1680308e19e532c0a48de6b5ff357f51"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_30日均线每周判断_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_30日均线每周判断_curve.csv",
+    "bytes": 35111,
+    "sha256": "1910797cd0dc56981e7d701ec2e68bf6249a59bd6e6fe93bf1f30b22d9219517"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_30日均线每周判断_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_30日均线每周判断_trades.csv",
+    "bytes": 2111,
+    "sha256": "71ab12d9759bec2b9c7ebeb490b9da4fb059cb20ae00eebad2ad00178a7d5199"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_PB估值30_70_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_PB估值30_70_curve.csv",
+    "bytes": 34506,
+    "sha256": "424f7b5f5722249d0abd141647b1c9847145b63206df6bfae14f6ca067a5cead"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_PB估值30_70_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_PB估值30_70_trades.csv",
+    "bytes": 268,
+    "sha256": "5e2851187b78ff1fbdeb773efcc9a1c92b596cc24285f561a8e92374b033cc69"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_PE估值30_70_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_PE估值30_70_curve.csv",
+    "bytes": 35724,
+    "sha256": "20c0997b43e9652e927c4fc5737bf978f091b6cdca6374f861da840be81fb560"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_PE估值30_70_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_PE估值30_70_trades.csv",
+    "bytes": 189,
+    "sha256": "f9ef7ad843d714376b3fd3ec6e96d20cf7acfe2c4e5159f36f5928c1ee3e3459"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_低PB_20日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_低PB_20日均线_curve.csv",
+    "bytes": 35813,
+    "sha256": "f14697672e53259d040ba00bceb07e8006621316189c5fc09aa316bf34ecc20f"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_低PB_20日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_低PB_20日均线_trades.csv",
+    "bytes": 2380,
+    "sha256": "6376a97f20b44ef35639d921e480ce923599c95f0b5d94eb5b605cfebe90a9f5"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_低PE_20日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_低PE_20日均线_curve.csv",
+    "bytes": 35561,
+    "sha256": "dec220f5a502bcd692e997f37d84f945d24d8af1069d639d74fd8bb72a30eabb"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_低PE_20日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_低PE_20日均线_trades.csv",
+    "bytes": 796,
+    "sha256": "2126836bf75db184c7dbe000cc320fece1a07d3a85133c54ad4b8e75b00384f2"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_持有不择时_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_持有不择时_curve.csv",
+    "bytes": 34902,
+    "sha256": "436e65dcc01ee609a1689e8871a75745c8c62b723a76b58a9822cb7772e6856d"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/512760_持有不择时_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_持有不择时_trades.csv",
+    "bytes": 73,
+    "sha256": "c0fce76ed16ccdddf640ba3b1745db225ef3a456aec949a6c9f3fdf3d8b6747d"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_20日均线_2%_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_2%_curve.csv",
+    "bytes": 8701,
+    "sha256": "d5459244a461b35246d3cc8055c5b4c1489568e3ef1d45d51ab9f895fc196171"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_20日均线_2%_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_2%_trades.csv",
+    "bytes": 837,
+    "sha256": "659c83b69b3016283e36538949a976dab90ed935f4dbc1d6613996640cc5bbc5"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_20日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_curve.csv",
+    "bytes": 8755,
+    "sha256": "8b84369a5f9473a88c65057866332467d403721dd9d3e8daa26452476eb85f0f"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_20日均线_PB不超90_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_PB不超90_curve.csv",
+    "bytes": 8716,
+    "sha256": "4323cd9ca4735250c18de049ca9c32b08b693313ab73b4778915935d489d39f8"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_20日均线_PB不超90_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_PB不超90_trades.csv",
+    "bytes": 1033,
+    "sha256": "af3e0e35a7ea3936a6dc88586bcb46ae9d76b98807a8ad5fb7fbc2f840418768"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_20日均线_PE不超90_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_PE不超90_curve.csv",
+    "bytes": 8181,
+    "sha256": "e1cece61a0fba7925a596fc8e040455b03c06f93f13996b19ec2b533d6ec97e0"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_20日均线_PE不超90_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_PE不超90_trades.csv",
+    "bytes": 874,
+    "sha256": "5234e002a6228746fc1defd0d2889a317f06be2bfb4332b1a5e0de243ef4894b"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_20日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_trades.csv",
+    "bytes": 987,
+    "sha256": "54985b04051c766345a11ce7fb2f0001b0481eab5e82ea93f062ba787ffcb647"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_20日均线每周判断_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线每周判断_curve.csv",
+    "bytes": 8738,
+    "sha256": "c7a4dd7be0d6c131d35e23eb99fb4699a827d67743e405aad293f38432bc34e3"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_20日均线每周判断_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线每周判断_trades.csv",
+    "bytes": 726,
+    "sha256": "4b2f2aa4dc2a8984c34fed893e76aa06ac2a73d74ec2b2acc19708ebab3051da"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_30日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_30日均线_curve.csv",
+    "bytes": 8782,
+    "sha256": "2851138804e7f968865ec349b9206f59ee8944f85335b5dfa8dd1efd69e7c87a"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_30日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_30日均线_trades.csv",
+    "bytes": 904,
+    "sha256": "0195d34e165f7e2ca586d66286adca90dafd612a55f5fbc2376f064773dd9512"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_30日均线每周判断_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_30日均线每周判断_curve.csv",
+    "bytes": 8779,
+    "sha256": "efdd7061508cf1ead61279208ec29ee5769553ce4c1087bb62eec0e9379ffa67"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_30日均线每周判断_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_30日均线每周判断_trades.csv",
+    "bytes": 554,
+    "sha256": "b704eb171e1c968a01e8e155b85bb94da6408cc14b6a24a654163f67fb6e7ec4"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_PB估值30_70_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_PB估值30_70_curve.csv",
+    "bytes": 6583,
+    "sha256": "c734a79fe0db96177c2160457c0f5b27e111d85fee6487d8ffff9b31d0609df1"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_PB估值30_70_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_PB估值30_70_trades.csv",
+    "bytes": 2,
+    "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_PE估值30_70_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_PE估值30_70_curve.csv",
+    "bytes": 6583,
+    "sha256": "c734a79fe0db96177c2160457c0f5b27e111d85fee6487d8ffff9b31d0609df1"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_PE估值30_70_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_PE估值30_70_trades.csv",
+    "bytes": 2,
+    "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_低PB_20日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_低PB_20日均线_curve.csv",
+    "bytes": 6583,
+    "sha256": "c734a79fe0db96177c2160457c0f5b27e111d85fee6487d8ffff9b31d0609df1"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_低PB_20日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_低PB_20日均线_trades.csv",
+    "bytes": 2,
+    "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_低PE_20日均线_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_低PE_20日均线_curve.csv",
+    "bytes": 6583,
+    "sha256": "c734a79fe0db96177c2160457c0f5b27e111d85fee6487d8ffff9b31d0609df1"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_低PE_20日均线_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_低PE_20日均线_trades.csv",
+    "bytes": 2,
+    "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_持有不择时_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_持有不择时_curve.csv",
+    "bytes": 8587,
+    "sha256": "192a9be7ba5362b09d6874f1e3accc4314bb0d32dd059031785803f86928097f"
+  },
+  {
+    "action": "archive",
+    "path": "results/sector_valuation_comparison/588170_持有不择时_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_持有不择时_trades.csv",
+    "bytes": 74,
+    "sha256": "a6cbf65930ec56e71fffedfa2bcbd244809479cd26bdfe22b4ff52c8e8e202ee"
+  },
+  {
+    "action": "archive",
+    "path": "results/strategy_hold_audit/512760_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/strategy_hold_audit/512760_curve.csv",
+    "bytes": 104133,
+    "sha256": "87b07158f6b4e10faf4a50f55e6736347a2548c7636eb2bcb070bedc9e11663d"
+  },
+  {
+    "action": "archive",
+    "path": "results/strategy_hold_audit/512760_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/strategy_hold_audit/512760_trades.csv",
+    "bytes": 12975,
+    "sha256": "b92a20686ae52dd7dfbf68e182735871bca7c5110184a65aa1b2d0b282697e82"
+  },
+  {
+    "action": "archive",
+    "path": "results/strategy_hold_audit/513100_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/strategy_hold_audit/513100_curve.csv",
+    "bytes": 170454,
+    "sha256": "55b5f8ece391467a7dd565afaa2d1d72721b3f87760b63b382ea49a786e7a2bd"
+  },
+  {
+    "action": "archive",
+    "path": "results/strategy_hold_audit/513100_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/strategy_hold_audit/513100_trades.csv",
+    "bytes": 583,
+    "sha256": "b5178d55cf45c5012f71dbab8abd4638cd7c1628df2d56e185a97f5d2bb1f879"
+  },
+  {
+    "action": "archive",
+    "path": "results/strategy_hold_audit/513500_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/strategy_hold_audit/513500_curve.csv",
+    "bytes": 169327,
+    "sha256": "4dd0f7e49fb9c5ed2208ccf21a10b755cb99cde807c52f125aa943d143f2b2e1"
+  },
+  {
+    "action": "archive",
+    "path": "results/strategy_hold_audit/513500_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/strategy_hold_audit/513500_trades.csv",
+    "bytes": 876,
+    "sha256": "6862252afb25f6be62d95181ee5922be607ffc6fb68bd8e08b3bd8034e13b966"
+  },
+  {
+    "action": "archive",
+    "path": "results/strategy_hold_audit/518850_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/strategy_hold_audit/518850_curve.csv",
+    "bytes": 84444,
+    "sha256": "e47ca7dd451b391e1f3cbe7a3d2dd73e1f2bd52296bb6a5f7c4fc8989cce20a6"
+  },
+  {
+    "action": "archive",
+    "path": "results/strategy_hold_audit/518850_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/strategy_hold_audit/518850_trades.csv",
+    "bytes": 437,
+    "sha256": "a29815a6b9eed9baf49f394ac926e54c19de38731383c89362090ce15bee32ff"
+  },
+  {
+    "action": "archive",
+    "path": "results/strategy_hold_audit/588170_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/strategy_hold_audit/588170_curve.csv",
+    "bytes": 20612,
+    "sha256": "e2d8a269c339434bca0496821330d326a3bc3dfab239478750d4f455508ba437"
+  },
+  {
+    "action": "archive",
+    "path": "results/strategy_hold_audit/588170_trades.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/strategy_hold_audit/588170_trades.csv",
+    "bytes": 2630,
+    "sha256": "e577aa75b6c423842758592d793ae91ba95e4d3550c84f07b8dc7b77daa06481"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf/inx_decoded.json",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf/inx_decoded.json",
+    "bytes": 795775,
+    "sha256": "ebfe6197f6d337939ff01f8a16cd8234926a9f567643eb5451d6ef05a6d688d6"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf/inx_raw.txt",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf/inx_raw.txt",
+    "bytes": 101263,
+    "sha256": "dea1b8adfea4b0557698085e74a76c4b4042453aeb208df6c11779cdc8e52d06"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf/nasdaq100_fred.html",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf/nasdaq100_fred.html",
+    "bytes": 526125,
+    "sha256": "42e000700ff8867732f135dadb634fbb0173c638278a18f19fa4cbc434f29bf1"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf/nasdaq100_fred.txt",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf/nasdaq100_fred.txt",
+    "bytes": 72649,
+    "sha256": "dad02e472d8798f6f0d3d30ab2a6b539e924b43372a0916a4de55c2acf5b9620"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf/ndx_decoded.json",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf/ndx_decoded.json",
+    "bytes": 450148,
+    "sha256": "046b91cc1719c56e4813059ac951ee231361b0186d32a40b4091b986510af594"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf/ndx_raw.txt",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf/ndx_raw.txt",
+    "bytes": 63640,
+    "sha256": "0fc60285a51b6b2ad03602719244e166245be92565cf4f6f77fada8ec6b11c59"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf/product_liquidity.json",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf/product_liquidity.json",
+    "bytes": 1018,
+    "sha256": "24affaf251f6d5ec15ef1ad681cf231ad627f6647b95265c34016c38f207d92f"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf/qqq_probe.txt",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf/qqq_probe.txt",
+    "bytes": 1573,
+    "sha256": "c9bd60b3516f0e39ea882868bcbc6eef14398c511b8114cdddf336e730b6e321"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf/sina_decoder.js",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf/sina_decoder.js",
+    "bytes": 18363,
+    "sha256": "f32047642dd8095ea9cc35905857aa2f8db3a6a5604ac16fe42c3d225de0e2f3"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf/spy_probe.txt",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf/spy_probe.txt",
+    "bytes": 1584,
+    "sha256": "976330566315f71b6347151f1e6f28173e385dd534c2b2f1f6b5517b72e8ed46"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513100_10个月均线±2%缓冲_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513100_10个月均线±2%缓冲_curve.csv",
+    "bytes": 131508,
+    "sha256": "0f6ec70430bef7596d6d3630dc02a91f27b64805034e55b319787158a53d556b"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513100_10个月均线全进全出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513100_10个月均线全进全出_curve.csv",
+    "bytes": 131498,
+    "sha256": "2cb73ee205a8bb01a443cb009a02926a7d375853573b4fb723d66c556ed9e2c4"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513100_10个月均线线下减半_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513100_10个月均线线下减半_curve.csv",
+    "bytes": 139601,
+    "sha256": "2fdd61da2bd47e1814f76e533290ff313946cd8149a0ebd6e9c302f55d8ee245"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513100_12个月均线全进全出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513100_12个月均线全进全出_curve.csv",
+    "bytes": 132995,
+    "sha256": "3a45024b1aae8c012b25e6c4c8b46ef23cb17f92a612a32436c8840daf075ae3"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513100_12个月涨幅为正才持有_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513100_12个月涨幅为正才持有_curve.csv",
+    "bytes": 134017,
+    "sha256": "b76dc78dd8a1f915ef4d32bc1d8405a809ea866628db67fc0b57030954c63b05"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513100_8个月均线全进全出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513100_8个月均线全进全出_curve.csv",
+    "bytes": 130739,
+    "sha256": "5f21c0da2e3a02c7697c540f342b188fe0321079f3d73da627fc24b4a99bc4cc"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513100_entry_250.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513100_entry_250.csv",
+    "bytes": 89600,
+    "sha256": "4b50210bc11c1434aefbe5114711636f37987151bb989a6561f7b096cec32d7f"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513100_entry_750.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513100_entry_750.csv",
+    "bytes": 73697,
+    "sha256": "394681b5f618cf09cff11a7b6b2d957768348577ea9d1ee74ae0411e56acf9f3"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513100_初始50%投入后持有_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513100_初始50%投入后持有_curve.csv",
+    "bytes": 128867,
+    "sha256": "c72ee750399abe5e5923fd827585795a13dca5432b5815d6595a9572e305ede1"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513100_固定半仓_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513100_固定半仓_curve.csv",
+    "bytes": 128956,
+    "sha256": "f2b56a77a61242adad53278b45924ab06359d5bb5b0582cab0055c5e9c415c59"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513100_连续两月线下才退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513100_连续两月线下才退出_curve.csv",
+    "bytes": 134654,
+    "sha256": "8c1ead05585221a1b158a412eb8a2018592d9a12d677abaf189142d97e41ad82"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513100_长期持有_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513100_长期持有_curve.csv",
+    "bytes": 137433,
+    "sha256": "85254676cc1a85b8649785ffae2a4d92662fb287cb77e69312ad8f74f2a513c2"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513500_10个月均线±2%缓冲_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513500_10个月均线±2%缓冲_curve.csv",
+    "bytes": 129968,
+    "sha256": "b6ff82b4f4759ad41086b4ae785dae20c1488f0b969d19254e31ef113a455871"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513500_10个月均线全进全出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513500_10个月均线全进全出_curve.csv",
+    "bytes": 131416,
+    "sha256": "8655028cd6cd8e1356f36fe561002985d0aeb8678cd8c464f56c9e51f3886d2f"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513500_10个月均线线下减半_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513500_10个月均线线下减半_curve.csv",
+    "bytes": 138202,
+    "sha256": "c39cf6eff8443a20dce7fe2f19fa726e08116e7f8f2623d94d2684f79dd829c2"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513500_12个月均线全进全出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513500_12个月均线全进全出_curve.csv",
+    "bytes": 133002,
+    "sha256": "6bdd7614a3ae956939be5f3d8e799d5362dc64efab60cc944842984250d50d7d"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513500_12个月涨幅为正才持有_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513500_12个月涨幅为正才持有_curve.csv",
+    "bytes": 135130,
+    "sha256": "cdfb6f07cd9a1b7a6588cde67f5d78745c86e9df0b76765513bc5f0208edcc73"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513500_8个月均线全进全出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513500_8个月均线全进全出_curve.csv",
+    "bytes": 130320,
+    "sha256": "55670fe3972cda915e327b100d53440610d93ed40668edfc2b3a7313333ecd85"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513500_entry_250.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513500_entry_250.csv",
+    "bytes": 89538,
+    "sha256": "e6185671b5ec02519e6c50fcdc5772c335ef9605fb4b9bfe080d92ffc72932a2"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513500_entry_750.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513500_entry_750.csv",
+    "bytes": 73110,
+    "sha256": "d1c7035105f6e568596859f30c37b8f0441506aa84e59f3958fb87ff2ec03d6a"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513500_初始50%投入后持有_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513500_初始50%投入后持有_curve.csv",
+    "bytes": 131633,
+    "sha256": "15a3dcebaabdaf1abe77f9f763508d629c2f151453da03308484aebec80b2f0f"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513500_固定半仓_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513500_固定半仓_curve.csv",
+    "bytes": 126292,
+    "sha256": "df84e321f7a7c169fd2dcda83b727e8cc408f17fe26065125eaa17eb7f99423f"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513500_连续两月线下才退出_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513500_连续两月线下才退出_curve.csv",
+    "bytes": 134179,
+    "sha256": "c71a1e2e63a65193dbcec7d2a45af0bfa11da3cab412c49dfe0ec2436894644f"
+  },
+  {
+    "action": "archive",
+    "path": "results/us_etf_extended/513500_长期持有_curve.csv",
+    "destination": "archive/20261022/historical_results.zip!/results/us_etf_extended/513500_长期持有_curve.csv",
+    "bytes": 135875,
+    "sha256": "9b56c362e497f4e40d03dc6a2441fc2499623007714e0768bc5d1cf66d35dbd9"
+  },
+  {
+    "action": "move_archive",
+    "path": "portfolio_v1.js",
+    "destination": "archive/legacy_ui/portfolio_v1.js",
+    "bytes": 10340,
+    "sha256": "54b4a5e2798658ac8a98221fb16fb343320482e704059c143dd9f2252741ff0c"
+  },
+  {
+    "action": "move_archive",
+    "path": "investment_tools.js",
+    "destination": "archive/legacy_ui/investment_tools.js",
+    "bytes": 16624,
+    "sha256": "68b732538357171f510b63454eaf548c58e7ba734e64d0cd6314eb535477b2da"
+  },
+  {
+    "action": "move_archive",
+    "path": "correlation_tools.js",
+    "destination": "archive/legacy_ui/correlation_tools.js",
+    "bytes": 10716,
+    "sha256": "4f53edfbfd5297635d624164b879e3c9b4fff3860aa4f32d5c9924dd563917b5"
+  },
+  {
+    "action": "move_archive",
+    "path": "monthly_budget.js",
+    "destination": "archive/legacy_ui/monthly_budget.js",
+    "bytes": 13190,
+    "sha256": "f623545b3bba08ad4554df296fe14d93eca6ca10b838da410bda1071ad93bf86"
+  },
+  {
+    "action": "move_archive",
+    "path": "templates/_portfolio_v1.html",
+    "destination": "archive/legacy_ui/templates/_portfolio_v1.html",
+    "bytes": 4408,
+    "sha256": "a3b11a620b73ec5c7b5cf92b74dc9e2fdc49c4e4acacaf5fed8265a5b9dd1cec"
+  },
+  {
+    "action": "move_archive",
+    "path": "templates/_asset_guide.html",
+    "destination": "archive/legacy_ui/templates/_asset_guide.html",
+    "bytes": 29,
+    "sha256": "c48917f65f70bff692e709824517900b8003361d8ba47c87738fda2e707324d5"
+  },
+  {
+    "action": "move_archive",
+    "path": "templates/_strategy_guide.html",
+    "destination": "archive/legacy_ui/templates/_strategy_guide.html",
+    "bytes": 2306,
+    "sha256": "7a7a654ad2ee30492e207613bd0810bc5f49a5c58e94b55c8e1a3362547ce4a7"
+  },
+  {
+    "action": "move_archive",
+    "path": "stock_watch.py",
+    "destination": "archive/stock/stock_watch.py",
+    "bytes": 1923,
+    "sha256": "9ce4eda1b64891e300c0ac3b606370b2d8476e523ecc1e6e710f1b16e46594f2"
+  },
+  {
+    "action": "move_archive",
+    "path": "stock_strategy_research.md",
+    "destination": "archive/stock/stock_strategy_research.md",
+    "bytes": 6660,
+    "sha256": "410aa70fae010f7472e4c1edc94c944a00326b8b2475160e67c79dd7599dff03"
+  },
+  {
+    "action": "move_archive",
+    "path": "data_cache/etf_688836_qfq.csv",
+    "destination": "archive/stock/data_cache/etf_688836_qfq.csv",
+    "bytes": 2556,
+    "sha256": "16365a992ecc91886038f6b386aaf942816550689509633c9aa5a0644d0ba4e6"
+  },
+  {
+    "action": "move_archive",
+    "path": "data_cache/etf_688836_tencent.csv",
+    "destination": "archive/stock/data_cache/etf_688836_tencent.csv",
+    "bytes": 2576,
+    "sha256": "20ce800acf7f2397449baab1fda3c80a5fb0d13794d8b9c7aa235127ab813630"
+  },
+  {
+    "action": "move_archive",
+    "path": "allocation_rotation_research.md",
+    "destination": "archive/reports/etf_studies/allocation_rotation_research.md",
+    "bytes": 2306,
+    "sha256": "6f084fa4f6c366b3bda489f60c71cb4fbef174bdc001f7b30553752d8e46ec7a"
+  },
+  {
+    "action": "move_archive",
+    "path": "broad_individual_research.md",
+    "destination": "archive/reports/etf_studies/broad_individual_research.md",
+    "bytes": 14151,
+    "sha256": "4458f3a1a384a2db620b61dbefe3af747ba449347a80f09b420d00f70d5dec2c"
+  },
+  {
+    "action": "move_archive",
+    "path": "broad_valuation_research.md",
+    "destination": "archive/reports/etf_studies/broad_valuation_research.md",
+    "bytes": 8024,
+    "sha256": "77b9719c344c7465ecde5c936dddbafbccab0eb5468a153f76339c655841f871"
+  },
+  {
+    "action": "move_archive",
+    "path": "csi300_adopted_strategy.md",
+    "destination": "archive/reports/etf_studies/csi300_adopted_strategy.md",
+    "bytes": 1515,
+    "sha256": "3c4180d245564ea5d2728af715c9ea723b87c624b37b4f7ddf2c540d8c88fcca"
+  },
+  {
+    "action": "move_archive",
+    "path": "csi300_entry_windows_research.md",
+    "destination": "archive/reports/etf_studies/csi300_entry_windows_research.md",
+    "bytes": 4078,
+    "sha256": "12ace8acbccd80985ad7c61928ea27f305b5916029a94390d519b46be05857d1"
+  },
+  {
+    "action": "move_archive",
+    "path": "csi300_parameter_search_research.md",
+    "destination": "archive/reports/etf_studies/csi300_parameter_search_research.md",
+    "bytes": 5779,
+    "sha256": "9692ccfe39ffb79a42a8a4ac2e3b2eb414432ac7e223ea9c9d538d5cbec06c0c"
+  },
+  {
+    "action": "move_archive",
+    "path": "csi500_adopted_strategy.md",
+    "destination": "archive/reports/etf_studies/csi500_adopted_strategy.md",
+    "bytes": 3557,
+    "sha256": "49c4691e5735a9847904dd8c9008d4129eb73cad84d59eb7ede1d8ea5070e145"
+  },
+  {
+    "action": "move_archive",
+    "path": "gold_strategy_research.md",
+    "destination": "archive/reports/etf_studies/gold_strategy_research.md",
+    "bytes": 7220,
+    "sha256": "0c725b3d461342d3740ea0ddf62d7435493dc01a7509c5c41c674a4c96af3dc7"
+  },
+  {
+    "action": "move_archive",
+    "path": "monthly_execution_research.md",
+    "destination": "archive/reports/etf_studies/monthly_execution_research.md",
+    "bytes": 4271,
+    "sha256": "e238addb61876e90af6fa0e99d027077c4b6d57b21f091929cbcd0b906933d54"
+  },
+  {
+    "action": "move_archive",
+    "path": "nasdaq_robustness_research.md",
+    "destination": "archive/reports/etf_studies/nasdaq_robustness_research.md",
+    "bytes": 3645,
+    "sha256": "1d2b8cc153214c45e5695a6ec4e024ab390819095fccd85613fba8449b74ca52"
+  },
+  {
+    "action": "move_archive",
+    "path": "sector_valuation_research.md",
+    "destination": "archive/reports/etf_studies/sector_valuation_research.md",
+    "bytes": 10646,
+    "sha256": "25d1ab88e25793826e911e7b87e747498874903ae64df4c8ba4e926b9c290f86"
+  },
+  {
+    "action": "move_archive",
+    "path": "sp500_robustness_research.md",
+    "destination": "archive/reports/etf_studies/sp500_robustness_research.md",
+    "bytes": 2545,
+    "sha256": "036fe6babdf00a90c1f92c9a95ddbcc2c8ba125e9cc55b9621f3216a9280247c"
+  },
+  {
+    "action": "move_archive",
+    "path": "star50_adopted_strategy.md",
+    "destination": "archive/reports/etf_studies/star50_adopted_strategy.md",
+    "bytes": 2662,
+    "sha256": "4106475c14ae94ba156f14cc376166b1ccd7a79183fab6b28884536b416a8f69"
+  },
+  {
+    "action": "move_archive",
+    "path": "star50_robustness_research.md",
+    "destination": "archive/reports/etf_studies/star50_robustness_research.md",
+    "bytes": 2450,
+    "sha256": "8585404026f75f5e98942e7c508f1c4dad4760058da0bdf1453dee8946a036e6"
+  },
+  {
+    "action": "move_archive",
+    "path": "star50_strategy_verification.md",
+    "destination": "archive/reports/etf_studies/star50_strategy_verification.md",
+    "bytes": 3351,
+    "sha256": "e8e3b08bc7c12b3733f5817bc80a2c4f0a249c96cc105dfc12c5745c83c6d2c7"
+  },
+  {
+    "action": "move_archive",
+    "path": "strategy_hold_audit.md",
+    "destination": "archive/reports/etf_studies/strategy_hold_audit.md",
+    "bytes": 7218,
+    "sha256": "e0bf2617da9be395b19340f55bfa8ba03217ca9a0eb89e4cb817d397c45cd8dd"
+  },
+  {
+    "action": "move_archive",
+    "path": "STRATEGY_IMPLEMENTATION.md",
+    "destination": "archive/reports/etf_studies/STRATEGY_IMPLEMENTATION.md",
+    "bytes": 10830,
+    "sha256": "cbae8f69e1a335756f24c4dbb0f6631e8509cc01c12e8ac6d5caf666e2045eeb"
+  },
+  {
+    "action": "move_archive",
+    "path": "us_etf_guidance_research.md",
+    "destination": "archive/reports/etf_studies/us_etf_guidance_research.md",
+    "bytes": 11694,
+    "sha256": "6068888362fa079a1dba051bd8b4827741da321ba51dbda7dabd140f648e865b"
+  },
+  {
+    "action": "move_archive",
+    "path": "us_etf_strategy_extended_research.md",
+    "destination": "archive/reports/etf_studies/us_etf_strategy_extended_research.md",
+    "bytes": 11639,
+    "sha256": "b4fdfead462b744526e8a6114a112bc42804415af8a138cda238ec573ba6d6b7"
+  },
+  {
+    "action": "move_archive",
+    "path": "us_etf_strategy_research.md",
+    "destination": "archive/reports/etf_studies/us_etf_strategy_research.md",
+    "bytes": 2443,
+    "sha256": "594d3142137d68230aacecc3ebf98291f94f2a414c28f9f8dbef7a6618d3b92c"
+  },
+  {
+    "action": "move_archive",
+    "path": "workspace_ui_20261022/run_checks.py",
+    "destination": "archive/legacy_checks/workspace_ui_20261022/run_checks.py",
+    "bytes": 2412,
+    "sha256": "6e36cb6d95cf0b08d915388effab3c98b1d337c9b102e7f5b78b5cf94d7db7a7"
+  },
+  {
+    "action": "move_archive",
+    "path": "correctness_20261022/run_validation.py",
+    "destination": "archive/legacy_checks/correctness_20261022/run_validation.py",
+    "bytes": 1726,
+    "sha256": "a24c878745efa2d2a2d11479849e2b894e274fb39f6020556721fbe00f953c73"
+  },
+  {
+    "action": "move_archive",
+    "path": "workspace_ui_20261022/official_1440_lab_viewport.png",
+    "destination": "maintenance/20261022/screenshots/official_1440_lab_viewport.png",
+    "bytes": 79425,
+    "sha256": "431c26c25d99ffaecc9b835b26d6e1831867db64ab4261ac60dac8ed5f9a2efe"
+  },
+  {
+    "action": "move_archive",
+    "path": "workspace_ui_20261022/official_1440_plan_viewport.png",
+    "destination": "maintenance/20261022/screenshots/official_1440_plan_viewport.png",
+    "bytes": 76475,
+    "sha256": "ce45ce19d711f6cbbb3403025df147a5a645043faeea6ded6fed7d643345f791"
+  },
+  {
+    "action": "move_archive",
+    "path": "workspace_ui_20261022/official_1440_review_viewport.png",
+    "destination": "maintenance/20261022/screenshots/official_1440_review_viewport.png",
+    "bytes": 71315,
+    "sha256": "d062b77daf37472073aa490835644f0653f2118bc024cea815275416eb29e0e6"
+  },
+  {
+    "action": "move_archive",
+    "path": "workspace_ui_20261022/official_1440_today_viewport.png",
+    "destination": "maintenance/20261022/screenshots/official_1440_today_viewport.png",
+    "bytes": 96918,
+    "sha256": "85e724741cae4eced10728077fe95cba35cce5877bed5c8b34f12e68712743fb"
+  },
+  {
+    "action": "move_archive",
+    "path": "workspace_ui_20261022/official_375_lab_viewport.png",
+    "destination": "maintenance/20261022/screenshots/official_375_lab_viewport.png",
+    "bytes": 56276,
+    "sha256": "0a1a7416bdea890a7f630ced35fd0f04f1254461c5bf8a305b9b824dfb8233d7"
+  },
+  {
+    "action": "move_archive",
+    "path": "workspace_ui_20261022/official_375_plan_viewport.png",
+    "destination": "maintenance/20261022/screenshots/official_375_plan_viewport.png",
+    "bytes": 56998,
+    "sha256": "be2c6a79ab34fd3dab47e9fedf8ac65f287535fcf7aef93c3dc4df5abfdf6625"
+  },
+  {
+    "action": "move_archive",
+    "path": "workspace_ui_20261022/official_375_review_viewport.png",
+    "destination": "maintenance/20261022/screenshots/official_375_review_viewport.png",
+    "bytes": 51093,
+    "sha256": "72387906e1f4b1db74002c83b80b13b7dc549fd172b51b45e63cc0bff5d26b09"
+  },
+  {
+    "action": "move_archive",
+    "path": "workspace_ui_20261022/official_375_today_viewport.png",
+    "destination": "maintenance/20261022/screenshots/official_375_today_viewport.png",
+    "bytes": 58852,
+    "sha256": "02ed9a9bcbace6c6106585bd2e6e31baf9e75666594774d8f68a3dc20d29b541"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_flask_1440_comparison.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_flask_1440_comparison.png",
+    "bytes": 56419,
+    "sha256": "3caf802040d416eb476dbd8bb19a51c0430b184253121a4484b2e03d064759d1"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_flask_1440_D_card.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_flask_1440_D_card.png",
+    "bytes": 19930,
+    "sha256": "a05739e8e43d1b737f033148f52ef9b24a84e40842085793009ee2de9e6655c5"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_flask_1440_today.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_flask_1440_today.png",
+    "bytes": 101110,
+    "sha256": "9ce5277e16e5702622ef036d372bef9257265bf7e996bfac812a61aab6be6de7"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_flask_375_comparison.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_flask_375_comparison.png",
+    "bytes": 44902,
+    "sha256": "22c409432fb4b262abc11a0d784a0246ffcea1910e6486f54439782e75b72ab4"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_flask_375_D_card.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_flask_375_D_card.png",
+    "bytes": 19025,
+    "sha256": "8694329e8d1336b902d555fc53415d5e52d86a1ba41ca60b0cce9e3d8af0ff33"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_flask_375_today.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_flask_375_today.png",
+    "bytes": 57537,
+    "sha256": "8a28b3ae5b3dbf7ea1262f5f34f5faaedc26d443502d9baad5bd45d9eb9c7cf4"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_official_1440_comparison.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_official_1440_comparison.png",
+    "bytes": 56140,
+    "sha256": "684259e70432377af7aac3cf72106557022a435da9de3cc21ef5d3c554e74f46"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_official_1440_D_card.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_official_1440_D_card.png",
+    "bytes": 19925,
+    "sha256": "c88399a93b5068263d7d3aabc48448ce5a0532d570fa71448e956cb7d023da92"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_official_1440_today.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_official_1440_today.png",
+    "bytes": 96918,
+    "sha256": "85e724741cae4eced10728077fe95cba35cce5877bed5c8b34f12e68712743fb"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_official_375_comparison.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_official_375_comparison.png",
+    "bytes": 47081,
+    "sha256": "08da387feb138728a0cb2a0ef4691da40409d16f17dc178bbb0cf3ee05524e6c"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_official_375_D_card.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_official_375_D_card.png",
+    "bytes": 19046,
+    "sha256": "0fc1b09dbc644c9834f6bcb3a7288783b7a7b6be4fe7ad16c6c712ab24e42998"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_official_375_today.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_official_375_today.png",
+    "bytes": 58852,
+    "sha256": "02ed9a9bcbace6c6106585bd2e6e31baf9e75666594774d8f68a3dc20d29b541"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_static_1440_comparison.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_static_1440_comparison.png",
+    "bytes": 56414,
+    "sha256": "9c39acd865f47594da273a7a0566c09b8e9ee6a25f8401e656c2e6e34ae3dca3"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_static_1440_D_card.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_static_1440_D_card.png",
+    "bytes": 19912,
+    "sha256": "dc5b46d0f7120ccc620863a33533c664f0985c095c9e79a73988f72aa5a0048a"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_static_1440_today.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_static_1440_today.png",
+    "bytes": 103035,
+    "sha256": "f653e991a3b9035d35d90a68e5a75029498828c7aeeb89653b7e7de46fae7d5f"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_static_375_comparison.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_static_375_comparison.png",
+    "bytes": 47644,
+    "sha256": "431f13d79f987bca83f5bdd3063a4086c2abe90d8f81b9008da624dc01929fa8"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_static_375_D_card.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_static_375_D_card.png",
+    "bytes": 19028,
+    "sha256": "a4acc90a19a439c9061dd57d03673f81cc79e453e7c74d39e73f96d9f5e629f2"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/def_static_375_today.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_static_375_today.png",
+    "bytes": 60374,
+    "sha256": "09807b1db4685d719bf89d95532c9a9c4357ee9943f846036fbc55cabdfc5a5c"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_1440_lab.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_lab.png",
+    "bytes": 385484,
+    "sha256": "cc95fc400654b43d7e736e22a09c3fd125b654d1cde09f331fdc7cafbe9e3f6b"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_1440_lab_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_lab_viewport.png",
+    "bytes": 73598,
+    "sha256": "72bcaa10fe8491433c74a5fc8c56d14b9d6c0b13132cbcb706b2ef04d2dd6851"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_1440_plan.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_plan.png",
+    "bytes": 217781,
+    "sha256": "6748b8e51fad05d37fe90e8df2427f6946a5c095fdf95a59222142bb4b03b78f"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_1440_plan_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_plan_viewport.png",
+    "bytes": 68392,
+    "sha256": "dccc51186e6560b0bf672382a72289cfde9603bbb9acb4f3c770e0ccb20f1103"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_1440_review.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_review.png",
+    "bytes": 164602,
+    "sha256": "4ad679f9fd4142de7bc64d06ce422ec823765d2f49cc88572cd597d9455de814"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_1440_review_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_review_viewport.png",
+    "bytes": 58239,
+    "sha256": "366850d469a1715ea575b7e72fbae6904a1c76c6baa9350900d35b04cccf454d"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_1440_today.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_today.png",
+    "bytes": 261881,
+    "sha256": "48f1b43e4a29a17da928915edba3b4ff3b212cffd1d0c51f65bea355f6d5cbe1"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_1440_today_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_today_viewport.png",
+    "bytes": 101110,
+    "sha256": "9ce5277e16e5702622ef036d372bef9257265bf7e996bfac812a61aab6be6de7"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_375_lab.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_lab.png",
+    "bytes": 377683,
+    "sha256": "9e58d751a5aaa3e1d043e85bc14ac2fa590189037b2087a32fbf161d9f557261"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_375_lab_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_lab_viewport.png",
+    "bytes": 54089,
+    "sha256": "b939bbd78e18f71161f36f5eccd054dc2d4d4de5b9bbb3f78ef0a656ca65deb8"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_375_plan.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_plan.png",
+    "bytes": 183403,
+    "sha256": "8b4a48528d83b5d09430b9f7c0446e5162bcda3718c2a26581602b4bc36b10d2"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_375_plan_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_plan_viewport.png",
+    "bytes": 49357,
+    "sha256": "8b619332bfbb2ac86bc82ff03e5dd667cb0c4dc62f63c9a4ca639229f444f187"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_375_review.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_review.png",
+    "bytes": 130748,
+    "sha256": "99414fa6e84c4aad5da71444a7fbb3c99050bfe6decfec19342b82d5863badea"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_375_review_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_review_viewport.png",
+    "bytes": 45008,
+    "sha256": "270bb0f9a3742b525df086cb815eb87175bbc071ca4b1508e635d806dd38dc11"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_375_today.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_today.png",
+    "bytes": 239567,
+    "sha256": "e84ed4f347658aac6a923e83863a11420c02ec74ba745f8032cabd3ef3865db2"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/flask_375_today_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_today_viewport.png",
+    "bytes": 57537,
+    "sha256": "8a28b3ae5b3dbf7ea1262f5f34f5faaedc26d443502d9baad5bd45d9eb9c7cf4"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/official_1440_lab.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_1440_lab.png",
+    "bytes": 402905,
+    "sha256": "2fb23fe5e71bb8faa056bbe9b456e9c40220ab296e8ef5b5e53bb208cfa24471"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/official_1440_plan.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_1440_plan.png",
+    "bytes": 234235,
+    "sha256": "fa4e4c2d94c91172b73510c00b7c5cd1de51e9988f627b2a82549acefa75b8c6"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/official_1440_review.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_1440_review.png",
+    "bytes": 180844,
+    "sha256": "b715a63fb1a7a3ce5da8a0e96dd6f572c37ed2aeaee574cb96c877a6c4761c0c"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/official_1440_today.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_1440_today.png",
+    "bytes": 253356,
+    "sha256": "bfe243c8c7720488b02ec24d7ac6a44940f92ba8fba63e562f1e081e698e1127"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/official_375_lab.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_375_lab.png",
+    "bytes": 393027,
+    "sha256": "37ff881838ba2dbef2e94b4dcbe8e2eb1a57659ff6e484372d310ff28e7fc048"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/official_375_plan.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_375_plan.png",
+    "bytes": 202013,
+    "sha256": "17628b6244c27a8148ed739ec602fca4358bf7a2fd109648f4409393d8f64f55"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/official_375_review.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_375_review.png",
+    "bytes": 141645,
+    "sha256": "75b6c98fccdb7423e28795f85921f387bb17fb07d76a7d6653a3b6e344f68122"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/official_375_today.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_375_today.png",
+    "bytes": 236048,
+    "sha256": "8f5224694f949e89811564db29c7c3c3325772db282036046bf3d6c5fde09ccf"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/simple_flask_1440.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/simple_flask_1440.png",
+    "bytes": 137162,
+    "sha256": "73683a88b428efecb2fd8fec4e4c85c8c5d68fb0e98fad6aaf5c65dbb9e9d9ec"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/simple_flask_375.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/simple_flask_375.png",
+    "bytes": 114516,
+    "sha256": "ac641e6c5baf4d555630f930babe959352f1eb6b3e784ff2d139e8e379934123"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/simple_official_1440.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/simple_official_1440.png",
+    "bytes": 153779,
+    "sha256": "86b08499ed7036625945784442e546acece4e55698476b38c4bdb0030e52b470"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/simple_official_375.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/simple_official_375.png",
+    "bytes": 128814,
+    "sha256": "373cfbacc740210d4ff6c7640db4f822aa074772cc5c991fe8b5e5fe2af63c9d"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/simple_static_1440.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/simple_static_1440.png",
+    "bytes": 141735,
+    "sha256": "2d766de26dd6aa6e4f83e8807b0ad76e904b90939be451a8c2a13de168c2c6eb"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/simple_static_375.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/simple_static_375.png",
+    "bytes": 117054,
+    "sha256": "966bbce43193074105298ae8731d0140d9a088d07f5111d2753bbe817c1d39df"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_1440_lab.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_lab.png",
+    "bytes": 391232,
+    "sha256": "2b0330051bd2421e6b5937e031be2edf50bbbeaba0a61ed8704bd9a2d35c9715"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_1440_lab_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_lab_viewport.png",
+    "bytes": 74858,
+    "sha256": "a83d2502f453cbbc51989d0abf616dfbaaa6b01b8acf7d53639e41bf576614ef"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_1440_plan.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_plan.png",
+    "bytes": 223197,
+    "sha256": "95a0228f1270ed0709631bf83c12ca57e11af2822959b11cbc03972db2277088"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_1440_plan_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_plan_viewport.png",
+    "bytes": 71742,
+    "sha256": "4d8ee7af8f1a4a6851e96aeaad4911b6602edfe37990356f06ac31c59ad07e96"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_1440_review.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_review.png",
+    "bytes": 169258,
+    "sha256": "ca1cada93702d18fa3a6fa5a6b77d025305960b10a13cee6ad7abc68778d3e5d"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_1440_review_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_review_viewport.png",
+    "bytes": 62304,
+    "sha256": "28f3caecfb2a7c65308a24615c9762ad55ff5acda504355dec7d8057c7279427"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_1440_today.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_today.png",
+    "bytes": 255491,
+    "sha256": "cd7e9f66f736d2446b55b07552722e6f9d7e73f3773d52ad637a8dcedb0bcd6b"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_1440_today_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_today_viewport.png",
+    "bytes": 103035,
+    "sha256": "f653e991a3b9035d35d90a68e5a75029498828c7aeeb89653b7e7de46fae7d5f"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_375_lab.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_lab.png",
+    "bytes": 378348,
+    "sha256": "4486fbbddbed8110f8d436647f1abd0c88701e97eea9672992f3f83e6d9fce4e"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_375_lab_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_lab_viewport.png",
+    "bytes": 54069,
+    "sha256": "da4920bd3221086f17c0649d01a3183198acd301f6ff9c77717610cc2c070b89"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_375_plan.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_plan.png",
+    "bytes": 186637,
+    "sha256": "48e42883f25e859bbcd67d6356074edea986523ed531c5ec109f1ea6216ec209"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_375_plan_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_plan_viewport.png",
+    "bytes": 51694,
+    "sha256": "fe2d9f84976e7c833f735a1639cdc08ddaef64a883abdbe792f0141a65dca0bb"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_375_review.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_review.png",
+    "bytes": 133278,
+    "sha256": "93231b6d7da361e8e692e7f17363ff0634ef6c9226b8b4a3f0293fd75fe9e6f8"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_375_review_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_review_viewport.png",
+    "bytes": 47660,
+    "sha256": "63f7caaf817056edf070edcfe1a07b0cc91375186885f6ff9eebc7cf61612f11"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_375_today.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_today.png",
+    "bytes": 231522,
+    "sha256": "2e20f77000dee726c0d3cdb221d5aa488549c96485b3871fc3c70a6a62e1b7df"
+  },
+  {
+    "action": "archive",
+    "path": "workspace_ui_20261022/static_375_today_viewport.png",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_today_viewport.png",
+    "bytes": 60374,
+    "sha256": "09807b1db4685d719bf89d95532c9a9c4357ee9943f846036fbc55cabdfc5a5c"
+  },
+  {
+    "action": "archive",
+    "path": "results/test_export.html",
+    "destination": "archive/20261022/browser_test_artifacts.zip!/results/test_export.html",
+    "bytes": 10068564,
+    "sha256": "8fc71f7369ef7b6b68d09350934d57445b6cf4a74c499c2236685e7dd7eb1540"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/flask_preview.html",
+    "destination": null,
+    "bytes": 10046734,
+    "sha256": "b1eeb41143a1907208992a1ade7ed11cfe9114eeb87b792021f9f715a8611737"
+  },
+  {
+    "action": "delete_regeneratable",
+    "path": "workspace_ui_20261022/regression_export.html",
+    "destination": null,
+    "bytes": 10068564,
+    "sha256": "8fc71f7369ef7b6b68d09350934d57445b6cf4a74c499c2236685e7dd7eb1540"
+  }
+]

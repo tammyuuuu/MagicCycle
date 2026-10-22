@@ -1,0 +1,222 @@
+{
+  "replays": [
+    {
+      "file": "trades_long_proxy_A.csv",
+      "max_equity_difference": 1.8189894035458565e-12,
+      "min_spendable_cash": -3.583514403274709e-15,
+      "fee_sum": 3.9835959298663193,
+      "max_fee_difference": 1.429412144204889e-14
+    },
+    {
+      "file": "trades_long_proxy_B.csv",
+      "max_equity_difference": 1.8189894035458565e-12,
+      "min_spendable_cash": -2.852199897857899e-14,
+      "fee_sum": 3.7778113151128525,
+      "max_fee_difference": 3.5214886562329184e-15
+    },
+    {
+      "file": "trades_long_proxy_bond.csv",
+      "max_equity_difference": 9.094947017729282e-13,
+      "min_spendable_cash": 0.2226616459320212,
+      "fee_sum": 1.5992590913535878,
+      "max_fee_difference": 0.0
+    },
+    {
+      "file": "trades_long_proxy_C.csv",
+      "max_equity_difference": 1.3642420526593924e-12,
+      "min_spendable_cash": -1.4384474401399408e-14,
+      "fee_sum": 2.7339497238088293,
+      "max_fee_difference": 7.188694084447889e-15
+    },
+    {
+      "file": "trades_long_proxy_cash.csv",
+      "max_equity_difference": 4.547473508864641e-13,
+      "min_spendable_cash": 2000.0,
+      "fee_sum": 0.0,
+      "max_fee_difference": 0.0
+    },
+    {
+      "file": "trades_long_proxy_gold.csv",
+      "max_equity_difference": 1.8189894035458565e-12,
+      "min_spendable_cash": 0.2226616459320212,
+      "fee_sum": 1.1996840635317767,
+      "max_fee_difference": 0.0
+    },
+    {
+      "file": "trades_long_proxy_L1.csv",
+      "max_equity_difference": 1.3642420526593924e-12,
+      "min_spendable_cash": 0.22266164593247595,
+      "fee_sum": 1.8178200132525717,
+      "max_fee_difference": 9.020562075079397e-17
+    },
+    {
+      "file": "trades_long_proxy_L2.csv",
+      "max_equity_difference": 9.094947017729282e-13,
+      "min_spendable_cash": 0.0013128941889704038,
+      "fee_sum": 2.7817922987035173,
+      "max_fee_difference": 1.429412144204889e-14
+    },
+    {
+      "file": "trades_long_proxy_L3.csv",
+      "max_equity_difference": 9.094947017729282e-13,
+      "min_spendable_cash": 400.3572863026267,
+      "fee_sum": 1.3355723588647521,
+      "max_fee_difference": 7.185224637495935e-15
+    },
+    {
+      "file": "trades_main_A.csv",
+      "max_equity_difference": 9.094947017729282e-13,
+      "min_spendable_cash": 0.0,
+      "fee_sum": 2.996992123674392,
+      "max_fee_difference": 3.573530360512223e-15
+    },
+    {
+      "file": "trades_main_B.csv",
+      "max_equity_difference": 1.3642420526593924e-12,
+      "min_spendable_cash": -1.4245198809907982e-14,
+      "fee_sum": 2.990651604972518,
+      "max_fee_difference": 1.8596235662471372e-15
+    },
+    {
+      "file": "trades_main_bond.csv",
+      "max_equity_difference": 4.547473508864641e-13,
+      "min_spendable_cash": 0.11169833492931502,
+      "fee_sum": 1.598987661782985,
+      "max_fee_difference": 0.0
+    },
+    {
+      "file": "trades_main_C.csv",
+      "max_equity_difference": 1.3642420526593924e-12,
+      "min_spendable_cash": 0.0,
+      "fee_sum": 2.6376423891611234,
+      "max_fee_difference": 1.8231943732516243e-15
+    },
+    {
+      "file": "trades_main_cash.csv",
+      "max_equity_difference": 4.547473508864641e-13,
+      "min_spendable_cash": 2000.0,
+      "fee_sum": 0.0,
+      "max_fee_difference": 0.0
+    },
+    {
+      "file": "trades_main_gold.csv",
+      "max_equity_difference": 1.8189894035458565e-12,
+      "min_spendable_cash": 0.11169833492931502,
+      "fee_sum": 1.1994804506637138,
+      "max_fee_difference": 2.2737367544323206e-13
+    },
+    {
+      "file": "trades_main_L1.csv",
+      "max_equity_difference": 1.3642420526593924e-12,
+      "min_spendable_cash": -2.84893753071361e-14,
+      "fee_sum": 2.1883336904367923,
+      "max_fee_difference": 1.1368683772161603e-13
+    },
+    {
+      "file": "trades_main_L2.csv",
+      "max_equity_difference": 1.3642420526593924e-12,
+      "min_spendable_cash": -7.112107930489862e-15,
+      "fee_sum": 2.3770165693369467,
+      "max_fee_difference": 7.140121827120538e-15
+    },
+    {
+      "file": "trades_main_L3.csv",
+      "max_equity_difference": 9.094947017729282e-13,
+      "min_spendable_cash": 400.17841131305204,
+      "fee_sum": 1.570530365169148,
+      "max_fee_difference": 1.4307999229856705e-14
+    },
+    {
+      "file": "trades_oos_label_only_A.csv",
+      "max_equity_difference": 1.3642420526593924e-12,
+      "min_spendable_cash": -1.428724761357021e-14,
+      "fee_sum": 3.323345390831887,
+      "max_fee_difference": 7.070732888081466e-15
+    },
+    {
+      "file": "trades_oos_label_only_B.csv",
+      "max_equity_difference": 9.094947017729282e-13,
+      "min_spendable_cash": 0.0,
+      "fee_sum": 3.0686546188944552,
+      "max_fee_difference": 1.1368683772161603e-13
+    },
+    {
+      "file": "trades_oos_label_only_bond.csv",
+      "max_equity_difference": 4.547473508864641e-13,
+      "min_spendable_cash": 0.09748160034769171,
+      "fee_sum": 1.5989691777811004,
+      "max_fee_difference": 2.2737367544323206e-13
+    },
+    {
+      "file": "trades_oos_label_only_C.csv",
+      "max_equity_difference": 1.3642420526593924e-12,
+      "min_spendable_cash": -1.428724761357021e-14,
+      "fee_sum": 2.9139235210506427,
+      "max_fee_difference": 7.015221736850208e-15
+    },
+    {
+      "file": "trades_oos_label_only_cash.csv",
+      "max_equity_difference": 4.547473508864641e-13,
+      "min_spendable_cash": 2000.0,
+      "fee_sum": 0.0,
+      "max_fee_difference": 0.0
+    },
+    {
+      "file": "trades_oos_label_only_gold.csv",
+      "max_equity_difference": 1.3642420526593924e-12,
+      "min_spendable_cash": 0.09748160034769171,
+      "fee_sum": 1.1994665848915247,
+      "max_fee_difference": 0.0
+    },
+    {
+      "file": "trades_oos_label_only_L1.csv",
+      "max_equity_difference": 1.3642420526593924e-12,
+      "min_spendable_cash": 2.4158453015843406e-13,
+      "fee_sum": 1.9692930871569203,
+      "max_fee_difference": 1.1368683772161603e-13
+    },
+    {
+      "file": "trades_oos_label_only_L2.csv",
+      "max_equity_difference": 9.094947017729282e-13,
+      "min_spendable_cash": -7.127596712328775e-15,
+      "fee_sum": 2.4431366717037517,
+      "max_fee_difference": 7.188694084447889e-15
+    },
+    {
+      "file": "trades_oos_label_only_L3.csv",
+      "max_equity_difference": 9.094947017729282e-13,
+      "min_spendable_cash": 398.64714292029527,
+      "fee_sum": 1.474537289658798,
+      "max_fee_difference": 1.1368683772161603e-13
+    }
+  ],
+  "synthetic": [
+    {
+      "date": "2026-01-29",
+      "code": "000015",
+      "side": "buy",
+      "amount": 2000.0,
+      "shares": 1998.4012789768187,
+      "fee": 1.5987210231812696,
+      "hold_days": 0
+    },
+    {
+      "date": "2026-02-03",
+      "code": "000015",
+      "side": "sell",
+      "amount": 1968.4252597921663,
+      "shares": 1998.4012789768187,
+      "fee": 29.97601918465228,
+      "hold_days": 5.0
+    },
+    {
+      "date": "2026-02-05",
+      "code": "008701",
+      "side": "buy",
+      "amount": 1968.4252597921663,
+      "shares": 1967.2449128444598,
+      "fee": 1.1803469477065391,
+      "hold_days": 0
+    }
+  ]
+}

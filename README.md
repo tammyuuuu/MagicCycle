@@ -1,197 +1,120 @@
-# 宽基 ETF 监测与策略回测工具
+# 星循投资决策网站
 
-一个面向**宽基指数 ETF** 的小工具：用 AkShare 拉行情 → 跑你的买卖策略 → 做**历史回测**并输出收益/回撤/胜率等指标，同时提供**每日信号监测**。
+星循包含今日提醒、投资配置、投资复盘、策略实验四页。**唯一正式静态入口是 `docs/index.html`**，由 `export_alerts.py` 生成，不手工复制预览页覆盖。
 
-- 数据源：东财（前复权）→ 腾讯（前复权）→ 新浪（不复权）三级自动降级，并有本地 CSV 缓存
-- 回测规则：信号按当日收盘产生、次日开盘成交（避免未来函数），含佣金/最低佣金/滑点，按 100 份一手满仓
-- 内置对照基准：同期「买入持有（Buy & Hold）」
+当前没有启用正式投资组合策略。A/B/C/D/E/F、L1/L2/L3/L4均为研究或模拟，未经过实盘验证；渠道开放不等于投资买点。既有ETF提醒与新组合账户相互独立，历史持仓不参与新账户调仓。
 
-## 项目结构
+## 入口和日常使用
 
-```
-cycle/
-├── config.py          # 配置：监测标的 / 手续费 / 回测资金 / 缓存参数
-├── data_fetcher.py    # AkShare/腾讯行情获取 + 多源自动降级 + CSV 缓存
-├── indicators.py      # 技术指标库：MA/EMA/RSI/MACD/BOLL/ATR/区间高低
-├── strategies.py      # 传统策略定义（你的买卖规则也可填这里）
-├── backtest.py        # 传统全仓进出式回测引擎 + 绩效 + 绘图
-├── dca.py             # ⭐条件定投(估值/回撤)回测引擎 —— 网页版主引擎
-├── alerts.py          # 今日买卖点提醒 / 结合持仓的精确决策
-├── monitor.py         # CLI 每日信号监测（传统策略）
-├── main.py            # 命令行入口（fetch/backtest/monitor/dca/alerts/list）
-├── app.py             # 网页版（Flask）：规则录入 + 回测 + 今日提醒
-├── templates/index.html
-├── rules.json         # 网页里“保存规则”的落盘文件（自动生成）
-├── requirements.txt
-└── data_cache/        # 本地行情缓存（自动生成）
-```
+- 正式本地页面：`docs/index.html`。直接打开可查看；PWA需要HTTP本机地址或HTTPS。
+- 静态本地服务：项目根目录运行 `python -B -m http.server 8000 --bind 127.0.0.1 --directory docs`，访问 `http://127.0.0.1:8000/index.html`。这不会发布到互联网。
+- Flask开发入口：`python -B app.py`，访问 `http://127.0.0.1:5000`，源模板为 `templates/index.html`。
+- `workspace_ui_20261022/static_preview.html`及Flask预览仅为测试产物，不是正式入口。保留原路径以免打断旧浏览器存储使用；新改动只在正式导出后生效。
+- 首次投资账户空仓、默认预算2000元；实际现金、份额、在途款由账本确认事件计算。研究权重参考不代表已启用真实建议。
 
-### 两个 index.html 的关系
+## 账本备份与恢复
 
-- `templates/index.html` 是本地 Flask 应用的源页面，可以编辑规则、请求接口和运行回测。
-- `docs/index.html` 是 `python export_alerts.py` 自动生成的静态发布文件，供 GitHub Pages 使用，不应手工修改。
-- 两个页面共用 `templates/_strategy_guide.html` 中的策略说明。修改策略介绍时只需维护这一处，再重新运行导出命令。
+在“投资复盘”导出JSON，文件包括账户上下文、资产快照和完整交易事件。恢复前先保留原备份，在相同账户类型的空账户中导入；恢复会校验结构、交易和重算结果，不会合并覆盖已有非空账本。
 
-## 安装
+账本仅在当前浏览器存储，不在Git仓库或研究文件中。切换浏览器、设备、端口或访问地址前，先从原地址导出JSON；新地址不会自动获得旧账户。不要清除浏览器数据后才寻找备份。浏览器测试使用独立合成账户，不访问个人账本。
 
-```bash
-pip install -r requirements.txt
-```
+## 核心目录和文件
 
-## 快速上手
+| 路径 | 用途 |
+| --- | --- |
+| `docs/` | 唯一正式静态站点、PWA脚本/图标、公开渠道快照；`portfolio_data.json`仍用于历史兼容测试，保留 |
+| `templates/` | 当前Flask模板、投资工作区和共用状态展示 |
+| `app.py`、`export_alerts.py`、`correlation_data.py` | 本地接口、正式导出、公开版本数据与当前JS装配 |
+| `config.py`、`strategies.py`、`asset_states.py`、`strategy_config.py` | 现行ETF观察配置与信号解释；没有个股配置 |
+| `alerts.py`、`broad_individual_strategy.py`、`broad_signal_rules.py`、`us_etf_strategy.py`、`us_guidance.py`、`gold_strategy.py`、`industry_strategy.py` | ETF提醒共用计算，名称中的individual表示单只ETF，并非个股 |
+| `portfolio_store.js`、`capital_pool.js`、`portfolio_valuation.js` | 交易账本、资金池、账户估值；保留已验证核心逻辑 |
+| `investment_planner.js`、`investment_workspace.js`、`purchase_monitor.js` | 模拟计划、配置/复盘/实验交互、渠道监测 |
+| `data_cache/`、`valuation_data.py`、`data_fetcher.py` | ETF行情和估值缓存、获取逻辑；原始历史输入不要随意删除 |
+| `workspace_data/` | 版本化公开研究JSON及`manifest.json`；当前版本由manifest指定，测试引用的旧版本保留原路径 |
+| `research_def_20261022/` | 当前十组组合、多个区间的统一日度重验与结果、输入哈希、分红修正证据 |
+| `research_l34_20261022/`、`correctness_20261022/` | L3/L4及账本/日度因果修复的研究证据，包含仍被测试引用的数据 |
+| `research_xingxun_v1/`、`research_xingxun_v2/` | 原始数据、费率元数据、清洗面板和仍被当前研究导入的引擎；旧名称不等于失效 |
+| 根目录`research_*.py`、`test_*.py` | ETF研究及回归测试。脚本相互导入，保留稳定路径；不属于正式页面装配 |
+| `audit_codex_20261022/` | 审计报告、保护输入哈希及研究结论限制 |
+| `archive/` | 旧报告、旧UI、个股专用历史文件及历史结果压缩包；不装配到正式页面 |
+| `maintenance/20261022/` | 清理前清单、逐项动作/SHA256、测试日志、验收报告；一次性整理脚本不可重复运行 |
+| `workspace_ui_20261022/` | 预览生成器、桌面/375px浏览器测试、合成备份及截图，均为开发验收材料 |
+| `results/` | ETF临时回测输出。归档的历史输出可按原路径恢复，重跑研究可能再次生成 |
 
-### 1) 拉取 / 刷新数据（可选，程序会自动缓存）
+## 安装和数据更新
 
-```bash
-python main.py fetch                      # 拉取所有目标 ETF
-python main.py fetch --etf 588000 --force # 强制全量刷新单只
-```
+Python依赖：`python -m pip install -r requirements.txt`。测试另需Node；浏览器验收需Playwright和Chrome，当前脚本使用本机已安装路径，换机器需调整该路径。
 
-### 2) 历史回测
-
-```bash
-# 对全部标的跑默认示例策略（ma_cross 双均线 20/60）
-python main.py backtest
-
-# 指定标的、区间、策略，并保存图表与交易明细
-python main.py backtest --etf 510500 --strategy rsi_reversal --start 20200101 --save --plot
-
-# 覆盖策略参数
-python main.py backtest --etf 588000 --strategy ma_cross --params "fast=20,slow=120"
+```powershell
+# 安全的本地缓存构建：不联网，不提交或发布
+python -B export_alerts.py --offline
+# 正常刷新公开行情、估值与渠道数据后生成本地静态页：会联网，不会提交或发布
+python -B export_alerts.py
+# 仅构建开发验收预览
+python -B workspace_ui_20261022/build_previews.py
 ```
 
-回测输出指标：总收益 / 年化收益 / 最大回撤 / 夏普 / 卡玛 / 胜率 / 盈亏比 / 平均持有天数，
-并自动与「买入持有」对照；`--save` 会把图表和逐笔交易明细写入 `results/`。
+缓存构建明确显示缓存截至日期，渠道和净值快照保留其原始日期，不把生成时间当作数据更新时间。
 
-### 3) 每日监测
+`update_alerts.ps1`、`update_alerts.bat`和`refresh_local_startup.vbs`属于原自动提交/推送链路，**不是本地构建命令**。本轮不运行；保留原入口避免破坏已有启动依赖。ETF提醒计算和该自动化脚本未重写。
 
-```bash
-# 收盘后运行，输出每只 ETF 当前的持仓建议
-python main.py monitor
-python main.py monitor --etf 588000 --strategy ma_cross
+## 测试
+
+```powershell
+# 统一入口：全部根目录Python测试、V1函数/脚本测试、全部根目录Node测试、保护输入检查
+python -B run_tests.py
+# 同一入口追加当前五组UI验收（1440/375/320px）、JSON恢复及PWA真实离线测试
+python -B run_tests.py --browser
+# 指定单个组；例如接口快速检查可直接运行unittest
+python -B -m unittest test_decide_api test_stock_watch -v
 ```
 
-监测基于**当日收盘**计算信号，买/卖需按提示在**次日开盘**执行。
+统一入口遇到失败立即返回非零并停止，逐组日志写入`maintenance/20261022/test_results/`。测试临时目录限制在项目内；浏览器只使用隔离的合成账户。PWA测试只启动回环地址服务器，受限环境可能需要允许Chrome访问本机。
 
-### 4) 查看内置策略
+旧`workspace_ui_20261022/run_checks.py`及`correctness_20261022/run_validation.py`保留调用路径，统一转调`run_tests.py`，原版本留在`archive/legacy_checks/`。
 
-```bash
-python main.py list
+## 研究复现与版本
+
+- 当前组合参数和状态从`workspace_data/manifest.json`所指JSON读取；不手工填写收益。正式组合策略仍未启用，十组均为候选。
+- A/B/C及D/E/F归正常申购情景；D/E/F分别只将A/B/C纳指替换为标普。L1–L4为纳指受限情景，不能跨情景直接排名。
+- 当前统一日度重验：`python -B research_def_20261022/reaccept.py`，写其本目录`results/`；实际基金与指数代理区间分开标识。运行前保留已有结果，核对源码/输入哈希，不将历史重跑当作新的样本外验证。
+- 公开版本打包：`python -B build_workspace_data.py`。同版本内容不同会拒绝覆盖；只有审阅研究变更后才打包，再运行导出。打包不启用实盘策略。
+- 被推翻的月度合成、选参泄漏等结论保存在版本数据的淘汰说明及审计报告中，不列为推荐。旧V1注册表保留作历史证据，不代表当前十组的启用配置。
+- ETF历史报告已移入`archive/reports/etf_studies/`；对应`research_*.py`仍在项目根目录。旧研究脚本可能按原位置重新生成报告与`results/`，应在复现副本操作，避免混入日常运行。
+- V1/V2原始数据、元数据、`clean_backup_r5`及仍被引用的输出保留；不对研究数据作哈希批量去重。旧输出可能是历史分析输入，不能按名字删除。
+
+归档索引和恢复：
+
+```powershell
+python -B maintenance/archive_catalog.py
+# 先创建项目内独立恢复目录（例如maintenance/restored），再按原相对路径恢复
+python -B maintenance/archive_catalog.py --restore results --destination maintenance/restored
 ```
 
-## ⭐ 填入你自己的买卖规则
+工具核对归档成员SHA256，恢复到指定目录下的原相对路径，拒绝覆盖内容不同的现有文件。`maintenance/20261022/actions.json`记录原路径和归档去向。压缩归档保留完整文件，`source_before_cleanup.zip`为整理前源码快照；不要直接覆盖当前项目。历史报告中的相对路径以原项目根目录为基准，在恢复副本中使用。
 
-策略都在 `strategies.py` 里。把你自己的规则写进 `my_strategy` 函数即可：
+## 自选买入与每日盈亏（2026-10-22更新）
 
-```python
-def my_strategy(df, params):
-    # df: 日线（open/high/low/close/volume...）
-    # 可用 indicators 里的 ma/ema/rsi/macd/bollinger/atr/cross_up...
-    buy  = ...   # 买入条件（布尔 Series，True 处发买入信号）
-    sell = ...   # 卖出条件（布尔 Series，True 处发卖出信号）
-    return buy.astype(int) - sell.astype(int)   # +1 买入 / -1 卖出 / 0 无操作
-```
+投资配置中的方案仅作研究参考。“我的买入决定”可以选择基金、自定金额，例如L1下黄金先买500元：先等待会保存计划、不冻结资金；已在渠道买入才记为待确认，实际确认份额另补。无需一次买齐目标配置。低频更正/撤销/资金流放在“记录管理”弹窗，复盘不再放这些表单。
 
-改完后运行：
+复盘展示当日估值盈亏、累计盈亏、持仓、日月明细和曲线。账户净值与策略历史数据隔离：`account_nav.py`获取公开实际基金净值，写`docs/account_nav.json`；不会覆盖`workspace_data`或研究CSV。更新错误、未来日期、无效净值及未核实的新分红/折算不强行用于计算。
 
-```bash
-python main.py backtest --etf all --strategy my_strategy --save --plot
-```
+- Flask：`python -B app.py`。进入页面及回到页面后自动请求`/api/account-nav`，可见时每5分钟检查；公开来源抓取缓存15分钟，无需录入持仓给外部接口。
+- 静态站：通常的`python -B export_alerts.py`同时刷新账户净值、嵌入HTML并生成独立JSON。已部署静态站依靠日常数据构建更新，浏览器每5分钟重读JSON；本轮不发布。
+- 单独更新公开净值：`python -B account_nav.py --refresh`；`--force`可绕过15分钟缓存。离线导出不会请求网络。
+- 直接双击HTML仅使用导出时嵌入的净值，浏览器文件模式无法自动请求本地服务。自动取得新披露净值请使用Flask入口。
 
-需要新增参数时：把默认值加到 `strategies.py` 的 `DEFAULT_PARAMS["my_strategy"]`，
-命令行可用 `--params "xxx=值"` 覆盖。
+场外基金按日披露净值，非盘中实时行情；QDII可能延后。每项盈亏随已确认交易与最新可用净值自动重算，净值日期和沿用状态在页面注明；新分红信息未核实或历史缺数时保守停算，不虚构收益。
 
-## 更换 / 增加监测标的
 
-编辑 `config.py` 的 `TARGET_ETFS`，每行一个字典：
+### 当前UI样式与首屏
 
-```python
-TARGET_ETFS = [
-    {"code": "510500", "name": "中证500ETF", "index": "中证500"},
-    {"code": "588000", "name": "科创50ETF",  "index": "科创50"},
-    # {"code": "510300", "name": "沪深300ETF", "index": "沪深300"},
-    # {"code": "159915", "name": "创业板ETF",  "index": "创业板指"},
-]
-```
+`templates/_styles.html` 是动态模板和静态导出共用的唯一关键样式入口，在 `<head>` 内嵌加载；不要在正文末尾追加布局覆盖。`_status_rail.html` 保留信号展示交互，`_invest_tools.html` 保留当前四页组件，账户、研究图表及购买监测各自保留独立脚本职责。宽度和居中完全由CSS生效。
 
-`config.py` 里还能改：初始资金、佣金费率（默认万 1）、单笔最低佣金、滑点等。
+旧参数编辑、旧定投回测界面和旧持仓前端不再装配；相应后端API、研究函数和被回归测试使用的 `archive/legacy_ui/` 保留。页面清理恢复包和首帧检测见 `ui_cleanup/`。可执行 `node ui_cleanup/check_first_paint.js` 检查分段加载及禁用JavaScript时的宽度（需要本机回环服务器）。
 
-## 数据与网络说明
+### 2026-10-22 最新版轻量清理
 
-- 首次使用某只 ETF 需要联网拉取；之后只要缓存已包含**最近一个应已收盘的交易日**就直接复用，
-  否则从缓存末尾增量拉取（判据是数据日期，不是文件时间）。
-- 东财源被屏蔽/限流时会打印 `[提示]`，先降级到**腾讯**（同为前复权，价格与东财一致），
-  再不行才用新浪（不复权，对 ETF 分红影响很小）。
-- 若网络长期不可用，可先用 `fetch` 把数据缓存好，之后回测/监测可在离线状态复用缓存。
-- 监测页里显示的“实时价格”来自腾讯行情接口（单次快速请求）。
+正式入口仍为 `docs/index.html`，使用 `python export_alerts.py --offline` 重新生成。完整检查使用 `python run_tests.py --browser`；首屏检查使用 `node ui_cleanup/check_first_paint.js`。
 
-## 免责声明
-
-本项目仅用于**策略研究、回测与个人学习**，不构成任何投资建议。回测结果不代表未来表现；
-实盘前请自行核对手续费、滑点、分红、停牌等细节。
-
----
-
-## 🌐 网页版（推荐）：录入规则 → 看收益 → 看今日买卖点
-
-```bash
-python app.py
-# 浏览器打开 http://127.0.0.1:5000
-```
-
-三个页签：
-
-1. **规则编辑**
-   - ① 策略参数：历史极值/最大涨幅窗口、分位点窗口、日均波动窗口、A/B/C/D/E 阈值、定投金额档、资金池等，全部可改。
-   - ② 卖出/仓位管理规则：每一行 =「满足【条件】→ 执行【操作】」，勾选条件、选操作，从上到下优先级判断、首个命中生效。
-   - 可「💾 保存为默认规则」（落到 `rules.json`）或「载入已保存」。
-2. **定投回测**：选标的 + 起始日 → 开始回测 → 同时给出**条件定投 vs 无脑定投基准**两张指标表、资金曲线图和动作日志。
-3. **今日提醒**：打开即显示每只 ETF 今天能不能投（A/B/D 状态 + 建议金额）、是否过热暂停；点开「填我的实际持仓（是否持有/平均成本/持仓最高价）」可得到精确的**该买 / 该卖 / 该减仓 / 继续持有**判断。
-
-命令行等价用法：
-
-```bash
-python main.py dca --etf all --start 20160101 --save --plot   # 条件定投回测
-python main.py alerts                                         # 今日买卖点提醒
-```
-
-### 定投/提醒的引擎约定（务必了解，参数均可调）
-
-- **成交模型**：条件用当日收盘数据计算，按当日收盘价成交；每周第一个交易日定投（周一休市自动顺延到当周首个交易日）。
-- **历史最高/最低价与最大涨幅** = 过去 `hist_window`(默认5年=1260交易日)的滚动极值，用「截至昨日」的数据（避免当日未来信息）；数据不足时退化为自上市以来。
-- **分位点** = 当日收盘在过去 `percentile_window`(默认5年) 收盘价中的百分位（含当日）。
-- **C 涨幅** 相对「持仓摊薄成本(含费用)」；**E 高位回撤** 指持仓期间收盘最高点回撤 ≥ 日均波动×倍数（日均波动=过去 `vol_window` 日 |涨跌幅| 均值，截至昨日）。
-- **减仓类动作**(卖50%)同一持仓周期内只触发一次，避免反复减半；E 保护清仓会把持仓周期重置。
-- **金额档 30/20/10 元** 默认按「1 份」粒度买入，用于**信号与收益比率的验证**（小额也可买）。⚠️ 实盘场内 ETF 需按一手 100 份并放大金额，佣金/滑点请按你券商实际调整（参数 `lot`、`fee_rate`、`min_fee` 可改）。
-- 已实现盈亏按“摊薄成本法”后算；基准「无脑定投」= 每期固定投档1金额、不择时、不减仓。
-
-### 提醒的触发临界参考价
-
-卖出提醒中若你还没填持仓，工具会给出“什么价位会触发”：
-
-- E 回撤保护：需 **持仓期最高价 ≥ 现价 × (1 + 日均波动×倍数)** 才可能触发；
-- C 涨幅：需你的 **摊薄平均成本 ≤ 现价 / (1 + 最大涨幅×C阈值)** 才满足；
-- D 过热：分位点 > 阈值即触发暂停定投。
-
-填上你的实际持仓（成本/最高价）后，网页会直接告诉你今天该怎么做。
-
-## 📱 手机看今日提醒（GitHub Pages，免费）
-
-本地网页只有电脑能访问；想「手机上随时看今天能不能投」，可把今日提醒导出成静态页发布到 GitHub Pages：
-
-```bash
-python export_alerts.py        # 生成 docs/index.html（手机友好、可填持仓精判断）
-```
-
-然后：
-
-1. 提交推送 `docs/`：`git add . && git commit -m "update alerts" && git push`
-2. 在 GitHub 仓库 **Settings → Pages** → Source 选 **Deploy from a branch: main / docs** → Save
-3. 手机访问 `https://<你的用户名>.github.io/<仓库名>/`（本仓库即 `https://tammyuuuu.github.io/MagicCycle/`）
-
-说明：
-
-- 规则来源：优先用网页「保存为默认规则」生成的 `rules.json`；没有则用内置默认规则。想在网页改好规则再导出，先去网页保存一次再跑导出。
-- 这是**定时快照**：每次 `python export_alerts.py` 生成当天数据，可配合 Windows 任务计划程序在每天收盘后自动跑（用 AkShare 本地缓存，无需实时接口）。
-- 若 GitHub 在你网络下访问不畅，把 `docs/index.html` 这个单文件同样可推到 Gitee Pages 等国内静态托管，效果相同。
-
+历史UI基线的未压缩HTML已转为可校验恢复的ZIP；可选历史探针通过 `maintenance/read_html_snapshot.js` 读取，当前网站不加载该工具。仍被测试引用的旧模块、Flask预览文件、原静态预览路径、所有研究数据和既有依赖均保留。详情与恢复清单见 [清理验收报告](maintenance/20261022/cleanup_latest/REPORT.md)。

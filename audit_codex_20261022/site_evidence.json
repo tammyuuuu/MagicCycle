@@ -1,0 +1,97 @@
+{
+  "afterBuy": 1000,
+  "afterRebuild": 0,
+  "afterSecondRebuild": -1000,
+  "deletedDiaryStillHeld": [
+    {
+      "code": "000015",
+      "name": "000015",
+      "shares": 1000,
+      "cost": 1000,
+      "source": "trade"
+    }
+  ],
+  "noConfirmedQuantity": {
+    "version": 1,
+    "ratio": 0.1,
+    "mode": "simulation",
+    "allocationId": "invvol4_cap40_v1",
+    "poolCash": 1000,
+    "positions": [
+      {
+        "code": "000015",
+        "name": "000015",
+        "shares": 1000,
+        "cost": 1000,
+        "source": "trade"
+      }
+    ],
+    "flows": [],
+    "updatedAt": "2026-10-22T06:39:46.189Z",
+    "initialPositions": [],
+    "initialDate": "2026-10-01",
+    "processedIds": [
+      "buy1"
+    ]
+  },
+  "sellWithoutHoldings": {
+    "version": 1,
+    "ratio": 0.1,
+    "mode": "simulation",
+    "allocationId": "invvol4_cap40_v1",
+    "poolCash": 2000,
+    "positions": [
+      {
+        "code": "000015",
+        "name": "000015",
+        "shares": 0,
+        "cost": 0,
+        "source": "trade"
+      }
+    ],
+    "flows": [],
+    "updatedAt": "2026-10-22T06:39:46.189Z",
+    "initialPositions": [],
+    "initialDate": "2026-10-01",
+    "processedIds": [
+      "buy1"
+    ],
+    "receivable": 1000
+  },
+  "belowMinimumAfterLimit": [
+    {
+      "code": "000015",
+      "name": "test",
+      "weight": 1,
+      "current": 0,
+      "target": 2000,
+      "delta": 2000,
+      "action": "买入",
+      "amount": 5,
+      "fee": 0.003996802557953316,
+      "shares": 4.996003197442047,
+      "postValue": 4.996003197442047,
+      "executable": true,
+      "reason": "受日累计申购限额 5 元限制，已截断；目标 100%，缺口 2000.00 元；申购费 0.08%，T+1 确认份额",
+      "postWeight": 0.0024980065907405894
+    }
+  ],
+  "pausedSubscriptionBlocksSell": [
+    {
+      "code": "000015",
+      "name": "test",
+      "weight": 0,
+      "current": 2000,
+      "target": 0,
+      "delta": -2000,
+      "action": "无操作",
+      "amount": 0,
+      "fee": 0,
+      "shares": null,
+      "postValue": 2000,
+      "executable": false,
+      "reason": "基金状态为“暂停申购”，不可申购",
+      "postWeight": 1
+    }
+  ]
+}

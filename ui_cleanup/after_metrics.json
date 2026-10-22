@@ -1,0 +1,23 @@
+{
+  "html_bytes": 10088567,
+  "html_gzip": 2946611,
+  "css_bytes": 21171,
+  "style_blocks": 1,
+  "runtime_source_before": 135872,
+  "runtime_source_after": 92402,
+  "sources": {
+    "templates/index.html": 4539,
+    "templates/_invest_tools.html": 11444,
+    "templates/_status_rail.html": 7064,
+    "export_alerts.py": 13237,
+    "investment_workspace.js": 33122,
+    "correlation_data.py": 1808,
+    "templates/_styles.html": 21188
+  },
+  "head_style_blocks": 1,
+  "body_style_blocks": 0,
+  "saved_html_bytes": 16052,
+  "saved_css_bytes": 10362,
+  "saved_source_bytes": 43470,
+  "saved_gzip_bytes": 5696
+}

@@ -184,8 +184,9 @@ def cmd_alerts(args) -> None:
         print("\n" + "-" * 60)
         try:
             df = fetcher.fetch_etf_daily(code, start="20050101", end="20500101")
-            rep = alerts_mod.analyze_latest(df.tail(1400), params, sell_rules=rules)
-            print(alerts_mod.render_text(rep, f"{code} {name}"))
+            from strategies import analyze_asset
+            summary = analyze_asset(df, item, overrides=params if item.get("asset_type") == "broad_etf" else None, sell_rules=rules)
+            print(f"{code} {name} · {summary['date']} · {summary['metrics']['price']}\n{summary['action']}：{summary['reason']}")
         except Exception as e:
             print(f"[{code}] {name} 提醒计算失败：{type(e).__name__}: {e}")
 

@@ -1,0 +1,63 @@
+{
+  "checked_at": "2026-10-03T22:40:07.433290",
+  "checks": [
+    {
+      "source": "legulegu",
+      "code": "990001.CSI",
+      "error": "接口未返回指数滚动市盈率历史"
+    },
+    {
+      "source": "legulegu",
+      "code": "950125.CSI",
+      "error": "接口未返回指数滚动市盈率历史"
+    },
+    {
+      "source": "legulegu",
+      "code": "990001.SH",
+      "error": "接口未返回指数滚动市盈率历史"
+    },
+    {
+      "source": "legulegu",
+      "code": "950125.SH",
+      "error": "接口未返回指数滚动市盈率历史"
+    },
+    {
+      "source": "csindex",
+      "code": "990001",
+      "url": "https://oss-ch.csindex.com.cn/static/html/csindex/public/uploads/file/autofile/indicator/990001indicator.xls",
+      "rows": 20,
+      "columns": [
+        "日期Date",
+        "指数代码Index Code",
+        "指数中文全称Chinese Name(Full)",
+        "指数中文简称Index Chinese Name",
+        "指数英文全称English Name(Full)",
+        "指数英文简称Index English Name",
+        "市盈率1（总股本）P/E1",
+        "市盈率2（计算用股本）P/E2",
+        "股息率1（总股本）D/P1",
+        "股息率2（计算用股本）D/P2"
+      ],
+      "file": "data_cache\\research_official_valuation_990001.csv"
+    },
+    {
+      "source": "csindex",
+      "code": "950125",
+      "url": "https://oss-ch.csindex.com.cn/static/html/csindex/public/uploads/file/autofile/indicator/950125indicator.xls",
+      "rows": 20,
+      "columns": [
+        "日期Date",
+        "指数代码Index Code",
+        "指数中文全称Chinese Name(Full)",
+        "指数中文简称Index Chinese Name",
+        "指数英文全称English Name(Full)",
+        "指数英文简称Index English Name",
+        "市盈率1（总股本）P/E1",
+        "市盈率2（计算用股本）P/E2",
+        "股息率1（总股本）D/P1",
+        "股息率2（计算用股本）D/P2"
+      ],
+      "file": "data_cache\\research_official_valuation_950125.csv"
+    }
+  ]
+}

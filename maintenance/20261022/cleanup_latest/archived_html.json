@@ -1,0 +1,10 @@
+{
+  "ui_cleanup/before.html": {
+    "archive": "ui_cleanup/before.zip",
+    "member": "docs/index.html"
+  },
+  "ui_optimization/before.html": {
+    "archive": "maintenance/20261022/cleanup_latest/historical_html.zip",
+    "member": "ui_optimization/before.html"
+  }
+}

@@ -4,13 +4,13 @@
 ================================
 面向「满足(条件) → 执行(操作)」风格的周定投策略，例如：
 
-    买入(每周一定投, 周一休市顺延到当周首个交易日, 按当日收盘成交)：
+    买入(每周一定投, 周一休市顺延到当周首个交易日, 收盘决策、下个交易日收盘成交)：
       A  跌幅足够深 : close <= 历史最高价 × (1 - 历史最大涨幅 × a_cut)
       B  分位点低   : 当日收盘价在过去 percentile_window(默认5年) 内的分位 < p_low
       金额档：A且B -> amount_ab；仅A -> amount_a；仅B -> amount_b；都不满足 -> 0
       过热 D (分位 > p_high) -> 当周暂停定投，持有观望
 
-    卖出/仓位管理(每个交易日按当日收盘数据判断, 按当日收盘价成交)：
+    卖出/仓位管理(使用上个交易日收盘数据判断, 按本交易日收盘价成交)：
       E     高位回撤保护 : 持仓期最高收盘回撤 ≥ 日均波动 × dd_mult  -> 清仓
       C+D   涨幅足够且过热 : 相对摊薄成本涨 ≥ 最大涨幅×gain_trigger 且分位>p_high -> 清仓
       C(仅) 涨幅足够(未过热) : 同上但分位≤p_high -> 卖出 50% 仓位（一个持仓周期只触发一次）
@@ -158,7 +158,7 @@ class DcaResult:
 def run_dca(df: pd.DataFrame, params: dict = None,
             sell_rules: list = None, naive: bool = False) -> DcaResult:
     """
-    运行周定投回测。
+    运行历史场内周定投回测；不写入真实/模拟账本，不作为场外执行模型。
       naive=True 时跑基准“无脑定投”：每周固定投 amount_ab、不看条件、不减仓。
     返回 DcaResult（df 含逐日账户状态列，events 为逐笔动作日志）。
     """
@@ -206,19 +206,20 @@ def run_dca(df: pd.DataFrame, params: dict = None,
     # 每周买入条件 A/B/D（用于买入与事件记录）
     for i in range(n):
         px = close[i]
+        decision_px = close[i-1] if i > 0 else np.nan
 
         # ============ 1) 卖出 / 仓位管理（每日，仅持仓时） ============
-        if shares > 0 and not naive:
+        if i > 0 and shares > 0 and not naive:
             conds = {}
-            mg_i = mg[i]
+            mg_i = mg[i-1]
             # C：相对摊薄成本涨幅达标
             gain_ok = (basis > 0 and shares > 0 and mg_i == mg_i
-                       and (px / (basis / shares) - 1) >= mg_i * g_trig)
+                       and (decision_px / (basis / shares) - 1) >= mg_i * g_trig)
             # D：过热
-            d_ok = pct[i] == pct[i] and pct[i] > p_high
+            d_ok = pct[i-1] == pct[i-1] and pct[i-1] > p_high
             # E：从持仓期高点回撤 >= 日均波动*倍数
-            dd_ok = (peak > 0 and vol[i] == vol[i]
-                     and (peak - px) / peak >= vol[i] * dd_mult)
+            dd_ok = (peak > 0 and vol[i-1] == vol[i-1]
+                     and (peak - decision_px) / peak >= vol[i-1] * dd_mult)
             conds.update({"C": gain_ok, "D": d_ok, "E": dd_ok})
 
             for r in sorted(rules, key=lambda x: x.get("priority", 99)):
@@ -251,10 +252,10 @@ def run_dca(df: pd.DataFrame, params: dict = None,
                         break
 
         # ============ 2) 每周定投买入（每周第一个交易日） ============
-        if is_dca[i]:
+        if i > 0 and is_dca[i-1]:
             # 过热暂停（启用的 pause 规则且满足 D 条件）-> 本周暂停定投，持有观望
             paused = False
-            if not naive and pct[i] == pct[i] and pct[i] > p_high:
+            if not naive and pct[i-1] == pct[i-1] and pct[i-1] > p_high:
                 for r in rules:
                     if r.get("enabled", True) and r.get("action") == "pause" \
                             and "D" in r.get("conds", []):
@@ -269,9 +270,9 @@ def run_dca(df: pd.DataFrame, params: dict = None,
             elif naive:
                 amount = amt_ab          # 无脑定投基准：每周固定档1
             else:
-                a_ok = (not np.isnan(hh[i]) and not np.isnan(mg[i])
-                        and px <= hh[i] * (1 - mg[i] * a_cut))
-                b_ok = pct[i] == pct[i] and pct[i] < p_low
+                a_ok = (not np.isnan(hh[i-1]) and not np.isnan(mg[i-1])
+                        and decision_px <= hh[i-1] * (1 - mg[i-1] * a_cut))
+                b_ok = pct[i-1] == pct[i-1] and pct[i-1] < p_low
                 amount = (amt_ab if a_ok and b_ok
                           else amt_a if a_ok
                           else amt_b if b_ok else 0.0)

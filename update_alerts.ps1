@@ -1,60 +1,72 @@
-﻿# -*- coding: utf-8 -*-
-# 自动更新"今日提醒"静态页：生成 docs/index.html -> 提交 -> 推送到 GitHub Pages
-# 由 Windows 计划任务调用（登录时 / 每天16:00），也可手动运行。
-# 开机/登录后先探测网络（校园网要几分钟才通），一通就生成并推送；无变化时自动忽略。
-$ErrorActionPreference = 'Continue'
-
-$proj = 'd:\file\fun\invest\cycle'
+# Automatic snapshot generation and publication at Windows login.
+param([int]$WaitNetMinutes = 10)
+$ErrorActionPreference = 'Stop'
+$proj = $PSScriptRoot
+Set-Location -LiteralPath $proj
 $logDir = Join-Path $proj 'logs'
-if (-not (Test-Path $logDir)) { New-Item -ItemType Directory -Force $logDir | Out-Null }
-$log = Join-Path $logDir 'update_alerts.log'
-$ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-"[$ts] ===== 开始自动更新 =====" | Out-File $log -Append -Encoding utf8
-
-# 等网络真正可用：校园网需要手动点连接，可能拖很久，所以间隔拉长、总时长放宽。
-# 下面两个数可以按习惯调：间隔越小越及时，越大越“安静”。
-$probeIntervalSec = 60      # 每隔多少秒探一次
-$maxWaitMinutes   = 10      # 最多等多少分钟（超时就用旧缓存继续跑）
-
-$probe = 'https://qt.gtimg.cn/q=sh510500'
-$deadline = (Get-Date).AddMinutes($maxWaitMinutes)
-$n = 0
-$netOk = $false
-while (-not $netOk -and (Get-Date) -lt $deadline) {
-    $n++
-    try {
-        $r = Invoke-WebRequest -Uri $probe -TimeoutSec 8 -UseBasicParsing
-        $netOk = ($r.StatusCode -eq 200)
-    } catch {
-        $netOk = $false
-    }
-    if (-not $netOk) { Start-Sleep -Seconds $probeIntervalSec }
+New-Item -ItemType Directory -Force -Path $logDir | Out-Null
+$log = Join-Path $logDir 'auto_update.log'
+$utf8 = New-Object System.Text.UTF8Encoding($false)
+function Write-Log([string]$message) {
+    $line = '[{0}] {1}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $message
+    [IO.File]::AppendAllText($log, $line + [Environment]::NewLine, $utf8)
+    Write-Host $line
 }
-if ($netOk) {
-    "[$(Get-Date -Format 'HH:mm:ss')] 网络已就绪（第 $n 次探测），开始抓数" |
-        Out-File $log -Append -Encoding utf8
-} else {
-    "[$(Get-Date -Format 'HH:mm:ss')] 等网络超时（$maxWaitMinutes 分钟 / $n 次），用旧缓存继续" |
-        Out-File $log -Append -Encoding utf8
+function Invoke-Logged([string]$program, [string[]]$arguments) {
+    # Windows PowerShell 5 treats native stderr as ErrorRecord, even on success.
+    $ErrorActionPreference = 'Continue'
+    & $program @arguments 2>&1 | ForEach-Object { Write-Log "$_" }
+    if ($LASTEXITCODE -ne 0) { throw "$program failed: exit $LASTEXITCODE" }
 }
-
+# Prevent overlapping startup/manual runs in this checkout.
+$lock = $null
 try {
-    Set-Location $proj
-
-    # python（找不到就用绝对路径兜底）
-    $py = (Get-Command python -ErrorAction SilentlyContinue).Source
-    if (-not $py) { $py = 'D:\loaddown\python\python.exe' }
-
-    "  -> 生成今日提醒页面" | Out-File $log -Append -Encoding utf8
-    & $py export_alerts.py *>> $log
-
-    "  -> git add / commit / push" | Out-File $log -Append -Encoding utf8
-    git add docs/index.html 2>> $log
-    git commit -m "auto update alerts $(Get-Date -Format 'yyyy-MM-dd HH:mm')" 2>> $log
-    git push 2>> $log
-
-    "[$ts] ===== 完成 =====" | Out-File $log -Append -Encoding utf8
-}
-catch {
-    "[$ts] 错误：$_" | Out-File $log -Append -Encoding utf8
+    $lock = [IO.File]::Open((Join-Path $logDir 'auto_update.lock'), 'OpenOrCreate', 'ReadWrite', 'None')
+} catch { Write-Log 'Another update is running; skipped.'; exit 0 }
+try {
+    Write-Log "START project=$proj"
+    $deadline = (Get-Date).AddMinutes($WaitNetMinutes)
+    do {
+        $ready = $false
+        try { $ready = (Invoke-WebRequest -UseBasicParsing -Uri 'https://qt.gtimg.cn/q=sh510500' -TimeoutSec 8).StatusCode -eq 200 } catch {}
+        if ($ready -or (Get-Date) -ge $deadline) { break }
+        Start-Sleep -Seconds 30
+    } while ($true)
+    if (-not $ready) { throw 'Network unavailable; no snapshot published. Retry update_alerts.bat after connecting.' }
+    $env:GIT_TERMINAL_PROMPT = '0'
+    $gitExe = (Get-Command git -ErrorAction Stop).Source
+    $gitRoot = Split-Path (Split-Path $gitExe -Parent) -Parent
+    $bundledSsh = Join-Path $gitRoot 'usr\bin\ssh.exe'
+    if (Test-Path -LiteralPath $bundledSsh) {
+        $env:SHELL = (Join-Path $gitRoot 'usr\bin\sh.exe').Replace('\', '/')
+        $sshPath = $bundledSsh.Replace('\', '/')
+        $env:GIT_SSH_COMMAND = '"' + $sshPath + '" -o BatchMode=yes -o ConnectTimeout=20'
+    } else {
+        $env:GIT_SSH_COMMAND = 'ssh -o BatchMode=yes -o ConnectTimeout=20'
+    }
+    $env:PYTHONIOENCODING = 'utf-8'
+    [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+    $OutputEncoding = [Console]::OutputEncoding
+    $py = (Get-Command python -ErrorAction Stop).Source
+    Write-Log 'Generating snapshot...'
+    Invoke-Logged $py @('-u', (Join-Path $proj 'export_alerts.py'))
+    $snapshot = Get-Content -LiteralPath 'docs/index.json' -Raw -Encoding UTF8 | ConvertFrom-Json
+    if (-not @($snapshot | Where-Object { $_.status -ne 'error' }).Count) { throw 'All assets failed; refusing to publish.' }
+    $dates = @($snapshot | ForEach-Object { $_.date } | Where-Object { $_ } | Sort-Object -Unique)
+    Write-Log ('Snapshot data dates: ' + ($dates -join ', '))
+    $html = [IO.File]::ReadAllText((Join-Path $proj 'docs/index.html'))
+    if ($html.Contains('stale') -or $html.Contains([string][char]0x26A0)) { Write-Log 'WARNING: see page for cached-data or other warnings; generation time is not market-data time.' }
+    Invoke-Logged 'git' @('add', '--', 'docs/index.html', 'docs/index.json', 'docs/purchase_monitor.json')
+    & git diff --cached --quiet -- docs/index.html docs/index.json docs/purchase_monitor.json
+    $diffCode = $LASTEXITCODE
+    if ($diffCode -eq 1) {
+        Invoke-Logged 'git' @('commit', '--only', '-m', "auto update alerts $(Get-Date -Format 'yyyy-MM-dd HH:mm')", '--', 'docs/index.html', 'docs/index.json', 'docs/purchase_monitor.json')
+    } elseif ($diffCode -ne 0) { throw 'git diff failed' }
+    Invoke-Logged 'git' @('push')
+    Write-Log 'SUCCESS: snapshot pushed to GitHub; Pages deployment follows.'
+} catch {
+    Write-Log "FAILED: $_"
+    exit 1
+} finally {
+    if ($lock) { $lock.Dispose() }
 }

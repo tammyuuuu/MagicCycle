@@ -1,0 +1,212 @@
+[
+  {
+    "segment": "real_2013",
+    "scheme": "A",
+    "reason": "指定起点早于所需基金可用净值起点：{'000015': '2013-03-08', '008701': '2020-07-16', '161130': '2017-06-23', '000198': '2013-05-30'}",
+    "requested_first": "2013-01-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2013",
+    "scheme": "B",
+    "reason": "指定起点早于所需基金可用净值起点：{'000015': '2013-03-08', '008701': '2020-07-16', '161130': '2017-06-23', '000198': '2013-05-30'}",
+    "requested_first": "2013-01-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2013",
+    "scheme": "C",
+    "reason": "指定起点早于所需基金可用净值起点：{'000015': '2013-03-08', '008701': '2020-07-16', '161130': '2017-06-23', '000198': '2013-05-30'}",
+    "requested_first": "2013-01-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2013",
+    "scheme": "L1",
+    "reason": "指定起点早于所需基金可用净值起点：{'000015': '2013-03-08', '008701': '2020-07-16', '000198': '2013-05-30'}",
+    "requested_first": "2013-01-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2013",
+    "scheme": "L2",
+    "reason": "指定起点早于所需基金可用净值起点：{'000015': '2013-03-08', '008701': '2020-07-16', '000198': '2013-05-30'}",
+    "requested_first": "2013-01-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2013",
+    "scheme": "L3",
+    "reason": "指定起点早于所需基金可用净值起点：{'000015': '2013-03-08', '008701': '2020-07-16', '001214': '2015-05-13', '000198': '2013-05-30'}",
+    "requested_first": "2013-01-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2013",
+    "scheme": "L4",
+    "reason": "指定起点早于所需基金可用净值起点：{'000015': '2013-03-08', '008701': '2020-07-16', '000198': '2013-05-30'}",
+    "requested_first": "2013-01-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2013",
+    "scheme": "D",
+    "reason": "指定起点早于所需基金可用净值起点：{'000015': '2013-03-08', '008701': '2020-07-16', '000198': '2013-05-30'}",
+    "requested_first": "2013-01-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2013",
+    "scheme": "E",
+    "reason": "指定起点早于所需基金可用净值起点：{'000015': '2013-03-08', '008701': '2020-07-16', '000198': '2013-05-30'}",
+    "requested_first": "2013-01-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2013",
+    "scheme": "F",
+    "reason": "指定起点早于所需基金可用净值起点：{'000015': '2013-03-08', '008701': '2020-07-16', '000198': '2013-05-30'}",
+    "requested_first": "2013-01-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2017",
+    "scheme": "A",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2017-07-03",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2017",
+    "scheme": "B",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2017-07-03",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2017",
+    "scheme": "C",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2017-07-03",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2017",
+    "scheme": "L1",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2017-07-03",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2017",
+    "scheme": "L2",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2017-07-03",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2017",
+    "scheme": "L3",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2017-07-03",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2017",
+    "scheme": "L4",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2017-07-03",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2017",
+    "scheme": "D",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2017-07-03",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2017",
+    "scheme": "E",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2017-07-03",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2017",
+    "scheme": "F",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2017-07-03",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2019",
+    "scheme": "A",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2019-04-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2019",
+    "scheme": "B",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2019-04-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2019",
+    "scheme": "C",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2019-04-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2019",
+    "scheme": "L1",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2019-04-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2019",
+    "scheme": "L2",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2019-04-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2019",
+    "scheme": "L3",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2019-04-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2019",
+    "scheme": "L4",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2019-04-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2019",
+    "scheme": "D",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2019-04-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2019",
+    "scheme": "E",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2019-04-01",
+    "data_type": "actual_fund"
+  },
+  {
+    "segment": "real_2019",
+    "scheme": "F",
+    "reason": "指定起点早于所需基金可用净值起点：{'008701': '2020-07-16'}",
+    "requested_first": "2019-04-01",
+    "data_type": "actual_fund"
+  }
+]

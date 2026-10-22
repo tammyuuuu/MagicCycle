@@ -1,0 +1,42 @@
+[
+  {
+    "kind": "archived_html",
+    "path": "ui_cleanup/before.html",
+    "bytes": 10104619,
+    "sha256": "e99a073a06a7475a7ce15a7e4dcadd3a1dac4df639a62e087b5c6cb0ec879a1d",
+    "recovery": {
+      "archive": "ui_cleanup/before.zip",
+      "member": "docs/index.html"
+    }
+  },
+  {
+    "kind": "archived_html",
+    "path": "ui_optimization/before.html",
+    "bytes": 10088842,
+    "sha256": "d07f1f5ced3632e0cdad772fa1a1084dbaefd41d2fcc81d2af9fb0886763d47c",
+    "recovery": {
+      "archive": "maintenance/20261022/cleanup_latest/historical_html.zip",
+      "member": "ui_optimization/before.html"
+    }
+  },
+  {
+    "kind": "unused_removed",
+    "path": "trade_receipts.js",
+    "bytes": 4435,
+    "sha256": "6dab998d8279f844748b4e329bd66676fd1433f96e06851129b339964f476b08",
+    "recovery": {
+      "archive": "maintenance/20261022/cleanup_latest/source_before.zip",
+      "member": "trade_receipts.js"
+    }
+  },
+  {
+    "kind": "unused_removed",
+    "path": "test_trade_receipts.js",
+    "bytes": 2453,
+    "sha256": "a9bd3b6b5964ecc3d5f1911f206ae388e7511aa964275a3404c978292e9b76be",
+    "recovery": {
+      "archive": "maintenance/20261022/cleanup_latest/source_before.zip",
+      "member": "test_trade_receipts.js"
+    }
+  }
+]

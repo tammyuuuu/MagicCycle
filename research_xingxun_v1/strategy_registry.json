@@ -1,0 +1,323 @@
+{
+  "system": "星循个人投资决策系统",
+  "research_version": "v1.0-round3",
+  "created": "2026-10-22",
+  "status": "research_only_not_for_live_trading",
+  "data_basis": {
+    "funds": {
+      "000216": {"name": "华安黄金ETF联接A", "asset_class": "商品", "buy_pct": 0.06, "redeem_7d_pct": 1.5, "redeem_1y_pct": 0.1, "confirm": "T+1", "settle_days": 2},
+      "160706": {"name": "嘉实沪深300ETF联接A", "asset_class": "股票指数", "buy_pct": 0.15, "redeem_7d_pct": 1.5, "redeem_1y_pct": 0.5, "confirm": "T+1", "settle_days": 2},
+      "160119": {"name": "南方中证500ETF联接(LOF)A", "asset_class": "股票指数", "buy_pct": 0.12, "redeem_7d_pct": 1.5, "redeem_30d_pct": 0.5, "redeem_180d_pct": 0.0, "confirm": "T+1", "settle_days": 2},
+      "090010": {"name": "大成中证红利指数A", "asset_class": "股票指数", "buy_pct": 0.12, "redeem_7d_pct": 1.5, "redeem_1y_pct": 0.5, "confirm": "T+1", "settle_days": 2},
+      "006484": {"name": "广发中债1-3年国开债指数A", "asset_class": "债券指数", "buy_pct": 0.05, "redeem_7d_pct": 1.5, "redeem_30d_pct": 0.0, "confirm": "T+1", "settle_days": 2},
+      "003358": {"name": "易方达中债7-10年国开债指数A", "asset_class": "债券指数", "buy_pct": 0.05, "redeem_7d_pct": 1.5, "redeem_1y_pct": 0.1, "confirm": "T+1", "settle_days": 2},
+      "006989": {"name": "建信中短债纯债债券A", "asset_class": "纯债", "buy_pct": 0.04, "redeem_7d_pct": 1.5, "redeem_30d_pct": 0.0, "confirm": "T+1", "settle_days": 2, "daily_limit_yuan": 5000000},
+      "000198": {"name": "天弘余额宝货币", "asset_class": "货币", "buy_pct": 0.0, "redeem_7d_pct": 0.0, "confirm": "T+1", "settle_days": 1}
+    },
+    "channel_verified": false,
+    "channel_note": "费率与申购状态来自天天基金页面；支付宝/微信的可购状态、折扣与限额未核实"
+  },
+  "capital_rules": {
+    "pool_ratio": 0.10,
+    "pool_ratio_changed": false,
+    "min_purchase": 10.0,
+    "buy_band": 0.01,
+    "sell_band": 0.02,
+    "priority": "pro_rata",
+    "settlement_days": 2,
+    "no_leverage": true,
+    "no_short": true,
+    "no_auto_trade": true,
+    "over_target_action": "suspend_new_money_no_forced_sell"
+  },
+  "strategies": {
+    "A_hold": {
+      "version": "hold_v1",
+      "rule": "始终满仓，一次买入后不再交易",
+      "validation": "walk-forward：作为默认基准，无法被任何择时策略稳定击败",
+      "status": "baseline"
+    },
+    "C_pullback": {
+      "version": "pullback_v1",
+      "rule": "收盘价在 200 日均线上方；从 20 日高点回调 5% 后进入；跌破 200 日均线清仓",
+      "params": {"n_trend": 200, "n_high": 20, "threshold": 0.05},
+      "validation": "仅中证500 在参数曲面 6/9 个参数组合、两个面板的 OOS 均优于持有；沪深300/红利/黄金不稳定",
+      "status": "candidate_needs_more_validation"
+    },
+    "D_donchian_120_40": {
+      "version": "donchian_120_40_v1",
+      "rule": "突破 120 日高点买入，跌破 40 日低点卖出",
+      "validation": "股票上 OOS 为负；债券上 Sharpe 略高但收益差异仅 0.1pct",
+      "status": "rejected_for_equities"
+    },
+    "B_ma": {
+      "version": "ma_v1",
+      "rule": "收盘价在 N 日均线上方持有",
+      "validation": "股票 OOS 全部跑输持有；淘汰",
+      "status": "rejected"
+    },
+    "E_vol": {
+      "version": "voltarget_v1",
+      "rule": "仓位 = min(1, 目标波动/60日实现波动)，需在 120 日均线上方",
+      "validation": "换手 15–21 次/年，费用吃掉 9%–35% 本金，收益不增；淘汰",
+      "status": "rejected"
+    },
+    "F_gold_heat": {
+      "version": "gold_heat_v1",
+      "rule": "20日涨幅与60日均线偏离同时≥15%减半；同时≤5%恢复",
+      "validation": "与持有无显著差异；淘汰为独立策略，仅保留观察指标",
+      "status": "rejected_as_strategy"
+    },
+    "F_ma200_val": {
+      "version": "ma200_val_v1",
+      "rule": "200日均线趋势 + PE 5年分位≥90%减半",
+      "validation": "OOS 明显低于持有；淘汰",
+      "status": "rejected"
+    }
+  },
+  "cash_sleeve": {
+    "default": "000198",
+    "reason": "T+1、零申赎费；30 天内要用的钱放短债会被 0.1% 赎回费吃掉收益",
+    "alternative": "006989",
+    "alternative_condition": "确定 30 天以上不用，且能接受 -1.4% 级别回撤"
+  },
+  "allocation": {
+    "status": "recommended_pending_user_confirmation",
+    "default": {
+      "name": "四资产逆波动率加权（债券上限 40%）",
+      "engine": "inverse_vol",
+      "assets": ["000216", "160706", "090010", "006484"],
+      "method": "逆波动率（120 日实现波动，w∝1/σ），单资产权重上限 40%，月度再平衡，2% 交易带；未使用协方差矩阵",
+      "avg_weights": {"000216": 0.223, "160706": 0.178, "090010": 0.202, "006484": 0.397},
+      "full": {"cagr": 0.0779, "mdd": -0.0683, "sharpe": 0.846, "calmar": 1.140},
+      "oos_2024plus": {"cagr": 0.1086, "mdd": -0.0581, "sharpe": 1.208, "calmar": 1.869},
+      "stability": "波动窗口 60/120/250 日：全样本 7.68%–7.82%，OOS 10.86%–11.00%，Sharpe 0.84–0.86 / 1.21–1.23",
+      "turnover": "7.6 年 96 笔，累计费用 9.65 元（2000 元本金）"
+    },
+    "alternatives": [
+      {"name": "30/35/15/20", "full_cagr": 0.0807, "full_mdd": -0.1266, "oos_cagr": 0.1312, "oos_mdd": -0.1266},
+      {"name": "等权四资产", "full_cagr": 0.0761, "full_mdd": -0.1032, "oos_cagr": 0.1159, "oos_mdd": -0.1032},
+      {"name": "三资产等权", "full_cagr": 0.0786, "full_mdd": -0.1323, "oos_cagr": 0.1301, "oos_mdd": -0.1323},
+      {"name": "40/40/20", "full_cagr": 0.0871, "full_mdd": -0.1592, "oos_cagr": 0.1482, "oos_mdd": -0.1592}
+    ],
+    "why_not_max_return": "30/35/15/20 与 40/40/20 的全样本/样本外收益更高，但回撤是逆波动率的 2–2.7 倍，Sharpe 与 Calmar 明显更低；按用户‘组合稳定性优先’的原则推荐逆波动率。",
+    "erc_control": {
+      "status": "tested_not_adopted",
+      "method": "完整协方差矩阵 Equal Risk Contribution，债券上限 40%，120 日窗口",
+      "full": {"cagr": 0.0823, "mdd": -0.0661, "sharpe": 0.916},
+      "oos_2024plus": {"cagr": 0.1177, "mdd": -0.0655, "sharpe": 1.303},
+      "decision_reason": "收益与 Sharpe 仅小幅改善，样本外回撤反而更大（-6.55% vs -5.81%），Calmar 更低；多一层协方差估计与求解器，性价比不足。",
+      "file": "out_alloc/stability_erc.csv"
+    },
+    "comparison_file": "out_alloc/allocation_compare.csv"
+  },
+  "v23_open_pool": {
+    "status": "research_complete_pending_review",
+    "date": "2026-10-22",
+    "dir": "research_xingxun_v2",
+    "pool": {
+      "A股": ["160706 沪深300", "160119 中证500", "011860 中证1000", "011612 科创50", "110026 创业板", "090010 红利"],
+      "美股": ["161130 纳指", "050025 标普500"],
+      "黄金": ["008701", "000216"],
+      "债券": ["000015 纯债", "006989 中短债", "006484 1-3国开", "003358 7-10国开"],
+      "现金": ["000198"]
+    },
+    "samples": {"main": "2021-11~2026-10", "long": "2017-07~2024-12", "oos": "2023-01~2026-07"},
+    "proposals": {
+      "A_return": {"weights": {"000015": 0.3333, "008701": 0.3333, "161130": 0.3333}, "main": [0.1111, -0.0703], "long": [0.1160, -0.0772], "oos": [0.2021, -0.0285], "amounts": {"000015": 666.66, "008701": 666.67, "161130": 666.67}, "fees": 1.73},
+      "B_balanced": {"weights": {"000015": 0.40, "008701": 0.30, "161130": 0.30}, "main": [0.1037, -0.0620], "long": [0.1085, -0.0682], "oos": [0.1852, -0.0257], "amounts": {"000015": 800.00, "008701": 600.00, "161130": 600.00}, "fees": 1.72},
+      "C_low_dd": {"weights": {"000015": 0.60, "008701": 0.20, "161130": 0.20}, "main": [0.0817, -0.0368], "long": [0.0860, -0.0410], "oos": [0.1357, -0.0174], "amounts": {"000015": 1200.00, "008701": 400.00, "161130": 400.00}, "fees": 1.68}
+    },
+    "limit_alternatives": {
+      "L1_bond_gold": {"weights": {"000015": 0.5, "008701": 0.5}, "main": [0.0983, -0.0215], "long": [0.0743, -0.0807], "oos": [0.1236, -0.0180], "amounts": [1000.0, 1000.0], "fees": 1.40},
+      "L2_bond_gold_dividend": {"weights": {"000015": 0.3333, "008701": 0.3333, "090010": 0.3333}, "main": [0.0876, -0.0266], "long": [0.0769, -0.0529], "oos": [0.1129, -0.0187], "amounts": [666.66, 666.67, 666.67], "fees": 1.73},
+      "K4_deprecated": {"main": [0.0539, -0.0190], "reason": "被 L1/L2 支配（中证500拖累）"}
+    },
+    "contradiction_resolved": "V2.2 的 K4 未与债+金比较；补测后 K4 被支配，限购默认改为 L1/L2，中证500 不再默认买入",
+    "not_changed": ["网站代码", "正式策略配置"],
+    "report": "research_xingxun_v2/REPORT_V23_OPEN_POOL.md"
+  },
+  "v22_execution": {
+    "status": "plan_ready_pending_review",
+    "date": "2026-10-22",
+    "research_acceptance": {
+      "data": "pass", "lookahead": "pass", "codes": "pass", "fees": "pass",
+      "unknown_price": "pass", "seven_day_rule": "pass", "settlement": "pass_conservative",
+      "pullback_leakage": "pass", "fair_comparison": "pass", "limit_assumption": "pass_labelled"
+    },
+    "conditions_2026_10_22": {
+      "000015": {"status": "开放申购", "limit": null, "buy_pct": 0.08, "nav": 1.2121, "nav_date": "2026-10-20"},
+      "001214": {"status": "开放申购", "limit": null, "buy_pct": 0.10, "nav": 1.0284, "nav_date": "2026-10-20"},
+      "008701": {"status": "限大额", "limit": "7500万元/日", "buy_pct": 0.06, "nav": 1.9550, "nav_date": "2026-10-20"},
+      "161130": {"status": "暂停申购", "limit": "10元/日", "buy_pct": 0.12, "nav": 4.4119, "nav_date": "2026-10-19", "confirm": "T+2"}
+    },
+    "entry_now_k4": {
+      "weights": {"000015": 0.60, "001214": 0.1679, "008701": 0.2321},
+      "amounts": {"000015": 1200.00, "001214": 335.85, "008701": 464.15},
+      "fees": 1.58, "method": "一次性", "total": 2000.00
+    },
+    "entry_target_b": {"amounts": {"000015": 666.66, "008701": 666.67, "161130": 666.67}, "fees": 1.73},
+    "limit_scenarios": {
+      "paused": "K4 一次性",
+      "10_per_day": {"days": 67, "months": 3.2, "recommend": false},
+      "100_per_day": {"days": 7, "months": 0.3, "recommend": true},
+      "500_or_normal": {"days": 2, "recommend": true}
+    },
+    "switch_cost": {"extra_yuan": [1.3, 1.6], "settlement": "T+2"},
+    "site_gaps": [
+      "资产清单与权重仍为旧四资产", "缺动态逆波动权重", "缺交易状态机",
+      "缺新旧账户分离", "月度复盘缺最大回撤/手续费/基准", "缺每月1日提醒", "缺K4切换指引"
+    ],
+    "not_changed": ["网站业务代码", "正式策略配置", "历史研究文件"],
+    "report": "research_xingxun_v2/REPORT_V22_EXECUTION.md"
+  },
+  "v21_research": {
+    "status": "research_complete_pending_review",
+    "date": "2026-10-22",
+    "dir": "research_xingxun_v2",
+    "audit": {
+      "first_entry": "2020-07-16 决策 / 2020-07-17 成交",
+      "reason": "008701 华夏黄金 2020-07-16 才有净值，四只共同起点",
+      "same_start": true,
+      "single_start_in_v20": true,
+      "years": 6.27,
+      "qdii_limit_handled_in_main": false
+    },
+    "design": {
+      "starts": 76,
+      "horizons": {"1y": 64, "3y": 40, "5y": 16},
+      "combos": ["A", "B", "C", "EQ", "K4"],
+      "methods": ["once", "staged3", "staged6", "staged12", "pb8"],
+      "pullback_selected": {"window": 60, "threshold": 0.08, "batches": 3, "deadline_months": 6},
+      "runs": 3000
+    },
+    "findings": {
+      "1y_median_cagr": {"once": 0.1570, "staged3": 0.1496, "staged6": 0.1362, "staged12": 0.0918, "pb8": 0.0930},
+      "3y_median_cagr_B": {"once": 0.1275, "staged3": 0.1295, "staged6": 0.1335, "staged12": 0.1346, "pb8": 0.1328},
+      "3y_median_mdd_B": {"once": -0.0866, "staged3": -0.0860, "staged6": -0.0792, "staged12": -0.0662, "pb8": -0.0770},
+      "3y_win_rate_vs_once": {"staged3": 0.45, "staged6": 0.40, "staged12": 0.375, "pb8": 0.375},
+      "5y_difference": "所有方法 ±0.3pp 内，无实际意义",
+      "decision": "一次性建仓；若必须分批最多 3 个月；不推荐 6/12 个月与回调"
+    },
+    "executable_now": {
+      "blocked": "161130 暂停申购（限额 10 元/日）",
+      "combo": "K4 债/500/金 120日逆波动",
+      "amounts_2000": {"000015": 1200.00, "001214": 335.85, "008701": 464.15},
+      "method": "once",
+      "switch_after_reopen": "方案 B 债/金/纳 各 666.67"
+    },
+    "not_changed": ["网站代码", "正式投资配置", "V2.0 报告与结果"],
+    "report": "research_xingxun_v2/REPORT_V21_ENTRY.md"
+  },
+  "v2_research": {
+    "status": "research_complete_pending_review",
+    "date": "2026-10-22",
+    "dir": "research_xingxun_v2",
+    "universe": {
+      "000015": "华夏纯债债券A（开放，申购0.08%）",
+      "001214": "华泰柏瑞中证500ETF联接A（开放，0.10%）",
+      "008701": "华夏黄金ETF联接A（限大额，0.06%）",
+      "161130": "易方达纳斯达克100ETF联接A（暂停申购，限额10元/日，T+2）",
+      "000198": "现金（货基）"
+    },
+    "sample": {"main": "2020-07-16~2026-10-21", "oos": "2022-07~2026-07 滚动2年训练/1年测试"},
+    "proposals": {
+      "A_return": {"weights": {"008701": 0.5, "161130": 0.5}, "cagr": 0.1426, "mdd": -0.1618, "oos_cagr": 0.2347, "oos_mdd": -0.1618, "final_2000": 4610.91},
+      "B_balanced": {"weights": {"000015": 0.3333, "008701": 0.3333, "161130": 0.3333}, "cagr": 0.1072, "mdd": -0.1092, "oos_cagr": 0.1651, "oos_mdd": -0.1091, "final_2000": 3784.21},
+      "C_low_dd": {"weights": "inverse_vol_120 cap50", "cagr": 0.0812, "mdd": -0.0681, "oos_cagr": 0.1246, "oos_mdd": -0.0670, "final_2000": 3262.14}
+    },
+    "executable_now": {
+      "reason": "161130 暂停申购，含纳指方案无法完整执行",
+      "K4_three_invvol": {"cagr": 0.0669, "mdd": -0.0721, "oos_cagr": 0.1008},
+      "K1_three_equal": {"cagr": 0.0748, "mdd": -0.1453, "oos_cagr": 0.1223},
+      "note": "限购时把纳指腿按逆波动分给债/500/金，优于留现金（5.67%）"
+    },
+    "rejected": ["滚动搜索选权重（OOS 12.12% < 等权 15.90%）", "200日均线择时", "动量top1（费用 141.99 元）", "5%阈值带", "季度再平衡", "分批建仓（低 0.4-0.6pp）", "产品替换（无实质改善）"],
+    "kept": ["四只基金全部保留", "月度再平衡 2% 带", "一次性建仓", "不做止盈止损"],
+    "not_changed": ["网站代码", "正式投资配置", "资金池/买卖金额/交易记录/月度复盘"],
+    "report": "research_xingxun_v2/REPORT_V2_PORTFOLIO.md"
+  },
+  "round6_asset_research": {
+    "status": "research_complete_not_adopted",
+    "date": "2026-10-22",
+    "pool": {
+      "黄金": ["000216"],
+      "美股": ["050025 标普500", "270042 纳指100", "161125/160213 备选"],
+      "A股": ["160119 中证500", "011860 中证1000", "011612 科创50", "162413 长样本"],
+      "债券": ["006989 中短债", "003358 7-10年国开", "006484 1-3年国开"],
+      "现金": ["000198"]
+    },
+    "correlation_monthly": {
+      "黄金_美股": 0.004, "黄金_A股": 0.170, "黄金_债券": -0.162,
+      "美股_A股": 0.305, "美股_债券": 0.139, "A股_债券": -0.212
+    },
+    "risk_share_f1": {"A股": 0.618, "美股": 0.215, "黄金": 0.171, "债券": -0.003},
+    "marginal": {
+      "remove_gold": {"d_cagr": -0.0333, "d_mdd": -0.0482, "d_sharpe": -0.3564},
+      "remove_us": {"d_cagr": -0.0069, "d_sharpe": -0.0702},
+      "remove_a_share": {"d_cagr": 0.0102, "d_sharpe": 0.1690}
+    },
+    "method": {
+      "invalid": ["全类别逆波动（债券 92.7%）", "完整协方差 ERC（债券 92.4%）", "全类别风险预算（债券主导）"],
+      "candidate": "两层法：风险资产（金/美/A）内部逆波动或等权 + 债券固定 20-30%",
+      "candidate_metrics": {"cagr": 0.1212, "vol": 0.1018, "mdd": -0.0730, "sharpe": 1.0466},
+      "recommended_bands": {"黄金": [0.20, 0.30], "美股": [0.20, 0.35], "A股": [0.15, 0.30], "债券": [0.20, 0.35]}
+    },
+    "limit_scenarios": {
+      "theoretical": 0.0927, "cap_5pct": 0.0704, "unavailable_cash": 0.0647,
+      "replace_gold": 0.1060, "replace_a_share": 0.0629, "replace_bond": 0.0703,
+      "sp500_only": 0.0901, "nasdaq_only": 0.0951,
+      "decision": "限购时资金留货基；仅在美股内部（纳指/标普）互换时调整"
+    },
+    "within_category": {
+      "美股": "选一只即可，标普更稳，各半折中",
+      "A股": "只买中证500；1000 可选；科创50 不作核心",
+      "债券": "中短债为主 + 7-10 国开少量；1-3 国开可省"
+    },
+    "not_changed": ["网站代码", "资金池与交易金额计算", "成交记录", "月度复盘"],
+    "report": "REPORT_06_ASSET_SELECTION.md",
+    "outputs": "out_v2/"
+  },
+  "site_v1": {
+    "status": "implemented_simulation",
+    "allocation_id": "invvol4_cap40_v1",
+    "data_file": "docs/portfolio_data.json",
+    "data_builder": "portfolio_data.py",
+    "module": "portfolio_v1.js + capital_pool.js + portfolio_store.js",
+    "template": "templates/_portfolio_v1.html",
+    "feature_flag": "window.XINGXUN_V1 (false 隐藏)，或 portfolio_data.json 的 feature_flag",
+    "rules": [
+      "预算 = 总金融资产 x 10%",
+      "池子超额只暂停新增，不强制卖出",
+      "卖出款记在途，T+2 手动确认后才转入现金",
+      "单笔低于 10 元不下单；日限额截断并提示",
+      "净值缺失或暂停申购不下单"
+    ],
+    "tests": [
+      "research_xingxun_v1/test_parity_capital_pool.py",
+      "research_xingxun_v1/test_capital_pool.py",
+      "research_xingxun_v1/test_capital_pool_acceptance.py",
+      "test_asset_strategies.py"
+    ],
+    "report": "REPORT_05_WEB_V1.md"
+  },
+  "versioning": {
+    "signal_snapshots": "signals/YYYY-MM-DD[_vN].csv，只增不改",
+    "strategy_registry": "本文件记录策略 id、参数、验证状态；修改必须新增版本号",
+    "reports": "REPORT_01..04 保留历史版本，不覆盖"
+  },
+  "research_backlog_kept_open": [
+    "分批建仓：把单次目标金额拆成 2–4 周投入，检验摊薄效果与错过上涨的代价",
+    "回调买入：C 类在 中证500 上的影子记录，积累 6–12 个月后再评估",
+    "新增资金入场时机：月度新增资金立即投入 vs 分 2–3 次投入",
+    "组合级风险预算：按波动贡献而不是资金权重分配",
+    "现金管理动态切换：货基/中短债的 30 天规则在利率变化下的阈值"
+  ],
+  "known_limitations": [
+    "只有单次 IS/OOS 与 2年训练/1年测试的 walk-forward，未做嵌套交叉验证",
+    "2019+ 样本包含黄金大牛市，黄金相关结论不可外推",
+    "未覆盖 QDII 溢价、限购、暂停申购的历史状态变化",
+    "费率按天天基金页面，渠道折扣未核实",
+    "未模拟现金分红进入现金账户的再配置"
+  ]
+}

@@ -1,0 +1,834 @@
+{
+  "schema": "xingxun-ledger-v2",
+  "mode": "real",
+  "accountId": "strategy",
+  "profile": {
+    "version": 2,
+    "ratio": 0.1,
+    "mode": "real",
+    "accountId": "strategy",
+    "entries": [
+      {
+        "id": "ae01b1d4-4f9c-444d-ab67-69687e288c88",
+        "mode": "real",
+        "accountId": "strategy",
+        "date": "2026-10-22",
+        "submittedDate": "2026-10-22",
+        "code": "021000",
+        "name": "南方纳指100 I",
+        "action": "买入",
+        "status": "confirmed",
+        "confirmedDate": "2026-10-22",
+        "valuationDate": "2026-10-22",
+        "netAmount": 200,
+        "enteredAmount": 200,
+        "amountInputBasis": "gross_including_subscription_fee",
+        "feeKind": "subscription",
+        "confirmedDateBasis": "user_recorded_nav_date",
+        "amount": 200,
+        "quantity": 80,
+        "fee": 0,
+        "feeInput": {
+          "unit": "amount",
+          "value": 0
+        },
+        "asset": "nasdaq100",
+        "identitySource": "purchase monitor catalog",
+        "purchaseFeePolicy": null,
+        "source": "manual_executed_buy",
+        "planStrategy": "A",
+        "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+        "planWeights": {
+          "161130": 0.3333333333333333,
+          "000015": 0.3333333333333333,
+          "008701": 0.3333333333333333
+        },
+        "executionBasis": "manual_trade_research_plan"
+      },
+      {
+        "id": "eef017bc-bb29-4c55-b663-1ddc6be8aed6",
+        "mode": "real",
+        "accountId": "strategy",
+        "date": "2026-10-22",
+        "submittedDate": "2026-10-22",
+        "code": "161130",
+        "name": "易方达纳指100联接A",
+        "action": "买入",
+        "status": "confirmed",
+        "confirmedDate": "2026-10-22",
+        "valuationDate": "2026-10-22",
+        "netAmount": 9.99,
+        "enteredAmount": 10,
+        "amountInputBasis": "gross_including_subscription_fee",
+        "feeKind": "subscription",
+        "confirmedDateBasis": "user_recorded_nav_date",
+        "amount": 10,
+        "quantity": 2,
+        "fee": 0.01,
+        "feeInput": {
+          "unit": "percent",
+          "value": 0.12,
+          "source": "user_provided"
+        },
+        "asset": "nasdaq100",
+        "identitySource": "versioned workspace fund catalog",
+        "purchaseFeePolicy": {
+          "code": "161130",
+          "channel": "alipay",
+          "buy_pct": 0.12,
+          "as_of": "2026-10-22",
+          "source": "user_provided"
+        },
+        "source": "manual_executed_buy",
+        "planStrategy": "A",
+        "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+        "planWeights": {
+          "161130": 0.3333333333333333,
+          "000015": 0.3333333333333333,
+          "008701": 0.3333333333333333
+        },
+        "executionBasis": "manual_trade_research_plan"
+      }
+    ],
+    "settlements": [],
+    "incomes": [],
+    "allocationId": null,
+    "poolCash": 5790,
+    "positions": [
+      {
+        "code": "161130",
+        "name": "易方达纳指100联接A",
+        "shares": 2,
+        "cost": 10,
+        "source": "confirmed",
+        "availableShares": 2
+      },
+      {
+        "code": "021000",
+        "name": "南方纳指100 I",
+        "shares": 80,
+        "cost": 200,
+        "source": "confirmed",
+        "availableShares": 80
+      }
+    ],
+    "flows": [
+      {
+        "id": "flow-adbc463f-2894-41e2-a532-7645cc72d590",
+        "date": "2026-10-22",
+        "type": "deposit",
+        "amount": 6000,
+        "note": "isolated actual cash fixture"
+      }
+    ],
+    "updatedAt": "2026-10-22T15:33:13.058Z",
+    "accountFunding": "actual_payments",
+    "opening": {
+      "date": "2026-10-22",
+      "cash": 0,
+      "positions": []
+    },
+    "revisions": [
+      {
+        "savedAt": "2026-10-22T15:33:12.125Z",
+        "opening": null,
+        "entries": [],
+        "journal": null,
+        "flows": [],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T15:33:12.171Z",
+        "opening": {
+          "date": "2026-10-22",
+          "cash": 0,
+          "positions": []
+        },
+        "entries": [],
+        "journal": null,
+        "flows": [],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T15:33:12.593Z",
+        "opening": {
+          "date": "2026-10-22",
+          "cash": 0,
+          "positions": []
+        },
+        "entries": [],
+        "journal": null,
+        "flows": [
+          {
+            "id": "flow-adbc463f-2894-41e2-a532-7645cc72d590",
+            "date": "2026-10-22",
+            "type": "deposit",
+            "amount": 6000,
+            "note": "isolated actual cash fixture"
+          }
+        ],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T15:33:12.709Z",
+        "opening": {
+          "date": "2026-10-22",
+          "cash": 0,
+          "positions": []
+        },
+        "entries": [
+          {
+            "id": "ae01b1d4-4f9c-444d-ab67-69687e288c88",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "021000",
+            "name": "南方纳指100 I",
+            "action": "买入",
+            "status": "confirmed",
+            "confirmedDate": "2026-10-22",
+            "valuationDate": "2026-10-22",
+            "netAmount": 200,
+            "enteredAmount": 200,
+            "amountInputBasis": "gross_including_subscription_fee",
+            "feeKind": "subscription",
+            "confirmedDateBasis": "user_recorded_nav_date",
+            "amount": 200,
+            "quantity": 80,
+            "fee": 0,
+            "feeInput": {
+              "unit": "amount",
+              "value": 0
+            },
+            "asset": "nasdaq100",
+            "identitySource": "purchase monitor catalog",
+            "purchaseFeePolicy": null,
+            "source": "manual_executed_buy",
+            "planStrategy": "A",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+            "planWeights": {
+              "161130": 0.3333333333333333,
+              "000015": 0.3333333333333333,
+              "008701": 0.3333333333333333
+            },
+            "executionBasis": "manual_trade_research_plan"
+          }
+        ],
+        "journal": [
+          {
+            "id": "ae01b1d4-4f9c-444d-ab67-69687e288c88",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "021000",
+            "name": "南方纳指100 I",
+            "action": "买入",
+            "status": "confirmed",
+            "confirmedDate": "2026-10-22",
+            "valuationDate": "2026-10-22",
+            "netAmount": 200,
+            "enteredAmount": 200,
+            "amountInputBasis": "gross_including_subscription_fee",
+            "feeKind": "subscription",
+            "confirmedDateBasis": "user_recorded_nav_date",
+            "amount": 200,
+            "quantity": 80,
+            "fee": 0,
+            "feeInput": {
+              "unit": "amount",
+              "value": 0
+            },
+            "asset": "nasdaq100",
+            "identitySource": "purchase monitor catalog",
+            "purchaseFeePolicy": null,
+            "source": "manual_executed_buy",
+            "planStrategy": "A",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+            "planWeights": {
+              "161130": 0.3333333333333333,
+              "000015": 0.3333333333333333,
+              "008701": 0.3333333333333333
+            },
+            "executionBasis": "manual_trade_research_plan"
+          }
+        ],
+        "flows": [
+          {
+            "id": "flow-adbc463f-2894-41e2-a532-7645cc72d590",
+            "date": "2026-10-22",
+            "type": "deposit",
+            "amount": 6000,
+            "note": "isolated actual cash fixture"
+          }
+        ],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T15:33:12.841Z",
+        "opening": {
+          "date": "2026-10-22",
+          "cash": 0,
+          "positions": []
+        },
+        "entries": [
+          {
+            "id": "ae01b1d4-4f9c-444d-ab67-69687e288c88",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "021000",
+            "name": "南方纳指100 I",
+            "action": "买入",
+            "status": "confirmed",
+            "confirmedDate": "2026-10-22",
+            "valuationDate": "2026-10-22",
+            "netAmount": 200,
+            "enteredAmount": 200,
+            "amountInputBasis": "gross_including_subscription_fee",
+            "feeKind": "subscription",
+            "confirmedDateBasis": "user_recorded_nav_date",
+            "amount": 200,
+            "quantity": 80,
+            "fee": 0,
+            "feeInput": {
+              "unit": "amount",
+              "value": 0
+            },
+            "asset": "nasdaq100",
+            "identitySource": "purchase monitor catalog",
+            "purchaseFeePolicy": null,
+            "source": "manual_executed_buy",
+            "planStrategy": "A",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+            "planWeights": {
+              "161130": 0.3333333333333333,
+              "000015": 0.3333333333333333,
+              "008701": 0.3333333333333333
+            },
+            "executionBasis": "manual_trade_research_plan"
+          },
+          {
+            "id": "eef017bc-bb29-4c55-b663-1ddc6be8aed6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "161130",
+            "name": "易方达纳指100联接A",
+            "action": "买入",
+            "status": "confirmed",
+            "confirmedDate": "2026-10-22",
+            "valuationDate": "2026-10-22",
+            "netAmount": 9.99,
+            "enteredAmount": 10,
+            "amountInputBasis": "gross_including_subscription_fee",
+            "feeKind": "subscription",
+            "confirmedDateBasis": "user_recorded_nav_date",
+            "amount": 10,
+            "quantity": 2,
+            "fee": 0.01,
+            "feeInput": {
+              "unit": "percent",
+              "value": 0.12,
+              "source": "user_provided"
+            },
+            "asset": "nasdaq100",
+            "identitySource": "versioned workspace fund catalog",
+            "purchaseFeePolicy": {
+              "code": "161130",
+              "channel": "alipay",
+              "buy_pct": 0.12,
+              "as_of": "2026-10-22",
+              "source": "user_provided"
+            },
+            "source": "manual_executed_buy",
+            "planStrategy": "A",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+            "planWeights": {
+              "161130": 0.3333333333333333,
+              "000015": 0.3333333333333333,
+              "008701": 0.3333333333333333
+            },
+            "executionBasis": "manual_trade_research_plan"
+          }
+        ],
+        "journal": [
+          {
+            "id": "ae01b1d4-4f9c-444d-ab67-69687e288c88",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "021000",
+            "name": "南方纳指100 I",
+            "action": "买入",
+            "status": "confirmed",
+            "confirmedDate": "2026-10-22",
+            "valuationDate": "2026-10-22",
+            "netAmount": 200,
+            "enteredAmount": 200,
+            "amountInputBasis": "gross_including_subscription_fee",
+            "feeKind": "subscription",
+            "confirmedDateBasis": "user_recorded_nav_date",
+            "amount": 200,
+            "quantity": 80,
+            "fee": 0,
+            "feeInput": {
+              "unit": "amount",
+              "value": 0
+            },
+            "asset": "nasdaq100",
+            "identitySource": "purchase monitor catalog",
+            "purchaseFeePolicy": null,
+            "source": "manual_executed_buy",
+            "planStrategy": "A",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+            "planWeights": {
+              "161130": 0.3333333333333333,
+              "000015": 0.3333333333333333,
+              "008701": 0.3333333333333333
+            },
+            "executionBasis": "manual_trade_research_plan"
+          },
+          {
+            "id": "eef017bc-bb29-4c55-b663-1ddc6be8aed6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "161130",
+            "name": "易方达纳指100联接A",
+            "action": "买入",
+            "status": "confirmed",
+            "confirmedDate": "2026-10-22",
+            "valuationDate": "2026-10-22",
+            "netAmount": 9.99,
+            "enteredAmount": 10,
+            "amountInputBasis": "gross_including_subscription_fee",
+            "feeKind": "subscription",
+            "confirmedDateBasis": "user_recorded_nav_date",
+            "amount": 10,
+            "quantity": 2,
+            "fee": 0.01,
+            "feeInput": {
+              "unit": "percent",
+              "value": 0.12,
+              "source": "user_provided"
+            },
+            "asset": "nasdaq100",
+            "identitySource": "versioned workspace fund catalog",
+            "purchaseFeePolicy": {
+              "code": "161130",
+              "channel": "alipay",
+              "buy_pct": 0.12,
+              "as_of": "2026-10-22",
+              "source": "user_provided"
+            },
+            "source": "manual_executed_buy",
+            "planStrategy": "A",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+            "planWeights": {
+              "161130": 0.3333333333333333,
+              "000015": 0.3333333333333333,
+              "008701": 0.3333333333333333
+            },
+            "executionBasis": "manual_trade_research_plan"
+          }
+        ],
+        "flows": [
+          {
+            "id": "flow-adbc463f-2894-41e2-a532-7645cc72d590",
+            "date": "2026-10-22",
+            "type": "deposit",
+            "amount": 6000,
+            "note": "isolated actual cash fixture"
+          }
+        ],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T15:33:13.057Z",
+        "opening": {
+          "date": "2026-10-22",
+          "cash": 0,
+          "positions": []
+        },
+        "entries": [
+          {
+            "id": "ae01b1d4-4f9c-444d-ab67-69687e288c88",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "021000",
+            "name": "南方纳指100 I",
+            "action": "买入",
+            "status": "confirmed",
+            "confirmedDate": "2026-10-22",
+            "valuationDate": "2026-10-22",
+            "netAmount": 200,
+            "enteredAmount": 200,
+            "amountInputBasis": "gross_including_subscription_fee",
+            "feeKind": "subscription",
+            "confirmedDateBasis": "user_recorded_nav_date",
+            "amount": 200,
+            "quantity": 80,
+            "fee": 0,
+            "feeInput": {
+              "unit": "amount",
+              "value": 0
+            },
+            "asset": "nasdaq100",
+            "identitySource": "purchase monitor catalog",
+            "purchaseFeePolicy": null,
+            "source": "manual_executed_buy",
+            "planStrategy": "A",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+            "planWeights": {
+              "161130": 0.3333333333333333,
+              "000015": 0.3333333333333333,
+              "008701": 0.3333333333333333
+            },
+            "executionBasis": "manual_trade_research_plan"
+          },
+          {
+            "id": "eef017bc-bb29-4c55-b663-1ddc6be8aed6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "161130",
+            "name": "易方达纳指100联接A",
+            "action": "买入",
+            "status": "confirmed",
+            "confirmedDate": "2026-10-22",
+            "valuationDate": "2026-10-22",
+            "netAmount": 9.99,
+            "enteredAmount": 10,
+            "amountInputBasis": "gross_including_subscription_fee",
+            "feeKind": "subscription",
+            "confirmedDateBasis": "user_recorded_nav_date",
+            "amount": 10,
+            "quantity": 2,
+            "fee": 0.01,
+            "feeInput": {
+              "unit": "percent",
+              "value": 0.12,
+              "source": "user_provided"
+            },
+            "asset": "nasdaq100",
+            "identitySource": "versioned workspace fund catalog",
+            "purchaseFeePolicy": {
+              "code": "161130",
+              "channel": "alipay",
+              "buy_pct": 0.12,
+              "as_of": "2026-10-22",
+              "source": "user_provided"
+            },
+            "source": "manual_executed_buy",
+            "planStrategy": "A",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+            "planWeights": {
+              "161130": 0.3333333333333333,
+              "000015": 0.3333333333333333,
+              "008701": 0.3333333333333333
+            },
+            "executionBasis": "manual_trade_research_plan"
+          },
+          {
+            "id": "4639ef8b-d194-488b-a24f-c510fdf1af9c",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "123456",
+            "name": "隔离测试产品",
+            "action": "买入",
+            "status": "confirmed",
+            "confirmedDate": "2026-10-22",
+            "valuationDate": "2026-10-22",
+            "netAmount": 100,
+            "enteredAmount": 100,
+            "amountInputBasis": "gross_including_subscription_fee",
+            "feeKind": "subscription",
+            "confirmedDateBasis": "user_recorded_nav_date",
+            "amount": 100,
+            "quantity": 20,
+            "fee": 0,
+            "feeInput": {
+              "unit": "amount",
+              "value": 0
+            },
+            "asset": null,
+            "identitySource": "https://fundsuggest.eastmoney.com/FundSearch/api/FundSearchAPI.ashx",
+            "purchaseFeePolicy": null,
+            "source": "manual_executed_buy"
+          }
+        ],
+        "journal": [
+          {
+            "id": "ae01b1d4-4f9c-444d-ab67-69687e288c88",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "021000",
+            "name": "南方纳指100 I",
+            "action": "买入",
+            "status": "confirmed",
+            "confirmedDate": "2026-10-22",
+            "valuationDate": "2026-10-22",
+            "netAmount": 200,
+            "enteredAmount": 200,
+            "amountInputBasis": "gross_including_subscription_fee",
+            "feeKind": "subscription",
+            "confirmedDateBasis": "user_recorded_nav_date",
+            "amount": 200,
+            "quantity": 80,
+            "fee": 0,
+            "feeInput": {
+              "unit": "amount",
+              "value": 0
+            },
+            "asset": "nasdaq100",
+            "identitySource": "purchase monitor catalog",
+            "purchaseFeePolicy": null,
+            "source": "manual_executed_buy",
+            "planStrategy": "A",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+            "planWeights": {
+              "161130": 0.3333333333333333,
+              "000015": 0.3333333333333333,
+              "008701": 0.3333333333333333
+            },
+            "executionBasis": "manual_trade_research_plan"
+          },
+          {
+            "id": "eef017bc-bb29-4c55-b663-1ddc6be8aed6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "161130",
+            "name": "易方达纳指100联接A",
+            "action": "买入",
+            "status": "confirmed",
+            "confirmedDate": "2026-10-22",
+            "valuationDate": "2026-10-22",
+            "netAmount": 9.99,
+            "enteredAmount": 10,
+            "amountInputBasis": "gross_including_subscription_fee",
+            "feeKind": "subscription",
+            "confirmedDateBasis": "user_recorded_nav_date",
+            "amount": 10,
+            "quantity": 2,
+            "fee": 0.01,
+            "feeInput": {
+              "unit": "percent",
+              "value": 0.12,
+              "source": "user_provided"
+            },
+            "asset": "nasdaq100",
+            "identitySource": "versioned workspace fund catalog",
+            "purchaseFeePolicy": {
+              "code": "161130",
+              "channel": "alipay",
+              "buy_pct": 0.12,
+              "as_of": "2026-10-22",
+              "source": "user_provided"
+            },
+            "source": "manual_executed_buy",
+            "planStrategy": "A",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+            "planWeights": {
+              "161130": 0.3333333333333333,
+              "000015": 0.3333333333333333,
+              "008701": 0.3333333333333333
+            },
+            "executionBasis": "manual_trade_research_plan"
+          },
+          {
+            "id": "4639ef8b-d194-488b-a24f-c510fdf1af9c",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "123456",
+            "name": "隔离测试产品",
+            "action": "买入",
+            "status": "confirmed",
+            "confirmedDate": "2026-10-22",
+            "valuationDate": "2026-10-22",
+            "netAmount": 100,
+            "enteredAmount": 100,
+            "amountInputBasis": "gross_including_subscription_fee",
+            "feeKind": "subscription",
+            "confirmedDateBasis": "user_recorded_nav_date",
+            "amount": 100,
+            "quantity": 20,
+            "fee": 0,
+            "feeInput": {
+              "unit": "amount",
+              "value": 0
+            },
+            "asset": null,
+            "identitySource": "https://fundsuggest.eastmoney.com/FundSearch/api/FundSearchAPI.ashx",
+            "purchaseFeePolicy": null,
+            "source": "manual_executed_buy"
+          }
+        ],
+        "flows": [
+          {
+            "id": "flow-adbc463f-2894-41e2-a532-7645cc72d590",
+            "date": "2026-10-22",
+            "type": "deposit",
+            "amount": 6000,
+            "note": "isolated actual cash fixture"
+          }
+        ],
+        "settlements": [],
+        "incomes": []
+      }
+    ],
+    "frozenCash": 0,
+    "receivable": 0,
+    "payments": {},
+    "initialDate": "2026-10-22",
+    "initialPositions": [],
+    "productData": {
+      "123456": {
+        "code": "123456",
+        "name": "隔离测试产品",
+        "identityVerified": true,
+        "identitySource": "https://fundsuggest.eastmoney.com/FundSearch/api/FundSearchAPI.ashx",
+        "identityDate": "2026-10-22T15:33:12.803Z",
+        "nav": [
+          [
+            "2026-10-21",
+            1.25
+          ]
+        ],
+        "publicInfo": {
+          "minimum": 1,
+          "status": null
+        }
+      },
+      "161130": {
+        "code": "161130",
+        "name": "易方达纳指100联接A",
+        "identityVerified": true,
+        "identitySource": "versioned workspace fund catalog",
+        "nav": []
+      },
+      "021000": {
+        "code": "021000",
+        "name": "南方纳指100 I",
+        "identityVerified": true,
+        "identitySource": "purchase monitor catalog",
+        "nav": []
+      }
+    },
+    "productChoices": {
+      "nasdaq100": "161130"
+    },
+    "journal": [
+      {
+        "id": "ae01b1d4-4f9c-444d-ab67-69687e288c88",
+        "mode": "real",
+        "accountId": "strategy",
+        "date": "2026-10-22",
+        "submittedDate": "2026-10-22",
+        "code": "021000",
+        "name": "南方纳指100 I",
+        "action": "买入",
+        "status": "confirmed",
+        "confirmedDate": "2026-10-22",
+        "valuationDate": "2026-10-22",
+        "netAmount": 200,
+        "enteredAmount": 200,
+        "amountInputBasis": "gross_including_subscription_fee",
+        "feeKind": "subscription",
+        "confirmedDateBasis": "user_recorded_nav_date",
+        "amount": 200,
+        "quantity": 80,
+        "fee": 0,
+        "feeInput": {
+          "unit": "amount",
+          "value": 0
+        },
+        "asset": "nasdaq100",
+        "identitySource": "purchase monitor catalog",
+        "purchaseFeePolicy": null,
+        "source": "manual_executed_buy",
+        "planStrategy": "A",
+        "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+        "planWeights": {
+          "161130": 0.3333333333333333,
+          "000015": 0.3333333333333333,
+          "008701": 0.3333333333333333
+        },
+        "executionBasis": "manual_trade_research_plan"
+      },
+      {
+        "id": "eef017bc-bb29-4c55-b663-1ddc6be8aed6",
+        "mode": "real",
+        "accountId": "strategy",
+        "date": "2026-10-22",
+        "submittedDate": "2026-10-22",
+        "code": "161130",
+        "name": "易方达纳指100联接A",
+        "action": "买入",
+        "status": "confirmed",
+        "confirmedDate": "2026-10-22",
+        "valuationDate": "2026-10-22",
+        "netAmount": 9.99,
+        "enteredAmount": 10,
+        "amountInputBasis": "gross_including_subscription_fee",
+        "feeKind": "subscription",
+        "confirmedDateBasis": "user_recorded_nav_date",
+        "amount": 10,
+        "quantity": 2,
+        "fee": 0.01,
+        "feeInput": {
+          "unit": "percent",
+          "value": 0.12,
+          "source": "user_provided"
+        },
+        "asset": "nasdaq100",
+        "identitySource": "versioned workspace fund catalog",
+        "purchaseFeePolicy": {
+          "code": "161130",
+          "channel": "alipay",
+          "buy_pct": 0.12,
+          "as_of": "2026-10-22",
+          "source": "user_provided"
+        },
+        "source": "manual_executed_buy",
+        "planStrategy": "A",
+        "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_A",
+        "planWeights": {
+          "161130": 0.3333333333333333,
+          "000015": 0.3333333333333333,
+          "008701": 0.3333333333333333
+        },
+        "executionBasis": "manual_trade_research_plan"
+      }
+    ]
+  },
+  "snapshots": [
+    {
+      "date": "2026-10-22",
+      "total_assets": 60000,
+      "note": "",
+      "confirmed_at": "2026-10-22T15:33:12.125Z"
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+[
+  {
+    "kind": "flask",
+    "width": 1440,
+    "monitorGroups": 2,
+    "monitorRows": 7,
+    "strategies": 10,
+    "pairedComparisons": true,
+    "missingHistoryClearsCurves": true,
+    "proxyAndActualSeparated": true,
+    "errors": []
+  },
+  {
+    "kind": "flask",
+    "width": 375,
+    "monitorGroups": 2,
+    "monitorRows": 7,
+    "strategies": 10,
+    "pairedComparisons": true,
+    "missingHistoryClearsCurves": true,
+    "proxyAndActualSeparated": true,
+    "errors": []
+  },
+  {
+    "kind": "flask",
+    "width": 320,
+    "monitorGroups": 2,
+    "monitorRows": 7,
+    "strategies": 10,
+    "pairedComparisons": true,
+    "missingHistoryClearsCurves": true,
+    "proxyAndActualSeparated": true,
+    "errors": []
+  },
+  {
+    "kind": "static",
+    "width": 1440,
+    "monitorGroups": 2,
+    "monitorRows": 7,
+    "strategies": 10,
+    "pairedComparisons": true,
+    "missingHistoryClearsCurves": true,
+    "proxyAndActualSeparated": true,
+    "errors": []
+  },
+  {
+    "kind": "static",
+    "width": 375,
+    "monitorGroups": 2,
+    "monitorRows": 7,
+    "strategies": 10,
+    "pairedComparisons": true,
+    "missingHistoryClearsCurves": true,
+    "proxyAndActualSeparated": true,
+    "errors": []
+  },
+  {
+    "kind": "static",
+    "width": 320,
+    "monitorGroups": 2,
+    "monitorRows": 7,
+    "strategies": 10,
+    "pairedComparisons": true,
+    "missingHistoryClearsCurves": true,
+    "proxyAndActualSeparated": true,
+    "errors": []
+  },
+  {
+    "kind": "official",
+    "width": 1440,
+    "monitorGroups": 2,
+    "monitorRows": 7,
+    "strategies": 10,
+    "pairedComparisons": true,
+    "missingHistoryClearsCurves": true,
+    "proxyAndActualSeparated": true,
+    "errors": []
+  },
+  {
+    "kind": "official",
+    "width": 375,
+    "monitorGroups": 2,
+    "monitorRows": 7,
+    "strategies": 10,
+    "pairedComparisons": true,
+    "missingHistoryClearsCurves": true,
+    "proxyAndActualSeparated": true,
+    "errors": []
+  },
+  {
+    "kind": "official",
+    "width": 320,
+    "monitorGroups": 2,
+    "monitorRows": 7,
+    "strategies": 10,
+    "pairedComparisons": true,
+    "missingHistoryClearsCurves": true,
+    "proxyAndActualSeparated": true,
+    "errors": []
+  }
+]

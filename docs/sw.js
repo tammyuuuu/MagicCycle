@@ -1,5 +1,5 @@
 /* Bump this version when changing the offline shell or caching behavior. */
-const CACHE = 'magiccycle-pwa-v1';
+const CACHE = 'magiccycle-pwa-v42-compact-shell';
 const ROOT = new URL('./', self.location.href);
 const PAGE = new URL('index.html', ROOT).href;
 const SHELL = ['index.html', 'pwa.js', 'manifest.webmanifest',

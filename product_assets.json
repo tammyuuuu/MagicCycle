@@ -1,0 +1,94 @@
+{
+  "schema": "xingxun-product-assets-v1",
+  "reviewed_at": "2026-10-22",
+  "assets": {
+    "nasdaq100": {
+      "name": "纳指100",
+      "default_code": "161130",
+      "monitor_index": "纳指100"
+    },
+    "sp500": {
+      "name": "标普500",
+      "default_code": "050025",
+      "monitor_index": "标普500"
+    },
+    "gold": {
+      "name": "黄金",
+      "default_code": "008701"
+    },
+    "bond": {
+      "name": "纯债",
+      "default_code": "000015"
+    },
+    "dividend": {
+      "name": "中证红利",
+      "default_code": "090010"
+    },
+    "csi500": {
+      "name": "中证500",
+      "default_code": "001214"
+    },
+    "csi300": {
+      "name": "沪深300",
+      "default_code": "160706"
+    }
+  },
+  "products": {
+    "161130": {
+      "asset": "nasdaq100",
+      "verified": true,
+      "source": "workspace_data/manifest.json",
+      "basis": "现有研究产品的资产归属；不代表新增基金历史结果等价",
+      "currency": "CNY"
+    },
+    "050025": {
+      "asset": "sp500",
+      "verified": true,
+      "source": "workspace_data/manifest.json",
+      "basis": "现有研究产品的资产归属；不代表新增基金历史结果等价",
+      "currency": "CNY"
+    },
+    "008701": {
+      "asset": "gold",
+      "verified": true,
+      "source": "workspace_data/manifest.json",
+      "basis": "现有研究产品的资产归属；不代表新增基金历史结果等价",
+      "currency": "CNY"
+    },
+    "000015": {
+      "asset": "bond",
+      "verified": true,
+      "source": "workspace_data/manifest.json",
+      "basis": "现有研究产品的资产归属；不代表新增基金历史结果等价",
+      "currency": "CNY"
+    },
+    "090010": {
+      "asset": "dividend",
+      "verified": true,
+      "source": "workspace_data/manifest.json",
+      "basis": "现有研究产品的资产归属；不代表新增基金历史结果等价",
+      "currency": "CNY"
+    },
+    "001214": {
+      "asset": "csi500",
+      "verified": true,
+      "source": "workspace_data/manifest.json",
+      "basis": "现有研究产品的资产归属；不代表新增基金历史结果等价",
+      "currency": "CNY"
+    },
+    "160706": {
+      "asset": "csi300",
+      "verified": true,
+      "source": "workspace_data/manifest.json",
+      "basis": "现有研究产品的资产归属；不代表新增基金历史结果等价",
+      "currency": "CNY"
+    },
+    "021000": {
+      "asset": "nasdaq100",
+      "verified": true,
+      "source": "https://www.nffund.com/main/files/2024/03/27/179085145527.pdf",
+      "basis": "I类人民币份额，标的指数纳斯达克100；仅资产归属核实，交易条件另行核实",
+      "currency": "CNY"
+    }
+  }
+}

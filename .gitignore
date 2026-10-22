@@ -1,9 +1,43 @@
 # 数据缓存
-data_cache/
+/data_cache/
 # 回测输出
-results/
+/results/
 # Python
 __pycache__/
 *.pyc
 .venv/
 venv/
+
+# Local evidence and generated previews; keep source scripts and test fixtures.
+*.log
+*.lock
+*.zip
+/logs/
+/archive/20261022/
+/maintenance/20261022/test_results/
+/maintenance/git_push_cleanup_local/
+/workspace_ui_20261022/downloads/
+/workspace_ui_20261022/*_backup.json
+/workspace_ui_20261022/*_preview.html
+/correctness_20261022/site_preview.html
+/audit_codex_20261022/test_export.html
+/ui_optimization/*.png
+/ui_cleanup/*.png
+/workspace_ui_20261022/*.png
+/correctness_20261022/*.png
+/product_mapping_audit/*.png
+/maintenance/**/*.png
+/research_xingxun_v1/out_*/
+/research_xingxun_v2/out_*/
+# Recreated by each reaccept.py; neither packaging nor independent replay reads these.
+/correctness_20261022/results/*_signals.csv
+/research_def_20261022/results/*_signals.csv
+/research_l34_20261022/results/*_signals.csv
+
+# Cache snapshots required by the existing offline-export test and research.
+# Keep reusable data formats; other files and subdirectories stay local.
+!/data_cache/
+/data_cache/*
+!/data_cache/*.csv
+!/data_cache/*.json
+!/data_cache/research_etfrun_*.html

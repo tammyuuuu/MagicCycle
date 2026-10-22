@@ -1,0 +1,90 @@
+{
+  "scenario": "Isolated hypothetical purchase, not the user ledger",
+  "input": {
+    "code": "008701",
+    "name": "华夏黄金ETF联接A",
+    "date": "2026-07-06",
+    "netAmount": 80.16,
+    "shares": 40.04,
+    "fee": 0.05,
+    "totalCost": 80.21
+  },
+  "account": {
+    "cash": 0,
+    "positions": [
+      {
+        "code": "008701",
+        "name": "华夏黄金ETF联接A",
+        "shares": 40.04,
+        "cost": 80.21,
+        "source": "confirmed",
+        "availableShares": 40.04
+      }
+    ]
+  },
+  "summary": {
+    "date": "2026-10-22",
+    "equity": 77.665588,
+    "cash": 0,
+    "frozen": 0,
+    "held": 77.665588,
+    "receivable": 0,
+    "dividendReceivable": 0,
+    "netFlow": 0,
+    "pnl": -0.6126119999999986,
+    "unit": 0.9682781199351708,
+    "drawdown": -0.12329943502824758,
+    "cumulativePnl": -2.544411999999994,
+    "fee": 0,
+    "fees": 0.05,
+    "navDates": {
+      "008701": "2026-10-22"
+    },
+    "estimated": false,
+    "returnRate": -0.03172188006482923,
+    "mdd": -0.12329943502824758
+  },
+  "months": [
+    {
+      "month": "2026-07",
+      "pnl": -2.0759439999999927,
+      "netFlow": 0,
+      "fees": 0.05,
+      "equity": 78.134056,
+      "estimated": false,
+      "partial": false
+    },
+    {
+      "month": "2026-08",
+      "pnl": 6.798791999999992,
+      "netFlow": 0,
+      "fees": 0,
+      "equity": 84.93284799999999,
+      "estimated": false,
+      "partial": false
+    },
+    {
+      "month": "2026-09",
+      "pnl": -4.920915999999991,
+      "netFlow": 0,
+      "fees": 0,
+      "equity": 80.011932,
+      "estimated": false,
+      "partial": false
+    },
+    {
+      "month": "2026-10",
+      "pnl": -2.346344000000002,
+      "netFlow": 0,
+      "fees": 0,
+      "equity": 77.665588,
+      "estimated": false,
+      "partial": true
+    }
+  ],
+  "rows": 109,
+  "marks": {
+    "008701": "2026-10-22"
+  },
+  "metrics": "星循 · 投资成绩单\n未启用正式策略\n\n暂无已确认的策略关联交易\n\n策略启用：未启用\n复盘起止：2026-07-06 — 2026-10-22\n\n投资账户总资产（元）\n¥77.67\n2026-10 投资盈亏\n¥-2.35\n累计投资盈亏\n¥-2.54\n累计收益率\n-3.17%\n最大回撤\n-12.33%\n已确认手续费\n¥0.05\n\n按确认交易与有效净值计算，已剔除外部净流入。\n\n目标配置与实际配置\n资产\n目标\n实际\n黄金\n—\n100.00%\n现金 / 在途 / 应收\n—\n0.00%\n\n实际比例以投资账户净资产为分母；未确认申购不计为持仓。未记录可核实的执行目标。\n\n累计投资盈亏 人民币 · 元\n-4.1\n0.4\n4.8\n9.3\n2026-07-06\n2026-10-22\n历史回撤 百分比\n-13.3%\n-8.5%\n-3.8%\n1.0%\n2026-07-06\n2026-10-22\n\n2026-10-22 · 累计盈亏 ¥-2.54 · 回撤 -12.33%\n\n净值截至 2026-10-22 · 待确认 ¥0.00 · 应收 ¥0.00"
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "variant": "before",
+    "width": 1440,
+    "early": 1440,
+    "final": 460,
+    "maxPaintedWidth": 1440,
+    "samples": 89
+  },
+  {
+    "variant": "before",
+    "width": 375,
+    "early": 375,
+    "final": 375,
+    "maxPaintedWidth": 375,
+    "samples": 89
+  },
+  {
+    "variant": "before",
+    "width": 320,
+    "early": 320,
+    "final": 320,
+    "maxPaintedWidth": 320,
+    "samples": 86
+  }
+]

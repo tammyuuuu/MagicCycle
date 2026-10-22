@@ -1,0 +1,609 @@
+{
+  "schema": "xingxun-ledger-v2",
+  "mode": "real",
+  "accountId": "strategy",
+  "profile": {
+    "version": 2,
+    "ratio": 0.1,
+    "mode": "real",
+    "accountId": "strategy",
+    "entries": [
+      {
+        "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+        "mode": "real",
+        "accountId": "strategy",
+        "date": "2026-10-22",
+        "submittedDate": "2026-10-22",
+        "code": "000015",
+        "name": "华夏纯债债券A",
+        "action": "买入",
+        "status": "cancelled",
+        "amount": 375,
+        "quantity": null,
+        "fee": 0.3,
+        "planStrategy": "L1",
+        "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+        "confirmedDate": null,
+        "resolvedDate": "2026-10-22"
+      },
+      {
+        "id": "69bb049c-40c3-4712-8d19-7d2b2b061b25",
+        "mode": "real",
+        "accountId": "strategy",
+        "date": "2026-10-22",
+        "submittedDate": "2026-10-22",
+        "code": "000015",
+        "name": "华夏纯债债券A",
+        "action": "买入",
+        "status": "confirmed",
+        "amount": 350,
+        "quantity": 280,
+        "fee": 0.5,
+        "planStrategy": "L1",
+        "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+        "confirmedDate": "2026-10-22",
+        "resolvedDate": null
+      }
+    ],
+    "settlements": [],
+    "incomes": [],
+    "allocationId": null,
+    "poolCash": 1650,
+    "positions": [
+      {
+        "code": "000015",
+        "name": "华夏纯债债券A",
+        "shares": 280,
+        "cost": 350,
+        "source": "confirmed",
+        "availableShares": 280
+      }
+    ],
+    "flows": [
+      {
+        "id": "flow-453e496d-4a13-40e5-8365-ea2e4f3d379d",
+        "date": "2026-10-22",
+        "type": "withdraw",
+        "amount": 100,
+        "note": ""
+      },
+      {
+        "id": "flow-1dadf6af-2e41-4671-9e6f-5af41d53e0c9",
+        "date": "2026-10-22",
+        "type": "deposit",
+        "amount": 100,
+        "note": ""
+      }
+    ],
+    "updatedAt": "2026-10-22T10:53:26.597Z",
+    "researchSelection": "L1",
+    "opening": {
+      "date": "2026-10-22",
+      "cash": 2000,
+      "positions": []
+    },
+    "revisions": [
+      {
+        "savedAt": "2026-10-22T10:53:24.780Z",
+        "opening": null,
+        "entries": [],
+        "journal": null,
+        "flows": [],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T10:53:25.045Z",
+        "opening": {
+          "date": "2026-10-22",
+          "cash": 2000,
+          "positions": []
+        },
+        "entries": [],
+        "journal": null,
+        "flows": [],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T10:53:25.517Z",
+        "opening": {
+          "date": "2026-10-22",
+          "cash": 2000,
+          "positions": []
+        },
+        "entries": [
+          {
+            "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "submitted",
+            "amount": 375,
+            "quantity": null,
+            "fee": 0.3,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1"
+          }
+        ],
+        "journal": [
+          {
+            "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "submitted",
+            "amount": 375,
+            "quantity": null,
+            "fee": 0.3,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1"
+          }
+        ],
+        "flows": [],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T10:53:25.951Z",
+        "opening": {
+          "date": "2026-10-22",
+          "cash": 2000,
+          "positions": []
+        },
+        "entries": [
+          {
+            "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "cancelled",
+            "amount": 375,
+            "quantity": null,
+            "fee": 0.3,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": null,
+            "resolvedDate": "2026-10-22"
+          }
+        ],
+        "journal": [
+          {
+            "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "cancelled",
+            "amount": 375,
+            "quantity": null,
+            "fee": 0.3,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": null,
+            "resolvedDate": "2026-10-22"
+          }
+        ],
+        "flows": [],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T10:53:26.114Z",
+        "opening": {
+          "date": "2026-10-22",
+          "cash": 2000,
+          "positions": []
+        },
+        "entries": [
+          {
+            "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "cancelled",
+            "amount": 375,
+            "quantity": null,
+            "fee": 0.3,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": null,
+            "resolvedDate": "2026-10-22"
+          },
+          {
+            "id": "69bb049c-40c3-4712-8d19-7d2b2b061b25",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "submitted",
+            "amount": 400,
+            "quantity": null,
+            "fee": 0.32,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1"
+          }
+        ],
+        "journal": [
+          {
+            "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "cancelled",
+            "amount": 375,
+            "quantity": null,
+            "fee": 0.3,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": null,
+            "resolvedDate": "2026-10-22"
+          },
+          {
+            "id": "69bb049c-40c3-4712-8d19-7d2b2b061b25",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "submitted",
+            "amount": 400,
+            "quantity": null,
+            "fee": 0.32,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1"
+          }
+        ],
+        "flows": [],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T10:53:26.481Z",
+        "opening": {
+          "date": "2026-10-22",
+          "cash": 2000,
+          "positions": []
+        },
+        "entries": [
+          {
+            "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "cancelled",
+            "amount": 375,
+            "quantity": null,
+            "fee": 0.3,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": null,
+            "resolvedDate": "2026-10-22"
+          },
+          {
+            "id": "69bb049c-40c3-4712-8d19-7d2b2b061b25",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "confirmed",
+            "amount": 400,
+            "quantity": 300,
+            "fee": 0,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": "2026-10-22"
+          }
+        ],
+        "journal": [
+          {
+            "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "cancelled",
+            "amount": 375,
+            "quantity": null,
+            "fee": 0.3,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": null,
+            "resolvedDate": "2026-10-22"
+          },
+          {
+            "id": "69bb049c-40c3-4712-8d19-7d2b2b061b25",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "confirmed",
+            "amount": 400,
+            "quantity": 300,
+            "fee": 0,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": "2026-10-22"
+          }
+        ],
+        "flows": [],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T10:53:26.545Z",
+        "opening": {
+          "date": "2026-10-22",
+          "cash": 2000,
+          "positions": []
+        },
+        "entries": [
+          {
+            "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "cancelled",
+            "amount": 375,
+            "quantity": null,
+            "fee": 0.3,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": null,
+            "resolvedDate": "2026-10-22"
+          },
+          {
+            "id": "69bb049c-40c3-4712-8d19-7d2b2b061b25",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "confirmed",
+            "amount": 350,
+            "quantity": 280,
+            "fee": 0.5,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": "2026-10-22",
+            "resolvedDate": null
+          }
+        ],
+        "journal": [
+          {
+            "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "cancelled",
+            "amount": 375,
+            "quantity": null,
+            "fee": 0.3,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": null,
+            "resolvedDate": "2026-10-22"
+          },
+          {
+            "id": "69bb049c-40c3-4712-8d19-7d2b2b061b25",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "confirmed",
+            "amount": 350,
+            "quantity": 280,
+            "fee": 0.5,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": "2026-10-22",
+            "resolvedDate": null
+          }
+        ],
+        "flows": [],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T10:53:26.597Z",
+        "opening": {
+          "date": "2026-10-22",
+          "cash": 2000,
+          "positions": []
+        },
+        "entries": [
+          {
+            "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "cancelled",
+            "amount": 375,
+            "quantity": null,
+            "fee": 0.3,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": null,
+            "resolvedDate": "2026-10-22"
+          },
+          {
+            "id": "69bb049c-40c3-4712-8d19-7d2b2b061b25",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "confirmed",
+            "amount": 350,
+            "quantity": 280,
+            "fee": 0.5,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": "2026-10-22",
+            "resolvedDate": null
+          }
+        ],
+        "journal": [
+          {
+            "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "cancelled",
+            "amount": 375,
+            "quantity": null,
+            "fee": 0.3,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": null,
+            "resolvedDate": "2026-10-22"
+          },
+          {
+            "id": "69bb049c-40c3-4712-8d19-7d2b2b061b25",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-22",
+            "submittedDate": "2026-10-22",
+            "code": "000015",
+            "name": "华夏纯债债券A",
+            "action": "买入",
+            "status": "confirmed",
+            "amount": 350,
+            "quantity": 280,
+            "fee": 0.5,
+            "planStrategy": "L1",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+            "confirmedDate": "2026-10-22",
+            "resolvedDate": null
+          }
+        ],
+        "flows": [
+          {
+            "id": "flow-453e496d-4a13-40e5-8365-ea2e4f3d379d",
+            "date": "2026-10-22",
+            "type": "withdraw",
+            "amount": 100,
+            "note": ""
+          }
+        ],
+        "settlements": [],
+        "incomes": []
+      }
+    ],
+    "frozenCash": 0,
+    "receivable": 0,
+    "payments": {},
+    "initialDate": "2026-10-22",
+    "initialPositions": [],
+    "journal": [
+      {
+        "id": "a8536396-0d33-4cfb-b6a8-b1f974cda9f6",
+        "mode": "real",
+        "accountId": "strategy",
+        "date": "2026-10-22",
+        "submittedDate": "2026-10-22",
+        "code": "000015",
+        "name": "华夏纯债债券A",
+        "action": "买入",
+        "status": "cancelled",
+        "amount": 375,
+        "quantity": null,
+        "fee": 0.3,
+        "planStrategy": "L1",
+        "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+        "confirmedDate": null,
+        "resolvedDate": "2026-10-22"
+      },
+      {
+        "id": "69bb049c-40c3-4712-8d19-7d2b2b061b25",
+        "mode": "real",
+        "accountId": "strategy",
+        "date": "2026-10-22",
+        "submittedDate": "2026-10-22",
+        "code": "000015",
+        "name": "华夏纯债债券A",
+        "action": "买入",
+        "status": "confirmed",
+        "amount": 350,
+        "quantity": 280,
+        "fee": 0.5,
+        "planStrategy": "L1",
+        "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_L1",
+        "confirmedDate": "2026-10-22",
+        "resolvedDate": null
+      }
+    ]
+  },
+  "snapshots": [
+    {
+      "date": "2026-10-22",
+      "total_assets": 20000,
+      "note": "",
+      "confirmed_at": "2026-10-22T10:53:24.780Z"
+    }
+  ]
+}

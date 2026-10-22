@@ -1,0 +1,72 @@
+<style>
+  .v1-badge{display:inline-block;font-size:11px;padding:2px 7px;border-radius:10px;background:#eaf0f8;color:#345a8b;font-weight:650;vertical-align:middle}
+  .v1-warn{background:#fff6e5;border:1px solid #f0d49a;color:#7a5200;border-radius:7px;padding:8px 10px;margin:8px 0}
+  .v1-err{background:#fdeeee;border:1px solid #e7b4b4;color:#8a2b2b;border-radius:7px;padding:8px 10px;margin:8px 0}
+  .v1-ok{color:#2f6b45}
+  .v1-table{width:100%;border-collapse:collapse;font-size:13px}
+  .v1-table th,.v1-table td{padding:6px 4px;border-bottom:1px solid #ececec;text-align:right;white-space:nowrap}
+  .v1-table th:first-child,.v1-table td:first-child{text-align:left}
+  .v1-table td.reason{text-align:left;white-space:normal;min-width:180px;color:#536174}
+  .v1-num{font-variant-numeric:tabular-nums}
+  .v1-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .v1-mini{font-size:12px;color:#6b7684}
+  @media (max-width:600px){
+    #v1-plan .card{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .v1-table th,.v1-table td{white-space:normal;word-break:break-word;padding:6px 3px;font-size:12px}
+    .v1-table td.reason{min-width:0}
+    .v1-shares{width:72px!important}
+  }
+</style>
+
+<div class="card" id="v1-snapshot">
+  <h2>总资产与投资预算 <span class="v1-badge">手工记录</span></h2>
+  <p class="muted">每月 1 日更新一次；未更新时沿用上次确认值，并显示原始数据日期。投资预算始终为总金融资产的 10%。</p>
+  <div class="grid g2">
+    <div><label>统计日期<input id="v1SnapDate" type="date"></label></div>
+    <div><label>总金融资产（元）<input id="v1SnapAmount" type="number" min="0" step="100" inputmode="decimal"></label></div>
+  </div>
+  <label>备注（可选）<input id="v1SnapNote" type="text" maxlength="60" placeholder="例如：含银行卡、支付宝、微信与投资市值"></label>
+  <div class="v1-actions"><button class="btn" id="v1SnapSave" type="button">确认更新</button></div>
+  <p id="v1SnapStatus" role="status"></p>
+  <div id="v1SnapInfo" class="v1-mini"></div>
+</div>
+
+<div class="card" id="v1-pool">
+  <h2>投资资金池</h2>
+  <p class="muted">目标额度 = 总金融资产 × 10%。池子超额时暂停新增投入，不强制卖出；池内调仓不算新增。确认赎回后记应收，实际到账须逐笔核对；不按固定T+2自动到账。</p>
+  <div id="v1PoolBody"></div>
+  <div class="grid g2">
+    <div><label>池内现金（元）<input id="v1PoolCash" type="number" min="0" step="0.01" inputmode="decimal"></label></div>
+    <div><label>在途资金（元，可选）<input id="v1Receivable" type="number" min="0" step="0.01" inputmode="decimal"></label></div>
+  </div>
+  <div class="v1-actions"><button class="btn gray" id="v1PoolSave" type="button">确认期初现金与份额</button>
+    <label>赎回订单<select id="v1SettleTrade"></select></label><label>实际到账日期<input id="v1SettleDate" type="date"></label><button class="btn gray" id="v1Settle" type="button">卖出款已到账</button></div>
+  <p id="v1PoolStatus" role="status"></p>
+</div>
+
+<div class="card" id="v1-positions">
+  <h2>当前持仓</h2>
+  <p class="muted">首次使用手动录入份额；之后由「投资日记」的实际成交自动更新。净值缺失时标记待更新，允许手动校正份额。</p>
+  <table class="v1-table">
+    <thead><tr><th>资产</th><th>份额</th><th>最新净值</th><th>市值</th><th>状态</th></tr></thead>
+    <tbody id="v1PositionsBody"></tbody>
+  </table>
+  <div class="v1-actions"><button class="btn gray" id="v1PosSave" type="button">保存手动份额</button>
+    <button class="btn gray" id="v1PosRebuild" type="button">按日记重建</button></div>
+  <p id="v1PosStatus" role="status"></p>
+</div>
+
+<div class="card" id="v1-plan">
+  <h2>今日操作 <span class="v1-badge">未启用</span></h2>
+  <p class="muted">本轮仅修复账本与研究正确性，不生成真实买卖建议。</p>
+  <div id="v1PlanBody"></div>
+  <p id="v1PlanStatus" role="status"></p>
+</div>
+
+<div class="card" id="v1-review">
+  <h2>月度复盘</h2>
+  <p class="muted">原收益算法已停用，待真实日度账务验收后接入。</p>
+  <label>选择月份<input id="v1ReviewMonth" type="month"></label>
+  <div id="v1ReviewBody"></div>
+  <p id="v1ReviewStatus" role="status"></p>
+</div>

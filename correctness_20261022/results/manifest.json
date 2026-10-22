@@ -1,0 +1,18 @@
+{
+  "engine": "daily_causal_v3",
+  "mode": "backtest",
+  "publication_policy": "Assumed NAV information available after two A-share proxy trading rows; lag5 sensitivity. Actual publication timestamps unavailable.",
+  "settlement_policy": "Domestic 2 proxy sessions, QDII 10 proxy sessions; sensitivity all2. Not channel-verified.",
+  "confirmation_policy": "Domestic1/QDII2 proxy sessions. Holding days start at confirmation.",
+  "fees": "Snapshot fee schedule, not historical channel point-in-time rates.",
+  "dividends": "TR automatic reinvestment, synthetic shares.",
+  "limits": "Main assumes purchasable. L1/L2 structural blocked-Nasdaq scenarios, not reconstructed historical limits.",
+  "approval": "No strategy or live advice enabled.",
+  "source_hashes": {
+    "research_xingxun_v2\\engine_v2.py": "6839538e8c2be345c71e020b6800a119e8c8d01b8a02971e2da8ecda77a0df88",
+    "research_xingxun_v2\\run_v23.py": "8944838fc57f36775970d0a9e8b7a294ba61adfc32d137bec3fcab3e7ed0bed4",
+    "research_xingxun_v2\\run_v21.py": "4b300d627bbacf893f9245e616ad21cdcca79dd4a2f244b426550e1216fe1403",
+    "research_xingxun_v2\\clean_v2\\panel_v2.csv": "aa1de95d598c5157cad929436fd1788844b667f110f302c343012474570cb510",
+    "research_xingxun_v1\\clean\\tr_panel.csv": "a0ea86ecafbd1220e60fdb1315ed296a3b77287dc19c803ad83a2606d55355f6"
+  }
+}

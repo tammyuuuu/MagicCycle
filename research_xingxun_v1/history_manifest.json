@@ -1,0 +1,68 @@
+[
+  {
+    "code": "000216",
+    "url": "https://api.fund.eastmoney.com/f10/lsjz",
+    "params": {
+      "startDate": "2018-01-01",
+      "endDate": "2026-10-21",
+      "pageSize": 1000
+    },
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "retrieved_at": "2026-10-22T03:06:48.252413+00:00"
+  },
+  {
+    "code": "160706",
+    "url": "https://api.fund.eastmoney.com/f10/lsjz",
+    "params": {
+      "startDate": "2018-01-01",
+      "endDate": "2026-10-21",
+      "pageSize": 1000
+    },
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "retrieved_at": "2026-10-22T03:06:48.810899+00:00"
+  },
+  {
+    "code": "160119",
+    "url": "https://api.fund.eastmoney.com/f10/lsjz",
+    "params": {
+      "startDate": "2018-01-01",
+      "endDate": "2026-10-21",
+      "pageSize": 1000
+    },
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "retrieved_at": "2026-10-22T03:06:49.493702+00:00"
+  },
+  {
+    "code": "090010",
+    "url": "https://api.fund.eastmoney.com/f10/lsjz",
+    "params": {
+      "startDate": "2018-01-01",
+      "endDate": "2026-10-21",
+      "pageSize": 1000
+    },
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "retrieved_at": "2026-10-22T03:06:50.057537+00:00"
+  },
+  {
+    "code": "006484",
+    "url": "https://api.fund.eastmoney.com/f10/lsjz",
+    "params": {
+      "startDate": "2018-01-01",
+      "endDate": "2026-10-21",
+      "pageSize": 1000
+    },
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "retrieved_at": "2026-10-22T03:06:50.593497+00:00"
+  },
+  {
+    "code": "006989",
+    "url": "https://api.fund.eastmoney.com/f10/lsjz",
+    "params": {
+      "startDate": "2018-01-01",
+      "endDate": "2026-10-21",
+      "pageSize": 1000
+    },
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "retrieved_at": "2026-10-22T03:06:51.985177+00:00"
+  }
+]

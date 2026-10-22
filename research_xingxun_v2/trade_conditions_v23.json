@@ -1,0 +1,44 @@
+{
+  "110026": {
+    "code": "110026",
+    "label": "易方达创业板ETF联接A",
+    "nav": 2.809,
+    "nav_date": "2026-10-20",
+    "first": "2011-09-19",
+    "name": "易方达创业板ETF联接A",
+    "fund_type": "指数型-股票",
+    "purchase_status": "开放申购",
+    "daily_purchase_limit": null,
+    "purchase_min": "10.00元",
+    "current_rate_pct": 0.12,
+    "inception": "2011-09-20"
+  },
+  "003766": {
+    "code": "003766",
+    "label": "广发创业板ETF联接A",
+    "nav": 1.4545,
+    "nav_date": "2026-10-20",
+    "first": "2017-05-24",
+    "name": "广发创业板ETF发起式联接C",
+    "fund_type": "指数型-股票",
+    "purchase_status": "开放申购",
+    "daily_purchase_limit": null,
+    "purchase_min": "10.00元",
+    "current_rate_pct": 0.0,
+    "inception": "2017-05-25"
+  },
+  "001594": {
+    "code": "001594",
+    "label": "天弘中证银行ETF联接A",
+    "nav": 1.8848,
+    "nav_date": "2026-10-20",
+    "first": "2015-07-07",
+    "name": "天弘中证银行ETF联接A",
+    "fund_type": "指数型-股票",
+    "purchase_status": "开放申购",
+    "daily_purchase_limit": null,
+    "purchase_min": "10.00元",
+    "current_rate_pct": 0.1,
+    "inception": "2015-07-08"
+  }
+}

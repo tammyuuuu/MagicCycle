@@ -10,6 +10,7 @@
 然后浏览器打开 http://127.0.0.1:5000
 """
 
+import valuation_data
 import base64
 import io
 import json
@@ -23,6 +24,8 @@ import data_fetcher as fetcher
 import dca
 import alerts
 import industry_strategy
+import strategies
+from asset_states import STATE_CATALOG, render_today_categories, DISPLAY_STATUS_MAP
 from dca import DCA_DEFAULTS, DEFAULT_SELL_RULES
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -75,7 +78,13 @@ def _as_plain(o):
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", asset_state_catalog=STATE_CATALOG, asset_state_map=DISPLAY_STATUS_MAP, today_categories=render_today_categories(), investment_script=__import__("correlation_data").investment_script())
+
+
+@app.route("/api/account-nav")
+def api_account_nav():
+    from account_nav import build_snapshot
+    return jsonify(build_snapshot(refresh=True))
 
 
 @app.route("/api/state")
@@ -135,14 +144,14 @@ def _load_data(etf: str) -> pd.DataFrame:
 @app.route("/api/backtest", methods=["POST"])
 def api_backtest():
     body = request.get_json(force=True) or {}
-    etf = body.get("etf", cfg.TARGET_ETFS[0]["code"])
+    etf = body.get("etf", "510500")
     params = body.get("params") or {}
     rules = body.get("sell_rules") or DEFAULT_SELL_RULES
     start = body.get("start", "20160101")
     try:
         df, item = _load_data(etf)
-        if item.get("strategy_type") == "industry":
-            return jsonify({"error": "该标的使用行业策略，不能套用宽基定投回测"}), 400
+        if item.get("asset_type") != "broad_etf" or item.get("strategy_mode") in ("us_monthly_trend", "broad_individual"):
+            return jsonify({"error": "该标的不能套用宽基定投回测"}), 400
         if start:
             df = df[df.index >= pd.Timestamp(start)]
         if len(df) < 60:
@@ -164,6 +173,9 @@ def api_backtest():
             "period": f"{df.index[0].date()} ~ {df.index[-1].date()}（{len(df)} 个交易日）",
             "strategy": strat.metrics,
             "benchmark": bench.metrics,
+            "mode": "backtest",
+            "engine": "legacy_etf_close_t_plus_1",
+            "eligible_for_live_use": False,
             "events": strat.events[-30:][::-1],   # 最近 30 条，新的在前
             "chart": chart,
         }))
@@ -183,13 +195,15 @@ def api_alerts():
     for item in etfs:
         try:
             df = _get_df(item["code"])
-            rep = _analyze_item(df, item, params, rules)
+            summary = strategies.analyze_asset(df, valuation_data.attach_valuation(item, df.index[-1].date().isoformat()), overrides=params if item.get("asset_type") == "broad_etf" else None, sell_rules=rules)
+            rep = summary["details"]["legacy"] or {"date": summary["date"], "close": summary["metrics"]["price"]}
             out.append({"code": item["code"], "name": item["name"],
-                        "index": item["index"], "rep": rep,
+                        "index": item["index"], "rep": rep, "summary": summary,
+                        "asset_type": summary["asset_type"],
                         "signal_code": item.get("signal_code"),
                         "signal_name": item.get("signal_name"),
                         "strategy_type": item.get("strategy_type", "broad"),
-                        "text": ("行业策略已单独计算" if item.get("strategy_type") == "industry"
+                        "text": (summary["reason"] if item.get("asset_type") in ("macro_asset", "sector_etf") or item.get("strategy_mode") in ("us_monthly_trend", "broad_individual")
                                  else alerts.render_text(rep, f"{item['code']} {item['name']}"))})
         except Exception as e:
             out.append({"code": item["code"], "name": item["name"],
@@ -200,23 +214,33 @@ def api_alerts():
 @app.route("/api/decide", methods=["POST"])
 def api_decide():
     body = request.get_json(force=True) or {}
+    if not isinstance(body, dict):
+        return jsonify({"error": "请求体必须为 JSON 对象"}), 400
     params = body.get("params") or {}
     rules = body.get("sell_rules") or DEFAULT_SELL_RULES
     etf = body.get("etf")
+    # Reject unsupported input before data loading; computation failures remain 500.
+    if not isinstance(etf, str) or not any(e["code"] == etf for e in cfg.TARGET_ETFS):
+        return jsonify({"error": f"未知 ETF：{etf}"}), 400
     try:
         df, item = _load_data(etf)
-        rep = _analyze_item(df, item, params, rules)
-        if item.get("strategy_type") == "industry":
-            dec = industry_strategy.decide(
-                rep, holding=bool(body.get("holding", False)),
-                current_return=body.get("current_return"))
+        summary = strategies.analyze_asset(df, valuation_data.attach_valuation(item, df.index[-1].date().isoformat()), holding={"holding": body.get("holding", False), "current_return": body.get("current_return"), "avg_cost": body.get("avg_cost"), "position_ratio": body.get("position_ratio"), "stop_price": body.get("stop_price")}, overrides=params if item.get("asset_type") == "broad_etf" else None, sell_rules=rules)
+        rep = summary["details"]["legacy"]
+        if rep and item.get("asset_type") == "sector_etf":
+            decision = industry_strategy.decide(rep, bool(body.get("holding", False)), body.get("current_return"))
+        elif summary["asset_type"] == "broad_etf":
+            decision = {"action": summary["status"], "holding": bool(body.get("holding", False)), "sell_advice": summary["reason"], "buy_advice": summary["reason"]}
+        elif summary["asset_type"] == "macro_asset":
+            decision = {"action": summary["status"], "holding": bool(body.get("holding", False)),
+                        "sell_advice": summary["reason"], "buy_advice": summary["reason"],
+                        "buy_signal": summary["status"] in ("buy","add"),
+                        "fresh_add": summary["details"].get("fresh_add",False),
+                        "strategy_version": summary["details"]["strategy_version"]}
+        elif rep:
+            decision = alerts.decide_today(rep, holding=bool(body.get("holding", False)), avg_cost=body.get("avg_cost"), current_return=body.get("current_return"), peak=body.get("peak"), sell_rules=rules)
         else:
-            dec = alerts.decide_today(
-                rep, holding=bool(body.get("holding", False)),
-                avg_cost=body.get("avg_cost"), peak=body.get("peak"),
-                current_return=body.get("current_return"), sell_rules=rules)
-        return jsonify(_as_plain({"ok": True, "rep": rep, "decision": dec,
-                                  "name": item["name"]}))
+            decision = {"action": summary["status"], "holding": bool(body.get("holding", False))}
+        return jsonify(_as_plain({"ok": True, "summary": summary, "rep": rep, "decision": decision, "name": item["name"]}))
     except Exception as e:
         return jsonify({"error": f"{type(e).__name__}: {e}"}), 500
 

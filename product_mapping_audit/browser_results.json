@@ -1,0 +1,44 @@
+[
+  {
+    "width": 375,
+    "southAndEfund": true,
+    "combinedHoldings": true,
+    "quota": true,
+    "minimum": true,
+    "buyFeeNotAnnual": true,
+    "crossProductPending": true,
+    "actualCodeShares": true,
+    "pnl": true,
+    "backup": true,
+    "noAutoSale": true,
+    "unverifiedBlocked": true
+  },
+  {
+    "width": 320,
+    "southAndEfund": true,
+    "combinedHoldings": true,
+    "quota": true,
+    "minimum": true,
+    "buyFeeNotAnnual": true,
+    "crossProductPending": true,
+    "actualCodeShares": true,
+    "pnl": true,
+    "backup": true,
+    "noAutoSale": true,
+    "unverifiedBlocked": true
+  },
+  {
+    "width": 1440,
+    "southAndEfund": true,
+    "combinedHoldings": true,
+    "quota": true,
+    "minimum": true,
+    "buyFeeNotAnnual": true,
+    "crossProductPending": true,
+    "actualCodeShares": true,
+    "pnl": true,
+    "backup": true,
+    "noAutoSale": true,
+    "unverifiedBlocked": true
+  }
+]

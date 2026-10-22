@@ -1,0 +1,31 @@
+{
+  "status": "COMPLETE",
+  "formal_site_synced": true,
+  "formal_site_sha256": "1aff83927fb2d0c4b68ae316495494b5d498e8075300b8ffe5539fdee1c4ce49",
+  "python_tests": 179,
+  "v1_tests": 34,
+  "node_named_tests": 59,
+  "node_standalone_scripts": 4,
+  "browser_scenarios": 18,
+  "pwa": "passed after sandbox localhost permission retry",
+  "failures_unresolved": [],
+  "core_hashes_unchanged": [
+    "portfolio_store.js",
+    "capital_pool.js",
+    "portfolio_valuation.js",
+    "investment_planner.js",
+    "investment_workspace.js",
+    "purchase_monitor.js",
+    "alerts.py",
+    "broad_individual_strategy.py",
+    "broad_signal_rules.py",
+    "us_etf_strategy.py",
+    "gold_strategy.py",
+    "industry_strategy.py",
+    "update_alerts.ps1",
+    "update_alerts.bat",
+    "refresh_local_startup.vbs",
+    "workspace_data/manifest.json"
+  ],
+  "latest_recheck_tests": 22
+}

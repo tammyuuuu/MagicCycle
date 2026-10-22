@@ -46,6 +46,8 @@ def rsi(close: pd.Series, n: int = 14) -> pd.Series:
     avg_down = down.ewm(alpha=1 / n, adjust=False).mean()
     rs = avg_up / avg_down.replace(0.0, pd.NA)
     out = 100 - 100 / (1 + rs)
+    out = out.mask((avg_down == 0) & (avg_up > 0), 100.0)
+    out = out.mask((avg_down == 0) & (avg_up == 0), 50.0)
     # 数据不足 n 个时输出 NaN
     return out.where(close.notna().cumsum() > n)
 

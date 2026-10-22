@@ -1,0 +1,26 @@
+[
+  {
+    "code": "050025",
+    "record_date": "2012-09-21",
+    "ex_date": "2012-09-20",
+    "pay_date": "2012-09-28",
+    "per_share": 0.028,
+    "notice": "https://pdf.dfcfw.com/pdf/H2_AN201209180005503727_1.pdf"
+  },
+  {
+    "code": "050025",
+    "record_date": "2014-01-10",
+    "ex_date": "2014-01-09",
+    "pay_date": "2014-01-22",
+    "per_share": 0.0066,
+    "notice": "https://pdf.dfcfw.com/pdf/H22_AN201401080004919807_1.pdf"
+  },
+  {
+    "code": "050025",
+    "record_date": "2015-01-12",
+    "ex_date": "2015-01-09",
+    "pay_date": "2015-01-22",
+    "per_share": 0.0244,
+    "notice": "https://static.cninfo.com.cn/finalpage/2015-01-08/1200529051.PDF"
+  }
+]

@@ -1,0 +1,272 @@
+[
+  {
+    "segment": "main",
+    "scheme": "A",
+    "rows": 1208,
+    "missing": {
+      "000015": 0,
+      "008701": 0,
+      "161130": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "main",
+    "scheme": "B",
+    "rows": 1208,
+    "missing": {
+      "000015": 0,
+      "008701": 0,
+      "161130": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "main",
+    "scheme": "C",
+    "rows": 1208,
+    "missing": {
+      "000015": 0,
+      "008701": 0,
+      "161130": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "main",
+    "scheme": "L1",
+    "rows": 1208,
+    "missing": {
+      "000015": 0,
+      "008701": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "main",
+    "scheme": "L2",
+    "rows": 1208,
+    "missing": {
+      "000015": 0,
+      "008701": 0,
+      "090010": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "main",
+    "scheme": "L3",
+    "rows": 1208,
+    "missing": {
+      "000015": 0,
+      "008701": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "main",
+    "scheme": "bond",
+    "rows": 1208,
+    "missing": {
+      "000015": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "main",
+    "scheme": "gold",
+    "rows": 1208,
+    "missing": {
+      "008701": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "main",
+    "scheme": "cash",
+    "rows": 1208,
+    "missing": {
+      "000198": 0
+    }
+  },
+  {
+    "segment": "oos_label_only",
+    "scheme": "A",
+    "rows": 846,
+    "missing": {
+      "000015": 0,
+      "008701": 0,
+      "161130": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "oos_label_only",
+    "scheme": "B",
+    "rows": 846,
+    "missing": {
+      "000015": 0,
+      "008701": 0,
+      "161130": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "oos_label_only",
+    "scheme": "C",
+    "rows": 846,
+    "missing": {
+      "000015": 0,
+      "008701": 0,
+      "161130": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "oos_label_only",
+    "scheme": "L1",
+    "rows": 846,
+    "missing": {
+      "000015": 0,
+      "008701": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "oos_label_only",
+    "scheme": "L2",
+    "rows": 846,
+    "missing": {
+      "000015": 0,
+      "008701": 0,
+      "090010": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "oos_label_only",
+    "scheme": "L3",
+    "rows": 846,
+    "missing": {
+      "000015": 0,
+      "008701": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "oos_label_only",
+    "scheme": "bond",
+    "rows": 846,
+    "missing": {
+      "000015": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "oos_label_only",
+    "scheme": "gold",
+    "rows": 846,
+    "missing": {
+      "008701": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "oos_label_only",
+    "scheme": "cash",
+    "rows": 846,
+    "missing": {
+      "000198": 0
+    }
+  },
+  {
+    "segment": "long_proxy",
+    "scheme": "A",
+    "rows": 1831,
+    "missing": {
+      "000015": 0,
+      "000216": 0,
+      "270042": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "long_proxy",
+    "scheme": "B",
+    "rows": 1831,
+    "missing": {
+      "000015": 0,
+      "000216": 0,
+      "270042": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "long_proxy",
+    "scheme": "C",
+    "rows": 1831,
+    "missing": {
+      "000015": 0,
+      "000216": 0,
+      "270042": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "long_proxy",
+    "scheme": "L1",
+    "rows": 1831,
+    "missing": {
+      "000015": 0,
+      "000216": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "long_proxy",
+    "scheme": "L2",
+    "rows": 1831,
+    "missing": {
+      "000015": 0,
+      "000216": 0,
+      "090010": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "long_proxy",
+    "scheme": "L3",
+    "rows": 1831,
+    "missing": {
+      "000015": 0,
+      "000216": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "long_proxy",
+    "scheme": "bond",
+    "rows": 1831,
+    "missing": {
+      "000015": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "long_proxy",
+    "scheme": "gold",
+    "rows": 1831,
+    "missing": {
+      "000216": 0,
+      "000198": 0
+    }
+  },
+  {
+    "segment": "long_proxy",
+    "scheme": "cash",
+    "rows": 1831,
+    "missing": {
+      "000198": 0
+    }
+  }
+]

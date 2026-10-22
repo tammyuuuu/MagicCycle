@@ -1,0 +1,198 @@
+[
+  {
+    "name": "python_all",
+    "command": [
+      "D:\\loaddown\\python\\python.exe",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      ".",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "seconds": 77.93
+  },
+  {
+    "name": "test_capital_pool",
+    "command": [
+      "D:\\loaddown\\python\\python.exe",
+      "-B",
+      "test_capital_pool.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.8
+  },
+  {
+    "name": "test_capital_pool_acceptance",
+    "command": [
+      "D:\\loaddown\\python\\python.exe",
+      "-B",
+      "test_capital_pool_acceptance.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.78
+  },
+  {
+    "name": "test_parity_capital_pool",
+    "command": [
+      "D:\\loaddown\\python\\python.exe",
+      "-B",
+      "test_parity_capital_pool.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.79
+  },
+  {
+    "name": "test_signal_journal",
+    "command": [
+      "D:\\loaddown\\python\\python.exe",
+      "-B",
+      "test_signal_journal.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.75
+  },
+  {
+    "name": "test_correlation_tools",
+    "command": [
+      "node",
+      "test_correlation_tools.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.11
+  },
+  {
+    "name": "test_investment_planner",
+    "command": [
+      "node",
+      "test_investment_planner.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.68
+  },
+  {
+    "name": "test_journal_integration",
+    "command": [
+      "node",
+      "test_journal_integration.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.12
+  },
+  {
+    "name": "test_monthly_budget",
+    "command": [
+      "node",
+      "test_monthly_budget.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.09
+  },
+  {
+    "name": "test_portfolio_ledger",
+    "command": [
+      "node",
+      "test_portfolio_ledger.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.21
+  },
+  {
+    "name": "test_portfolio_valuation",
+    "command": [
+      "node",
+      "test_portfolio_valuation.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.21
+  },
+  {
+    "name": "test_purchase_monitor",
+    "command": [
+      "node",
+      "test_purchase_monitor.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.08
+  },
+  {
+    "name": "test_purchase_monitor_policy",
+    "command": [
+      "node",
+      "test_purchase_monitor_policy.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.09
+  },
+  {
+    "name": "test_strategy_preferences",
+    "command": [
+      "node",
+      "test_strategy_preferences.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.07
+  },
+  {
+    "name": "protected_boundaries",
+    "command": [
+      "D:\\loaddown\\python\\python.exe",
+      "-B",
+      "correctness_20261022/check_boundaries.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.27
+  },
+  {
+    "name": "build_previews",
+    "command": [
+      "D:\\loaddown\\python\\python.exe",
+      "-B",
+      "workspace_ui_20261022/build_previews.py"
+    ],
+    "exit_code": 0,
+    "seconds": 10.19
+  },
+  {
+    "name": "browser_acceptance",
+    "command": [
+      "node",
+      "workspace_ui_20261022/browser_acceptance.js"
+    ],
+    "exit_code": 0,
+    "seconds": 36.1
+  },
+  {
+    "name": "browser_simple_plan",
+    "command": [
+      "node",
+      "workspace_ui_20261022/browser_simple_plan.js"
+    ],
+    "exit_code": 0,
+    "seconds": 13.12
+  },
+  {
+    "name": "browser_def_monitor",
+    "command": [
+      "node",
+      "workspace_ui_20261022/browser_def_monitor.js"
+    ],
+    "exit_code": 0,
+    "seconds": 9.28
+  },
+  {
+    "name": "pwa",
+    "command": [
+      "node",
+      "maintenance/20261022/test_pwa.js"
+    ],
+    "exit_code": 0,
+    "seconds": 1.04,
+    "initial_environment_failure": 1,
+    "retest": "Passed outside sandbox after ERR_NETWORK_ACCESS_DENIED on localhost; no source change"
+  }
+]

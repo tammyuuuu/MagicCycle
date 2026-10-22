@@ -1,0 +1,295 @@
+{
+  "schema": "xingxun-ledger-v2",
+  "mode": "real",
+  "accountId": "strategy",
+  "profile": {
+    "version": 2,
+    "ratio": 0.1,
+    "mode": "real",
+    "accountId": "strategy",
+    "entries": [
+      {
+        "id": "b",
+        "mode": "real",
+        "accountId": "strategy",
+        "date": "2026-09-02",
+        "confirmedDate": "2026-09-03",
+        "code": "000015",
+        "action": "买入",
+        "amount": 1000,
+        "quantity": 800,
+        "fee": 1,
+        "status": "confirmed",
+        "planStrategy": "B",
+        "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_B",
+        "planWeights": {
+          "161130": 0.3,
+          "000015": 0.4,
+          "008701": 0.3
+        }
+      },
+      {
+        "id": "d",
+        "mode": "real",
+        "accountId": "strategy",
+        "date": "2026-10-04",
+        "confirmedDate": "2026-10-05",
+        "code": "008701",
+        "action": "买入",
+        "amount": 100,
+        "quantity": 8,
+        "fee": 0.5,
+        "status": "confirmed",
+        "planStrategy": "D",
+        "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_D",
+        "planWeights": {
+          "000015": 0.3333333333333333,
+          "008701": 0.3333333333333333,
+          "050025": 0.3333333333333333
+        }
+      }
+    ],
+    "settlements": [],
+    "incomes": [],
+    "allocationId": null,
+    "poolCash": 1000,
+    "positions": [
+      {
+        "code": "000015",
+        "name": "000015",
+        "shares": 800,
+        "cost": 1000,
+        "source": "confirmed",
+        "availableShares": 800
+      },
+      {
+        "code": "008701",
+        "name": "008701",
+        "shares": 8,
+        "cost": 100,
+        "source": "confirmed",
+        "availableShares": 8
+      }
+    ],
+    "flows": [
+      {
+        "id": "flow-d700964c-f906-4583-8e6d-41edfe864a0f",
+        "date": "2026-10-05",
+        "type": "deposit",
+        "amount": 100,
+        "note": ""
+      }
+    ],
+    "updatedAt": "2026-10-22T15:32:12.373Z",
+    "opening": {
+      "date": "2026-09-01",
+      "cash": 2000,
+      "positions": []
+    },
+    "frozenCash": 0,
+    "receivable": 0,
+    "payments": {},
+    "initialDate": "2026-09-01",
+    "initialPositions": [],
+    "journal": [
+      {
+        "id": "b",
+        "mode": "real",
+        "accountId": "strategy",
+        "date": "2026-09-02",
+        "confirmedDate": "2026-09-03",
+        "code": "000015",
+        "action": "买入",
+        "amount": 1000,
+        "quantity": 800,
+        "fee": 1,
+        "status": "confirmed",
+        "planStrategy": "B",
+        "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_B",
+        "planWeights": {
+          "161130": 0.3,
+          "000015": 0.4,
+          "008701": 0.3
+        }
+      },
+      {
+        "id": "d",
+        "mode": "real",
+        "accountId": "strategy",
+        "date": "2026-10-04",
+        "confirmedDate": "2026-10-05",
+        "code": "008701",
+        "action": "买入",
+        "amount": 100,
+        "quantity": 8,
+        "fee": 0.5,
+        "status": "confirmed",
+        "planStrategy": "D",
+        "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_D",
+        "planWeights": {
+          "000015": 0.3333333333333333,
+          "008701": 0.3333333333333333,
+          "050025": 0.3333333333333333
+        }
+      }
+    ],
+    "revisions": [
+      {
+        "savedAt": "2026-10-22T15:32:11.762Z",
+        "opening": {
+          "date": "2026-09-01",
+          "cash": 2000,
+          "positions": []
+        },
+        "entries": [],
+        "journal": null,
+        "flows": [],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T15:32:11.821Z",
+        "opening": {
+          "date": "2026-09-01",
+          "cash": 2000,
+          "positions": []
+        },
+        "entries": [
+          {
+            "id": "pending",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-09-02",
+            "code": "000015",
+            "action": "买入",
+            "amount": 1000,
+            "fee": 1,
+            "status": "submitted",
+            "planStrategy": "A"
+          }
+        ],
+        "journal": [
+          {
+            "id": "pending",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-09-02",
+            "code": "000015",
+            "action": "买入",
+            "amount": 1000,
+            "fee": 1,
+            "status": "submitted",
+            "planStrategy": "A"
+          }
+        ],
+        "flows": [],
+        "settlements": [],
+        "incomes": []
+      },
+      {
+        "savedAt": "2026-10-22T15:32:11.823Z",
+        "opening": {
+          "date": "2026-09-01",
+          "cash": 2000,
+          "positions": []
+        },
+        "entries": [
+          {
+            "id": "b",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-09-02",
+            "confirmedDate": "2026-09-03",
+            "code": "000015",
+            "action": "买入",
+            "amount": 1000,
+            "quantity": 800,
+            "fee": 1,
+            "status": "confirmed",
+            "planStrategy": "B",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_B",
+            "planWeights": {
+              "161130": 0.3,
+              "000015": 0.4,
+              "008701": 0.3
+            }
+          },
+          {
+            "id": "d",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-04",
+            "confirmedDate": "2026-10-05",
+            "code": "008701",
+            "action": "买入",
+            "amount": 100,
+            "quantity": 8,
+            "fee": 0.5,
+            "status": "confirmed",
+            "planStrategy": "D",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_D",
+            "planWeights": {
+              "000015": 0.3333333333333333,
+              "008701": 0.3333333333333333,
+              "050025": 0.3333333333333333
+            }
+          }
+        ],
+        "journal": [
+          {
+            "id": "b",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-09-02",
+            "confirmedDate": "2026-09-03",
+            "code": "000015",
+            "action": "买入",
+            "amount": 1000,
+            "quantity": 800,
+            "fee": 1,
+            "status": "confirmed",
+            "planStrategy": "B",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_B",
+            "planWeights": {
+              "161130": 0.3,
+              "000015": 0.4,
+              "008701": 0.3
+            }
+          },
+          {
+            "id": "d",
+            "mode": "real",
+            "accountId": "strategy",
+            "date": "2026-10-04",
+            "confirmedDate": "2026-10-05",
+            "code": "008701",
+            "action": "买入",
+            "amount": 100,
+            "quantity": 8,
+            "fee": 0.5,
+            "status": "confirmed",
+            "planStrategy": "D",
+            "planVersion": "daily_causal_v3_def_20261022_d4f55a096d_D",
+            "planWeights": {
+              "000015": 0.3333333333333333,
+              "008701": 0.3333333333333333,
+              "050025": 0.3333333333333333
+            }
+          }
+        ],
+        "flows": [],
+        "settlements": [],
+        "incomes": []
+      }
+    ],
+    "researchSelection": "F"
+  },
+  "snapshots": [
+    {
+      "date": "2026-09-01",
+      "total_assets": 20000,
+      "note": "",
+      "confirmed_at": "2026-10-22T15:32:11.762Z"
+    }
+  ]
+}

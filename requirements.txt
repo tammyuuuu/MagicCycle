@@ -7,3 +7,4 @@ numpy>=1.26
 matplotlib>=3.8
 # 网页版界面
 flask>=3.0
+beautifulsoup4>=4.12

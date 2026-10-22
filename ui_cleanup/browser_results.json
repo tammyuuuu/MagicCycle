@@ -1,0 +1,47 @@
+[
+  {
+    "name": "browser_etf_groups",
+    "command": [
+      "node",
+      "ui_optimization/browser_etf_groups.js"
+    ],
+    "exit_code": 0,
+    "seconds": 5.6
+  },
+  {
+    "name": "browser_monitor_tabs",
+    "command": [
+      "node",
+      "ui_optimization/browser_monitor_tabs.js"
+    ],
+    "exit_code": 0,
+    "seconds": 3.85
+  },
+  {
+    "name": "browser_compact_plan",
+    "command": [
+      "node",
+      "ui_optimization/browser_compact_plan.js"
+    ],
+    "exit_code": 0,
+    "seconds": 11.86
+  },
+  {
+    "name": "browser_compact_review",
+    "command": [
+      "node",
+      "ui_optimization/browser_compact_review.js"
+    ],
+    "exit_code": 0,
+    "seconds": 6.67
+  },
+  {
+    "name": "browser_compact_lab",
+    "command": [
+      "node",
+      "ui_optimization/browser_compact_lab.js"
+    ],
+    "exit_code": 0,
+    "seconds": 7.38
+  }
+]

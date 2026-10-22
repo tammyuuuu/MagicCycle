@@ -1,0 +1,82 @@
+[
+  {
+    "run": "main_L3_rebalance",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 2.648109558766981
+  },
+  {
+    "run": "main_L3_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.5986678176412852
+  },
+  {
+    "run": "main_L3_lag5",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.5566020751479277
+  },
+  {
+    "run": "main_L3_settle2",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 2.648109558766981
+  },
+  {
+    "run": "main_L4_rebalance",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 2.8181599700081392
+  },
+  {
+    "run": "main_L4_buy_hold",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 1.9311693982707538
+  },
+  {
+    "run": "main_L4_lag5",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.935385271590876
+  },
+  {
+    "run": "main_L4_settle2",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 2.8181599700081392
+  },
+  {
+    "run": "long_proxy_L3_rebalance",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.698003473080978
+  },
+  {
+    "run": "long_proxy_L3_buy_hold",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 1.5986678176412852
+  },
+  {
+    "run": "long_proxy_L4_rebalance",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 3.3527807470569684
+  },
+  {
+    "run": "long_proxy_L4_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.9311693982707538
+  },
+  {
+    "run": "historical_2023_L3_rebalance",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 2.3704771361728425
+  },
+  {
+    "run": "historical_2023_L3_buy_hold",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 1.5986678176412852
+  },
+  {
+    "run": "historical_2023_L4_rebalance",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 2.8391016343877045
+  },
+  {
+    "run": "historical_2023_L4_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.9311693982707538
+  }
+]

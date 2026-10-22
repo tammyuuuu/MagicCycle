@@ -1,0 +1,47 @@
+{
+  "identical": true,
+  "pages": 4,
+  "widths": [
+    1440,
+    375,
+    320
+  ],
+  "navigationSamples": [
+    {
+      "width": 1440,
+      "variant": "before",
+      "domContentLoaded": 804.6999999880791,
+      "htmlBytes": 10205666
+    },
+    {
+      "width": 1440,
+      "variant": "after",
+      "domContentLoaded": 766.7999999523163,
+      "htmlBytes": 9445727
+    },
+    {
+      "width": 375,
+      "variant": "before",
+      "domContentLoaded": 772.7999999523163,
+      "htmlBytes": 10205666
+    },
+    {
+      "width": 375,
+      "variant": "after",
+      "domContentLoaded": 774.2999999523163,
+      "htmlBytes": 9445727
+    },
+    {
+      "width": 320,
+      "variant": "before",
+      "domContentLoaded": 784.2999999523163,
+      "htmlBytes": 10205666
+    },
+    {
+      "width": 320,
+      "variant": "after",
+      "domContentLoaded": 758.3999999761581,
+      "htmlBytes": 9445727
+    }
+  ]
+}

@@ -1,0 +1,312 @@
+[
+  {
+    "name": "python_all",
+    "command": [
+      "D:\\loaddown\\python\\python.exe",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      ".",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "seconds": 38.12
+  },
+  {
+    "name": "test_capital_pool",
+    "command": [
+      "D:\\loaddown\\python\\python.exe",
+      "-B",
+      "test_capital_pool.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.65
+  },
+  {
+    "name": "test_capital_pool_acceptance",
+    "command": [
+      "D:\\loaddown\\python\\python.exe",
+      "-B",
+      "test_capital_pool_acceptance.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.61
+  },
+  {
+    "name": "test_parity_capital_pool",
+    "command": [
+      "D:\\loaddown\\python\\python.exe",
+      "-B",
+      "test_parity_capital_pool.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.66
+  },
+  {
+    "name": "test_signal_journal",
+    "command": [
+      "D:\\loaddown\\python\\python.exe",
+      "-B",
+      "test_signal_journal.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.63
+  },
+  {
+    "name": "test_account_funding",
+    "command": [
+      "node",
+      "test_account_funding.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.13
+  },
+  {
+    "name": "test_asset_product_mapping",
+    "command": [
+      "node",
+      "test_asset_product_mapping.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.78
+  },
+  {
+    "name": "test_correlation_tools",
+    "command": [
+      "node",
+      "test_correlation_tools.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.08
+  },
+  {
+    "name": "test_fund_lookup",
+    "command": [
+      "node",
+      "test_fund_lookup.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.08
+  },
+  {
+    "name": "test_investment_planner",
+    "command": [
+      "node",
+      "test_investment_planner.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.67
+  },
+  {
+    "name": "test_journal_integration",
+    "command": [
+      "node",
+      "test_journal_integration.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.1
+  },
+  {
+    "name": "test_monthly_budget",
+    "command": [
+      "node",
+      "test_monthly_budget.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.07
+  },
+  {
+    "name": "test_portfolio_ledger",
+    "command": [
+      "node",
+      "test_portfolio_ledger.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.23
+  },
+  {
+    "name": "test_portfolio_valuation",
+    "command": [
+      "node",
+      "test_portfolio_valuation.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.2
+  },
+  {
+    "name": "test_purchase_monitor",
+    "command": [
+      "node",
+      "test_purchase_monitor.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.07
+  },
+  {
+    "name": "test_purchase_monitor_policy",
+    "command": [
+      "node",
+      "test_purchase_monitor_policy.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.07
+  },
+  {
+    "name": "test_review_scorecard",
+    "command": [
+      "node",
+      "test_review_scorecard.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.07
+  },
+  {
+    "name": "test_strategy_preferences",
+    "command": [
+      "node",
+      "test_strategy_preferences.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.06
+  },
+  {
+    "name": "test_trade_receipts",
+    "command": [
+      "node",
+      "test_trade_receipts.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.08
+  },
+  {
+    "name": "test_user_purchase_fees",
+    "command": [
+      "node",
+      "test_user_purchase_fees.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.07
+  },
+  {
+    "name": "protected_boundaries",
+    "command": [
+      "D:\\loaddown\\python\\python.exe",
+      "-B",
+      "correctness_20261022/check_boundaries.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.27
+  },
+  {
+    "name": "browser_etf_groups",
+    "command": [
+      "node",
+      "ui_optimization/browser_etf_groups.js"
+    ],
+    "exit_code": 0,
+    "seconds": 6.14
+  },
+  {
+    "name": "browser_monitor_tabs",
+    "command": [
+      "node",
+      "ui_optimization/browser_monitor_tabs.js"
+    ],
+    "exit_code": 0,
+    "seconds": 4.41
+  },
+  {
+    "name": "browser_compact_plan",
+    "command": [
+      "node",
+      "ui_optimization/browser_compact_plan.js"
+    ],
+    "exit_code": 0,
+    "seconds": 13.22
+  },
+  {
+    "name": "browser_compact_review",
+    "command": [
+      "node",
+      "ui_optimization/browser_compact_review.js"
+    ],
+    "exit_code": 0,
+    "seconds": 8.55
+  },
+  {
+    "name": "browser_compact_lab",
+    "command": [
+      "node",
+      "ui_optimization/browser_compact_lab.js"
+    ],
+    "exit_code": 0,
+    "seconds": 11.66
+  },
+  {
+    "name": "browser_pending_transactions",
+    "command": [
+      "node",
+      "ui_optimization/browser_pending_transactions.js"
+    ],
+    "exit_code": 0,
+    "seconds": 9.33
+  },
+  {
+    "name": "browser_executed_buy",
+    "command": [
+      "node",
+      "ui_optimization/browser_executed_buy.js"
+    ],
+    "exit_code": 0,
+    "seconds": 11.08
+  },
+  {
+    "name": "browser_historical_gold",
+    "command": [
+      "node",
+      "ui_optimization/browser_historical_gold.js"
+    ],
+    "exit_code": 0,
+    "seconds": 4.26
+  },
+  {
+    "name": "browser_account_cash",
+    "command": [
+      "node",
+      "ui_optimization/browser_account_cash.js"
+    ],
+    "exit_code": 0,
+    "seconds": 11.42
+  },
+  {
+    "name": "browser_asset_products",
+    "command": [
+      "node",
+      "product_mapping_audit/browser_products.js"
+    ],
+    "exit_code": 0,
+    "seconds": 8.9
+  },
+  {
+    "name": "browser_budget",
+    "command": [
+      "node",
+      "ui_optimization/browser_budget.js"
+    ],
+    "exit_code": 0,
+    "seconds": 9.41
+  },
+  {
+    "name": "pwa",
+    "command": [
+      "node",
+      "maintenance/20261022/test_pwa.js"
+    ],
+    "exit_code": 0,
+    "seconds": 5.47
+  }
+]

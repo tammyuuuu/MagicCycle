@@ -1,0 +1,322 @@
+[
+  {
+    "run": "main_A_rebalance",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 3.0780067847642636
+  },
+  {
+    "run": "main_A_buy_hold",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 1.7317083022600173
+  },
+  {
+    "run": "main_A_lag5",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 3.0392011598895614
+  },
+  {
+    "run": "main_A_settle2",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 3.0780652984447787
+  },
+  {
+    "run": "main_B_rebalance",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.859257151799028
+  },
+  {
+    "run": "main_B_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.718409574352222
+  },
+  {
+    "run": "main_B_lag5",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.9410108895578806
+  },
+  {
+    "run": "main_B_settle2",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.8592602137988266
+  },
+  {
+    "run": "main_C_rebalance",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.672905222671612
+  },
+  {
+    "run": "main_C_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.6785133906286092
+  },
+  {
+    "run": "main_C_lag5",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 2.437197320472783
+  },
+  {
+    "run": "main_C_settle2",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.672852476963938
+  },
+  {
+    "run": "main_L1_rebalance",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.267279423186494
+  },
+  {
+    "run": "main_L1_buy_hold",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 1.3990007274610434
+  },
+  {
+    "run": "main_L1_lag5",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.122948918166472
+  },
+  {
+    "run": "main_L1_settle2",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.267279423186494
+  },
+  {
+    "run": "main_L2_rebalance",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 2.4703296402016672
+  },
+  {
+    "run": "main_L2_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.7317083022600173
+  },
+  {
+    "run": "main_L2_lag5",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.2969713787240824
+  },
+  {
+    "run": "main_L2_settle2",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 2.4703296402016672
+  },
+  {
+    "run": "main_cash_rebalance",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 0.0
+  },
+  {
+    "run": "main_cash_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 0.0
+  },
+  {
+    "run": "main_cash_lag5",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 0.0
+  },
+  {
+    "run": "main_cash_settle2",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 0.0
+  },
+  {
+    "run": "main_bond_rebalance",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.5987210231812696
+  },
+  {
+    "run": "main_bond_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.5987210231812696
+  },
+  {
+    "run": "main_bond_lag5",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.5987210231812696
+  },
+  {
+    "run": "main_bond_settle2",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.5987210231812696
+  },
+  {
+    "run": "main_L3_cash20_rebalance",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 1.630452132540455
+  },
+  {
+    "run": "main_L3_cash20_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.1591446411129027
+  },
+  {
+    "run": "main_L3_cash20_lag5",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.528076141921801
+  },
+  {
+    "run": "main_L3_cash20_settle2",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 1.630452132540455
+  },
+  {
+    "run": "long_proxy_A_rebalance",
+    "max_error": 1.8189894035458565e-12,
+    "fee_total": 3.6898783537897275
+  },
+  {
+    "run": "long_proxy_A_buy_hold",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 1.7982086144057803
+  },
+  {
+    "run": "long_proxy_B_rebalance",
+    "max_error": 1.8189894035458565e-12,
+    "fee_total": 3.34505182015771
+  },
+  {
+    "run": "long_proxy_B_buy_hold",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 1.7782598552834088
+  },
+  {
+    "run": "long_proxy_C_rebalance",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.7288315696002274
+  },
+  {
+    "run": "long_proxy_C_buy_hold",
+    "max_error": 1.8189894035458565e-12,
+    "fee_total": 1.718413577916067
+  },
+  {
+    "run": "long_proxy_L1_rebalance",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 1.8421628370798473
+  },
+  {
+    "run": "long_proxy_L1_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.3990007274610434
+  },
+  {
+    "run": "long_proxy_L2_rebalance",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.996148919242822
+  },
+  {
+    "run": "long_proxy_L2_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.7317083022600173
+  },
+  {
+    "run": "long_proxy_cash_rebalance",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 0.0
+  },
+  {
+    "run": "long_proxy_cash_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 0.0
+  },
+  {
+    "run": "long_proxy_bond_rebalance",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.5987210231812696
+  },
+  {
+    "run": "long_proxy_bond_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.5987210231812696
+  },
+  {
+    "run": "long_proxy_L3_cash20_rebalance",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.3504866605691959
+  },
+  {
+    "run": "long_proxy_L3_cash20_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.1591446411129027
+  },
+  {
+    "run": "historical_2023_A_rebalance",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 3.7418637892347903
+  },
+  {
+    "run": "historical_2023_A_buy_hold",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 1.7317083022600173
+  },
+  {
+    "run": "historical_2023_B_rebalance",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 3.603284051229419
+  },
+  {
+    "run": "historical_2023_B_buy_hold",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 1.7184095743521084
+  },
+  {
+    "run": "historical_2023_C_rebalance",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 2.9863439551195565
+  },
+  {
+    "run": "historical_2023_C_buy_hold",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 1.6785133906286092
+  },
+  {
+    "run": "historical_2023_L1_rebalance",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 2.0092617757455784
+  },
+  {
+    "run": "historical_2023_L1_buy_hold",
+    "max_error": 1.8189894035458565e-12,
+    "fee_total": 1.3990007274609297
+  },
+  {
+    "run": "historical_2023_L2_rebalance",
+    "max_error": 9.094947017729282e-13,
+    "fee_total": 2.295782719884272
+  },
+  {
+    "run": "historical_2023_L2_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.7317083022600173
+  },
+  {
+    "run": "historical_2023_cash_rebalance",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 0.0
+  },
+  {
+    "run": "historical_2023_cash_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 0.0
+  },
+  {
+    "run": "historical_2023_bond_rebalance",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.5987210231810425
+  },
+  {
+    "run": "historical_2023_bond_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.5987210231810425
+  },
+  {
+    "run": "historical_2023_L3_cash20_rebalance",
+    "max_error": 1.3642420526593924e-12,
+    "fee_total": 1.5112260602681502
+  },
+  {
+    "run": "historical_2023_L3_cash20_buy_hold",
+    "max_error": 4.547473508864641e-13,
+    "fee_total": 1.159144641112789
+  }
+]

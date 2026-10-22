@@ -2,64 +2,10 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>星循 · 观察周期，记录投资</title>
-<style>
 
-/* Gallery palette: warm paper, ultramarine and restrained ochre. */
-:root{--night:#202e4b;--ultra:#253e69;--cobalt:#345a8b;--gold:#c3a15d;--gold-lt:#dbc595;--amber:#916522;--crimson:#a04c42;--cypress:#416858;--canvas:#f5f4ef;--card:#fffefa;--ink:#293344;--line:#e4e5de;--vg-night:var(--night);--vg-ultra:var(--ultra);--vg-cobalt:var(--cobalt);--vg-gold:var(--gold);--vg-amber:var(--amber);--vg-crimson:var(--crimson);--vg-cypress:var(--cypress);--vg-canvas:var(--canvas);--vg-card:var(--card);--vg-ink:var(--ink);--vg-line:var(--line);--bg:var(--canvas);--c1:var(--cobalt);--c2:var(--cypress);--c3:var(--crimson)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--canvas);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
-body::after{display:none}
-header{position:relative;padding:44px max(24px,calc((100vw - 1120px)/2)) 32px;background:var(--night);color:#f8f5e9;border:0;box-shadow:none;overflow:hidden}
-header::before{content:"";position:absolute;right:7%;top:-155px;width:340px;height:340px;border:1px solid #c3a15d40;border-radius:50%;box-shadow:0 0 0 32px #c3a15d09,0 0 0 65px #c3a15d07;pointer-events:none}
-header h1,h1{position:relative;font-family:Georgia,"Songti SC","SimSun",serif;font-size:28px;font-weight:500;letter-spacing:2px;line-height:1.5;margin:0 0 10px}
-header>div{color:#c8d1de;letter-spacing:.5px}
-.wrap,main{max-width:1168px;margin:0 auto;padding:28px 24px 40px}
-.wrap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;margin:0 0 22px;box-shadow:0 4px 20px #202e4b04}
-.wrap>.card{margin:0;min-width:0;border-top:3px solid #8b9bb2}
-.t{font-family:inherit;font-size:18px;font-weight:650;line-height:1.7;margin:0 0 16px}
-.code{display:block;color:#6e7e92;font-size:12px;font-weight:600;letter-spacing:2px;margin-bottom:2px}
-.t>.muted{font-weight:400;margin-left:5px}
-.meta{font-size:13px;line-height:1.95;color:#677181;margin:4px 0;overflow-wrap:anywhere}
-.meta b{color:#2c3d54;font-weight:600}
-.muted{color:#78818a;font-size:12px;font-weight:400}
-.chip{display:inline-block;padding:3px 10px;border-radius:5px;font-size:11px;margin:3px 4px 3px 0;border:1px solid transparent;line-height:1.6;font-weight:500}
-.chip.off{background:#f0f1ed;color:#777f83;border-color:transparent}
-.chip.on{background:#eaf1ea;color:var(--cypress);border-color:transparent}
-.chip.on.red,.chip.red{background:#f6ebe5;color:var(--crimson);border-color:transparent}
-.adv{font-family:inherit;font-size:15px;font-weight:600;background:#f5f3eb;border-left:3px solid var(--gold);border-radius:0 7px 7px 0;padding:13px 14px;margin:18px 0}
-.ok,.adv.ok{color:var(--cypress)}.warn,.adv.warn{color:var(--amber)}.bad,.red,.err{color:var(--crimson)}
-details{border-top:1px solid var(--line);padding-top:12px;margin-top:14px}
-summary{cursor:pointer;font-size:13px;color:var(--cobalt);padding:5px 0;font-weight:500}
-.refs{padding-left:20px;margin:12px 0;color:#687180;font-size:12px;line-height:2}
-.posrow{display:flex;gap:12px;flex-wrap:wrap;align-items:end;padding:12px 0}
-label,.posrow label{display:block;font-size:12px;color:#677181;margin-bottom:6px}
-input[type=number],input[type=text],input[type=date],select{padding:10px 12px;border:1px solid #dce0e2;border-radius:7px;background:#fffefa;color:var(--ink);font:inherit;font-size:13px;min-height:40px;max-width:100%}
-input[type=number]{width:110px}input[type=checkbox]{accent-color:var(--cobalt)}
-button,.btn{font-family:inherit}
-.btn,.btn.primary,.btn.green{display:inline-block;background:var(--cobalt);color:white;border:1px solid transparent;border-radius:7px;padding:10px 17px;min-height:40px;cursor:pointer;font-size:13px;font-weight:500;box-shadow:none;margin-right:5px;transition:background .15s}
-.btn.gray{background:#edf0f1;color:#46576b;border-color:#e0e4e5}.btn.red{background:var(--crimson);color:white}
-.btn:hover{filter:brightness(.93)}
-:focus-visible{outline:3px solid #c3a15d;outline-offset:3px}
-.notice{grid-column:1/-1;background:#f8f0de;border:1px solid #e8d9b7;border-left:3px solid var(--gold);border-radius:8px;padding:14px 18px;margin:0;font-size:13px;color:#85632e;line-height:1.8}
-footer{color:#78818a!important;font-size:12px;text-align:center;padding:24px!important;border-top:1px solid var(--line);line-height:1.9}
-nav{display:flex;gap:8px;position:relative;margin-top:16px;flex-wrap:wrap}
-nav a{display:inline-block;text-decoration:none;color:#b8c6d8;padding:7px 15px;border:1px solid transparent;border-radius:6px;font-size:13px;cursor:pointer;margin:0}
-nav a.active{color:#f5e5bf;background:#ffffff0d;border-color:#c3a15d66}
-.card h2{font-family:inherit;color:var(--ultra);font-size:17px;font-weight:600;margin:0 0 20px;line-height:2}
-.grid{display:grid;gap:18px}.g2{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}.grid input,.grid select{width:100%}
-.row{display:flex;align-items:center;gap:10px;padding:16px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}.row .conds{white-space:normal!important}
-table{border-collapse:collapse;width:100%;font-size:13px}th,td{border:0;border-bottom:1px solid var(--line);padding:12px;text-align:left}th{background:#f0f2ef;color:#536174;font-weight:500}tr:nth-child(even) td{background:#fafaf6}
-pre{background:#f2f3ef;border:1px solid var(--line);border-radius:8px;padding:16px;overflow:auto;font-size:12px;white-space:pre-wrap;line-height:1.8}
-.hidden{display:none}.bignum{font-size:26px;font-weight:600;margin:8px 8px 0 0}.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.tabs{display:flex;border-bottom:1px solid var(--line);gap:8px;margin-bottom:20px}.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:12px;color:#677181;cursor:pointer}.tabs button.active{border-bottom-color:var(--gold);color:var(--cobalt)}
-.asset-section{margin:26px 0 34px}.asset-section>h2{font-family:Georgia,"Songti SC",serif;font-size:20px;color:var(--night);font-weight:500;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
-.asset-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.asset-list>.card{margin:0}
-.strategy-guide{grid-column:1/-1}.strategy-guide h3{font-size:15px;color:var(--cobalt);margin:4px 0 12px}.strategy-guide p{margin:8px 0 18px}
-@media(max-width:760px){header{padding:30px 20px 24px}header h1,h1{font-size:22px;letter-spacing:1px}.wrap,main{padding:18px 14px 28px}.wrap,.two,.asset-list{grid-template-columns:1fr;gap:16px}.card{padding:20px;border-radius:12px}.t{font-size:17px}.g2{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}.card h2 .btn{margin-top:8px}th,td{padding:8px 5px;font-size:12px}header::before{right:-230px}}
-</style>
+{% include "_styles.html" %}
 </head>
 <body>
 {% include "_status_rail.html" %}
@@ -68,8 +14,8 @@ pre{background:#f2f3ef;border:1px solid var(--line);border-radius:8px;padding:16
   <nav id="topnav">
     <a data-t="today" class="active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2m6 2V2M8 10h8m-8 4h5"/></svg><span>今日提醒</span></a>
     <a data-t="plan"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M6 16v-5m6 5V5m6 11V8"/></svg><span>投资配置</span></a>
-    <a data-t="diary"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6C9 4 5 4 3 5v15c3-1 6-1 9 1 3-2 6-2 9-1V5c-2-1-6-1-9 1v15Z"/></svg><span>投资日记</span></a>
-    <a data-t="guide"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2 6-6 2 2-6 6-2Z"/></svg><span>策略说明</span></a>
+    <a data-t="review"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6C9 4 5 4 3 5v15c3-1 6-1 9 1 3-2 6-2 9-1V5c-2-1-6-1-9 1v15Z"/></svg><span>投资复盘</span></a>
+    <a data-t="lab"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2 6-6 2 2-6 6-2Z"/></svg><span>策略实验</span></a>
 
   </nav>
 </header>
@@ -78,55 +24,10 @@ pre{background:#f2f3ef;border:1px solid var(--line);border-radius:8px;padding:16
 {% include "_invest_tools.html" %}
   <!-- ================= 今日提醒 ================= -->
   <section id="sec-today">
-    <div class="card">
-      <h2>今日策略提醒 <span class="muted">（四类资产分别判断）</span></h2>
-      <button class="btn green" onclick="loadAlerts()">刷新今日提醒</button>
-      <span class="muted">打开页面时自动载入</span>
-      <div id="todayOut"></div>
-    </div>
+    <button class="btn gray" onclick="loadAlerts()">刷新今日提醒</button>
+    <div id="todayOut"></div>
   </section>
 
-  <section id="sec-guide" class="hidden">
-    {% include "_asset_guide.html" %}
-  </section>
-
-  <!-- ================= 规则编辑 ================= -->
-  <section id="sec-rules" class="hidden">
-    <div class="card">
-      <h2>① 宽基 ETF 策略参数（历史窗口、阈值、定投金额档）</h2>
-      <div class="grid g2" id="paramGrid"></div>
-      <p class="muted">金额默认 30/20/10 元用于“信号验证”（按 1 份粒度可买）。实盘请按一手 100 份并放大金额；历史窗口、阈值都可调。</p>
-    </div>
-
-    <div class="card">
-      <h2>② 卖出 / 仓位管理规则　<button class="btn gray" onclick="addRule()">+ 添加规则</button>
-        <button class="btn gray" onclick="saveRules()">💾 保存为默认规则</button>
-        <button class="btn gray" onclick="loadDefault()">载入内置默认</button>
-        <button class="btn gray" onclick="loadSaved()">载入已保存</button>
-      </h2>
-      <p class="muted">每条规则 = “当【条件】同时满足 → 执行【操作】”，按列表从上到下优先级判断，命中即停（首个命中生效）。</p>
-      <div id="rulesList"></div>
-    </div>
-
-    <div class="card">
-      <h2>③ 买入档位（每周定投）</h2>
-      <p class="muted">同时满足“大幅回撤＋历史低位”→档1；只有大幅回撤→档2；只有历史低位→档3；均不满足→不投入；处于历史高位时暂停。金额在“①策略参数”里修改。</p>
-    </div>
-  </section>
-
-  <!-- ================= 定投回测 ================= -->
-  <section id="sec-bt" class="hidden">
-    <div class="card">
-      <h2>宽基 ETF 条件定投回测</h2>
-      <div class="grid g2">
-        <div><label>标的</label><select id="btEtf"></select></div>
-        <div><label>开始日期</label><input type="date" id="btStart"></div>
-        <div><label>绘制图表</label><select id="btPlot"><option value="1">是</option><option value="0">否</option></select></div>
-        <div><label>&nbsp;</label><button class="btn primary" onclick="runBt()">▶ 开始回测</button></div>
-      </div>
-      <div id="btOut"></div>
-    </div>
-  </section>
 </main>
 
 <footer style="color:#9c8f79;font-size:12px;text-align:center;padding:20px">
@@ -134,147 +35,15 @@ pre{background:#f2f3ef;border:1px solid var(--line);border-radius:8px;padding:16
 </footer>
 
 <script>
-// ---------------- 全局状态 ----------------
-let STATE = null;         // /api/state
-let currentRules = [];    // 规则行
-
-// ---------------- 工具 ----------------
-const $ = s => document.querySelector(s);
+let STATE=null;
+const $=s=>document.querySelector(s);
 function safeText(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-const pctKeys = ["投入收益率(占总投入)","总资产收益率(含闲置资金)","最大回撤(总资产)"];
-function numFmt(v){ if(typeof v!=='number') return v; return Number.isInteger(v)? v.toLocaleString('zh-CN') : v.toLocaleString('zh-CN',{maximumFractionDigits:2}); }
-
-function metricsTable(m){
-  if(!m) return '<div class="muted">无数据</div>';
-  let h='<table><tr><th>指标</th><th>数值</th></tr>';
-  for(const k in m){
-    let v=m[k]; let style='';
-    if(typeof v==='number'){
-      if(pctKeys.includes(k)){ style = v<0? ' class="bad"' : (v>0?' class="ok"':''); v=(v*100).toFixed(2)+'%'; }
-      else v=numFmt(v);
-    }
-    h+=`<tr><td>${k}</td><td${style}>${v}</td></tr>`;
-  }
-  return h+'</table>';
-}
-function chips(cond){ // 只渲染 cond 中给出的条件
-  const map={'A':'大幅回撤（A）','B':'历史低位（B）','C':'盈利达标（C）','D':'历史高位（D）','E':'高点回撤（E）'};
-  let s='';
-  for(const k in map){ if(!(k in cond)) continue; s+=`<span class="chip ${cond[k]?'on red':'off'}">${map[k]}</span>`; }
-  return s;
-}
-
-// ---------------- 参数表单 ----------------
-function buildParams(){
-  STATE.params_label = STATE.params_label || {};
-  const grid=$('#paramGrid'); grid.innerHTML='';
-  const order=['hist_window','percentile_window','vol_window','a_cut','p_low','gain_trigger','p_high','dd_mult','amount_ab','amount_a','amount_b','initial_cash','fee_rate','min_fee','lot'];
-  for(const k of order){
-    const lbl=(STATE.params_label[k]||k);
-    const d=document.createElement('div');
-    const step=(k.includes('window')||k.includes('amount')||k==='initial_cash')?1:(k==='lot')?1:0.01;
-    d.innerHTML=`<label>${lbl}</label><input type="number" id="p_${k}" step="${step}" value="${STATE.defaults[k]??''}">`;
-    grid.appendChild(d);
-  }
-}
-function collectParams(){
-  const p={};
-  for(const k of Object.keys(STATE.defaults)){
-    const el=$('#p_'+k); if(!el) continue;
-    let v=parseFloat(el.value); if(el.value==='') v=STATE.defaults[k];
-    p[k]=v;
-  }
-  return p;
-}
-
-// ---------------- 规则编辑 ----------------
-function condLabel(c){ const m={'A':'大幅回撤（A）','B':'历史低位（B）','C':'盈利达标（C）','D':'历史高位（D）','E':'高点回撤（E）'}; return m[c]||c; }
-function ruleActions(){ return STATE.rule_actions.map(a=>`<option value="${a.value}">${a.label}</option>`).join(''); }
-function renderRules(){
-  const box=$('#rulesList'); box.innerHTML='';
-  currentRules.forEach((r,i)=>{
-    const div=document.createElement('div'); div.className='row';
-    div.dataset.i=i;
-    const condsHtml=STATE.rule_conditions.map(c=>{
-      const chk = r.conds && r.conds.includes(c.value)?'checked':'';
-      return `<label style="margin-right:2px"><input type="checkbox" class="rc" value="${c.value}" ${chk} style="width:auto">${condLabel(c.value)}</label>`;
-    }).join(' ');
-    div.innerHTML=`
-      <span style="width:18px">${i+1}.</span>
-      <label style="margin:0"><input type="checkbox" class="ren" ${r.enabled?'checked':''} style="width:auto">启用</label>
-      <span>满足</span>
-      <span class="conds" style="white-space:nowrap">${condsHtml}</span>
-      <span>→ 执行</span>
-      <select class="ract" style="width:170px">${ruleActions()}</select>
-      <input type="text" class="rname" value="${(r.name||'').replace(/"/g,'&quot;')}" style="flex:1;min-width:150px" placeholder="备注名称">
-      <button class="btn gray" onclick="delRule(${i})" style="padding:3px 10px">删除</button>`;
-    box.appendChild(div);
-    // 回填 action
-    div.querySelector('.ract').value = r.action||'clear';
-  });
-}
-function collectRules(){
-  const rows=[...document.querySelectorAll('#rulesList .row')];
-  return rows.map((row,i)=>{
-    const conds=[...row.querySelectorAll('.rc')].filter(x=>x.checked).map(x=>x.value);
-    return {
-      id: ('r'+(i+1)),
-      name: row.querySelector('.rname').value,
-      conds: conds,
-      action: row.querySelector('.ract').value,
-      priority: i+1,
-      enabled: row.querySelector('.ren').checked,
-    };
-  });
-}
-function addRule(){ currentRules.push({id:'r'+(currentRules.length+1),name:'新规则',conds:['E'],action:'clear',priority:currentRules.length+1,enabled:true}); renderRules(); }
-function delRule(i){ currentRules.splice(i,1); renderRules(); }
-function loadDefault(){ currentRules=JSON.parse(JSON.stringify(STATE.sell_rules)); renderRules(); }
-function loadSaved(){
-  if(STATE.saved){
-    applySaved(STATE.saved); alert('已载入保存的规则。');
-  } else alert('还没有保存过规则。');
-}
-function applySaved(saved){
-  if(saved.params) for(const k in saved.params){ const el=$('#p_'+k); if(el) el.value=saved.params[k]; }
-  if(saved.sell_rules){ currentRules=JSON.parse(JSON.stringify(saved.sell_rules)); renderRules(); }
-}
-async function saveRules(){
-  const payload={params:collectParams(),sell_rules:collectRules()};
-  const r=await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-  const j=await r.json();
-  alert(j.ok?('规则已保存：'+j.path):('失败 '+JSON.stringify(j)));
-}
-
-// ---------------- 今日提醒 ----------------
-function industryDecision(rep, returnRate){
-  return {action:rep.status,sell:rep.reason};
-}
-
-const holdingKey=code=>'etf_holding_'+code;
-function getSavedHolding(code){
-  try{return JSON.parse(localStorage.getItem(holdingKey(code)))||null}catch(_){return null}
-}
-function saveHolding(code){
-  const avg=parseFloat($('#ac_'+code).value), rr=parseFloat($('#rr_'+code).value);
-  const value=parseFloat($('#mv_'+code).value), peak=parseFloat($('#pk_'+code).value);
-  if(!$('#hol_'+code).checked||!(avg>0)||!Number.isFinite(rr)){
-    alert('请勾选“是否持有”，并填写有效的平均成本和当前收益率。'); return;
-  }
-  localStorage.setItem(holdingKey(code),JSON.stringify({holding:true,avg_cost:avg,return_rate:rr,
-    market_value:Number.isFinite(value)?value:null,peak:Number.isFinite(peak)?peak:null}));
-  loadAlerts();
-}
-function deleteHolding(code){
-  localStorage.removeItem(holdingKey(code)); loadAlerts();
-}
-
 async function loadAlerts(){
   const box=$('#todayOut');
   const selectedCategory=box.querySelector('.today-categories')?.dataset.selectedCategory||box.dataset.selectedCategory||'broad';
   box.dataset.selectedCategory=selectedCategory;
   box.innerHTML='<div>加载中…（首次需联网拉数据，稍候）</div>';
-  const payload={params:collectParams(),sell_rules:collectRules()};
+  const payload={params:(STATE.saved?.params||STATE.defaults),sell_rules:(STATE.saved?.sell_rules||STATE.sell_rules)};
   try{
     const r=await fetch('/api/alerts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const list=await r.json();
@@ -284,9 +53,9 @@ async function loadAlerts(){
     for(const it of list){
       const card=document.createElement('div'); card.className='card';card.dataset.assetSymbol=it.code;
       const meta=STATE.etfs.find(e=>e.code===it.code)||it;
-      const target=meta.strategy_mode==='us_monthly_trend'?$('#usList'):meta.asset_type==='macro_asset'?$('#macroList'):meta.asset_type==='stock'?$('#stockList'):meta.asset_type==='sector_etf'?$('#industryList'):$('#broadList');
+      const target=meta.strategy_mode==='us_monthly_trend'?$('#usList'):meta.asset_type==='macro_asset'?$('#macroList'):meta.asset_type==='sector_etf'?$('#industryList'):$('#broadList');
       if(it.error){ card.innerHTML=`<b>${it.code} ${it.name}</b><div class="err">${it.error}</div>`; target.appendChild(card); continue; }
-      const s=it.summary, m=s.metrics, pos=getSavedHolding(it.code);
+      const s=it.summary, m=s.metrics;
       card.innerHTML=`<h2>${safeText(it.name)} <span class="muted">${safeText(it.code)}</span></h2>
         <p>数据日 ${s.date} · 当前 ${m.price} · 当日涨跌 ${m.day_change_pct==null?'暂无':m.day_change_pct.toFixed(2)+'%'}</p>
         ${assetStateRail(s)}${it.signal_code?`<p class="muted">参考行情：${it.signal_code}；并非联接基金实际净值。</p>`:''}
@@ -298,140 +67,11 @@ async function loadAlerts(){
   }catch(e){ box.innerHTML='<div class="err">'+e+'</div>'; }
 }
 
-async function decide(code){
-  const box=$('#dec_'+code);
-  const payload={
-    etf:code, params:collectParams(), sell_rules:collectRules(),
-    holding:$('#hol_'+code).checked,
-    avg_cost:$('#ac_'+code).value?parseFloat($('#ac_'+code).value):null,
-    current_return:$('#rr_'+code).value?parseFloat($('#rr_'+code).value):null,
-    peak:$('#pk_'+code).value?parseFloat($('#pk_'+code).value):null,
-  };
-  box.innerHTML='判断中…';
-  const r=await fetch('/api/decide',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-  const j=await r.json();
-  if(j.error){ box.innerHTML='<div class="err">'+j.error+'</div>'; return; }
-  const s=j.summary;
-  box.innerHTML=`${assetStateRail(s)}`;
-  const mainPosition=$('#rr_'+code).closest('.card').querySelector('.state-position');
-  if(mainPosition)mainPosition.outerHTML=assetStateRail(s);
-  const basis=$('#rr_'+code).closest('.card').querySelector('.strategy-basis');
-  if(basis)basis.outerHTML=assetStrategyBasis(s);
 
-
-}
-
-// ---------------- 定投回测 ----------------
-function buildBtEtf(){
-  const sel=$('#btEtf'); sel.innerHTML=STATE.etfs.filter(e=>e.asset_type==='broad_etf'&&e.strategy_mode!=='us_monthly_trend').map(e=>`<option value="${e.code}">${e.code} ${e.name}</option>`).join('');
-}
-async function runBt(){
-  const box=$('#btOut');
-  box.innerHTML='<div>回测中…（首次需联网/读缓存，请稍候）</div>';
-  const payload={
-    etf:$('#btEtf').value,
-    start: $('#btStart').value? $('#btStart').value.replace(/-/g,''): '20160101',
-    params: collectParams(), sell_rules: collectRules(),
-    plot: $('#btPlot').value==='1',
-  };
-  try{
-    const r=await fetch('/api/backtest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-    const j=await r.json();
-    if(j.error){ box.innerHTML='<div class="err">'+j.error+'</div>'; return; }
-    let ev='<table><tr><th>日期</th><th>动作</th><th>说明</th></tr>';
-    (j.events||[]).forEach(e=>{ ev+=`<tr><td>${e.date.slice(0,10)}</td><td>${e.kind}</td><td>${e.detail.replace(/</g,'&lt;')}</td></tr>`; });
-    ev+='</table>';
-    box.innerHTML=`
-      <h3>${j.etf} ${j.name}　<span class="muted">${j.period}</span></h3>
-      <div class="two">
-        <div><h4>条件定投（策略）</h4>${metricsTable(j.strategy)}</div>
-        <div><h4>无脑定投（基准：每期固定档1金额、不择时）</h4>${metricsTable(j.benchmark)}</div>
-      </div>
-      ${j.chart?`<div style="text-align:center;margin-top:10px"><img src="${j.chart}" style="max-width:100%"></div>`:''}
-      <details><summary>动作日志（最近30条）</summary>${ev}</details>`;
-  }catch(e){ box.innerHTML='<div class="err">'+e+'</div>'; }
-}
-
-// ---------------- 页签与初始化 ----------------
-document.querySelectorAll('#topnav a').forEach(a=>{
-  a.onclick=()=>{
-    document.querySelectorAll('#topnav a').forEach(x=>x.classList.remove('active'));
-    a.classList.add('active');
-    showInvestmentTab(a.dataset.t);
-    ['today','guide','rules','bt'].forEach(t=>$('#sec-'+t).classList.toggle('hidden', t!==a.dataset.t));
-    if(a.dataset.t==='today') loadAlerts();
-  };
-});
-
-async function init(){
-  const r=await fetch('/api/state'); STATE=await r.json();
-  buildParams(); buildBtEtf();
-  const today=new Date(); today.setMonth(today.getMonth()-120);
-  $('#btStart').value = today.toISOString().slice(0,10); // 默认近10年
-  if(STATE.saved) applySaved(STATE.saved);
-  else currentRules=JSON.parse(JSON.stringify(STATE.sell_rules));
-  renderRules();
-  loadAlerts();
-}
+async function init(){try{const r=await fetch('/api/state');STATE=await r.json();await loadAlerts();}catch(e){$('#todayOut').textContent='今日提醒暂不可用，请稍后刷新。';}}
 init();
 </script>
-<style>
-.brand-heading{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:10px;position:relative}
-.brand-heading h1{margin:0;flex-shrink:0}
-.brand-tagline{font-family:Georgia,"Songti SC","STSong","SimSun",serif;font-size:14px;font-weight:400;letter-spacing:1px;color:#8e9aaf;line-height:1.6}
-@media(max-width:760px){.brand-heading{gap:12px;flex-wrap:nowrap}.brand-tagline{font-size:12px;letter-spacing:0}}
-/* Mobile layout: fit the viewport and avoid focus-triggered input zoom. */
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-img,svg,canvas{max-width:100%}
-@media(max-width:760px){
-  body{width:100%;overflow-wrap:anywhere}
-  .wrap,.grid,.two,.asset-list{min-width:0}
-  .wrap>* , .grid>* , .two>* , .asset-list>*{min-width:0}
-  header{padding:24px 16px 20px}
-  .wrap,main{padding:16px 12px 28px}
-  .card{padding:16px}
-  nav{gap:4px}nav a{padding:8px 10px}
-  input[type=number],input[type=text],input[type=date],textarea,select{font-size:16px;max-width:100%;min-height:44px}
-  .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .posrow>*{min-width:0;max-width:100%}
-  table{width:100%;overflow-wrap:anywhere}
-  th,td{white-space:normal}
-  .axis-scroll{overflow:visible;padding:5px 0 8px}
-  .state-rail{min-width:0;width:100%}
-  .state-step{min-width:0;padding:2px 1px;font-size:10px;overflow-wrap:anywhere}
-  .state-dot{width:16px;height:16px;border-width:3px}
-  .state-step.is-current .state-dot{width:20px;height:20px}
-  .state-rail:before{top:12px}
-}
-@media(max-width:360px){.g2{grid-template-columns:1fr}nav a{padding:8px}.card{padding:12px}}
 
-/* Fixed mobile navigation with room for the home indicator. */
-@media(max-width:760px){
-  body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
-  #topnav{position:fixed;left:0;right:0;bottom:0;z-index:1000;margin:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:#202e4b;border-top:1px solid #c3a15d40;box-shadow:0 -4px 18px #101a2d16}
-  #topnav a{display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px 2px;font-size:13px;white-space:nowrap;letter-spacing:0}
-  html{scroll-padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
-}
 
-/* Compact sticky masthead for mobile. */
-@media(max-width:760px){
-  header{position:sticky;top:0;z-index:900;padding:10px 16px 9px;box-shadow:0 2px 10px #101a2d12}
-  header .brand-heading{margin-bottom:3px;gap:12px}
-  header .brand-heading h1{font-size:22px;line-height:1.3;letter-spacing:2px}
-  header .brand-tagline{font-size:11px;line-height:1.4}
-  header>.brand-heading+div{font-size:10px!important;line-height:1.5;letter-spacing:0}
-  header::before{display:none}
-  html{scroll-padding-top:80px}
-}
-.tab-icon{display:none}
-@media(max-width:760px){
-  #topnav{gap:0;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));border-top:1px solid #ffffff12;box-shadow:0 -3px 16px #101a2d12}
-  #topnav a{flex-direction:column;gap:4px;min-height:52px;border:0;border-radius:0;background:transparent;color:#9ba9bf;font-size:10px;font-weight:500;line-height:1.3;padding:5px 2px;position:relative;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-  #topnav .tab-icon{display:block;width:22px;height:22px;flex-shrink:0}
-  #topnav a.active{background:transparent;border:0;color:#e7cd96}
-  #topnav a.active::before{content:"";position:absolute;top:0;width:34px;height:30px;border-radius:10px;background:#e7cd9612;pointer-events:none}
-  #topnav a:active{opacity:.65}
-}
-</style>
 </body>
 </html>

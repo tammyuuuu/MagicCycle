@@ -1,0 +1,709 @@
+# 星循第二阶段整理完成报告
+
+本报告取代STOP_REPORT.md的当前状态，旧停止报告保留为过程记录。未执行Git提交、推送、重置、清理或发布，未启用策略、未进行真实交易。
+
+## 接口修复
+
+`/api/decide`仍被Flask ETF持仓判断使用。`_load_data`对未知/已移除代码抛出ValueError，原通用异常处理将其返回500。现仅对请求体非对象及未配置代码在加载数据前返回400；真实行情/计算故障仍为500，没有恢复个股功能。新增测试覆盖所有七只ETF、已移除代码、错误请求体以及内部故障保留500。
+
+## 全部测试结果
+
+- 根目录Python自动发现：179项通过，0失败。
+- V1历史资金池、验收、跨语言对齐、信号日志：34项通过，0失败。
+- Node命名测试59项通过，另4个独立断言脚本通过；包括此前遗漏的渠道展示与相关性测试。
+- 保护输入SHA256、旧UI语法检查通过。
+- 三个浏览器套件各验证Flask/静态预览/正式页、1440/375宽度，共18场景通过；无JS异常及横向溢出。
+- 覆盖今日ETF提醒、美股渠道监测、投资配置、申购提交/确认、赎回/到账、资金流/收益分离、投资复盘、JSON导出恢复、十组策略/不同区间/代理研究/配对曲线。
+- PWA服务工作线程安装、缓存和真实断网导航通过。首次在沙箱中localhost被ERR_NETWORK_ACCESS_DENIED阻止，放行后通过；保留初次失败日志，验收汇总注明重试。
+- 最后归档产物之后再次检查归档SHA256、离线导出、接口、股票退出边界、版本数据，共22项通过。
+- 对1440/375四页正式截图人工检查通过，证据见screenshots/。
+
+原始逐组日志：test_results/；最终状态：acceptance_summary.json；覆盖映射：TEST_COVERAGE.md。
+
+## 整理范围
+
+正式站通过现有export_alerts.py的--offline模式构建，没有复制预览文件。明确标注缓存时效，渠道快照日期保留。账本核心、资金池、当前计划/页面JS、渠道判断、ETF专用策略计算、推送脚本和研究manifest均与整理前SHA256一致。
+
+- 根目录旧研究报告移至archive/reports/etf_studies。
+- 旧UI移至archive/legacy_ui，兼容测试与旧预览路径同步调整。
+- 个股专用代码、缓存、报告移至archive/stock，配置/计算/展示分支退出正式链路；腾讯appstock是ETF共用接口，保留。
+- 历史研究输出、旧研究JSON、一次性补丁保留在archive/20261022 ZIP内，逐成员哈希核对，无研究数据哈希去重。
+- 仍被引用的V1/V2原始数据、元数据、清洗面板、历史注册表及输出保留原路径。
+- 根目录相互导入的research_*.py保留稳定路径，README明确其研究用途。未为减少根目录文件而引入导入重构。
+- 旧测试入口原件移至archive/legacy_checks；原路径以兼容包装统一调用run_tests.py。
+- 仅永久清理已批准的可再生缓存、旧截图和临时预览；其余新验收图片压缩归档，保留八张正式四页截图。
+- 保留static_preview.html原路径，不迁移/清空用户浏览器账本。
+
+## 核心目录
+
+docs：唯一正式静态入口及PWA。templates与根Python/JS：当前接口、ETF提醒、账本和页面装配。workspace_data：当前公开研究及测试引用的历史版本。research_def_20261022：当前十组策略日度重验。research_l34_20261022、correctness_20261022：修复及扩展研究证据。research_xingxun_v1/v2：仍被依赖的引擎、原始数据、费率与历史证据。data_cache：行情/估值。archive：历史成果。maintenance：清理和验收记录。workspace_ui_20261022：测试生成器和浏览器套件。
+
+## 尚存限制
+
+- 无未解决的阻断性业务回归。
+- 本轮仅用已存缓存构建，未核实当前个人渠道和最新行情；页面给出缓存日期，不等于今日交易建议。
+- 未发布，因此线上网站不会自动同步本轮改动。
+- 浏览器账本依赖访问源；更换端口、设备、浏览器前从旧源导出JSON，再恢复到同类型空账户。本轮测试使用合成账户，未触及个人账本。
+- 浏览器脚本中的Chrome/Playwright路径依赖当前Windows机器，换机器需调整。pandas存在上游弃用告警，不影响本轮结果。
+- 旧研究脚本按原路径生成报告和results；历史分析需先用archive_catalog恢复所需旧输出到复现副本。
+- 两个旧results/*.js探测包含已退出的UI假设/损坏夹具，原件归档，其有效职责由当前Node与真实浏览器测试接替，详见覆盖说明。
+- 外部启动项仍可调用原update_alerts.ps1自动发布链路，路径未改。本轮没有调用这些脚本；如需停用启动项需另行处理。
+
+## 完整变更和归档清单
+
+actions.json列出每次移动、压缩归档、可再生文件删除，包含原路径、去向、字节数和SHA256；下列清单便于查看。
+
+- delete_regeneratable `__pycache__/alerts.cpython-314.pyc`
+- delete_regeneratable `__pycache__/app.cpython-314.pyc`
+- delete_regeneratable `__pycache__/asset_states.cpython-314.pyc`
+- delete_regeneratable `__pycache__/backtest.cpython-314.pyc`
+- delete_regeneratable `__pycache__/broad_individual_strategy.cpython-314.pyc`
+- delete_regeneratable `__pycache__/broad_signal_rules.cpython-314.pyc`
+- delete_regeneratable `__pycache__/config.cpython-314.pyc`
+- delete_regeneratable `__pycache__/correlation_data.cpython-314.pyc`
+- delete_regeneratable `__pycache__/data_fetcher.cpython-314.pyc`
+- delete_regeneratable `__pycache__/dca.cpython-314.pyc`
+- delete_regeneratable `__pycache__/export_alerts.cpython-314.pyc`
+- delete_regeneratable `__pycache__/fetch_sector_valuation.cpython-314.pyc`
+- delete_regeneratable `__pycache__/gold_strategy.cpython-314.pyc`
+- delete_regeneratable `__pycache__/indicators.cpython-314.pyc`
+- delete_regeneratable `__pycache__/industry_strategy.cpython-314.pyc`
+- delete_regeneratable `__pycache__/monitor.cpython-314.pyc`
+- delete_regeneratable `__pycache__/purchase_monitor.cpython-314.pyc`
+- delete_regeneratable `__pycache__/research_broad_individual.cpython-314.pyc`
+- delete_regeneratable `__pycache__/research_broad_valuation.cpython-314.pyc`
+- delete_regeneratable `__pycache__/research_csi300_entry_windows.cpython-314.pyc`
+- delete_regeneratable `__pycache__/research_csi300_search.cpython-314.pyc`
+- delete_regeneratable `__pycache__/research_monthly_execution.cpython-314.pyc`
+- delete_regeneratable `__pycache__/research_sector_partial_exit.cpython-314.pyc`
+- delete_regeneratable `__pycache__/research_sector_trend.cpython-314.pyc`
+- delete_regeneratable `__pycache__/research_sector_valuation_comparison.cpython-314.pyc`
+- delete_regeneratable `__pycache__/research_star50_search.cpython-314.pyc`
+- delete_regeneratable `__pycache__/research_us_etf_extended.cpython-314.pyc`
+- delete_regeneratable `__pycache__/stock_watch.cpython-314.pyc`
+- delete_regeneratable `__pycache__/strategies.cpython-314.pyc`
+- delete_regeneratable `__pycache__/strategy_config.cpython-314.pyc`
+- delete_regeneratable `__pycache__/test_broad_individual_strategy.cpython-314.pyc`
+- delete_regeneratable `__pycache__/test_broad_valuation_research.cpython-314.pyc`
+- delete_regeneratable `__pycache__/test_monthly_execution.cpython-314.pyc`
+- delete_regeneratable `__pycache__/test_purchase_monitor.cpython-314.pyc`
+- delete_regeneratable `__pycache__/test_valuation_data.cpython-314.pyc`
+- delete_regeneratable `__pycache__/us_etf_strategy.cpython-314.pyc`
+- delete_regeneratable `__pycache__/us_guidance.cpython-314.pyc`
+- delete_regeneratable `__pycache__/valuation_data.cpython-314.pyc`
+- delete_regeneratable `research_xingxun_v1/__pycache__/allocation_study.cpython-314.pyc`
+- delete_regeneratable `research_xingxun_v1/__pycache__/capital_pool.cpython-314.pyc`
+- delete_regeneratable `research_xingxun_v1/__pycache__/cost_model.cpython-314.pyc`
+- delete_regeneratable `research_xingxun_v1/__pycache__/data_prep.cpython-314.pyc`
+- delete_regeneratable `research_xingxun_v1/__pycache__/fetch_data.cpython-314.pyc`
+- delete_regeneratable `research_xingxun_v1/__pycache__/otc_engine.cpython-314.pyc`
+- delete_regeneratable `research_xingxun_v1/__pycache__/pool6_data.cpython-314.pyc`
+- delete_regeneratable `research_xingxun_v1/__pycache__/round6_alloc.cpython-314.pyc`
+- delete_regeneratable `research_xingxun_v1/__pycache__/run_round2.cpython-314.pyc`
+- delete_regeneratable `research_xingxun_v1/__pycache__/signal_journal.cpython-314.pyc`
+- delete_regeneratable `research_xingxun_v1/__pycache__/strategy_lib.cpython-314.pyc`
+- delete_regeneratable `research_xingxun_v1/__pycache__/weight_engine.cpython-314.pyc`
+- delete_regeneratable `workspace_ui_20261022/def_flask_1440_comparison.png`
+- delete_regeneratable `workspace_ui_20261022/def_flask_1440_D_card.png`
+- delete_regeneratable `workspace_ui_20261022/def_flask_1440_today.png`
+- delete_regeneratable `workspace_ui_20261022/def_flask_375_comparison.png`
+- delete_regeneratable `workspace_ui_20261022/def_flask_375_D_card.png`
+- delete_regeneratable `workspace_ui_20261022/def_flask_375_today.png`
+- delete_regeneratable `workspace_ui_20261022/def_static_1440_D_card.png`
+- delete_regeneratable `workspace_ui_20261022/def_static_375_D_card.png`
+- delete_regeneratable `workspace_ui_20261022/desktop_lab.png`
+- delete_regeneratable `workspace_ui_20261022/flask_1440_lab.png`
+- delete_regeneratable `workspace_ui_20261022/flask_1440_lab_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/flask_1440_plan.png`
+- delete_regeneratable `workspace_ui_20261022/flask_1440_plan_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/flask_1440_review.png`
+- delete_regeneratable `workspace_ui_20261022/flask_1440_review_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/flask_1440_today.png`
+- delete_regeneratable `workspace_ui_20261022/flask_1440_today_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/flask_375_lab.png`
+- delete_regeneratable `workspace_ui_20261022/flask_375_lab_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/flask_375_plan.png`
+- delete_regeneratable `workspace_ui_20261022/flask_375_plan_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/flask_375_review.png`
+- delete_regeneratable `workspace_ui_20261022/flask_375_review_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/flask_375_today.png`
+- delete_regeneratable `workspace_ui_20261022/flask_375_today_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/mobile_lab.png`
+- delete_regeneratable `workspace_ui_20261022/simple_flask_1440.png`
+- delete_regeneratable `workspace_ui_20261022/simple_flask_375.png`
+- delete_regeneratable `workspace_ui_20261022/static_1440_lab.png`
+- delete_regeneratable `workspace_ui_20261022/static_1440_lab_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/static_1440_plan.png`
+- delete_regeneratable `workspace_ui_20261022/static_1440_plan_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/static_1440_review.png`
+- delete_regeneratable `workspace_ui_20261022/static_1440_today.png`
+- delete_regeneratable `workspace_ui_20261022/static_1440_today_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/static_375_lab.png`
+- delete_regeneratable `workspace_ui_20261022/static_375_lab_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/static_375_plan.png`
+- delete_regeneratable `workspace_ui_20261022/static_375_plan_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/static_375_review.png`
+- delete_regeneratable `workspace_ui_20261022/static_375_today.png`
+- delete_regeneratable `workspace_ui_20261022/static_375_today_viewport.png`
+- delete_regeneratable `workspace_ui_20261022/flask_preview.html`
+- delete_regeneratable `workspace_ui_20261022/regression_export.html`
+- delete_regeneratable `mobile-preview.jpg`
+- delete_regeneratable `_ping.txt`
+- archive `workspace_data/daily_causal_v3_20261022.json` → `archive/20261022/superseded_workspace_data.zip!/workspace_data/daily_causal_v3_20261022.json`
+- archive `workspace_data/daily_causal_v3_20261022_715379601b.json` → `archive/20261022/superseded_workspace_data.zip!/workspace_data/daily_causal_v3_20261022_715379601b.json`
+- archive `workspace_data/daily_causal_v3_def_20261022_b2636a3d68.json` → `archive/20261022/superseded_workspace_data.zip!/workspace_data/daily_causal_v3_def_20261022_b2636a3d68.json`
+- archive `workspace_data/daily_causal_v3_def_20261022_f650d8eccb.json` → `archive/20261022/superseded_workspace_data.zip!/workspace_data/daily_causal_v3_def_20261022_f650d8eccb.json`
+- archive `workspace_data/daily_causal_v3_l34_20261022_a8d85f1d41.json` → `archive/20261022/superseded_workspace_data.zip!/workspace_data/daily_causal_v3_l34_20261022_a8d85f1d41.json`
+- archive `workspace_data/daily_causal_v3_l34_20261022_fb15557c19.json` → `archive/20261022/superseded_workspace_data.zip!/workspace_data/daily_causal_v3_l34_20261022_fb15557c19.json`
+- archive `workspace_upgrade.py` → `archive/20261022/one_time_patches.zip!/workspace_upgrade.py`
+- archive `workspace_layout.html` → `archive/20261022/one_time_patches.zip!/workspace_layout.html`
+- archive `correctness_20261022/edit_ledger.py` → `archive/20261022/one_time_patches.zip!/correctness_20261022/edit_ledger.py`
+- archive `correctness_20261022/edit_research.py` → `archive/20261022/one_time_patches.zip!/correctness_20261022/edit_research.py`
+- archive `correctness_20261022/edit_ui.py` → `archive/20261022/one_time_patches.zip!/correctness_20261022/edit_ui.py`
+- archive `correctness_20261022/cleanup_ui.py` → `archive/20261022/one_time_patches.zip!/correctness_20261022/cleanup_ui.py`
+- archive `correctness_20261022/final_adjustments.py` → `archive/20261022/one_time_patches.zip!/correctness_20261022/final_adjustments.py`
+- archive `correctness_20261022/finish_ui.py` → `archive/20261022/one_time_patches.zip!/correctness_20261022/finish_ui.py`
+- archive `results/510500_ma_cross_20150105_20260909.png` → `archive/20261022/historical_results.zip!/results/510500_ma_cross_20150105_20260909.png`
+- archive `results/510500_ma_cross_20150105_20260909_trades.csv` → `archive/20261022/historical_results.zip!/results/510500_ma_cross_20150105_20260909_trades.csv`
+- archive `results/510500_rsi_reversal_20200102_20260909.png` → `archive/20261022/historical_results.zip!/results/510500_rsi_reversal_20200102_20260909.png`
+- archive `results/510500_rsi_reversal_20200102_20260909_trades.csv` → `archive/20261022/historical_results.zip!/results/510500_rsi_reversal_20200102_20260909_trades.csv`
+- archive `results/588000_dca_20210104_20260909.png` → `archive/20261022/historical_results.zip!/results/588000_dca_20210104_20260909.png`
+- archive `results/588000_dca_20210104_20260909_events.csv` → `archive/20261022/historical_results.zip!/results/588000_dca_20210104_20260909_events.csv`
+- archive `results/588000_ma_cross_20210104_20260908.png` → `archive/20261022/historical_results.zip!/results/588000_ma_cross_20210104_20260908.png`
+- archive `results/588000_ma_cross_20210104_20260908_trades.csv` → `archive/20261022/historical_results.zip!/results/588000_ma_cross_20210104_20260908_trades.csv`
+- archive `results/actual_strategy_outputs.json` → `archive/20261022/historical_results.zip!/results/actual_strategy_outputs.json`
+- archive `results/check_investment_tools.js` → `archive/20261022/historical_results.zip!/results/check_investment_tools.js`
+- archive `results/check_scripts.js` → `archive/20261022/historical_results.zip!/results/check_scripts.js`
+- archive `results/correlation_scripts.json` → `archive/20261022/historical_results.zip!/results/correlation_scripts.json`
+- archive `results/local_render.html` → `archive/20261022/historical_results.zip!/results/local_render.html`
+- archive `results/today_tabs_local.html` → `archive/20261022/historical_results.zip!/results/today_tabs_local.html`
+- archive `results/broad_individual/510300_focus_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/510300_focus_curve.csv`
+- archive `results/broad_individual/510300_focus_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/510300_focus_trades.csv`
+- archive `results/broad_individual/510300_hold_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/510300_hold_curve.csv`
+- archive `results/broad_individual/510300_selected_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/510300_selected_curve.csv`
+- archive `results/broad_individual/510300_selected_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/510300_selected_trades.csv`
+- archive `results/broad_individual/510500_focus_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/510500_focus_curve.csv`
+- archive `results/broad_individual/510500_focus_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/510500_focus_trades.csv`
+- archive `results/broad_individual/510500_hold_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/510500_hold_curve.csv`
+- archive `results/broad_individual/510500_secondary_focus_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/510500_secondary_focus_curve.csv`
+- archive `results/broad_individual/510500_secondary_focus_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/510500_secondary_focus_trades.csv`
+- archive `results/broad_individual/510500_selected_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/510500_selected_curve.csv`
+- archive `results/broad_individual/510500_selected_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/510500_selected_trades.csv`
+- archive `results/broad_individual/588000_focus_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/588000_focus_curve.csv`
+- archive `results/broad_individual/588000_focus_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/588000_focus_trades.csv`
+- archive `results/broad_individual/588000_hold_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/588000_hold_curve.csv`
+- archive `results/broad_individual/588000_selected_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/588000_selected_curve.csv`
+- archive `results/broad_individual/588000_selected_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_individual/588000_selected_trades.csv`
+- archive `results/broad_individual/local_page.html` → `archive/20261022/historical_results.zip!/results/broad_individual/local_page.html`
+- archive `results/broad_individual/replacement_comparison.json` → `archive/20261022/historical_results.zip!/results/broad_individual/replacement_comparison.json`
+- archive `results/broad_valuation/510300_fixed_hold_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510300_fixed_hold_curve.csv`
+- archive `results/broad_valuation/510300_fixed_hold_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510300_fixed_hold_trades.csv`
+- archive `results/broad_valuation/510300_fixed_strategy_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510300_fixed_strategy_curve.csv`
+- archive `results/broad_valuation/510300_fixed_strategy_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510300_fixed_strategy_trades.csv`
+- archive `results/broad_valuation/510300_monthly_hold_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510300_monthly_hold_curve.csv`
+- archive `results/broad_valuation/510300_monthly_hold_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510300_monthly_hold_trades.csv`
+- archive `results/broad_valuation/510300_monthly_strategy_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510300_monthly_strategy_curve.csv`
+- archive `results/broad_valuation/510300_monthly_strategy_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510300_monthly_strategy_trades.csv`
+- archive `results/broad_valuation/510500_fixed_hold_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510500_fixed_hold_curve.csv`
+- archive `results/broad_valuation/510500_fixed_hold_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510500_fixed_hold_trades.csv`
+- archive `results/broad_valuation/510500_fixed_strategy_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510500_fixed_strategy_curve.csv`
+- archive `results/broad_valuation/510500_fixed_strategy_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510500_fixed_strategy_trades.csv`
+- archive `results/broad_valuation/510500_monthly_hold_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510500_monthly_hold_curve.csv`
+- archive `results/broad_valuation/510500_monthly_hold_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510500_monthly_hold_trades.csv`
+- archive `results/broad_valuation/510500_monthly_strategy_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510500_monthly_strategy_curve.csv`
+- archive `results/broad_valuation/510500_monthly_strategy_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/510500_monthly_strategy_trades.csv`
+- archive `results/broad_valuation/588000_fixed_hold_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/588000_fixed_hold_curve.csv`
+- archive `results/broad_valuation/588000_fixed_hold_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/588000_fixed_hold_trades.csv`
+- archive `results/broad_valuation/588000_fixed_strategy_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/588000_fixed_strategy_curve.csv`
+- archive `results/broad_valuation/588000_fixed_strategy_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/588000_fixed_strategy_trades.csv`
+- archive `results/broad_valuation/588000_monthly_hold_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/588000_monthly_hold_curve.csv`
+- archive `results/broad_valuation/588000_monthly_hold_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/588000_monthly_hold_trades.csv`
+- archive `results/broad_valuation/588000_monthly_strategy_curve.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/588000_monthly_strategy_curve.csv`
+- archive `results/broad_valuation/588000_monthly_strategy_trades.csv` → `archive/20261022/historical_results.zip!/results/broad_valuation/588000_monthly_strategy_trades.csv`
+- archive `results/gold_heat/page_script_0.js` → `archive/20261022/historical_results.zip!/results/gold_heat/page_script_0.js`
+- archive `results/gold_heat/page_script_1.js` → `archive/20261022/historical_results.zip!/results/gold_heat/page_script_1.js`
+- archive `results/gold_heat/page_script_2.js` → `archive/20261022/historical_results.zip!/results/gold_heat/page_script_2.js`
+- archive `results/gold_heat/仅20日涨幅15%_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/仅20日涨幅15%_curve.csv`
+- archive `results/gold_heat/仅20日涨幅15%_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/仅20日涨幅15%_trades.csv`
+- archive `results/gold_heat/仅60日偏离15%_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/仅60日偏离15%_curve.csv`
+- archive `results/gold_heat/仅60日偏离15%_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/仅60日偏离15%_trades.csv`
+- archive `results/gold_heat/双指标10%减半后转弱退出_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/双指标10%减半后转弱退出_curve.csv`
+- archive `results/gold_heat/双指标10%减半后转弱退出_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/双指标10%减半后转弱退出_trades.csv`
+- archive `results/gold_heat/双指标15%减半后转弱退出_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/双指标15%减半后转弱退出_curve.csv`
+- archive `results/gold_heat/双指标15%减半后转弱退出_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/双指标15%减半后转弱退出_trades.csv`
+- archive `results/gold_heat/双指标15%只减半_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/双指标15%只减半_curve.csv`
+- archive `results/gold_heat/双指标15%只减半_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/双指标15%只减半_trades.csv`
+- archive `results/gold_heat/双指标20%减半后转弱退出_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/双指标20%减半后转弱退出_curve.csv`
+- archive `results/gold_heat/双指标20%减半后转弱退出_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/双指标20%减半后转弱退出_trades.csv`
+- archive `results/gold_heat/普通120日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/普通120日均线_curve.csv`
+- archive `results/gold_heat/普通120日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/普通120日均线_trades.csv`
+- archive `results/gold_heat/长期持有_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/长期持有_curve.csv`
+- archive `results/gold_heat/长期持有_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/长期持有_trades.csv`
+- archive `results/gold_heat/长期持有加10%过热减半_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/长期持有加10%过热减半_curve.csv`
+- archive `results/gold_heat/长期持有加10%过热减半_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/长期持有加10%过热减半_trades.csv`
+- archive `results/gold_heat/长期持有加15%过热减半_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/长期持有加15%过热减半_curve.csv`
+- archive `results/gold_heat/长期持有加15%过热减半_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/长期持有加15%过热减半_trades.csv`
+- archive `results/gold_heat/长期持有加15%过热减半转弱退出_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/长期持有加15%过热减半转弱退出_curve.csv`
+- archive `results/gold_heat/长期持有加15%过热减半转弱退出_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/长期持有加15%过热减半转弱退出_trades.csv`
+- archive `results/gold_heat/长期持有加20%过热减半_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/长期持有加20%过热减半_curve.csv`
+- archive `results/gold_heat/长期持有加20%过热减半_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_heat/长期持有加20%过热减半_trades.csv`
+- archive `results/gold_rebound/回撤10%买入_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_rebound/回撤10%买入_curve.csv`
+- archive `results/gold_rebound/回撤10%买入_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_rebound/回撤10%买入_trades.csv`
+- archive `results/gold_rebound/回撤15%买入_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_rebound/回撤15%买入_curve.csv`
+- archive `results/gold_rebound/回撤15%买入_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_rebound/回撤15%买入_trades.csv`
+- archive `results/gold_rebound/回撤5%买入_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_rebound/回撤5%买入_curve.csv`
+- archive `results/gold_rebound/回撤5%买入_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_rebound/回撤5%买入_trades.csv`
+- archive `results/gold_rebound/长期持有_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_rebound/长期持有_curve.csv`
+- archive `results/gold_rebound/长期持有_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_rebound/长期持有_trades.csv`
+- archive `results/gold_strategy/120日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/120日均线_curve.csv`
+- archive `results/gold_strategy/120日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/120日均线_trades.csv`
+- archive `results/gold_strategy/120日均线向上_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/120日均线向上_curve.csv`
+- archive `results/gold_strategy/120日均线向上_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/120日均线向上_trades.csv`
+- archive `results/gold_strategy/200日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/200日均线_curve.csv`
+- archive `results/gold_strategy/200日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/200日均线_trades.csv`
+- archive `results/gold_strategy/20日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/20日均线_curve.csv`
+- archive `results/gold_strategy/20日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/20日均线_trades.csv`
+- archive `results/gold_strategy/60日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/60日均线_curve.csv`
+- archive `results/gold_strategy/60日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/60日均线_trades.csv`
+- archive `results/gold_strategy/回撤5%买入、跌破120日线退出_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/回撤5%买入、跌破120日线退出_curve.csv`
+- archive `results/gold_strategy/回撤5%买入、跌破120日线退出_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/回撤5%买入、跌破120日线退出_trades.csv`
+- archive `results/gold_strategy/长期持有_curve.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/长期持有_curve.csv`
+- archive `results/gold_strategy/长期持有_trades.csv` → `archive/20261022/historical_results.zip!/results/gold_strategy/长期持有_trades.csv`
+- archive `results/monthly_drop_research/510300_events.csv` → `archive/20261022/historical_results.zip!/results/monthly_drop_research/510300_events.csv`
+- archive `results/monthly_drop_research/510300_first_touch_5pct.csv` → `archive/20261022/historical_results.zip!/results/monthly_drop_research/510300_first_touch_5pct.csv`
+- archive `results/monthly_drop_research/510500_events.csv` → `archive/20261022/historical_results.zip!/results/monthly_drop_research/510500_events.csv`
+- archive `results/monthly_drop_research/510500_first_touch_5pct.csv` → `archive/20261022/historical_results.zip!/results/monthly_drop_research/510500_first_touch_5pct.csv`
+- archive `results/monthly_drop_research/588000_events.csv` → `archive/20261022/historical_results.zip!/results/monthly_drop_research/588000_events.csv`
+- archive `results/monthly_drop_research/588000_first_touch_5pct.csv` → `archive/20261022/historical_results.zip!/results/monthly_drop_research/588000_first_touch_5pct.csv`
+- archive `results/monthly_drop_research/drawdown_intervals.json` → `archive/20261022/historical_results.zip!/results/monthly_drop_research/drawdown_intervals.json`
+- archive `results/monthly_execution/513100_dca_curve.csv` → `archive/20261022/historical_results.zip!/results/monthly_execution/513100_dca_curve.csv`
+- archive `results/monthly_execution/513100_dca_trades.csv` → `archive/20261022/historical_results.zip!/results/monthly_execution/513100_dca_trades.csv`
+- archive `results/monthly_execution/513100_half_dca_curve.csv` → `archive/20261022/historical_results.zip!/results/monthly_execution/513100_half_dca_curve.csv`
+- archive `results/monthly_execution/513100_half_dca_trades.csv` → `archive/20261022/historical_results.zip!/results/monthly_execution/513100_half_dca_trades.csv`
+- archive `results/monthly_execution/513100_strategy_curve.csv` → `archive/20261022/historical_results.zip!/results/monthly_execution/513100_strategy_curve.csv`
+- archive `results/monthly_execution/513100_strategy_trades.csv` → `archive/20261022/historical_results.zip!/results/monthly_execution/513100_strategy_trades.csv`
+- archive `results/monthly_execution/513500_dca_curve.csv` → `archive/20261022/historical_results.zip!/results/monthly_execution/513500_dca_curve.csv`
+- archive `results/monthly_execution/513500_dca_trades.csv` → `archive/20261022/historical_results.zip!/results/monthly_execution/513500_dca_trades.csv`
+- archive `results/monthly_execution/513500_half_dca_curve.csv` → `archive/20261022/historical_results.zip!/results/monthly_execution/513500_half_dca_curve.csv`
+- archive `results/monthly_execution/513500_half_dca_trades.csv` → `archive/20261022/historical_results.zip!/results/monthly_execution/513500_half_dca_trades.csv`
+- archive `results/monthly_execution/513500_strategy_curve.csv` → `archive/20261022/historical_results.zip!/results/monthly_execution/513500_strategy_curve.csv`
+- archive `results/monthly_execution/513500_strategy_trades.csv` → `archive/20261022/historical_results.zip!/results/monthly_execution/513500_strategy_trades.csv`
+- archive `results/sector_add/512760_75%预算、2%回调加仓_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_add/512760_75%预算、2%回调加仓_curve.csv`
+- archive `results/sector_add/512760_75%预算、2%回调加仓_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_add/512760_75%预算、2%回调加仓_trades.csv`
+- archive `results/sector_add/512760_半预算、1%回调加仓_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、1%回调加仓_curve.csv`
+- archive `results/sector_add/512760_半预算、1%回调加仓_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、1%回调加仓_trades.csv`
+- archive `results/sector_add/512760_半预算、2%回调加仓_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、2%回调加仓_curve.csv`
+- archive `results/sector_add/512760_半预算、2%回调加仓_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、2%回调加仓_trades.csv`
+- archive `results/sector_add/512760_半预算、3%回调加仓_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、3%回调加仓_curve.csv`
+- archive `results/sector_add/512760_半预算、3%回调加仓_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、3%回调加仓_trades.csv`
+- archive `results/sector_add/512760_半预算、不加仓_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、不加仓_curve.csv`
+- archive `results/sector_add/512760_半预算、不加仓_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_add/512760_半预算、不加仓_trades.csv`
+- archive `results/sector_add/512760_当前：首次全部买入_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_add/512760_当前：首次全部买入_curve.csv`
+- archive `results/sector_add/512760_当前：首次全部买入_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_add/512760_当前：首次全部买入_trades.csv`
+- archive `results/sector_add/588170_75%预算、2%回调加仓_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_add/588170_75%预算、2%回调加仓_curve.csv`
+- archive `results/sector_add/588170_75%预算、2%回调加仓_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_add/588170_75%预算、2%回调加仓_trades.csv`
+- archive `results/sector_add/588170_半预算、1%回调加仓_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、1%回调加仓_curve.csv`
+- archive `results/sector_add/588170_半预算、1%回调加仓_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、1%回调加仓_trades.csv`
+- archive `results/sector_add/588170_半预算、2%回调加仓_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、2%回调加仓_curve.csv`
+- archive `results/sector_add/588170_半预算、2%回调加仓_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、2%回调加仓_trades.csv`
+- archive `results/sector_add/588170_半预算、3%回调加仓_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、3%回调加仓_curve.csv`
+- archive `results/sector_add/588170_半预算、3%回调加仓_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、3%回调加仓_trades.csv`
+- archive `results/sector_add/588170_半预算、不加仓_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、不加仓_curve.csv`
+- archive `results/sector_add/588170_半预算、不加仓_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_add/588170_半预算、不加仓_trades.csv`
+- archive `results/sector_add/588170_当前：首次全部买入_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_add/588170_当前：首次全部买入_curve.csv`
+- archive `results/sector_add/588170_当前：首次全部买入_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_add/588170_当前：首次全部买入_trades.csv`
+- archive `results/sector_confirmation/512760_20日·上下1%缓冲_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·上下1%缓冲_curve.csv`
+- archive `results/sector_confirmation/512760_20日·上下1%缓冲_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·上下1%缓冲_trades.csv`
+- archive `results/sector_confirmation/512760_20日·上下2%缓冲_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·上下2%缓冲_curve.csv`
+- archive `results/sector_confirmation/512760_20日·上下2%缓冲_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·上下2%缓冲_trades.csv`
+- archive `results/sector_confirmation/512760_20日·买入确认2天_卖出立即_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·买入确认2天_卖出立即_curve.csv`
+- archive `results/sector_confirmation/512760_20日·买入确认2天_卖出立即_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·买入确认2天_卖出立即_trades.csv`
+- archive `results/sector_confirmation/512760_20日·买卖均确认2天_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·买卖均确认2天_curve.csv`
+- archive `results/sector_confirmation/512760_20日·买卖均确认2天_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·买卖均确认2天_trades.csv`
+- archive `results/sector_confirmation/512760_20日·买卖均确认3天_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·买卖均确认3天_curve.csv`
+- archive `results/sector_confirmation/512760_20日·买卖均确认3天_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·买卖均确认3天_trades.csv`
+- archive `results/sector_confirmation/512760_20日·立即判断_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·立即判断_curve.csv`
+- archive `results/sector_confirmation/512760_20日·立即判断_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_20日·立即判断_trades.csv`
+- archive `results/sector_confirmation/512760_30日·上下1%缓冲_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·上下1%缓冲_curve.csv`
+- archive `results/sector_confirmation/512760_30日·上下1%缓冲_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·上下1%缓冲_trades.csv`
+- archive `results/sector_confirmation/512760_30日·上下2%缓冲_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·上下2%缓冲_curve.csv`
+- archive `results/sector_confirmation/512760_30日·上下2%缓冲_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·上下2%缓冲_trades.csv`
+- archive `results/sector_confirmation/512760_30日·买入确认2天_卖出立即_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·买入确认2天_卖出立即_curve.csv`
+- archive `results/sector_confirmation/512760_30日·买入确认2天_卖出立即_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·买入确认2天_卖出立即_trades.csv`
+- archive `results/sector_confirmation/512760_30日·买卖均确认2天_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·买卖均确认2天_curve.csv`
+- archive `results/sector_confirmation/512760_30日·买卖均确认2天_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·买卖均确认2天_trades.csv`
+- archive `results/sector_confirmation/512760_30日·买卖均确认3天_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·买卖均确认3天_curve.csv`
+- archive `results/sector_confirmation/512760_30日·买卖均确认3天_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·买卖均确认3天_trades.csv`
+- archive `results/sector_confirmation/512760_30日·立即判断_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·立即判断_curve.csv`
+- archive `results/sector_confirmation/512760_30日·立即判断_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_30日·立即判断_trades.csv`
+- archive `results/sector_confirmation/512760_持有不择时_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_持有不择时_curve.csv`
+- archive `results/sector_confirmation/512760_持有不择时_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/512760_持有不择时_trades.csv`
+- archive `results/sector_confirmation/588170_20日·上下1%缓冲_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·上下1%缓冲_curve.csv`
+- archive `results/sector_confirmation/588170_20日·上下1%缓冲_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·上下1%缓冲_trades.csv`
+- archive `results/sector_confirmation/588170_20日·上下2%缓冲_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·上下2%缓冲_curve.csv`
+- archive `results/sector_confirmation/588170_20日·上下2%缓冲_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·上下2%缓冲_trades.csv`
+- archive `results/sector_confirmation/588170_20日·买入确认2天_卖出立即_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·买入确认2天_卖出立即_curve.csv`
+- archive `results/sector_confirmation/588170_20日·买入确认2天_卖出立即_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·买入确认2天_卖出立即_trades.csv`
+- archive `results/sector_confirmation/588170_20日·买卖均确认2天_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·买卖均确认2天_curve.csv`
+- archive `results/sector_confirmation/588170_20日·买卖均确认2天_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·买卖均确认2天_trades.csv`
+- archive `results/sector_confirmation/588170_20日·买卖均确认3天_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·买卖均确认3天_curve.csv`
+- archive `results/sector_confirmation/588170_20日·买卖均确认3天_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·买卖均确认3天_trades.csv`
+- archive `results/sector_confirmation/588170_20日·立即判断_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·立即判断_curve.csv`
+- archive `results/sector_confirmation/588170_20日·立即判断_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_20日·立即判断_trades.csv`
+- archive `results/sector_confirmation/588170_30日·上下1%缓冲_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·上下1%缓冲_curve.csv`
+- archive `results/sector_confirmation/588170_30日·上下1%缓冲_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·上下1%缓冲_trades.csv`
+- archive `results/sector_confirmation/588170_30日·上下2%缓冲_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·上下2%缓冲_curve.csv`
+- archive `results/sector_confirmation/588170_30日·上下2%缓冲_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·上下2%缓冲_trades.csv`
+- archive `results/sector_confirmation/588170_30日·买入确认2天_卖出立即_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·买入确认2天_卖出立即_curve.csv`
+- archive `results/sector_confirmation/588170_30日·买入确认2天_卖出立即_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·买入确认2天_卖出立即_trades.csv`
+- archive `results/sector_confirmation/588170_30日·买卖均确认2天_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·买卖均确认2天_curve.csv`
+- archive `results/sector_confirmation/588170_30日·买卖均确认2天_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·买卖均确认2天_trades.csv`
+- archive `results/sector_confirmation/588170_30日·买卖均确认3天_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·买卖均确认3天_curve.csv`
+- archive `results/sector_confirmation/588170_30日·买卖均确认3天_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·买卖均确认3天_trades.csv`
+- archive `results/sector_confirmation/588170_30日·立即判断_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·立即判断_curve.csv`
+- archive `results/sector_confirmation/588170_30日·立即判断_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_30日·立即判断_trades.csv`
+- archive `results/sector_confirmation/588170_持有不择时_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_持有不择时_curve.csv`
+- archive `results/sector_confirmation/588170_持有不择时_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_confirmation/588170_持有不择时_trades.csv`
+- archive `results/sector_long_history/120日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/120日均线_curve.csv`
+- archive `results/sector_long_history/120日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/120日均线_trades.csv`
+- archive `results/sector_long_history/20_60日均线交叉_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/20_60日均线交叉_curve.csv`
+- archive `results/sector_long_history/20_60日均线交叉_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/20_60日均线交叉_trades.csv`
+- archive `results/sector_long_history/20日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/20日均线_curve.csv`
+- archive `results/sector_long_history/20日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/20日均线_trades.csv`
+- archive `results/sector_long_history/60日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/60日均线_curve.csv`
+- archive `results/sector_long_history/60日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/60日均线_trades.csv`
+- archive `results/sector_long_history/60日均线±2%缓冲_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/60日均线±2%缓冲_curve.csv`
+- archive `results/sector_long_history/60日均线±2%缓冲_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/60日均线±2%缓冲_trades.csv`
+- archive `results/sector_long_history/60日均线向上_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/60日均线向上_curve.csv`
+- archive `results/sector_long_history/60日均线向上_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/60日均线向上_trades.csv`
+- archive `results/sector_long_history/持有不择时_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/持有不择时_curve.csv`
+- archive `results/sector_long_history/持有不择时_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_long_history/持有不择时_trades.csv`
+- archive `results/sector_partial_exit/512760_先减半，连续2天线下退出_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_先减半，连续2天线下退出_curve.csv`
+- archive `results/sector_partial_exit/512760_先减半，连续2天线下退出_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_先减半，连续2天线下退出_trades.csv`
+- archive `results/sector_partial_exit/512760_先减半，连续3天线下退出_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_先减半，连续3天线下退出_curve.csv`
+- archive `results/sector_partial_exit/512760_先减半，连续3天线下退出_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_先减半，连续3天线下退出_trades.csv`
+- archive `results/sector_partial_exit/512760_跌破立即退出_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_跌破立即退出_curve.csv`
+- archive `results/sector_partial_exit/512760_跌破立即退出_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_跌破立即退出_trades.csv`
+- archive `results/sector_partial_exit/512760_连续2天线下再全部退出_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_连续2天线下再全部退出_curve.csv`
+- archive `results/sector_partial_exit/512760_连续2天线下再全部退出_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/512760_连续2天线下再全部退出_trades.csv`
+- archive `results/sector_partial_exit/588170_先减半，连续2天线下退出_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_先减半，连续2天线下退出_curve.csv`
+- archive `results/sector_partial_exit/588170_先减半，连续2天线下退出_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_先减半，连续2天线下退出_trades.csv`
+- archive `results/sector_partial_exit/588170_先减半，连续3天线下退出_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_先减半，连续3天线下退出_curve.csv`
+- archive `results/sector_partial_exit/588170_先减半，连续3天线下退出_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_先减半，连续3天线下退出_trades.csv`
+- archive `results/sector_partial_exit/588170_跌破立即退出_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_跌破立即退出_curve.csv`
+- archive `results/sector_partial_exit/588170_跌破立即退出_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_跌破立即退出_trades.csv`
+- archive `results/sector_partial_exit/588170_连续2天线下再全部退出_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_连续2天线下再全部退出_curve.csv`
+- archive `results/sector_partial_exit/588170_连续2天线下再全部退出_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_partial_exit/588170_连续2天线下再全部退出_trades.csv`
+- archive `results/sector_trend_research/120日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/120日均线_curve.csv`
+- archive `results/sector_trend_research/120日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/120日均线_trades.csv`
+- archive `results/sector_trend_research/20_60日均线交叉_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/20_60日均线交叉_curve.csv`
+- archive `results/sector_trend_research/20_60日均线交叉_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/20_60日均线交叉_trades.csv`
+- archive `results/sector_trend_research/20日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/20日均线_curve.csv`
+- archive `results/sector_trend_research/20日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/20日均线_trades.csv`
+- archive `results/sector_trend_research/60日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/60日均线_curve.csv`
+- archive `results/sector_trend_research/60日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/60日均线_trades.csv`
+- archive `results/sector_trend_research/60日均线±2%缓冲_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/60日均线±2%缓冲_curve.csv`
+- archive `results/sector_trend_research/60日均线±2%缓冲_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/60日均线±2%缓冲_trades.csv`
+- archive `results/sector_trend_research/60日均线向上_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/60日均线向上_curve.csv`
+- archive `results/sector_trend_research/60日均线向上_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/60日均线向上_trades.csv`
+- archive `results/sector_trend_research/持有不择时_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/持有不择时_curve.csv`
+- archive `results/sector_trend_research/持有不择时_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_trend_research/持有不择时_trades.csv`
+- archive `results/sector_valuation_comparison/512760_20日均线_2%_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_2%_curve.csv`
+- archive `results/sector_valuation_comparison/512760_20日均线_2%_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_2%_trades.csv`
+- archive `results/sector_valuation_comparison/512760_20日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_curve.csv`
+- archive `results/sector_valuation_comparison/512760_20日均线_PB不超90_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_PB不超90_curve.csv`
+- archive `results/sector_valuation_comparison/512760_20日均线_PB不超90_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_PB不超90_trades.csv`
+- archive `results/sector_valuation_comparison/512760_20日均线_PE不超90_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_PE不超90_curve.csv`
+- archive `results/sector_valuation_comparison/512760_20日均线_PE不超90_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_PE不超90_trades.csv`
+- archive `results/sector_valuation_comparison/512760_20日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线_trades.csv`
+- archive `results/sector_valuation_comparison/512760_20日均线每周判断_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线每周判断_curve.csv`
+- archive `results/sector_valuation_comparison/512760_20日均线每周判断_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_20日均线每周判断_trades.csv`
+- archive `results/sector_valuation_comparison/512760_30日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_30日均线_curve.csv`
+- archive `results/sector_valuation_comparison/512760_30日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_30日均线_trades.csv`
+- archive `results/sector_valuation_comparison/512760_30日均线每周判断_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_30日均线每周判断_curve.csv`
+- archive `results/sector_valuation_comparison/512760_30日均线每周判断_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_30日均线每周判断_trades.csv`
+- archive `results/sector_valuation_comparison/512760_PB估值30_70_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_PB估值30_70_curve.csv`
+- archive `results/sector_valuation_comparison/512760_PB估值30_70_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_PB估值30_70_trades.csv`
+- archive `results/sector_valuation_comparison/512760_PE估值30_70_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_PE估值30_70_curve.csv`
+- archive `results/sector_valuation_comparison/512760_PE估值30_70_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_PE估值30_70_trades.csv`
+- archive `results/sector_valuation_comparison/512760_低PB_20日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_低PB_20日均线_curve.csv`
+- archive `results/sector_valuation_comparison/512760_低PB_20日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_低PB_20日均线_trades.csv`
+- archive `results/sector_valuation_comparison/512760_低PE_20日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_低PE_20日均线_curve.csv`
+- archive `results/sector_valuation_comparison/512760_低PE_20日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_低PE_20日均线_trades.csv`
+- archive `results/sector_valuation_comparison/512760_持有不择时_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_持有不择时_curve.csv`
+- archive `results/sector_valuation_comparison/512760_持有不择时_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/512760_持有不择时_trades.csv`
+- archive `results/sector_valuation_comparison/588170_20日均线_2%_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_2%_curve.csv`
+- archive `results/sector_valuation_comparison/588170_20日均线_2%_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_2%_trades.csv`
+- archive `results/sector_valuation_comparison/588170_20日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_curve.csv`
+- archive `results/sector_valuation_comparison/588170_20日均线_PB不超90_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_PB不超90_curve.csv`
+- archive `results/sector_valuation_comparison/588170_20日均线_PB不超90_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_PB不超90_trades.csv`
+- archive `results/sector_valuation_comparison/588170_20日均线_PE不超90_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_PE不超90_curve.csv`
+- archive `results/sector_valuation_comparison/588170_20日均线_PE不超90_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_PE不超90_trades.csv`
+- archive `results/sector_valuation_comparison/588170_20日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线_trades.csv`
+- archive `results/sector_valuation_comparison/588170_20日均线每周判断_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线每周判断_curve.csv`
+- archive `results/sector_valuation_comparison/588170_20日均线每周判断_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_20日均线每周判断_trades.csv`
+- archive `results/sector_valuation_comparison/588170_30日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_30日均线_curve.csv`
+- archive `results/sector_valuation_comparison/588170_30日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_30日均线_trades.csv`
+- archive `results/sector_valuation_comparison/588170_30日均线每周判断_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_30日均线每周判断_curve.csv`
+- archive `results/sector_valuation_comparison/588170_30日均线每周判断_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_30日均线每周判断_trades.csv`
+- archive `results/sector_valuation_comparison/588170_PB估值30_70_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_PB估值30_70_curve.csv`
+- archive `results/sector_valuation_comparison/588170_PB估值30_70_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_PB估值30_70_trades.csv`
+- archive `results/sector_valuation_comparison/588170_PE估值30_70_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_PE估值30_70_curve.csv`
+- archive `results/sector_valuation_comparison/588170_PE估值30_70_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_PE估值30_70_trades.csv`
+- archive `results/sector_valuation_comparison/588170_低PB_20日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_低PB_20日均线_curve.csv`
+- archive `results/sector_valuation_comparison/588170_低PB_20日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_低PB_20日均线_trades.csv`
+- archive `results/sector_valuation_comparison/588170_低PE_20日均线_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_低PE_20日均线_curve.csv`
+- archive `results/sector_valuation_comparison/588170_低PE_20日均线_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_低PE_20日均线_trades.csv`
+- archive `results/sector_valuation_comparison/588170_持有不择时_curve.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_持有不择时_curve.csv`
+- archive `results/sector_valuation_comparison/588170_持有不择时_trades.csv` → `archive/20261022/historical_results.zip!/results/sector_valuation_comparison/588170_持有不择时_trades.csv`
+- archive `results/strategy_hold_audit/512760_curve.csv` → `archive/20261022/historical_results.zip!/results/strategy_hold_audit/512760_curve.csv`
+- archive `results/strategy_hold_audit/512760_trades.csv` → `archive/20261022/historical_results.zip!/results/strategy_hold_audit/512760_trades.csv`
+- archive `results/strategy_hold_audit/513100_curve.csv` → `archive/20261022/historical_results.zip!/results/strategy_hold_audit/513100_curve.csv`
+- archive `results/strategy_hold_audit/513100_trades.csv` → `archive/20261022/historical_results.zip!/results/strategy_hold_audit/513100_trades.csv`
+- archive `results/strategy_hold_audit/513500_curve.csv` → `archive/20261022/historical_results.zip!/results/strategy_hold_audit/513500_curve.csv`
+- archive `results/strategy_hold_audit/513500_trades.csv` → `archive/20261022/historical_results.zip!/results/strategy_hold_audit/513500_trades.csv`
+- archive `results/strategy_hold_audit/518850_curve.csv` → `archive/20261022/historical_results.zip!/results/strategy_hold_audit/518850_curve.csv`
+- archive `results/strategy_hold_audit/518850_trades.csv` → `archive/20261022/historical_results.zip!/results/strategy_hold_audit/518850_trades.csv`
+- archive `results/strategy_hold_audit/588170_curve.csv` → `archive/20261022/historical_results.zip!/results/strategy_hold_audit/588170_curve.csv`
+- archive `results/strategy_hold_audit/588170_trades.csv` → `archive/20261022/historical_results.zip!/results/strategy_hold_audit/588170_trades.csv`
+- archive `results/us_etf/inx_decoded.json` → `archive/20261022/historical_results.zip!/results/us_etf/inx_decoded.json`
+- archive `results/us_etf/inx_raw.txt` → `archive/20261022/historical_results.zip!/results/us_etf/inx_raw.txt`
+- archive `results/us_etf/nasdaq100_fred.html` → `archive/20261022/historical_results.zip!/results/us_etf/nasdaq100_fred.html`
+- archive `results/us_etf/nasdaq100_fred.txt` → `archive/20261022/historical_results.zip!/results/us_etf/nasdaq100_fred.txt`
+- archive `results/us_etf/ndx_decoded.json` → `archive/20261022/historical_results.zip!/results/us_etf/ndx_decoded.json`
+- archive `results/us_etf/ndx_raw.txt` → `archive/20261022/historical_results.zip!/results/us_etf/ndx_raw.txt`
+- archive `results/us_etf/product_liquidity.json` → `archive/20261022/historical_results.zip!/results/us_etf/product_liquidity.json`
+- archive `results/us_etf/qqq_probe.txt` → `archive/20261022/historical_results.zip!/results/us_etf/qqq_probe.txt`
+- archive `results/us_etf/sina_decoder.js` → `archive/20261022/historical_results.zip!/results/us_etf/sina_decoder.js`
+- archive `results/us_etf/spy_probe.txt` → `archive/20261022/historical_results.zip!/results/us_etf/spy_probe.txt`
+- archive `results/us_etf_extended/513100_10个月均线±2%缓冲_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513100_10个月均线±2%缓冲_curve.csv`
+- archive `results/us_etf_extended/513100_10个月均线全进全出_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513100_10个月均线全进全出_curve.csv`
+- archive `results/us_etf_extended/513100_10个月均线线下减半_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513100_10个月均线线下减半_curve.csv`
+- archive `results/us_etf_extended/513100_12个月均线全进全出_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513100_12个月均线全进全出_curve.csv`
+- archive `results/us_etf_extended/513100_12个月涨幅为正才持有_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513100_12个月涨幅为正才持有_curve.csv`
+- archive `results/us_etf_extended/513100_8个月均线全进全出_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513100_8个月均线全进全出_curve.csv`
+- archive `results/us_etf_extended/513100_entry_250.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513100_entry_250.csv`
+- archive `results/us_etf_extended/513100_entry_750.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513100_entry_750.csv`
+- archive `results/us_etf_extended/513100_初始50%投入后持有_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513100_初始50%投入后持有_curve.csv`
+- archive `results/us_etf_extended/513100_固定半仓_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513100_固定半仓_curve.csv`
+- archive `results/us_etf_extended/513100_连续两月线下才退出_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513100_连续两月线下才退出_curve.csv`
+- archive `results/us_etf_extended/513100_长期持有_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513100_长期持有_curve.csv`
+- archive `results/us_etf_extended/513500_10个月均线±2%缓冲_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513500_10个月均线±2%缓冲_curve.csv`
+- archive `results/us_etf_extended/513500_10个月均线全进全出_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513500_10个月均线全进全出_curve.csv`
+- archive `results/us_etf_extended/513500_10个月均线线下减半_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513500_10个月均线线下减半_curve.csv`
+- archive `results/us_etf_extended/513500_12个月均线全进全出_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513500_12个月均线全进全出_curve.csv`
+- archive `results/us_etf_extended/513500_12个月涨幅为正才持有_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513500_12个月涨幅为正才持有_curve.csv`
+- archive `results/us_etf_extended/513500_8个月均线全进全出_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513500_8个月均线全进全出_curve.csv`
+- archive `results/us_etf_extended/513500_entry_250.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513500_entry_250.csv`
+- archive `results/us_etf_extended/513500_entry_750.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513500_entry_750.csv`
+- archive `results/us_etf_extended/513500_初始50%投入后持有_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513500_初始50%投入后持有_curve.csv`
+- archive `results/us_etf_extended/513500_固定半仓_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513500_固定半仓_curve.csv`
+- archive `results/us_etf_extended/513500_连续两月线下才退出_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513500_连续两月线下才退出_curve.csv`
+- archive `results/us_etf_extended/513500_长期持有_curve.csv` → `archive/20261022/historical_results.zip!/results/us_etf_extended/513500_长期持有_curve.csv`
+- move_archive `portfolio_v1.js` → `archive/legacy_ui/portfolio_v1.js`
+- move_archive `investment_tools.js` → `archive/legacy_ui/investment_tools.js`
+- move_archive `correlation_tools.js` → `archive/legacy_ui/correlation_tools.js`
+- move_archive `monthly_budget.js` → `archive/legacy_ui/monthly_budget.js`
+- move_archive `templates/_portfolio_v1.html` → `archive/legacy_ui/templates/_portfolio_v1.html`
+- move_archive `templates/_asset_guide.html` → `archive/legacy_ui/templates/_asset_guide.html`
+- move_archive `templates/_strategy_guide.html` → `archive/legacy_ui/templates/_strategy_guide.html`
+- move_archive `stock_watch.py` → `archive/stock/stock_watch.py`
+- move_archive `stock_strategy_research.md` → `archive/stock/stock_strategy_research.md`
+- move_archive `data_cache/etf_688836_qfq.csv` → `archive/stock/data_cache/etf_688836_qfq.csv`
+- move_archive `data_cache/etf_688836_tencent.csv` → `archive/stock/data_cache/etf_688836_tencent.csv`
+- move_archive `allocation_rotation_research.md` → `archive/reports/etf_studies/allocation_rotation_research.md`
+- move_archive `broad_individual_research.md` → `archive/reports/etf_studies/broad_individual_research.md`
+- move_archive `broad_valuation_research.md` → `archive/reports/etf_studies/broad_valuation_research.md`
+- move_archive `csi300_adopted_strategy.md` → `archive/reports/etf_studies/csi300_adopted_strategy.md`
+- move_archive `csi300_entry_windows_research.md` → `archive/reports/etf_studies/csi300_entry_windows_research.md`
+- move_archive `csi300_parameter_search_research.md` → `archive/reports/etf_studies/csi300_parameter_search_research.md`
+- move_archive `csi500_adopted_strategy.md` → `archive/reports/etf_studies/csi500_adopted_strategy.md`
+- move_archive `gold_strategy_research.md` → `archive/reports/etf_studies/gold_strategy_research.md`
+- move_archive `monthly_execution_research.md` → `archive/reports/etf_studies/monthly_execution_research.md`
+- move_archive `nasdaq_robustness_research.md` → `archive/reports/etf_studies/nasdaq_robustness_research.md`
+- move_archive `sector_valuation_research.md` → `archive/reports/etf_studies/sector_valuation_research.md`
+- move_archive `sp500_robustness_research.md` → `archive/reports/etf_studies/sp500_robustness_research.md`
+- move_archive `star50_adopted_strategy.md` → `archive/reports/etf_studies/star50_adopted_strategy.md`
+- move_archive `star50_robustness_research.md` → `archive/reports/etf_studies/star50_robustness_research.md`
+- move_archive `star50_strategy_verification.md` → `archive/reports/etf_studies/star50_strategy_verification.md`
+- move_archive `strategy_hold_audit.md` → `archive/reports/etf_studies/strategy_hold_audit.md`
+- move_archive `STRATEGY_IMPLEMENTATION.md` → `archive/reports/etf_studies/STRATEGY_IMPLEMENTATION.md`
+- move_archive `us_etf_guidance_research.md` → `archive/reports/etf_studies/us_etf_guidance_research.md`
+- move_archive `us_etf_strategy_extended_research.md` → `archive/reports/etf_studies/us_etf_strategy_extended_research.md`
+- move_archive `us_etf_strategy_research.md` → `archive/reports/etf_studies/us_etf_strategy_research.md`
+- move_archive `workspace_ui_20261022/run_checks.py` → `archive/legacy_checks/workspace_ui_20261022/run_checks.py`
+- move_archive `correctness_20261022/run_validation.py` → `archive/legacy_checks/correctness_20261022/run_validation.py`
+- move_archive `workspace_ui_20261022/official_1440_lab_viewport.png` → `maintenance/20261022/screenshots/official_1440_lab_viewport.png`
+- move_archive `workspace_ui_20261022/official_1440_plan_viewport.png` → `maintenance/20261022/screenshots/official_1440_plan_viewport.png`
+- move_archive `workspace_ui_20261022/official_1440_review_viewport.png` → `maintenance/20261022/screenshots/official_1440_review_viewport.png`
+- move_archive `workspace_ui_20261022/official_1440_today_viewport.png` → `maintenance/20261022/screenshots/official_1440_today_viewport.png`
+- move_archive `workspace_ui_20261022/official_375_lab_viewport.png` → `maintenance/20261022/screenshots/official_375_lab_viewport.png`
+- move_archive `workspace_ui_20261022/official_375_plan_viewport.png` → `maintenance/20261022/screenshots/official_375_plan_viewport.png`
+- move_archive `workspace_ui_20261022/official_375_review_viewport.png` → `maintenance/20261022/screenshots/official_375_review_viewport.png`
+- move_archive `workspace_ui_20261022/official_375_today_viewport.png` → `maintenance/20261022/screenshots/official_375_today_viewport.png`
+- archive `workspace_ui_20261022/def_flask_1440_comparison.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_flask_1440_comparison.png`
+- archive `workspace_ui_20261022/def_flask_1440_D_card.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_flask_1440_D_card.png`
+- archive `workspace_ui_20261022/def_flask_1440_today.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_flask_1440_today.png`
+- archive `workspace_ui_20261022/def_flask_375_comparison.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_flask_375_comparison.png`
+- archive `workspace_ui_20261022/def_flask_375_D_card.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_flask_375_D_card.png`
+- archive `workspace_ui_20261022/def_flask_375_today.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_flask_375_today.png`
+- archive `workspace_ui_20261022/def_official_1440_comparison.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_official_1440_comparison.png`
+- archive `workspace_ui_20261022/def_official_1440_D_card.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_official_1440_D_card.png`
+- archive `workspace_ui_20261022/def_official_1440_today.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_official_1440_today.png`
+- archive `workspace_ui_20261022/def_official_375_comparison.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_official_375_comparison.png`
+- archive `workspace_ui_20261022/def_official_375_D_card.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_official_375_D_card.png`
+- archive `workspace_ui_20261022/def_official_375_today.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_official_375_today.png`
+- archive `workspace_ui_20261022/def_static_1440_comparison.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_static_1440_comparison.png`
+- archive `workspace_ui_20261022/def_static_1440_D_card.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_static_1440_D_card.png`
+- archive `workspace_ui_20261022/def_static_1440_today.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_static_1440_today.png`
+- archive `workspace_ui_20261022/def_static_375_comparison.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_static_375_comparison.png`
+- archive `workspace_ui_20261022/def_static_375_D_card.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_static_375_D_card.png`
+- archive `workspace_ui_20261022/def_static_375_today.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/def_static_375_today.png`
+- archive `workspace_ui_20261022/flask_1440_lab.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_lab.png`
+- archive `workspace_ui_20261022/flask_1440_lab_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_lab_viewport.png`
+- archive `workspace_ui_20261022/flask_1440_plan.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_plan.png`
+- archive `workspace_ui_20261022/flask_1440_plan_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_plan_viewport.png`
+- archive `workspace_ui_20261022/flask_1440_review.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_review.png`
+- archive `workspace_ui_20261022/flask_1440_review_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_review_viewport.png`
+- archive `workspace_ui_20261022/flask_1440_today.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_today.png`
+- archive `workspace_ui_20261022/flask_1440_today_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_1440_today_viewport.png`
+- archive `workspace_ui_20261022/flask_375_lab.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_lab.png`
+- archive `workspace_ui_20261022/flask_375_lab_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_lab_viewport.png`
+- archive `workspace_ui_20261022/flask_375_plan.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_plan.png`
+- archive `workspace_ui_20261022/flask_375_plan_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_plan_viewport.png`
+- archive `workspace_ui_20261022/flask_375_review.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_review.png`
+- archive `workspace_ui_20261022/flask_375_review_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_review_viewport.png`
+- archive `workspace_ui_20261022/flask_375_today.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_today.png`
+- archive `workspace_ui_20261022/flask_375_today_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/flask_375_today_viewport.png`
+- archive `workspace_ui_20261022/official_1440_lab.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_1440_lab.png`
+- archive `workspace_ui_20261022/official_1440_plan.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_1440_plan.png`
+- archive `workspace_ui_20261022/official_1440_review.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_1440_review.png`
+- archive `workspace_ui_20261022/official_1440_today.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_1440_today.png`
+- archive `workspace_ui_20261022/official_375_lab.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_375_lab.png`
+- archive `workspace_ui_20261022/official_375_plan.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_375_plan.png`
+- archive `workspace_ui_20261022/official_375_review.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_375_review.png`
+- archive `workspace_ui_20261022/official_375_today.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/official_375_today.png`
+- archive `workspace_ui_20261022/simple_flask_1440.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/simple_flask_1440.png`
+- archive `workspace_ui_20261022/simple_flask_375.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/simple_flask_375.png`
+- archive `workspace_ui_20261022/simple_official_1440.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/simple_official_1440.png`
+- archive `workspace_ui_20261022/simple_official_375.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/simple_official_375.png`
+- archive `workspace_ui_20261022/simple_static_1440.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/simple_static_1440.png`
+- archive `workspace_ui_20261022/simple_static_375.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/simple_static_375.png`
+- archive `workspace_ui_20261022/static_1440_lab.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_lab.png`
+- archive `workspace_ui_20261022/static_1440_lab_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_lab_viewport.png`
+- archive `workspace_ui_20261022/static_1440_plan.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_plan.png`
+- archive `workspace_ui_20261022/static_1440_plan_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_plan_viewport.png`
+- archive `workspace_ui_20261022/static_1440_review.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_review.png`
+- archive `workspace_ui_20261022/static_1440_review_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_review_viewport.png`
+- archive `workspace_ui_20261022/static_1440_today.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_today.png`
+- archive `workspace_ui_20261022/static_1440_today_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_1440_today_viewport.png`
+- archive `workspace_ui_20261022/static_375_lab.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_lab.png`
+- archive `workspace_ui_20261022/static_375_lab_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_lab_viewport.png`
+- archive `workspace_ui_20261022/static_375_plan.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_plan.png`
+- archive `workspace_ui_20261022/static_375_plan_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_plan_viewport.png`
+- archive `workspace_ui_20261022/static_375_review.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_review.png`
+- archive `workspace_ui_20261022/static_375_review_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_review_viewport.png`
+- archive `workspace_ui_20261022/static_375_today.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_today.png`
+- archive `workspace_ui_20261022/static_375_today_viewport.png` → `archive/20261022/browser_test_artifacts.zip!/workspace_ui_20261022/static_375_today_viewport.png`
+- archive `results/test_export.html` → `archive/20261022/browser_test_artifacts.zip!/results/test_export.html`
+- delete_regeneratable `workspace_ui_20261022/flask_preview.html`
+- delete_regeneratable `workspace_ui_20261022/regression_export.html`
+
+## 修改及新增文件
+
+以下相对路径均以项目根目录为基准；before_inventory.json保存整理前快照。
+
+- 修改 `README.md`
+- 修改 `app.py`
+- 修改 `asset_states.py`
+- 修改 `config.py`
+- 修改 `correctness_20261022/check_boundaries.py`
+- 修改 `correctness_20261022/run_validation.py`
+- 修改 `data_fetcher.py`
+- 修改 `docs/index.html`
+- 修改 `docs/index.json`
+- 修改 `export_alerts.py`
+- 修改 `research_xingxun_v1/make_preview.py`
+- 修改 `strategies.py`
+- 修改 `strategy_config.py`
+- 修改 `templates/_invest_tools.html`
+- 修改 `templates/index.html`
+- 修改 `test_asset_strategies.py`
+- 修改 `test_correlation_tools.js`
+- 修改 `test_journal_integration.js`
+- 修改 `test_monthly_budget.js`
+- 修改 `test_purchase_monitor.js`
+- 修改 `test_stock_watch.py`
+- 修改 `test_strategy_preferences.js`
+- 修改 `workspace_ui_20261022/alerts_fixture.json`
+- 修改 `workspace_ui_20261022/browser_acceptance.js`
+- 修改 `workspace_ui_20261022/browser_def_monitor.js`
+- 修改 `workspace_ui_20261022/browser_results.json`
+- 修改 `workspace_ui_20261022/browser_simple_plan.js`
+- 修改 `workspace_ui_20261022/def_browser_results.json`
+- 修改 `workspace_ui_20261022/flask_1440_backup.json`
+- 修改 `workspace_ui_20261022/flask_375_backup.json`
+- 修改 `workspace_ui_20261022/run_checks.py`
+- 修改 `workspace_ui_20261022/state_fixture.json`
+- 修改 `workspace_ui_20261022/static_1440_backup.json`
+- 修改 `workspace_ui_20261022/static_375_backup.json`
+- 修改 `workspace_ui_20261022/static_preview.html`
+- 修改 `workspace_ui_20261022/tests_0.log`
+- 修改 `workspace_ui_20261022/tests_1.log`
+- 修改 `workspace_ui_20261022/tests_site.log`
+- 新增 `maintenance/20261022/STOP_REPORT.md`
+- 新增 `maintenance/20261022/TEST_COVERAGE.md`
+- 新增 `maintenance/20261022/acceptance_summary.json`
+- 新增 `maintenance/20261022/actions.json`
+- 新增 `maintenance/20261022/before_inventory.json`
+- 新增 `maintenance/20261022/organize_files.py`
+- 新增 `maintenance/20261022/organize_modules.py`
+- 新增 `maintenance/20261022/screenshots/official_1440_lab_viewport.png`
+- 新增 `maintenance/20261022/screenshots/official_1440_plan_viewport.png`
+- 新增 `maintenance/20261022/screenshots/official_1440_review_viewport.png`
+- 新增 `maintenance/20261022/screenshots/official_1440_today_viewport.png`
+- 新增 `maintenance/20261022/screenshots/official_375_lab_viewport.png`
+- 新增 `maintenance/20261022/screenshots/official_375_plan_viewport.png`
+- 新增 `maintenance/20261022/screenshots/official_375_review_viewport.png`
+- 新增 `maintenance/20261022/screenshots/official_375_today_viewport.png`
+- 新增 `maintenance/20261022/status.json`
+- 新增 `maintenance/20261022/test_pwa.js`
+- 新增 `maintenance/20261022/test_results/browser_acceptance.log`
+- 新增 `maintenance/20261022/test_results/browser_def_monitor.log`
+- 新增 `maintenance/20261022/test_results/browser_simple_plan.log`
+- 新增 `maintenance/20261022/test_results/build_previews.log`
+- 新增 `maintenance/20261022/test_results/protected_boundaries.log`
+- 新增 `maintenance/20261022/test_results/pwa.log`
+- 新增 `maintenance/20261022/test_results/python_all.log`
+- 新增 `maintenance/20261022/test_results/summary.json`
+- 新增 `maintenance/20261022/test_results/test_capital_pool.log`
+- 新增 `maintenance/20261022/test_results/test_capital_pool_acceptance.log`
+- 新增 `maintenance/20261022/test_results/test_correlation_tools.log`
+- 新增 `maintenance/20261022/test_results/test_investment_planner.log`
+- 新增 `maintenance/20261022/test_results/test_journal_integration.log`
+- 新增 `maintenance/20261022/test_results/test_monthly_budget.log`
+- 新增 `maintenance/20261022/test_results/test_parity_capital_pool.log`
+- 新增 `maintenance/20261022/test_results/test_portfolio_ledger.log`
+- 新增 `maintenance/20261022/test_results/test_portfolio_valuation.log`
+- 新增 `maintenance/20261022/test_results/test_purchase_monitor.log`
+- 新增 `maintenance/20261022/test_results/test_purchase_monitor_policy.log`
+- 新增 `maintenance/20261022/test_results/test_signal_journal.log`
+- 新增 `maintenance/20261022/test_results/test_strategy_preferences.log`
+- 新增 `maintenance/archive_catalog.py`
+- 新增 `run_tests.py`
+- 新增 `test_decide_api.py`
+- 新增 `test_maintenance.py`
+- 新增 `workspace_ui_20261022/official_1440_backup.json`
+- 新增 `workspace_ui_20261022/official_375_backup.json`
+
+## 清理前后统计
+
+排除.git，按文件逻辑字节统计，含本轮回滚压缩包、归档、测试及报告；不表示磁盘簇分配量。
+
+| 项目 | 整理前 | 整理后 |
+| --- | ---: | ---: |
+| 文件数 | 1922 | 1520 |
+| 文件字节 | 187,738,367 | 147,701,257 |
+| MiB | 179.04 | 140.86 |
+
+净减少402个文件、38.18 MiB。各主要目录数量和字节见file_statistics.json。

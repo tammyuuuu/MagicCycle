@@ -1,0 +1,38 @@
+[
+  {
+    "width": 375,
+    "segments": 6,
+    "strategies": 10,
+    "dailySourceMatches": true,
+    "metadataMatches": true,
+    "drawdownPeakMatches": true,
+    "sharedLegend": true,
+    "touchAndSlider": true,
+    "missingData": true,
+    "noOverflow": true
+  },
+  {
+    "width": 320,
+    "segments": 6,
+    "strategies": 10,
+    "dailySourceMatches": true,
+    "metadataMatches": true,
+    "drawdownPeakMatches": true,
+    "sharedLegend": true,
+    "touchAndSlider": true,
+    "missingData": true,
+    "noOverflow": true
+  },
+  {
+    "width": 1440,
+    "segments": 6,
+    "strategies": 10,
+    "dailySourceMatches": true,
+    "metadataMatches": true,
+    "drawdownPeakMatches": true,
+    "sharedLegend": true,
+    "touchAndSlider": true,
+    "missingData": true,
+    "noOverflow": true
+  }
+]

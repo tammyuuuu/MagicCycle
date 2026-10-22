@@ -9,14 +9,16 @@
 # ------------------------- 监测标的 -------------------------
 # AkShare 东方财富源使用 6 位 ETF 代码。需要新增监测标的时在此追加一行即可。
 TARGET_ETFS = [
-    {"code": "510500", "name": "中证500ETF", "index": "中证500"},
-    {"code": "588000", "name": "科创50ETF",  "index": "科创50"},
-    {"code": "024418", "name": "华夏科创半导体材料设备ETF联接C",
-     "index": "上证科创板半导体材料设备主题", "signal_code": "588170",
-     "signal_name": "科创半导体ETF华夏",
-     "strategy_type": "industry"},
+    {"code": "513500", "name": "博时标普500ETF", "index": "标普500", "asset_type": "broad_etf", "strategy_mode": "us_monthly_trend", "premium_notice": {"date": "2026-09-30", "source": "https://www.bosera.com/column/infoDetail.do?classid=00020002000200020002&infoid=2976810"}},
+    {"code": "513100", "name": "国泰纳指100ETF", "index": "纳斯达克100", "asset_type": "broad_etf", "strategy_mode": "us_monthly_trend", "premium_notice": {"date": "2026-09-30", "source": "https://epaper.cs.com.cn/zgzqb/html/2026-09/30/nw.D110000zgzqb_20260930_1-B044.htm"}},
+    {"code": "518850", "name": "华夏黄金ETF", "index": "黄金", "asset_type": "macro_asset", "subtype": "gold"},
+    {"code": "510300", "name": "沪深300ETF", "index": "沪深300", "asset_type": "broad_etf", "strategy_mode": "broad_individual", "broad_strategy": "value_confirmed_exit"},
+    {"code": "510500", "name": "中证500ETF", "index": "中证500", "asset_type": "broad_etf", "strategy_mode": "broad_individual", "broad_strategy": "value_or_trend120"},
+    {"code": "588000", "name": "科创50ETF",  "index": "科创50", "asset_type": "broad_etf", "strategy_mode": "broad_individual", "broad_strategy": "trend16_buffer2"},
+    {"code": "588170", "name": "科创半导体ETF华夏",
+     "index": "上证科创板半导体材料设备主题",
+     "strategy_type": "industry", "asset_type": "sector_etf"},
     # 其他常用宽基（按需放开注释）：
-    # {"code": "510300", "name": "沪深300ETF",  "index": "沪深300"},
     # {"code": "510050", "name": "上证50ETF",   "index": "上证50"},
     # {"code": "159915", "name": "创业板ETF",   "index": "创业板指"},
     # {"code": "512100", "name": "中证1000ETF", "index": "中证1000"},

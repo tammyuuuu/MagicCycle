@@ -1,108 +1,106 @@
 # -*- coding: utf-8 -*-
-"""行业 ETF 的通用基线策略。
+"""行业ETF：20日均线趋势策略，收盘判断、下一交易日执行。
 
-行业之间沿用同一套结构（趋势、回撤、反转确认、仓位与退出），阈值由 profile
-配置。这里不使用“历史最大涨幅×比例”，避免新品种和高波动行业产生失真阈值。
+非线上状态转入线上时提醒买入；线上观察，首次线下减半、连续两日线下退出。
+持仓和盈亏不改变市场判断。
 """
 
+import math
 import pandas as pd
 
 
-DEFAULT_PROFILE = {
-    "ma_fast": 20,
-    "ma_mid": 60,
-    "ma_slow": 120,
-    "drawdown_watch": 0.15,
-    "drawdown_strong": 0.25,
-    "chase_above_ma60": 0.18,
-    "chase_return_20d": 0.20,
-    "slow_line_buffer": 0.03,
-    "profit_trim": 0.08,
-    "profit_clear": 0.15,
-    "amount_normal": 10.0,
-    "amount_strong": 20.0,
-}
+from strategy_config import SECTOR_PROFILE
+DEFAULT_PROFILE = dict(SECTOR_PROFILE)
+STRATEGY_VERSION = 'sector_ma20_partial_v2'
 
 
-def _weekly_below_slow(d: pd.DataFrame) -> bool:
+def partial_exit_targets(close, window=20):
+    """首个线下交易日保留一半，连续两日线下退出；线上恢复。"""
+    above = trend_positions(close, window)
+    ready = close.rolling(window, min_periods=window).mean().notna()
+    return pd.Series([1. if up else .5 if ok and prev else 0.
+                      for up, ok, prev in zip(above, ready, above.shift(1, fill_value=False))], index=close.index)
+
+
+def trend_positions(close, window=20):
+    """研究、提醒、回测共用目标状态；均线未就绪时为False。"""
+    if int(window) != window or window < 2:
+        raise ValueError('均线周期须为至少2的整数')
+    average = close.rolling(int(window), min_periods=int(window)).mean()
+    return close > average
+
+
+def _weekly_below_slow(d: pd.DataFrame, weeks=2) -> bool:
     weekly = d[["close", "ma_slow"]].resample("W-FRI").last().dropna()
-    return len(weekly) >= 2 and bool(
-        (weekly["close"].iloc[-2:] < weekly["ma_slow"].iloc[-2:]).all()
+    weekly = weekly[weekly.index <= d.index[-1]]  # 仅确认完整周
+    return len(weekly) >= weeks and bool(
+        (weekly["close"].iloc[-weeks:] < weekly["ma_slow"].iloc[-weeks:]).all()
     )
 
 
 def analyze_latest(df: pd.DataFrame, profile: dict = None) -> dict:
-    p = dict(DEFAULT_PROFILE)
-    if profile:
-        p.update(profile)
+    p = {**DEFAULT_PROFILE, **(profile or {})}
+    if int(p['ma_fast']) != p['ma_fast'] or p['ma_fast'] < 2:
+        raise ValueError('均线周期须为至少2的整数')
+    window = int(p['ma_fast'])
+    minimum = max(window, int(p['min_history']))
+    p['min_history'] = minimum
     d = df.copy().sort_index()
-    close = d["close"].astype(float)
-    d["ma_fast"] = close.rolling(int(p["ma_fast"]), min_periods=10).mean()
-    d["ma_mid"] = close.rolling(int(p["ma_mid"]), min_periods=30).mean()
-    d["ma_slow"] = close.rolling(int(p["ma_slow"]), min_periods=60).mean()
-    row = d.iloc[-1]
-    last = float(row["close"])
-    ma_fast, ma_mid, ma_slow = (float(row[k]) for k in ("ma_fast", "ma_mid", "ma_slow"))
-    high250 = float(close.rolling(250, min_periods=60).max().iloc[-1])
-    drawdown = last / high250 - 1
-    ret20 = last / float(close.iloc[-21]) - 1 if len(close) > 20 else 0.0
-    fast_rising = len(d) > 5 and ma_fast > float(d["ma_fast"].iloc[-6])
-    trend_weak = ma_fast < ma_mid and ret20 < 0
-    recovered_fast = last > ma_fast and fast_rising
-    chasing = last > ma_mid * (1 + p["chase_above_ma60"]) or ret20 > p["chase_return_20d"]
-    strong_add = drawdown <= -p["drawdown_strong"] and recovered_fast and not chasing
-    normal_add = drawdown <= -p["drawdown_watch"] and recovered_fast and not chasing
-    risk_exit = _weekly_below_slow(d) and ma_fast < ma_mid
-    defensive_watch = trend_weak and last <= ma_slow * (1 + p["slow_line_buffer"])
-
-    recent = d.tail(10)
-    touched_mid = bool((recent["close"] >= recent["ma_mid"] * 0.98).any())
-    rebound_failure = touched_mid and last < ma_fast and ret20 < 0
-    overheated = chasing
-    amount = p["amount_strong"] if strong_add else p["amount_normal"] if normal_add else 0.0
-    add_advice = (f"可小额追加 {amount:g} 元" if amount else
-                  "暂停追加（等待重新站上 MA20 且 MA20 转升）")
-
+    d = d[~d.index.duplicated(keep='last')]
+    d['close'] = pd.to_numeric(d['close'], errors='coerce')
+    d = d[d['close'].map(lambda x: pd.notna(x) and math.isfinite(x) and x > 0)]
+    if d.empty:
+        raise ValueError('缺少有效收盘行情')
+    close = d.close.astype(float)
+    average = close.rolling(window, min_periods=window).mean()
+    positions = trend_positions(close, window)
+    ready = len(close) >= minimum and pd.notna(average.iloc[-1])
+    above = bool(positions.iloc[-1]) if ready else None
+    previous_above = bool(positions.iloc[-2]) if len(close) > 1 else False
+    previous_ready = len(close) > 1 and pd.notna(average.iloc[-2])
+    fresh_entry = bool(ready and above and not previous_above)
+    crossed_down = bool(ready and not above and previous_above)
+    targets = partial_exit_targets(close, window)
+    below_days = 0
+    for i in range(len(close)-1, -1, -1):
+        if pd.isna(average.iloc[i]) or positions.iloc[i]:
+            break
+        below_days += 1
+    if not ready:
+        status, action, reason = 'watch', '观察', f'不足{minimum}个有效交易日，先观察。'
+    elif fresh_entry:
+        status, action = 'buy', '买入'
+        reason = (f'收盘价重新站上{window}日均线，出现买入信号；已有持仓不重复买入。' if previous_ready else
+                  f'{window}日均线已就绪，收盘价在均线上方，首次出现买入信号。')
+        if len(targets)>1 and targets.iloc[-2]==.5:
+            reason = f'减半后重新站上{window}日均线，买回减掉的部分；未持有可按计划买入。'
+    elif above:
+        status, action, reason = 'watch', '观察', f'收盘价保持在{window}日均线上方，没有新的买入信号；已有持仓保持。'
+    elif crossed_down:
+        status, action, reason = 'reduce', '减仓', f'收盘价首次回到{window}日均线或下方，下一交易日减半；未持有无需卖出。'
+    elif below_days < 2:
+        status, action, reason = 'watch', '观察', '均线刚就绪，尚未出现买入信号，先观察。'
+    else:
+        status, action, reason = 'exit', '退出', f'收盘价连续{below_days}个交易日在{window}日均线或下方，退出剩余持仓；未持有无需卖出。' if below_days >= 2 else f'收盘价在{window}日均线或下方，尚未出现进入信号；未持有无需卖出。'
     return {
-        "strategy_type": "industry",
-        "date": d.index[-1].date().isoformat(),
-        "close": round(last, 4),
-        "ma20": round(ma_fast, 4), "ma60": round(ma_mid, 4), "ma120": round(ma_slow, 4),
-        "ret20": round(ret20, 4), "drawdown250": round(drawdown, 4),
-        "trend_weak": trend_weak, "recovered_fast": recovered_fast,
-        "chasing": chasing, "risk_exit": risk_exit,
-        "defensive_watch": defensive_watch, "rebound_failure": rebound_failure,
-        "add_amount": amount, "add_advice": add_advice,
-        "profile": p,
-        # 兼容现有卡片的公共字段。
-        "today_is_dca_day": d.index[-1].weekday() == 0,
-        "pct": None, "hist_high": round(high250, 4), "hist_low": round(float(close.tail(250).min()), 4),
-        "max_gain": 0.0, "vol": round(float(close.pct_change().tail(60).std()), 4),
-        "A_跌幅足够深": drawdown <= -p["drawdown_watch"],
-        "B_分位点低": recovered_fast, "D_过热": overheated,
-        "暂停定投": amount == 0, "建议定投金额": amount,
-        "定投档位": "行业强信号" if strong_add else "行业普通信号" if normal_add else "不投",
-        "sell_hints": [], "params": p, "sell_rules": [],
+        'strategy_type': 'industry', 'strategy_version': STRATEGY_VERSION,
+        'date': d.index[-1].date().isoformat(), 'close': round(float(close.iloc[-1]), 4),
+        'ma20': round(float(average.iloc[-1]), 4) if ready else None,
+        'ma_value': float(average.iloc[-1]) if ready else None,
+        'previous_above': previous_above, 'previous_ready': bool(previous_ready),
+        'above_ma': above, 'fresh_entry': fresh_entry, 'crossed_down': crossed_down,
+        'target_exposure': float(targets.iloc[-1]) if ready else None,
+        'below_days': below_days,
+        'insufficient_history': not ready, 'history_days': len(close),
+        'status': status, 'action': action, 'reason': reason, 'profile': p,
     }
 
 
 def decide(rep: dict, holding: bool, current_return=None) -> dict:
-    rr = float(current_return) / 100 if current_return is not None else None
-    if not holding:
-        sell = "当前未持有，无需卖出"
-        action = "none"
-    elif rep["risk_exit"]:
-        sell, action = "全部卖出：中期趋势已确认破坏", "clear"
-    elif rr is not None and rr >= rep["profile"]["profit_clear"] and (rep["chasing"] or rep["trend_weak"]):
-        sell, action = "全部卖出：已达到盈利目标且走势过热或转弱", "clear"
-    elif rr is not None and rr >= rep["profile"]["profit_trim"] and rep["chasing"]:
-        sell, action = "卖出 50%：盈利后进入过热区", "trim_half"
-    elif rr is not None and rr < 0 and rep["rebound_failure"]:
-        sell, action = "全部卖出：亏损反弹至压力区后再次转弱", "clear"
-    elif rep["defensive_watch"]:
-        sell, action = "暂不卖出，进入防守观察；若连续两周跌破 MA120 则退出", "watch"
-    else:
-        sell, action = "暂不卖出，继续观察", "hold"
-    return {"buy_amount": rep["add_amount"], "buy_tier": rep["add_advice"],
-            "sell_advice": sell, "action": action, "holding": holding,
-            "current_return": current_return}
+    """API兼容入口：持仓只解释是否需要卖出，不改变市场条件。"""
+    return {'action': rep['status'], 'buy_signal': rep['fresh_entry'],
+            'buy_amount': None if rep['fresh_entry'] else 0,
+            'buy_tier': '出现买入信号，金额由投资计划预算决定' if rep['fresh_entry'] else '今天不新增买入',
+            'sell_advice': rep['reason'] if rep['status'] in ('reduce','exit') and holding else '当前未持有，无需卖出' if not holding else '已有持仓保持',
+            'holding': holding, 'current_return': current_return,
+            'strategy_version': rep['strategy_version']}

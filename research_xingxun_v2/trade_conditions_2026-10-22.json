@@ -1,0 +1,260 @@
+{
+  "000015": {
+    "code": "000015",
+    "label": "华夏纯债债券A",
+    "fetched_at": "2026-10-22T14:04:41",
+    "nav": 1.2121,
+    "nav_date": "2026-10-20",
+    "name": "华夏纯债债券A",
+    "fund_type": "债券型-长债",
+    "purchase_status": "开放申购",
+    "daily_purchase_limit": null,
+    "purchase_min": "10.00元",
+    "buy_confirm": "T+1",
+    "sell_confirm": "T+1",
+    "current_rate_pct": 0.08,
+    "redeem_fee_tiers": [
+      {
+        "condition": "小于7天",
+        "original_pct": 1.5,
+        "discount_pct": 1.5,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于7天，小于30天",
+        "original_pct": 0.1,
+        "discount_pct": 0.1,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于30天",
+        "original_pct": 0.0,
+        "discount_pct": 0.0,
+        "flat_fee": null
+      }
+    ],
+    "purchase_fee_tiers": [
+      {
+        "condition": "小于50万元",
+        "original_pct": 0.8,
+        "discount_pct": 0.08,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于50万元，小于200万元",
+        "original_pct": 0.6,
+        "discount_pct": 0.06,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于200万元，小于500万元",
+        "original_pct": 0.4,
+        "discount_pct": 0.04,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于500万元",
+        "original_pct": null,
+        "discount_pct": 0.0,
+        "flat_fee": 1000.0
+      }
+    ],
+    "inception": "2013-03-08",
+    "scale": "86.91亿元"
+  },
+  "001214": {
+    "code": "001214",
+    "label": "华泰柏瑞中证500ETF联接A",
+    "fetched_at": "2026-10-22T14:04:43",
+    "nav": 1.0284,
+    "nav_date": "2026-10-20",
+    "name": "华泰柏瑞中证500ETF联接A",
+    "fund_type": "指数型-股票",
+    "purchase_status": "开放申购",
+    "daily_purchase_limit": null,
+    "purchase_min": "10.00元",
+    "buy_confirm": "T+1",
+    "sell_confirm": "T+1",
+    "current_rate_pct": 0.1,
+    "redeem_fee_tiers": [
+      {
+        "condition": "小于7天",
+        "original_pct": 1.5,
+        "discount_pct": 1.5,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于7天，小于365天",
+        "original_pct": 0.25,
+        "discount_pct": 0.25,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于365天，小于730天",
+        "original_pct": 0.1,
+        "discount_pct": 0.1,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于730天",
+        "original_pct": 0.0,
+        "discount_pct": 0.0,
+        "flat_fee": null
+      }
+    ],
+    "purchase_fee_tiers": [
+      {
+        "condition": "小于100万元",
+        "original_pct": 1.0,
+        "discount_pct": 0.1,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于100万元，小于500万元",
+        "original_pct": 0.6,
+        "discount_pct": 0.06,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于500万元",
+        "original_pct": null,
+        "discount_pct": 0.0,
+        "flat_fee": 1000.0
+      }
+    ],
+    "inception": "2015-05-13",
+    "scale": "4.90亿元"
+  },
+  "008701": {
+    "code": "008701",
+    "label": "华夏黄金ETF联接A",
+    "fetched_at": "2026-10-22T14:04:44",
+    "nav": 1.955,
+    "nav_date": "2026-10-20",
+    "name": "华夏黄金ETF联接A",
+    "fund_type": "指数型-其他",
+    "purchase_status": "限大额",
+    "daily_purchase_limit": "7500.00万元",
+    "purchase_min": "10.00元",
+    "buy_confirm": "T+1",
+    "sell_confirm": "T+1",
+    "current_rate_pct": 0.06,
+    "redeem_fee_tiers": [
+      {
+        "condition": "小于7天",
+        "original_pct": 1.5,
+        "discount_pct": 1.5,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于7天，小于30天",
+        "original_pct": 0.5,
+        "discount_pct": 0.5,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于30天",
+        "original_pct": 0.0,
+        "discount_pct": 0.0,
+        "flat_fee": null
+      }
+    ],
+    "purchase_fee_tiers": [
+      {
+        "condition": "小于100万元",
+        "original_pct": 0.6,
+        "discount_pct": 0.06,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于100万元，小于500万元",
+        "original_pct": 0.3,
+        "discount_pct": 0.03,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于500万元，小于1000万元",
+        "original_pct": 0.1,
+        "discount_pct": 0.01,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于1000万元",
+        "original_pct": null,
+        "discount_pct": 0.0,
+        "flat_fee": 1000.0
+      }
+    ],
+    "inception": "2020-07-16",
+    "scale": "25.16亿元"
+  },
+  "161130": {
+    "code": "161130",
+    "label": "易方达纳斯达克100ETF联接A(人民币)",
+    "fetched_at": "2026-10-22T14:04:45",
+    "nav": 4.4119,
+    "nav_date": "2026-10-19",
+    "name": "易方达纳斯达克100ETF联接(QDII-LOF)A(人民币)",
+    "fund_type": "指数型-海外股票",
+    "purchase_status": "暂停申购",
+    "daily_purchase_limit": "10.00元",
+    "purchase_min": "10.00元",
+    "buy_confirm": "T+2",
+    "sell_confirm": "T+2",
+    "current_rate_pct": 0.12,
+    "redeem_fee_tiers": [
+      {
+        "condition": "小于等于6天",
+        "original_pct": 1.5,
+        "discount_pct": 1.5,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于7天，小于等于364天",
+        "original_pct": 0.5,
+        "discount_pct": 0.5,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于365天，小于等于729天",
+        "original_pct": 0.25,
+        "discount_pct": 0.25,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于730天",
+        "original_pct": 0.0,
+        "discount_pct": 0.0,
+        "flat_fee": null
+      }
+    ],
+    "purchase_fee_tiers": [
+      {
+        "condition": "小于100万元",
+        "original_pct": 1.2,
+        "discount_pct": 0.12,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于100万元，小于200万元",
+        "original_pct": 0.8,
+        "discount_pct": 0.08,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于200万元，小于500万元",
+        "original_pct": 0.5,
+        "discount_pct": 0.05,
+        "flat_fee": null
+      },
+      {
+        "condition": "大于等于500万元",
+        "original_pct": null,
+        "discount_pct": 0.0,
+        "flat_fee": 1000.0
+      }
+    ],
+    "inception": "2017-06-23",
+    "scale": "17.83亿元"
+  }
+}

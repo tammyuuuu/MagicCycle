@@ -1,9 +1,10 @@
+from pathlib import Path
 # -*- coding: utf-8 -*-
 """
 今日提醒 → 导出为手机友好的静态网页（用于 GitHub Pages / 任意静态托管）
 ========================================================================
 运行： python export_alerts.py [--out docs/index.html]
-生成一个自包含的单文件 HTML（含内嵌 JS，可填“我的持仓”做精确买卖判断）。
+生成包含现有四页与关键样式的自包含 HTML。
 然后把它提交推送到仓库，并在 GitHub 仓库 Settings → Pages 里选
 “Deploy from a branch: main / docs”，即可用手机访问
 https://<你的用户名>.github.io/<仓库名>/ 查看。
@@ -20,15 +21,12 @@ from datetime import datetime, timezone, timedelta
 
 import config as cfg
 import data_fetcher as fetcher
-import alerts
-import industry_strategy
 import strategies
-from asset_states import STATE_CATALOG, render_rail, render_basis, render_guide, render_today_categories, DISPLAY_STATUS_MAP
+from asset_states import STATE_CATALOG, render_rail, render_basis, render_today_categories, DISPLAY_STATUS_MAP
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RULES_PATH = os.path.join(BASE_DIR, "rules.json")
 DEFAULT_OUT = os.path.join(BASE_DIR, "docs", "index.html")
-GUIDE_PATH = os.path.join(BASE_DIR, "templates", "_asset_guide.html")
 
 
 def _load_rules():
@@ -51,8 +49,6 @@ def _summary_card(summary, extra=""):
     metric = summary["metrics"]
     delta = metric["day_change_pct"]
     change = f"{delta:+.2f}%" if delta is not None else "暂无"
-    labels = {"price":"收盘价格", "day_change_pct":"当日涨跌（%）", "historical_percentile":"历史价格位置（%）", "drawdown":"距阶段高点涨跌（%）", "rsi14":"相对强弱（RSI14）", "ma5":"5日平均价格", "ma10":"10日平均价格", "ma20":"20日平均价格", "ma60":"60日平均价格", "ma120":"120日平均价格", "ma20_slope":"短期平均价格变化", "volatility":"日收益波动率", "atr":"平均真实波幅", "volume_ratio":"成交量相对20日均量"}
-    basis = {labels.get(k,k): v for k, v in metric.items() if v is not None}
     return (f'<div class="card" data-asset-symbol="{escape(summary["symbol"], quote=True)}"><h2>{escape(summary["name"])} <span class="muted">{escape(summary["symbol"])}</span></h2>'
             f'<p>数据日 {summary["date"]} · 当前 {metric["price"]} · 当日涨跌 {change}</p>'
             f'{render_rail(summary)}'
@@ -60,7 +56,7 @@ def _summary_card(summary, extra=""):
 
 
 def _build_page(etfs_reps, gen_time: str, using_saved: bool,
-                stale_note: str = None) -> str:
+                stale_note: str = None, access_snapshot=None) -> str:
     """生成单文件 HTML 字符串。etfs_reps 结构见下方 main()。
 
     stale_note: 有 ETF 因网络故障沿用旧缓存时的提示文案（正常情况为 None）。
@@ -71,7 +67,7 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
         signal_code = item.get("signal_code")
         rep = item["rep"]
         if rep.get("error"):
-            cards.append(f'<div class="card"><div class="t">{code} {name}</div>'
+            cards.append(f'<div class="card"><h2>{code} {name}</h2>'
                          f'<div class="err">数据/计算失败：{rep["error"]}</div></div>')
             continue
         summary = item.get("summary")
@@ -81,98 +77,28 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
                 extra += f'<p class="muted">参考行情：{item["signal_code"]}；并非联接基金实际净值。</p>'
             cards.append(_summary_card(summary, extra))
             continue
-        chips = ("<span class='chip " + ("on" if rep["A_跌幅足够深"] else "off") + "'>大幅回撤（A）</span>"
-                 + "<span class='chip " + ("on" if rep["B_分位点低"] else "off") + "'>历史低位（B）</span>"
-                 + "<span class='chip " + ("on red" if rep["D_过热"] else "off") + "'>历史高位（D）</span>")
-        if rep.get("strategy_type") == "industry":
-            chips = (f"<span class='chip {'on red' if rep['trend_weak'] else 'off'}'>短期趋势转弱</span>"
-                     f"<span class='chip {'on' if rep['recovered_fast'] else 'off'}'>MA20恢复</span>"
-                     f"<span class='chip {'on red' if rep['defensive_watch'] else 'off'}'>防守观察</span>")
-        if rep["暂停定投"]:
-            advise = "<div class='adv warn'>🛑 过热 → 暂停定投，持有观望（0 元）</div>"
-        else:
-            advise = ("<div class='adv ok'>✅ 若定投：<b>%g 元</b>（%s）</div>"
-                      % (rep["建议定投金额"], rep["定投档位"]))
-        # 规则参考（只读）
-        refs = []
-        for h in rep["sell_hints"]:
-            r = []
-            if h.get("ref"):
-                r.append("E触发：持仓最高≥%s" % h["ref"]["value"])
-            if h.get("ref2"):
-                r.append("C触发：成本≤%s" % h["ref2"]["value"])
-            if h.get("note"):
-                r.append("D过热")
-            tag = ("<b class='red'>●</b>" if h.get("active")
-                   else "<span class='muted'>○</span>")
-            refs.append("<li>%s %s：%s</li>" % (tag, h["name"].split("（")[0], "；".join(r) or "需填持仓判断"))
-        ref_html = "<ul class='refs'>%s</ul>" % "".join(refs)
-
-        if rep.get("strategy_type") == "industry":
-            metrics_html = (f'数据日 {rep["date"]} · 收盘 <b>{rep["close"]}</b> · '
-                            f'MA20 <b>{rep["ma20"]}</b> · MA60 <b>{rep["ma60"]}</b> · '
-                            f'MA120 <b>{rep["ma120"]}</b> · 250日高点回撤 '
-                            f'<b>{rep["drawdown250"]*100:.1f}%</b>')
-        else:
-            metrics_html = (f'数据日 {rep["date"]} · 收盘 <b>{rep["close"]}</b> · '
-                            f'分位 <b>{rep["pct"] if rep["pct"] is None else str(rep["pct"])+"%"}</b> · '
-                            f'历史最大涨幅 <b>{rep["max_gain"]*100:.0f}%</b> · '
-                            f'日均波动 <b>{rep["vol"]*100:.2f}%</b>')
-        cards.append(f"""
-<div class="card">
-  <div class="t"><span class="code">{code}</span> {name} <span class="muted">{idx}</span>
-      <span class="chip {'on' if rep['today_is_dca_day'] else 'off'}">{'本周定投日' if rep['today_is_dca_day'] else '非定投日'}</span></div>
-  <div class="meta">{metrics_html}</div>
-  <div class="meta muted">{'250日区间' if rep.get('strategy_type') == 'industry' else '5年区间'}：{rep['hist_low']} ~ {rep['hist_high']}</div>
-  <div style="margin:6px 0">{chips} {'<span class="muted">C涨幅/E回撤需填持仓判断</span>' if rep.get('strategy_type') != 'industry' else ''}</div>
-  {advise}
-  <div id="holding_summary_{i}"></div>
-  {f'<div class="meta">择时信号参考场内 {signal_code} {item.get("signal_name", "")}；实际申购、赎回按 {code} 的确认净值为准。</div>' if signal_code else ''}
-  <details>
-    <summary>填我的实际持仓，精判断今天该买/卖</summary>
-    <div class="posrow">
-      <label><input type="checkbox" id="hol_{i}"> 持有</label>
-      <span><label>当前持有金额（可不填）</label><input type="number" step="0.01" id="mv_{i}"></span>
-      <span><label>平均成本</label><input type="number" step="0.0001" id="ac_{i}" placeholder="如 5.2"></span>
-      <span><label>支付宝当前收益率 %</label><input type="number" step="0.01" id="rr_{i}"></span>
-      <span><label>{'参考ETF持有期最高价（可不填）' if signal_code else '持仓期最高价'}</label><input type="number" step="0.001" id="pk_{i}" placeholder="可不填"></span>
-      <button class="btn" onclick="decide({i})">判断</button>
-      <button class="btn gray" onclick="saveHolding({i})">保存持仓</button>
-      <button class="btn red" onclick="deleteHolding({i})">删除持仓</button>
-    </div>
-    <div id="dec_{i}"></div>
-  </details>
-  <details>
-    <summary>卖出规则触发参考</summary>
-    {ref_html}
-  </details>
-</div>""")
-    broad_cards = [c for c, item in zip(cards, etfs_reps)
-                   if item.get("asset_type", "broad_etf") == "broad_etf"]
-    industry_cards = [c for c, item in zip(cards, etfs_reps)
-                      if item.get("strategy_type") == "industry"]
-    with open(GUIDE_PATH, "r", encoding="utf-8") as f:
-        guide = f.read().replace("{{ strategy_guide | safe }}", render_guide())
+        # Legacy card fields are not part of the current signal UI.
+        cards.append('<div class="card"><p class="err">信号摘要暂不可用，请重新生成。</p></div>')
     from correlation_data import investment_script as build_investment_script
-    investment_script = build_investment_script()
+    investment_script = build_investment_script(access_snapshot)
     with open(os.path.join(BASE_DIR, "templates", "_invest_tools.html"), encoding="utf-8") as f:
         investment_tools = f.read().replace("{{ investment_script | safe }}", investment_script)
-    categories = {'broad': [], 'us': [], 'industry': [], 'macro': [], 'stock': []}
+    categories = {'broad': [], 'us': [], 'industry': [], 'macro': []}
     for card, item in zip(cards, etfs_reps):
         key = ('us' if item.get('strategy_mode') == 'us_monthly_trend' else
-               {'sector_etf': 'industry', 'macro_asset': 'macro', 'stock': 'stock'}.get(item.get('asset_type'), 'broad'))
+               {'sector_etf': 'industry', 'macro_asset': 'macro'}.get(item.get('asset_type'), 'broad'))
         categories[key].append(card)
     today_page = render_today_categories({key: ''.join(value) for key, value in categories.items()})
     body = (f'<section id="page-today" class="page-section">{today_page}</section>'
-            f'<section id="page-guide" class="page-section hidden">{guide}</section>{investment_tools}')
-    notice = (f'<div class="notice">{stale_note}</div>' if stale_note else "")
+            f'{investment_tools}')
+    notice = ""  # Dates and stale-data state are shown on each asset card.
     with open(os.path.join(BASE_DIR, "templates", "_status_rail.html"), encoding="utf-8") as f:
         status_assets = f.read().replace("{{ asset_state_catalog | tojson }}", json.dumps(STATE_CATALOG, ensure_ascii=False)).replace("{{ asset_state_map | tojson }}", json.dumps(DISPLAY_STATUS_MAP, ensure_ascii=False))
-    rep_json = json.dumps([i["rep"] for i in etfs_reps], ensure_ascii=False)
+    page_styles = Path(BASE_DIR, "templates", "_styles.html").read_text(encoding="utf8")
     return f"""<!DOCTYPE html>
-<!-- 自动生成文件：请勿直接编辑。源页面在 templates/index.html，策略说明在 templates/_asset_guide.html。 -->
+<!-- 自动生成文件：请勿直接编辑。账户页面在 templates/_invest_tools.html，研究数据由 workspace_data/manifest.json 指定。 -->
 <html lang="zh-CN"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#202e4b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -182,197 +108,44 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
 <link rel="manifest" href="./manifest.webmanifest">
 <script src="./pwa.js" defer></script>
 <title>星循 · 观察周期，记录投资</title>
-<style>
-
-/* Gallery palette: warm paper, ultramarine and restrained ochre. */
-:root{{--night:#202e4b;--ultra:#253e69;--cobalt:#345a8b;--gold:#c3a15d;--gold-lt:#dbc595;--amber:#916522;--crimson:#a04c42;--cypress:#416858;--canvas:#f5f4ef;--card:#fffefa;--ink:#293344;--line:#e4e5de;--vg-night:var(--night);--vg-ultra:var(--ultra);--vg-cobalt:var(--cobalt);--vg-gold:var(--gold);--vg-amber:var(--amber);--vg-crimson:var(--crimson);--vg-cypress:var(--cypress);--vg-canvas:var(--canvas);--vg-card:var(--card);--vg-ink:var(--ink);--vg-line:var(--line);--bg:var(--canvas);--c1:var(--cobalt);--c2:var(--cypress);--c3:var(--crimson)}}
-*{{box-sizing:border-box}}
-body{{margin:0;background:var(--canvas);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}}
-body::after{{display:none}}
-header{{position:relative;padding:44px max(24px,calc((100vw - 1120px)/2)) 32px;background:var(--night);color:#f8f5e9;border:0;box-shadow:none;overflow:hidden}}
-header::before{{content:"";position:absolute;right:7%;top:-155px;width:340px;height:340px;border:1px solid #c3a15d40;border-radius:50%;box-shadow:0 0 0 32px #c3a15d09,0 0 0 65px #c3a15d07;pointer-events:none}}
-header h1,h1{{position:relative;font-family:Georgia,"Songti SC","SimSun",serif;font-size:28px;font-weight:500;letter-spacing:2px;line-height:1.5;margin:0 0 10px}}
-header>div{{color:#c8d1de;letter-spacing:.5px}}
-.wrap,main{{max-width:1168px;margin:0 auto;padding:28px 24px 40px}}
-.wrap{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}}
-.card{{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;margin:0 0 22px;box-shadow:0 4px 20px #202e4b04}}
-.wrap>.card{{margin:0;min-width:0;border-top:3px solid #8b9bb2}}
-.t{{font-family:inherit;font-size:18px;font-weight:650;line-height:1.7;margin:0 0 16px}}
-.code{{display:block;color:#6e7e92;font-size:12px;font-weight:600;letter-spacing:2px;margin-bottom:2px}}
-.t>.muted{{font-weight:400;margin-left:5px}}
-.meta{{font-size:13px;line-height:1.95;color:#677181;margin:4px 0;overflow-wrap:anywhere}}
-.meta b{{color:#2c3d54;font-weight:600}}
-.muted{{color:#78818a;font-size:12px;font-weight:400}}
-.chip{{display:inline-block;padding:3px 10px;border-radius:5px;font-size:11px;margin:3px 4px 3px 0;border:1px solid transparent;line-height:1.6;font-weight:500}}
-.chip.off{{background:#f0f1ed;color:#777f83;border-color:transparent}}
-.chip.on{{background:#eaf1ea;color:var(--cypress);border-color:transparent}}
-.chip.on.red,.chip.red{{background:#f6ebe5;color:var(--crimson);border-color:transparent}}
-.adv{{font-family:inherit;font-size:15px;font-weight:600;background:#f5f3eb;border-left:3px solid var(--gold);border-radius:0 7px 7px 0;padding:13px 14px;margin:18px 0}}
-.ok,.adv.ok{{color:var(--cypress)}}.warn,.adv.warn{{color:var(--amber)}}.bad,.red,.err{{color:var(--crimson)}}
-details{{border-top:1px solid var(--line);padding-top:12px;margin-top:14px}}
-summary{{cursor:pointer;font-size:13px;color:var(--cobalt);padding:5px 0;font-weight:500}}
-.refs{{padding-left:20px;margin:12px 0;color:#687180;font-size:12px;line-height:2}}
-.posrow{{display:flex;gap:12px;flex-wrap:wrap;align-items:end;padding:12px 0}}
-label,.posrow label{{display:block;font-size:12px;color:#677181;margin-bottom:6px}}
-input[type=number],input[type=text],input[type=date],select{{padding:10px 12px;border:1px solid #dce0e2;border-radius:7px;background:#fffefa;color:var(--ink);font:inherit;font-size:13px;min-height:40px;max-width:100%}}
-input[type=number]{{width:110px}}input[type=checkbox]{{accent-color:var(--cobalt)}}
-button,.btn{{font-family:inherit}}
-.btn,.btn.primary,.btn.green{{display:inline-block;background:var(--cobalt);color:white;border:1px solid transparent;border-radius:7px;padding:10px 17px;min-height:40px;cursor:pointer;font-size:13px;font-weight:500;box-shadow:none;margin-right:5px;transition:background .15s}}
-.btn.gray{{background:#edf0f1;color:#46576b;border-color:#e0e4e5}}.btn.red{{background:var(--crimson);color:white}}
-.btn:hover{{filter:brightness(.93)}}
-:focus-visible{{outline:3px solid #c3a15d;outline-offset:3px}}
-.notice{{grid-column:1/-1;background:#f8f0de;border:1px solid #e8d9b7;border-left:3px solid var(--gold);border-radius:8px;padding:14px 18px;margin:0;font-size:13px;color:#85632e;line-height:1.8}}
-footer{{color:#78818a!important;font-size:12px;text-align:center;padding:24px!important;border-top:1px solid var(--line);line-height:1.9}}
-nav{{display:flex;gap:8px;position:relative;margin-top:16px;flex-wrap:wrap}}
-nav a{{display:inline-block;text-decoration:none;color:#b8c6d8;padding:7px 15px;border:1px solid transparent;border-radius:6px;font-size:13px;cursor:pointer;margin:0}}
-nav a.active{{color:#f5e5bf;background:#ffffff0d;border-color:#c3a15d66}}
-.card h2{{font-family:inherit;color:var(--ultra);font-size:17px;font-weight:600;margin:0 0 20px;line-height:2}}
-.grid{{display:grid;gap:18px}}.g2{{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}}.grid input,.grid select{{width:100%}}
-.row{{display:flex;align-items:center;gap:10px;padding:16px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}}.row .conds{{white-space:normal!important}}
-table{{border-collapse:collapse;width:100%;font-size:13px}}th,td{{border:0;border-bottom:1px solid var(--line);padding:12px;text-align:left}}th{{background:#f0f2ef;color:#536174;font-weight:500}}tr:nth-child(even) td{{background:#fafaf6}}
-pre{{background:#f2f3ef;border:1px solid var(--line);border-radius:8px;padding:16px;overflow:auto;font-size:12px;white-space:pre-wrap;line-height:1.8}}
-.hidden{{display:none}}.bignum{{font-size:26px;font-weight:600;margin:8px 8px 0 0}}.two{{display:grid;grid-template-columns:1fr 1fr;gap:22px}}
-.tabs{{display:flex;border-bottom:1px solid var(--line);gap:8px;margin-bottom:20px}}.tabs button{{background:none;border:0;border-bottom:2px solid transparent;padding:12px;color:#677181;cursor:pointer}}.tabs button.active{{border-bottom-color:var(--gold);color:var(--cobalt)}}
-.asset-section{{grid-column:1/-1;margin:0 0 12px}}.asset-section>h2{{font-family:Georgia,"Songti SC",serif;font-size:20px;color:var(--night);font-weight:500;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line)}}
-.asset-list{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}}.asset-list>.card{{margin:0}}
-.strategy-guide{{grid-column:1/-1}}.strategy-guide h3{{font-size:15px;color:var(--cobalt);margin:4px 0 12px}}.strategy-guide p{{margin:8px 0 18px}}
-.page-section{{grid-column:1/-1;min-width:0}}.hidden{{display:none!important}}
-@media(max-width:760px){{header{{padding:30px 20px 24px}}header h1,h1{{font-size:22px;letter-spacing:1px}}.wrap,main{{padding:18px 14px 28px}}.wrap,.two,.asset-list{{grid-template-columns:1fr;gap:16px}}.card{{padding:20px;border-radius:12px}}.t{{font-size:17px}}.g2{{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}}.card h2 .btn{{margin-top:8px}}th,td{{padding:8px 5px;font-size:12px}}header::before{{right:-230px}}}}
-</style></head><body>{status_assets}
+{page_styles}</head><body>{status_assets}
 <header><div class="brand-heading"><h1>星循</h1><span class="brand-tagline">观察周期，记录投资</span></div><div style="font-size:12px;opacity:.8">生成于 {gen_time}{' · 使用网页保存的规则' if using_saved else ' · 使用内置默认规则'}</div>
-<nav id="topnav"><a data-page="today" class="active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2m6 2V2M8 10h8m-8 4h5"/></svg><span>今日提醒</span></a><a data-page="plan"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M6 16v-5m6 5V5m6 11V8"/></svg><span>投资配置</span></a><a data-page="diary"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6C9 4 5 4 3 5v15c3-1 6-1 9 1 3-2 6-2 9-1V5c-2-1-6-1-9 1v15Z"/></svg><span>投资日记</span></a><a data-page="guide"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2 6-6 2 2-6 6-2Z"/></svg><span>策略说明</span></a></nav></header>
+<nav id="topnav"><a data-page="today" class="active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2m6 2V2M8 10h8m-8 4h5"/></svg><span>今日提醒</span></a><a data-page="plan"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M6 16v-5m6 5V5m6 11V8"/></svg><span>投资配置</span></a><a data-page="review"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6C9 4 5 4 3 5v15c3-1 6-1 9 1 3-2 6-2 9-1V5c-2-1-6-1-9 1v15Z"/></svg><span>投资复盘</span></a><a data-page="lab"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2 6-6 2 2-6 6-2Z"/></svg><span>策略实验</span></a></nav></header>
 <div class="wrap">{notice}{body}
 <footer>数据：AkShare（东方财富/新浪）· 仅供策略研究，非投资建议</footer></div>
 <script>
-var REPS = {rep_json};
-var SUMMARIES = {json.dumps([i.get("summary") for i in etfs_reps], ensure_ascii=False)};
-window.STRATEGY_SUMMARIES=SUMMARIES;
+window.STRATEGY_SUMMARIES={json.dumps([i.get("summary") for i in etfs_reps], ensure_ascii=False)};
 refreshValuationPreference();
-var CODES = {json.dumps([i['code'] for i in etfs_reps], ensure_ascii=False)};
-var LABEL = {{clear:'清仓(全部卖出)',trim_half:'卖出50%',pause:'暂停定投'}};
-document.querySelectorAll('#topnav a').forEach(function(a){{
-  a.onclick=function(){{
-    document.querySelectorAll('#topnav a').forEach(function(x){{x.classList.remove('active');}});
-    a.classList.add('active');
-    showInvestmentTab(a.dataset.page);
-    ['today','guide'].forEach(function(name){{
-      document.getElementById('page-'+name).classList.toggle('hidden',name!==a.dataset.page);
-    }});
-  }};
-}});
-function holdingKey(i){{return 'etf_holding_'+CODES[i];}}
-function savedHolding(i){{try{{return JSON.parse(localStorage.getItem(holdingKey(i)))||null;}}catch(e){{return null;}}}}
-function fillHolding(i){{
-  if(!document.getElementById('hol_'+i)) return;
-  var p=savedHolding(i); if(!p)return;
-  document.getElementById('hol_'+i).checked=true;
-  document.getElementById('mv_'+i).value=p.market_value==null?'':p.market_value;
-  document.getElementById('ac_'+i).value=p.avg_cost;
-  document.getElementById('rr_'+i).value=p.return_rate;
-  document.getElementById('pk_'+i).value=p.peak==null?'':p.peak;
-  var principal=p.market_value!=null&&p.return_rate>-100?p.market_value/(1+p.return_rate/100):null;
-  var recovery=p.return_rate<0?-p.return_rate/(100+p.return_rate)*100:0;
-  var text='已保存持仓'+(p.market_value!=null?' '+Number(p.market_value).toFixed(2)+' 元':'')+' · 成本价 '+Number(p.avg_cost).toFixed(4)+' · 收益率 '+Number(p.return_rate).toFixed(2)+'%';
-  if(principal!=null) text+='<br><span class="muted">估算投入 '+principal.toFixed(2)+' 元，浮盈亏 '+(p.market_value-principal).toFixed(2)+' 元；回到成本价还需上涨 '+recovery.toFixed(2)+'%</span>';
-  if(document.getElementById('holding_summary_'+i)) document.getElementById('holding_summary_'+i).innerHTML='<div class="adv '+(p.return_rate<0?'warn':'ok')+'">'+text+'</div>';
-}}
-function saveHolding(i){{
-  var avg=parseFloat(document.getElementById('ac_'+i).value),rr=parseFloat(document.getElementById('rr_'+i).value);
-  var value=parseFloat(document.getElementById('mv_'+i).value),peak=parseFloat(document.getElementById('pk_'+i).value);
-  if(!document.getElementById('hol_'+i).checked||!(avg>0)||!Number.isFinite(rr)){{alert('请勾选“持有”，并填写有效的平均成本和当前收益率。');return;}}
-  localStorage.setItem(holdingKey(i),JSON.stringify({{holding:true,avg_cost:avg,return_rate:rr,market_value:Number.isFinite(value)?value:null,peak:Number.isFinite(peak)?peak:null}}));
-  fillHolding(i); decide(i);
-}}
-function deleteHolding(i){{
-  localStorage.removeItem(holdingKey(i));
-  ['hol_','mv_','ac_','rr_','pk_'].forEach(function(prefix){{var e=document.getElementById(prefix+i);if(e) e.type==='checkbox'?e.checked=false:e.value='';}});
-  if(document.getElementById('holding_summary_'+i)) document.getElementById('holding_summary_'+i).innerHTML='';
-  document.getElementById('dec_'+i).innerHTML='<div class="muted">持仓已删除。</div>';
-}}
-function updateAssetPosition(i,status,action,reason){{
-  var summary=Object.assign({{}},SUMMARIES[i],{{status:status,action:action,reason:reason,details:Object.assign({{}},SUMMARIES[i].details,{{holding:document.getElementById('hol_'+i).checked}})}}),box=document.getElementById('dec_'+i);
-  box.innerHTML=assetStateRail(summary);
-  var card=box.closest('.card'),main=card&&card.querySelector('.state-position');
-  if(main)main.outerHTML=assetStateRail(summary);
-}}
-function decide(i){{
-  var rep=REPS[i], p=rep.params;
-  var hol=document.getElementById('hol_'+i).checked;
-  var ac=parseFloat(document.getElementById('ac_'+i).value), rr=parseFloat(document.getElementById('rr_'+i).value), pk=parseFloat(document.getElementById('pk_'+i).value);
-  var close=rep.close, mg=rep.max_gain, vol=rep.vol;
-  if(rep.strategy_type==='industry'){{
-    updateAssetPosition(i,SUMMARIES[i].status,SUMMARIES[i].action,SUMMARIES[i].reason);
-    return;
-  }}
-  var s=SUMMARIES[i], high=s.details.position==='high', threshold=(rep.max_gain||0)*rep.params.gain_trigger;
-  var action=s.action, reason=s.reason, nextStatus=s.status;
-  if(hol&&isNaN(rr)&&ac>0) rr=(close/ac-1)*100;
-  if(hol&&!isNaN(rr)&&threshold>0&&rr/100>=threshold&&high){{nextStatus='reduce';action='考虑适度减仓';reason='已有明显盈利，当前价格位置偏高。';}}
-  updateAssetPosition(i,nextStatus,action,reason);
-
-}}
-for(var i=0;i<REPS.length;i++) fillHolding(i);
-</script><style>
-.brand-heading{{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:10px;position:relative}}
-.brand-heading h1{{margin:0;flex-shrink:0}}
-.brand-tagline{{font-family:Georgia,"Songti SC","STSong","SimSun",serif;font-size:14px;font-weight:400;letter-spacing:1px;color:#8e9aaf;line-height:1.6}}
-@media(max-width:760px){{.brand-heading{{gap:12px;flex-wrap:nowrap}}.brand-tagline{{font-size:12px;letter-spacing:0}}}}
-/* Mobile layout: fit the viewport and avoid focus-triggered input zoom. */
-html{{-webkit-text-size-adjust:100%;text-size-adjust:100%}}
-img,svg,canvas{{max-width:100%}}
-@media(max-width:760px){{
-  body{{width:100%;overflow-wrap:anywhere}}
-  .wrap,.grid,.two,.asset-list{{min-width:0}}
-  .wrap>* , .grid>* , .two>* , .asset-list>*{{min-width:0}}
-  header{{padding:24px 16px 20px}}
-  .wrap,main{{padding:16px 12px 28px}}
-  .card{{padding:16px}}
-  nav{{gap:4px}}nav a{{padding:8px 10px}}
-  input[type=number],input[type=text],input[type=date],textarea,select{{font-size:16px;max-width:100%;min-height:44px}}
-  .g2{{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  .posrow>*{{min-width:0;max-width:100%}}
-  table{{width:100%;overflow-wrap:anywhere}}
-  th,td{{white-space:normal}}
-  .axis-scroll{{overflow:visible;padding:5px 0 8px}}
-  .state-rail{{min-width:0;width:100%}}
-  .state-step{{min-width:0;padding:2px 1px;font-size:10px;overflow-wrap:anywhere}}
-  .state-dot{{width:16px;height:16px;border-width:3px}}
-  .state-step.is-current .state-dot{{width:20px;height:20px}}
-  .state-rail:before{{top:12px}}
-}}
-@media(max-width:360px){{.g2{{grid-template-columns:1fr}}nav a{{padding:8px}}.card{{padding:12px}}}}
-
-/* Fixed mobile navigation with room for the home indicator. */
-@media(max-width:760px){{
-  body{{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}}
-  #topnav{{position:fixed;left:0;right:0;bottom:0;z-index:1000;margin:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:#202e4b;border-top:1px solid #c3a15d40;box-shadow:0 -4px 18px #101a2d16}}
-  #topnav a{{display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px 2px;font-size:13px;white-space:nowrap;letter-spacing:0}}
-  html{{scroll-padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
-}}
-
-/* Compact sticky masthead for mobile. */
-@media(max-width:760px){{
-  header{{position:sticky;top:0;z-index:900;padding:10px 16px 9px;box-shadow:0 2px 10px #101a2d12}}
-  header .brand-heading{{margin-bottom:3px;gap:12px}}
-  header .brand-heading h1{{font-size:22px;line-height:1.3;letter-spacing:2px}}
-  header .brand-tagline{{font-size:11px;line-height:1.4}}
-  header>.brand-heading+div{{font-size:10px!important;line-height:1.5;letter-spacing:0}}
-  header::before{{display:none}}
-  html{{scroll-padding-top:80px}}
-}}
-.tab-icon{{display:none}}
-@media(max-width:760px){{
-  #topnav{{gap:0;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));border-top:1px solid #ffffff12;box-shadow:0 -3px 16px #101a2d12}}
-  #topnav a{{flex-direction:column;gap:4px;min-height:52px;border:0;border-radius:0;background:transparent;color:#9ba9bf;font-size:10px;font-weight:500;line-height:1.3;padding:5px 2px;position:relative;-webkit-tap-highlight-color:transparent;touch-action:manipulation}}
-  #topnav .tab-icon{{display:block;width:22px;height:22px;flex-shrink:0}}
-  #topnav a.active{{background:transparent;border:0;color:#e7cd96}}
-  #topnav a.active::before{{content:"";position:absolute;top:0;width:34px;height:30px;border-radius:10px;background:#e7cd9612;pointer-events:none}}
-  #topnav a:active{{opacity:.65}}
-}}
-</style></body></html>"""
+</script></body></html>"""
 
 
-def main(out_path: str = DEFAULT_OUT):
+def main(out_path: str = DEFAULT_OUT, offline: bool = False, *, _local_only: bool = False):
+    # Local maintenance builds use the same renderer and signal calculations.
+    if offline:
+        import pandas as pd
+        from unittest.mock import patch
+        def cached_price(code, **kwargs):
+            paths = sorted(Path(BASE_DIR, "data_cache").glob(f"etf_{code}_*.csv"))
+            if not paths:
+                raise ValueError("本地行情缓存缺失")
+            selected = next((p for p in paths if "tencent" in p.name), paths[0])
+            frame = pd.read_csv(selected, index_col=0, parse_dates=True).sort_index()
+            frame.attrs["stale_note"] = f"{code} 缓存截至 {frame.index[-1].date()}"
+            return frame
+        def cached_valuation(item, as_of, force=False):
+            code = item.get("valuation_index") or valuation_data.INDEX_CODES.get(item.get("index"))
+            source = Path(valuation_data.CACHE_DIR, "valuation_" + code.replace(".", "_") + ".csv") if code else None
+            if source is None or not source.exists():
+                return {"error": "本地估值缓存缺失"}
+            history = pd.read_csv(source, parse_dates=["date"])
+            result = valuation_data.summarize(history, as_of)
+            result["windows"] = {str(y): valuation_data.summarize(history, as_of, y) for y in (3, 5, 10)}
+            return result
+        def cached_access(*args, **kwargs):
+            return json.loads(Path(BASE_DIR, "docs", "purchase_monitor.json").read_text(encoding="utf8"))
+        with patch.object(fetcher, "fetch_etf_daily", cached_price), patch.object(valuation_data, "get_valuation", cached_valuation), patch("purchase_monitor.update_snapshot", cached_access):
+            return main(out_path, _local_only=True)
+
     params, rules = _load_rules()
     using_saved = params is not None and rules is not None
 
@@ -393,9 +166,13 @@ def main(out_path: str = DEFAULT_OUT):
                               "rep": {"error": f"{type(e).__name__}: {e}"}})
 
     gen_time = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M")
-    stale_note = ("⚠ 网络异常：使用本地缓存，是否为最新交易日尚未核实；休市期间无新增行情（"
+    stale_note = (("本地缓存构建：未联网核实最新行情（" if _local_only else "⚠ 网络异常：使用本地缓存，是否为最新交易日尚未核实；休市期间无新增行情（")
                   + "；".join(stale_notes) + "）") if stale_notes else None
-    html = _build_page(etfs_reps, gen_time, using_saved, stale_note)
+    from purchase_monitor import update_snapshot
+    access_snapshot = update_snapshot(os.path.join(os.path.dirname(os.path.abspath(out_path)), 'purchase_monitor.json'))
+    from account_nav import build_snapshot
+    account_quotes = build_snapshot(refresh=not _local_only)
+    html = _build_page(etfs_reps, gen_time, using_saved, stale_note, access_snapshot)
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     # PWA resources live beside the exported HTML, including for --out.
     output_dir = os.path.dirname(os.path.abspath(out_path))
@@ -404,15 +181,15 @@ def main(out_path: str = DEFAULT_OUT):
         for asset in ("pwa.js", "sw.js", "manifest.webmanifest"):
             shutil.copy2(os.path.join(source_dir, asset), output_dir)
         shutil.copytree(os.path.join(source_dir, "icons"), os.path.join(output_dir, "icons"), dirs_exist_ok=True)
+    with open(os.path.join(output_dir, "account_nav.json"), "w", encoding="utf8") as f:
+        json.dump(account_quotes, f, ensure_ascii=False, allow_nan=False)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
     json_path = os.path.splitext(out_path)[0] + ".json"
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump([i.get("summary") or {"symbol": i["code"], "name": i["name"], "asset_type": i.get("asset_type"), "status": "error", "action": "数据暂不可用", "reason": "行情获取或计算失败，请稍后刷新。", "risk_level": "unknown", "metrics": {}, "details": {"error": i["rep"].get("error")}} for i in etfs_reps], f, ensure_ascii=False, indent=2, allow_nan=False)
     print(f"已生成：{out_path} 和 {json_path}")
-    print("下一步：把 docs/ 提交推送后，在 GitHub 仓库 Settings → Pages")
-    print("        选 Deploy from a branch: main / docs，即可手机访问")
-    print("        https://<你的用户名>.github.io/<仓库名>/")
+    print("本地文件生成完成。")
     if not using_saved:
         print("[提示] 未找到 rules.json，使用的是内置默认规则。可在网页里“保存为默认规则”后重新导出。")
 
@@ -421,5 +198,6 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="导出今日提醒静态页")
     parser.add_argument("--out", default=DEFAULT_OUT, help="输出 HTML 路径")
+    parser.add_argument("--offline", action="store_true", help="仅使用本地行情、估值和渠道缓存，不联网、不发布")
     args = parser.parse_args()
-    main(args.out)
+    main(args.out, offline=args.offline)

@@ -1,0 +1,52 @@
+{
+  "000015": {
+    "code": "000015",
+    "name": "华夏纯债债券A",
+    "rows": 3290,
+    "first": "2013-03-07",
+    "last": "2026-10-20",
+    "source_rate": "0.80",
+    "discount_rate": "0.08",
+    "sha256": "d34a9226195e82f478208045a4f3ceadc098d582a4272e11b4292ff4374906b2"
+  },
+  "001214": {
+    "code": "001214",
+    "name": "华泰柏瑞中证500ETF联接A",
+    "rows": 2772,
+    "first": "2015-05-12",
+    "last": "2026-10-20",
+    "source_rate": "1.00",
+    "discount_rate": "0.10",
+    "sha256": "5ae72698c4597d4b4daf3bb1f77ff7c9a7d230368cbe34dddbece2db77cce53c"
+  },
+  "008701": {
+    "code": "008701",
+    "name": "华夏黄金ETF联接A",
+    "rows": 1515,
+    "first": "2020-07-15",
+    "last": "2026-10-20",
+    "source_rate": "0.60",
+    "discount_rate": "0.06",
+    "sha256": "bb19af7b6e10a5f30831efccc2af7c8930d38abf4efbb94a09c95984c3900b28"
+  },
+  "161130": {
+    "code": "161130",
+    "name": "易方达纳斯达克100ETF联接(QDII-LOF)A(人民币)",
+    "rows": 2245,
+    "first": "2017-06-22",
+    "last": "2026-10-19",
+    "source_rate": "1.20",
+    "discount_rate": "0.12",
+    "sha256": "912b1ba9224ec1e213cf72800186b8e1f0c1602e0b0b02bf630d678d0a1d405b"
+  },
+  "000198": {
+    "code": "000198",
+    "name": "天弘余额宝货币",
+    "rows": 0,
+    "first": null,
+    "last": null,
+    "source_rate": "0",
+    "discount_rate": "0",
+    "sha256": "483ff22b445df6e67bc6c77709df400957ed1684e27d967c22554ff04a71c60f"
+  }
+}

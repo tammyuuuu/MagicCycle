@@ -1,0 +1,90 @@
+[
+  {
+    "code": "000216",
+    "label": "黄金",
+    "name": "华安黄金ETF联接A",
+    "url": "https://fund.eastmoney.com/pingzhongdata/000216.js",
+    "sha256": "cdd11186eda06eccd2a1550363b6791549556e971e84536eb01accaa760a3e68",
+    "retrieved_at": "2026-10-22T03:04:54.338440+00:00",
+    "span": [
+      "2013-08-22",
+      "2026-10-21"
+    ],
+    "rows": 3197
+  },
+  {
+    "code": "160706",
+    "label": "沪深300",
+    "name": "嘉实沪深300ETF联接A",
+    "url": "https://fund.eastmoney.com/pingzhongdata/160706.js",
+    "sha256": "29bbbac3dd3534efb1d28450d667c7b11cfe409b3ba8a9d3931d61c97255e099",
+    "retrieved_at": "2026-10-22T03:04:56.653660+00:00",
+    "span": [
+      "2005-08-29",
+      "2026-10-21"
+    ],
+    "rows": 5147
+  },
+  {
+    "code": "160119",
+    "label": "中证500",
+    "name": "南方中证500ETF联接(LOF)A",
+    "url": "https://fund.eastmoney.com/pingzhongdata/160119.js",
+    "sha256": "72ef4acca8d0711bd40aa40e51a782e336640b1d62043896cc11fd40d0e2df11",
+    "retrieved_at": "2026-10-22T03:04:58.830157+00:00",
+    "span": [
+      "2009-09-25",
+      "2026-10-21"
+    ],
+    "rows": 4136
+  },
+  {
+    "code": "090010",
+    "label": "中证红利",
+    "name": "大成中证红利指数A",
+    "url": "https://fund.eastmoney.com/pingzhongdata/090010.js",
+    "sha256": "b1e6c1204b94be21f4a6d775686837103822ffafe838af7ee63693e3927e30df",
+    "retrieved_at": "2026-10-22T03:05:01.130441+00:00",
+    "span": [
+      "2010-02-02",
+      "2026-10-21"
+    ],
+    "rows": 4026
+  },
+  {
+    "code": "006484",
+    "label": "1-3年国开债",
+    "name": "广发中债1-3年国开债指数A",
+    "url": "https://fund.eastmoney.com/pingzhongdata/006484.js",
+    "sha256": "35651b9781fb1a303a83471b12469d4706ae416f4f1472db18850989c1b77d7f",
+    "retrieved_at": "2026-10-22T03:05:03.368841+00:00",
+    "span": [
+      "2018-11-14",
+      "2026-10-21"
+    ],
+    "rows": 1926
+  },
+  {
+    "code": "006989",
+    "label": "中短债",
+    "name": "建信中短债纯债债券A",
+    "url": "https://fund.eastmoney.com/pingzhongdata/006989.js",
+    "sha256": "0abe1fc506ae105b413764ec8efc186803ab3701a8be69c7ac520c8765b2818f",
+    "retrieved_at": "2026-10-22T03:05:05.448838+00:00",
+    "span": [
+      "2019-03-08",
+      "2026-10-21"
+    ],
+    "rows": 1852
+  },
+  {
+    "code": "000198",
+    "label": "货币基金",
+    "name": "天弘余额宝货币",
+    "url": "https://fund.eastmoney.com/pingzhongdata/000198.js",
+    "sha256": "30aee1aa9dca50394fca682b0f168861148e35ec399c79ea4e47c37aa3b8898b",
+    "retrieved_at": "2026-10-22T03:05:07.644894+00:00",
+    "span": [],
+    "rows": 0
+  }
+]

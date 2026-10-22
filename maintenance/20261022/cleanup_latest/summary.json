@@ -1,0 +1,20 @@
+{
+  "project_before_bytes": 223301144,
+  "project_after_bytes": 207845195,
+  "net_saved_bytes": 15455949,
+  "html_before_bytes": 10205666,
+  "html_after_bytes": 9444027,
+  "html_saved_percent": 7.462903449907143,
+  "recovery_zip_bytes": 5959096,
+  "complete_test_groups_passed": 32,
+  "python_tests": 187,
+  "layout_widths": [
+    1440,
+    375,
+    320
+  ],
+  "pages": 4,
+  "pwa": "passed",
+  "regressions": [],
+  "historical_dependency_restored": "workspace_ui_20261022/flask_preview.html"
+}

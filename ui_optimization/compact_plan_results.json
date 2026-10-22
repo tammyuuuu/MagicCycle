@@ -1,0 +1,41 @@
+[
+  {
+    "width": 375,
+    "passed": true,
+    "actualAmount": true,
+    "duplicateGuard": true,
+    "confirm": true,
+    "cancel": true,
+    "correction": true,
+    "flows": true,
+    "backup": true,
+    "redemption": true,
+    "overflow": false
+  },
+  {
+    "width": 320,
+    "passed": true,
+    "actualAmount": true,
+    "duplicateGuard": true,
+    "confirm": true,
+    "cancel": true,
+    "correction": true,
+    "flows": true,
+    "backup": true,
+    "redemption": true,
+    "overflow": false
+  },
+  {
+    "width": 1440,
+    "passed": true,
+    "actualAmount": true,
+    "duplicateGuard": true,
+    "confirm": true,
+    "cancel": true,
+    "correction": true,
+    "flows": true,
+    "backup": true,
+    "redemption": true,
+    "overflow": false
+  }
+]

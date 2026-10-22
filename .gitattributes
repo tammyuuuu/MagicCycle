@@ -1,0 +1,6 @@
+# These audited snapshots use byte-level hashes. Preserve their original bytes
+# on every platform, including mixed line endings in historical source files.
+/archive/** -text whitespace=cr-at-eol
+/research_xingxun_v1/** -text whitespace=cr-at-eol
+/research_xingxun_v2/** -text whitespace=cr-at-eol
+/docs/portfolio_data.json -text whitespace=cr-at-eol

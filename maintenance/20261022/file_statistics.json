@@ -1,0 +1,78 @@
+{
+  "scope": "non-.git regular files; logical file bytes, including archives, rollback source ZIP and test evidence",
+  "before_files": 1922,
+  "before_bytes": 187738367,
+  "after_files": 1520,
+  "after_bytes": 147701257,
+  "saved_bytes": 40037110,
+  "directories": {
+    "[root]": {
+      "files": 111,
+      "bytes": 766101
+    },
+    "archive": {
+      "files": 39,
+      "bytes": 25207298
+    },
+    "audit_codex_20261022": {
+      "files": 74,
+      "bytes": 1887541
+    },
+    "correctness_20261022": {
+      "files": 211,
+      "bytes": 8419367
+    },
+    "data_cache": {
+      "files": 35,
+      "bytes": 4822977
+    },
+    "docs": {
+      "files": 13,
+      "bytes": 10715648
+    },
+    "icon": {
+      "files": 2,
+      "bytes": 3929609
+    },
+    "logs": {
+      "files": 4,
+      "bytes": 83325
+    },
+    "maintenance": {
+      "files": 41,
+      "bytes": 1268482
+    },
+    "research_def_20261022": {
+      "files": 432,
+      "bytes": 17766491
+    },
+    "research_l34_20261022": {
+      "files": 54,
+      "bytes": 1552239
+    },
+    "research_xingxun_v1": {
+      "files": 297,
+      "bytes": 25657792
+    },
+    "research_xingxun_v2": {
+      "files": 119,
+      "bytes": 8486885
+    },
+    "results": {
+      "files": 48,
+      "bytes": 12431390
+    },
+    "templates": {
+      "files": 3,
+      "bytes": 55159
+    },
+    "workspace_data": {
+      "files": 4,
+      "bytes": 14388650
+    },
+    "workspace_ui_20261022": {
+      "files": 33,
+      "bytes": 10262303
+    }
+  }
+}

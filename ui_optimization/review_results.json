@@ -1,0 +1,35 @@
+[
+  {
+    "width": 375,
+    "monthSwitch": true,
+    "valuationMatches": true,
+    "feeMatches": true,
+    "emptyNoFakeZero": true,
+    "recentAndAllTrades": true,
+    "details": true,
+    "jsonRestore": true,
+    "noOverflow": true
+  },
+  {
+    "width": 320,
+    "monthSwitch": true,
+    "valuationMatches": true,
+    "feeMatches": true,
+    "emptyNoFakeZero": true,
+    "recentAndAllTrades": true,
+    "details": true,
+    "jsonRestore": true,
+    "noOverflow": true
+  },
+  {
+    "width": 1440,
+    "monthSwitch": true,
+    "valuationMatches": true,
+    "feeMatches": true,
+    "emptyNoFakeZero": true,
+    "recentAndAllTrades": true,
+    "details": true,
+    "jsonRestore": true,
+    "noOverflow": true
+  }
+]

@@ -1,0 +1,49 @@
+[
+  {
+    "code": "000015",
+    "first": "2013-03-08 00:00:00",
+    "last": "2026-10-21 00:00:00",
+    "duplicates": 0,
+    "missing_on_calendar": 0,
+    "missing_dates": [],
+    "dividends": 9
+  },
+  {
+    "code": "008701",
+    "first": "2020-07-16 00:00:00",
+    "last": "2026-10-21 00:00:00",
+    "duplicates": 0,
+    "missing_on_calendar": 0,
+    "missing_dates": [],
+    "dividends": 0
+  },
+  {
+    "code": "161130",
+    "first": "2017-06-23 00:00:00",
+    "last": "2026-10-20 00:00:00",
+    "duplicates": 0,
+    "missing_on_calendar": 1,
+    "missing_dates": [
+      "2026-10-21"
+    ],
+    "dividends": 0
+  },
+  {
+    "code": "090010",
+    "first": "2010-02-02 00:00:00",
+    "last": "2026-10-21 00:00:00",
+    "duplicates": 0,
+    "missing_on_calendar": 0,
+    "missing_dates": [],
+    "dividends": 1
+  },
+  {
+    "code": "000198",
+    "first": "2013-05-30 00:00:00",
+    "last": "2026-10-21 00:00:00",
+    "duplicates": 0,
+    "missing_on_calendar": 0,
+    "missing_dates": [],
+    "dividends": null
+  }
+]

@@ -1,0 +1,106 @@
+[
+  {
+    "code": "270042",
+    "label": "纳指100",
+    "name": "广发纳斯达克100ETF联接人民币(QDII)A",
+    "url": "https://fund.eastmoney.com/pingzhongdata/270042.js",
+    "sha256": "7f09b5aead096dc86279f5bad0fbdea9c5820a795c50075836497e5321162671",
+    "retrieved_at": "2026-10-22T05:07:52.029069+00:00",
+    "span": [
+      "2012-08-14",
+      "2026-10-19"
+    ],
+    "rows": 3413
+  },
+  {
+    "code": "050025",
+    "label": "标普500",
+    "name": "博时标普500ETF联接A",
+    "url": "https://fund.eastmoney.com/pingzhongdata/050025.js",
+    "sha256": "0c4be7011e5ac8a7408684e9fa38c856cc0146bdc412803e373d497e50c9e018",
+    "retrieved_at": "2026-10-22T05:07:52.980990+00:00",
+    "span": [
+      "2012-06-13",
+      "2026-10-19"
+    ],
+    "rows": 3402
+  },
+  {
+    "code": "011860",
+    "label": "中证1000",
+    "name": "南方中证1000ETF发起联接A",
+    "url": "https://fund.eastmoney.com/pingzhongdata/011860.js",
+    "sha256": "34fb45715c1be7014e3b6ec98878b7801a8f7a7a055b680f183f4429b2268eca",
+    "retrieved_at": "2026-10-22T05:07:53.957145+00:00",
+    "span": [
+      "2021-09-26",
+      "2026-10-20"
+    ],
+    "rows": 1222
+  },
+  {
+    "code": "011612",
+    "label": "科创50",
+    "name": "华夏科创50ETF联接A",
+    "url": "https://fund.eastmoney.com/pingzhongdata/011612.js",
+    "sha256": "47aea566cc05bfd0a68fe8df1e3d188ba94ac884529a187606d4b20e98a501da",
+    "retrieved_at": "2026-10-22T05:07:55.139389+00:00",
+    "span": [
+      "2021-03-03",
+      "2026-10-20"
+    ],
+    "rows": 1345
+  },
+  {
+    "code": "160213",
+    "label": "纳指100备选",
+    "name": "国泰纳斯达克100指数",
+    "url": "https://fund.eastmoney.com/pingzhongdata/160213.js",
+    "sha256": "d66faa7c3a24d9d1e73e32144cf652ea69e1d21fc64ec3ded1f6246b66bd691c",
+    "retrieved_at": "2026-10-22T05:07:56.101521+00:00",
+    "span": [
+      "2010-04-28",
+      "2026-10-19"
+    ],
+    "rows": 3928
+  },
+  {
+    "code": "161125",
+    "label": "标普500备选",
+    "name": "易方达标普500指数人民币A",
+    "url": "https://fund.eastmoney.com/pingzhongdata/161125.js",
+    "sha256": "a5f185d3aaecd1eb768e413f0531f24ac784b1c40ce14298d6ff182ab5cfd06d",
+    "retrieved_at": "2026-10-22T05:07:57.051569+00:00",
+    "span": [
+      "2016-12-01",
+      "2026-10-19"
+    ],
+    "rows": 2382
+  },
+  {
+    "code": "162413",
+    "label": "中证1000长样本",
+    "name": "华宝中证1000指数A",
+    "url": "https://fund.eastmoney.com/pingzhongdata/162413.js",
+    "sha256": "a4062991d712741ddf3954779032c101b7382860a3be864e5ed3d8d3696959da",
+    "retrieved_at": "2026-10-22T05:07:58.251289+00:00",
+    "span": [
+      "2015-06-03",
+      "2025-01-08"
+    ],
+    "rows": 2344
+  },
+  {
+    "code": "011609",
+    "label": "科创50备选",
+    "name": "易方达上证科创50联接C",
+    "url": "https://fund.eastmoney.com/pingzhongdata/011609.js",
+    "sha256": "578b00db10c714eae8aa22155c77e1fc238cd7591ca147114c95395d24ad17d3",
+    "retrieved_at": "2026-10-22T05:07:59.142206+00:00",
+    "span": [
+      "2021-02-28",
+      "2026-10-20"
+    ],
+    "rows": 1341
+  }
+]

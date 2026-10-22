@@ -1,0 +1,38 @@
+{
+  "embedded_data_equivalence": {
+    "PRODUCT_ASSETS": true,
+    "WORKSPACE_DATA": true,
+    "FUND_ACCESS_MONITOR": true,
+    "ACCOUNT_NAV_SNAPSHOT": true,
+    "STRATEGY_SUMMARIES": true
+  },
+  "protected_file_count": 952,
+  "only_concurrent_cache_metadata_changed": [
+    "docs/account_nav.json"
+  ],
+  "cache_metadata_changes": {
+    "errors": {
+      "before": {},
+      "after": {
+        "000015": "净值来源暂不可用，沿用保存数据",
+        "008701": "净值来源暂不可用，沿用保存数据",
+        "161130": "净值来源暂不可用，沿用保存数据",
+        "090010": "净值来源暂不可用，沿用保存数据",
+        "050025": "净值来源暂不可用，沿用保存数据",
+        "001214": "净值来源暂不可用，沿用保存数据",
+        "160706": "净值来源暂不可用，沿用保存数据",
+        "021000": "净值来源暂不可用，沿用保存数据",
+        "019441": "净值来源暂不可用，沿用保存数据",
+        "022525": "净值来源暂不可用，沿用保存数据",
+        "017641": "净值来源暂不可用，沿用保存数据",
+        "022523": "净值来源暂不可用，沿用保存数据"
+      }
+    },
+    "attempted_at": {
+      "before": "2026-10-22T21:09:45.525128+08:00",
+      "after": "2026-10-22T23:18:53.824522+08:00"
+    }
+  },
+  "html_before": 10205666,
+  "html_after": 9444027
+}
