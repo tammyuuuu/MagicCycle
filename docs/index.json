@@ -4,35 +4,35 @@
     "name": "博时标普500ETF",
     "asset_type": "broad_etf",
     "subtype": "us_equity",
-    "date": "2026-10-20",
+    "date": "2026-10-21",
     "status": "watch",
     "action": "观察",
     "reason": "价格尚未高于20日均价，先等短期恢复；这一条件本身不要求卖出已有持仓。",
     "risk_level": "normal",
     "metrics": {
-      "price": 2.649,
-      "day_change_pct": -1.05,
+      "price": 2.656,
+      "day_change_pct": 0.26,
       "historical_percentile": null,
-      "drawdown": -4.64,
-      "rsi14": 42.51,
-      "ma5": 2.6808,
-      "ma10": 2.701,
-      "ma20": 2.69245,
-      "ma60": 2.6601166666666667,
-      "ma120": 2.5818,
-      "ma20_slope": 0.0023999999999997357,
-      "volatility": 0.01105807695758481,
-      "atr": 0.03467986208314564,
-      "volume_ratio": 1.3832382315744585,
+      "drawdown": -4.39,
+      "rsi14": 44.04,
+      "ma5": 2.664,
+      "ma10": 2.6978,
+      "ma20": 2.69325,
+      "ma60": 2.6622833333333333,
+      "ma120": 2.5842,
+      "ma20_slope": 0.00024999999999941735,
+      "volatility": 0.010979564933210841,
+      "atr": 0.03377415764863523,
+      "volume_ratio": 1.0062682606414983,
       "momentum12_pct": 17.69,
-      "ma60_deviation_pct": -0.42
+      "ma60_deviation_pct": -0.24
     },
     "details": {
       "trend": "neutral",
       "position": null,
       "overheated": false,
       "insufficient_history": false,
-      "history_days": 3099,
+      "history_days": 3100,
       "holding": false,
       "holding_return": null,
       "parameters": {
@@ -70,7 +70,7 @@
       ],
       [
         "短期热度",
-        "价格较60日均价偏离-0.42%，未处于过热阶段"
+        "价格较60日均价偏离-0.24%，未处于过热阶段"
       ],
       [
         "价格恢复",
@@ -85,7 +85,7 @@
       },
       {
         "condition": "短期热度",
-        "result": "价格较60日均价偏离-0.42%，未处于过热阶段",
+        "result": "价格较60日均价偏离-0.24%，未处于过热阶段",
         "met": null
       },
       {
@@ -100,35 +100,35 @@
     "name": "国泰纳指100ETF",
     "asset_type": "broad_etf",
     "subtype": "us_equity",
-    "date": "2026-10-20",
-    "status": "buy",
-    "action": "买入",
-    "reason": "长期方向向上，价格高于20日均价且未过热；本期新资金可买入，已有持仓不必重复交易。",
+    "date": "2026-10-21",
+    "status": "watch",
+    "action": "观察",
+    "reason": "价格尚未高于20日均价，先等短期恢复；这一条件本身不要求卖出已有持仓。",
     "risk_level": "normal",
     "metrics": {
-      "price": 2.334,
-      "day_change_pct": -0.47,
+      "price": 2.311,
+      "day_change_pct": -0.99,
       "historical_percentile": null,
-      "drawdown": -2.75,
-      "rsi14": 54.37,
-      "ma5": 2.351,
-      "ma10": 2.3654,
-      "ma20": 2.3215,
-      "ma60": 2.2359500000000003,
-      "ma120": 2.1896,
-      "ma20_slope": 0.033849999999999714,
-      "volatility": 0.013110068068691966,
-      "atr": 0.037728320832476604,
-      "volume_ratio": 0.856135771518422,
+      "drawdown": -3.71,
+      "rsi14": 50.41,
+      "ma5": 2.3334,
+      "ma10": 2.3613,
+      "ma20": 2.32725,
+      "ma60": 2.2389666666666668,
+      "ma120": 2.193,
+      "ma20_slope": 0.031299999999999883,
+      "volatility": 0.013058645920222978,
+      "atr": 0.038604869344442586,
+      "volume_ratio": 1.561545960174586,
       "momentum12_pct": 29.73,
-      "ma60_deviation_pct": 4.39
+      "ma60_deviation_pct": 3.22
     },
     "details": {
       "trend": "strong",
       "position": null,
       "overheated": false,
       "insufficient_history": false,
-      "history_days": 3263,
+      "history_days": 3264,
       "holding": false,
       "holding_return": null,
       "parameters": {
@@ -155,8 +155,8 @@
       "heat_active": false,
       "fresh_add": false,
       "fresh_reduce": false,
-      "new_money_action": "buy",
-      "new_money_fraction": 0.5,
+      "new_money_action": "watch",
+      "new_money_fraction": 0.0,
       "premium_notice": null
     },
     "decision_basis": [
@@ -166,11 +166,11 @@
       ],
       [
         "短期热度",
-        "价格较60日均价偏离+4.39%，未处于过热阶段"
+        "价格较60日均价偏离+3.22%，未处于过热阶段"
       ],
       [
         "价格恢复",
-        "价格高于20日均价"
+        "价格尚未高于20日均价"
       ]
     ],
     "decision_conditions": [
@@ -181,12 +181,12 @@
       },
       {
         "condition": "短期热度",
-        "result": "价格较60日均价偏离+4.39%，未处于过热阶段",
+        "result": "价格较60日均价偏离+3.22%，未处于过热阶段",
         "met": null
       },
       {
         "condition": "价格恢复",
-        "result": "价格高于20日均价",
+        "result": "价格尚未高于20日均价",
         "met": null
       }
     ]
@@ -196,35 +196,35 @@
     "name": "华夏黄金ETF",
     "asset_type": "macro_asset",
     "subtype": "gold",
-    "date": "2026-10-20",
+    "date": "2026-10-21",
     "status": "watch",
     "action": "观察",
     "reason": "未出现新的买卖信号，已有持仓保持；本策略允许普通波动中长期持有。",
     "risk_level": "normal",
     "metrics": {
-      "price": 8.55,
-      "day_change_pct": -1.08,
+      "price": 8.501,
+      "day_change_pct": -0.57,
       "historical_percentile": null,
-      "drawdown": -28.66,
-      "rsi14": 38.15,
-      "ma5": 8.5984,
-      "ma10": 8.6364,
-      "ma20": 8.7725,
-      "ma60": 8.9345,
-      "ma120": 9.0517,
-      "ma20_slope": -0.12349999999999817,
-      "volatility": 0.013131898786934628,
-      "atr": 0.11476174606927134,
-      "volume_ratio": 0.9337682835568146,
-      "return_20d_pct": -4.7,
-      "deviation60_pct": -4.3
+      "drawdown": -29.07,
+      "rsi14": 36.5,
+      "ma5": 8.5798,
+      "ma10": 8.6139,
+      "ma20": 8.7515,
+      "ma60": 8.9337,
+      "ma120": 9.0384,
+      "ma20_slope": -0.11690000000000111,
+      "volatility": 0.012957194925809148,
+      "atr": 0.11013590706432344,
+      "volume_ratio": 1.0180863049729545,
+      "return_20d_pct": -4.71,
+      "deviation60_pct": -4.84
     },
     "details": {
       "trend": "weak",
       "position": null,
       "overheated": false,
       "insufficient_history": false,
-      "history_days": 1544,
+      "history_days": 1545,
       "holding": false,
       "holding_return": null,
       "parameters": {
@@ -237,8 +237,8 @@
       "data_warning": null,
       "fundamental_data_available": null,
       "strategy_version": "gold_heat_actions_v2",
-      "return_20d_pct": -4.703522068658039,
-      "deviation60_pct": -4.3033639326280575,
+      "return_20d_pct": -4.7079923775361525,
+      "deviation60_pct": -4.843635441016514,
       "heat_phase": false,
       "hot_now": false,
       "cold_now": true,
@@ -270,33 +270,33 @@
     "name": "宇树科技",
     "asset_type": "stock",
     "subtype": null,
-    "date": "2026-10-20",
+    "date": "2026-10-21",
     "status": "watch",
     "action": "研究观察",
     "reason": "先观察营收、扣非利润和价格趋势；买卖条件尚未确定，不自动给出交易信号。",
     "risk_level": "normal",
     "metrics": {
-      "price": 526.03,
-      "day_change_pct": 6.07,
+      "price": 515.0,
+      "day_change_pct": -2.1,
       "historical_percentile": null,
-      "drawdown": -37.75,
-      "rsi14": 37.09,
-      "ma5": 454.782,
-      "ma10": 444.203,
-      "ma20": 463.902,
+      "drawdown": -39.05,
+      "rsi14": 35.99,
+      "ma5": 473.806,
+      "ma10": 450.663,
+      "ma20": 466.162,
       "ma60": null,
       "ma120": null,
-      "ma20_slope": -10.468500000000063,
-      "volatility": 0.05305293038980406,
-      "atr": 47.37948751822722,
-      "volume_ratio": 3.0722837846937234
+      "ma20_slope": -3.018500000000074,
+      "volatility": 0.05237456176717394,
+      "atr": 45.743809838353855,
+      "volume_ratio": 1.5618279306710006
     },
     "details": {
       "trend": "unknown",
       "position": null,
       "overheated": false,
       "insufficient_history": false,
-      "history_days": 39,
+      "history_days": 40,
       "holding": false,
       "holding_return": null,
       "parameters": {},
@@ -353,62 +353,731 @@
     "symbol": "510300",
     "name": "沪深300ETF",
     "asset_type": "broad_etf",
-    "status": "error",
-    "action": "数据暂不可用",
-    "reason": "行情获取或计算失败，请稍后刷新。",
-    "risk_level": "unknown",
-    "metrics": {},
-    "details": {
-      "error": "ValueError: 月度估值重复"
-    }
-  },
-  {
-    "symbol": "510500",
-    "name": "中证500ETF",
-    "asset_type": "broad_etf",
-    "status": "error",
-    "action": "数据暂不可用",
-    "reason": "行情获取或计算失败，请稍后刷新。",
-    "risk_level": "unknown",
-    "metrics": {},
-    "details": {
-      "error": "ValueError: 月度估值重复"
-    }
-  },
-  {
-    "symbol": "588000",
-    "name": "科创50ETF",
-    "asset_type": "broad_etf",
-    "subtype": "科创50",
-    "date": "2026-10-20",
-    "status": "exit",
-    "action": "退出",
-    "reason": "收盘跌到16日均价下方2%或更低；已有持仓考虑退出。",
+    "subtype": "沪深300",
+    "date": "2026-10-21",
+    "status": "watch",
+    "action": "观察",
+    "reason": "等待低估与价格恢复同时出现：PE分位低于30%，且收盘高于60日均价才开始买入。",
     "risk_level": "normal",
     "metrics": {
-      "price": 1.417,
-      "day_change_pct": 0.85,
+      "price": 4.185,
+      "day_change_pct": -0.83,
       "historical_percentile": null,
-      "drawdown": -39.55,
-      "rsi14": 26.18,
-      "ma5": 1.4296,
-      "ma10": 1.4855,
-      "ma20": 1.5958,
-      "ma60": 1.7104,
-      "ma120": 1.8047,
-      "ma20_slope": -0.05550000000000033,
-      "volatility": 0.030105662535494526,
-      "atr": 0.05598756707134731,
-      "volume_ratio": 1.6113249981148572,
-      "valuation_percentile": null,
-      "ma16": 1.570625
+      "drawdown": -17.8,
+      "rsi14": 18.23,
+      "ma5": 4.2246,
+      "ma10": 4.2896,
+      "ma20": 4.4076,
+      "ma60": 4.584083333333333,
+      "ma120": 4.7297,
+      "ma20_slope": -0.08924999999999894,
+      "volatility": 0.009205296728722985,
+      "atr": 0.06761946694729921,
+      "volume_ratio": 1.4402532324916095,
+      "valuation_percentile": 36.89,
+      "ma80": 4.6514125
     },
     "details": {
       "trend": "weak",
       "position": null,
       "overheated": false,
       "insufficient_history": false,
-      "history_days": 1436,
+      "history_days": 3498,
+      "holding": false,
+      "holding_return": null,
+      "parameters": {
+        "valuation_years": 5,
+        "entry_percentile": 30,
+        "exit_percentile": 90,
+        "ma_window": 80,
+        "entry_ma_window": 60,
+        "valuation_lag": 1
+      },
+      "data_warning": null,
+      "fundamental_data_available": null,
+      "strategy_mode": "broad_individual",
+      "strategy_id": "value_confirmed_exit",
+      "strategy_version": "csi300_value_confirm_v2",
+      "legacy": null,
+      "enabled_decisions": [
+        "buy",
+        "watch",
+        "exit"
+      ],
+      "strategy_options": {
+        "3": {
+          "status": "watch",
+          "action": "观察",
+          "reason": "等待低估与价格恢复同时出现：PE分位低于30%，且收盘高于60日均价才开始买入。",
+          "decision_basis": [
+            [
+              "当前分位",
+              "近3年PE分位39.19%（估值日期：2026-10-20）"
+            ],
+            [
+              "入场条件",
+              "PE分位低于30%且收盘高于60日均价才进入买入阶段"
+            ],
+            [
+              "买入确认",
+              "价格不高于60日均价；用于初次进入，入场后不因跌回线下自动退出"
+            ],
+            [
+              "退出确认",
+              "价格不高于80日均价；PE分位至少90%且转弱才退出"
+            ],
+            [
+              "策略阶段",
+              "等待低估入场或保持退出"
+            ]
+          ],
+          "decision_conditions": [
+            {
+              "condition": "当前分位",
+              "result": "近3年PE分位39.19%（估值日期：2026-10-20）",
+              "met": null
+            },
+            {
+              "condition": "入场条件",
+              "result": "PE分位低于30%且收盘高于60日均价才进入买入阶段",
+              "met": null
+            },
+            {
+              "condition": "买入确认",
+              "result": "价格不高于60日均价；用于初次进入，入场后不因跌回线下自动退出",
+              "met": null
+            },
+            {
+              "condition": "退出确认",
+              "result": "价格不高于80日均价；PE分位至少90%且转弱才退出",
+              "met": null
+            },
+            {
+              "condition": "策略阶段",
+              "result": "等待低估入场或保持退出",
+              "met": null
+            }
+          ],
+          "valuation": {
+            "metric": "PE",
+            "value": 29.35,
+            "date": "2026-10-20",
+            "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+            "source_url": "https://legulegu.com/stockdata/index-basic",
+            "frequency": "monthly",
+            "window_years": 3,
+            "samples": 37,
+            "history_start": "2023-10-31",
+            "percentile": 39.19
+          },
+          "valuation_percentile": 39.19,
+          "insufficient_history": false,
+          "average": 4.6514125
+        },
+        "5": {
+          "status": "watch",
+          "action": "观察",
+          "reason": "等待低估与价格恢复同时出现：PE分位低于30%，且收盘高于60日均价才开始买入。",
+          "decision_basis": [
+            [
+              "当前分位",
+              "近5年PE分位36.89%（估值日期：2026-10-20）"
+            ],
+            [
+              "入场条件",
+              "PE分位低于30%且收盘高于60日均价才进入买入阶段"
+            ],
+            [
+              "买入确认",
+              "价格不高于60日均价；用于初次进入，入场后不因跌回线下自动退出"
+            ],
+            [
+              "退出确认",
+              "价格不高于80日均价；PE分位至少90%且转弱才退出"
+            ],
+            [
+              "策略阶段",
+              "等待低估入场或保持退出"
+            ]
+          ],
+          "decision_conditions": [
+            {
+              "condition": "当前分位",
+              "result": "近5年PE分位36.89%（估值日期：2026-10-20）",
+              "met": null
+            },
+            {
+              "condition": "入场条件",
+              "result": "PE分位低于30%且收盘高于60日均价才进入买入阶段",
+              "met": null
+            },
+            {
+              "condition": "买入确认",
+              "result": "价格不高于60日均价；用于初次进入，入场后不因跌回线下自动退出",
+              "met": null
+            },
+            {
+              "condition": "退出确认",
+              "result": "价格不高于80日均价；PE分位至少90%且转弱才退出",
+              "met": null
+            },
+            {
+              "condition": "策略阶段",
+              "result": "等待低估入场或保持退出",
+              "met": null
+            }
+          ],
+          "valuation": {
+            "metric": "PE",
+            "value": 29.35,
+            "date": "2026-10-20",
+            "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+            "source_url": "https://legulegu.com/stockdata/index-basic",
+            "frequency": "monthly",
+            "window_years": 5,
+            "samples": 61,
+            "history_start": "2021-10-29",
+            "percentile": 36.89
+          },
+          "valuation_percentile": 36.89,
+          "insufficient_history": false,
+          "average": 4.6514125
+        },
+        "10": {
+          "status": "buy",
+          "action": "买入",
+          "reason": "低估且价格恢复后进入买入阶段，尚未触发“高估且转弱”退出；本期新资金可买入，已有持仓不必重复交易。",
+          "decision_basis": [
+            [
+              "当前分位",
+              "近10年PE分位27.69%（估值日期：2026-10-20）"
+            ],
+            [
+              "入场条件",
+              "PE分位低于30%且收盘高于60日均价才进入买入阶段"
+            ],
+            [
+              "买入确认",
+              "价格不高于60日均价；用于初次进入，入场后不因跌回线下自动退出"
+            ],
+            [
+              "退出确认",
+              "价格不高于80日均价；PE分位至少90%且转弱才退出"
+            ],
+            [
+              "策略阶段",
+              "允许持有与本期新资金买入"
+            ]
+          ],
+          "decision_conditions": [
+            {
+              "condition": "当前分位",
+              "result": "近10年PE分位27.69%（估值日期：2026-10-20）",
+              "met": null
+            },
+            {
+              "condition": "入场条件",
+              "result": "PE分位低于30%且收盘高于60日均价才进入买入阶段",
+              "met": null
+            },
+            {
+              "condition": "买入确认",
+              "result": "价格不高于60日均价；用于初次进入，入场后不因跌回线下自动退出",
+              "met": null
+            },
+            {
+              "condition": "退出确认",
+              "result": "价格不高于80日均价；PE分位至少90%且转弱才退出",
+              "met": null
+            },
+            {
+              "condition": "策略阶段",
+              "result": "允许持有与本期新资金买入",
+              "met": null
+            }
+          ],
+          "valuation": {
+            "metric": "PE",
+            "value": 29.35,
+            "date": "2026-10-20",
+            "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+            "source_url": "https://legulegu.com/stockdata/index-basic",
+            "frequency": "monthly",
+            "window_years": 10,
+            "samples": 121,
+            "history_start": "2016-10-31",
+            "percentile": 27.69
+          },
+          "valuation_percentile": 27.69,
+          "insufficient_history": false,
+          "average": 4.6514125
+        }
+      },
+      "valuation": {
+        "metric": "PE",
+        "value": 29.35,
+        "date": "2026-10-20",
+        "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+        "source_url": "https://legulegu.com/stockdata/index-basic",
+        "frequency": "monthly",
+        "window_years": 5,
+        "samples": 61,
+        "history_start": "2021-10-29",
+        "percentile": 36.89
+      },
+      "valuation_options": {
+        "3": {
+          "metric": "PE",
+          "value": 29.35,
+          "date": "2026-10-20",
+          "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+          "source_url": "https://legulegu.com/stockdata/index-basic",
+          "frequency": "monthly",
+          "window_years": 3,
+          "samples": 37,
+          "history_start": "2023-10-31",
+          "percentile": 39.19
+        },
+        "5": {
+          "metric": "PE",
+          "value": 29.35,
+          "date": "2026-10-20",
+          "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+          "source_url": "https://legulegu.com/stockdata/index-basic",
+          "frequency": "monthly",
+          "window_years": 5,
+          "samples": 61,
+          "history_start": "2021-10-29",
+          "percentile": 36.89
+        },
+        "10": {
+          "metric": "PE",
+          "value": 29.35,
+          "date": "2026-10-20",
+          "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+          "source_url": "https://legulegu.com/stockdata/index-basic",
+          "frequency": "monthly",
+          "window_years": 10,
+          "samples": 121,
+          "history_start": "2016-10-31",
+          "percentile": 27.69
+        }
+      },
+      "new_money_fraction": 0.0
+    },
+    "decision_basis": [
+      [
+        "当前分位",
+        "近5年PE分位36.89%（估值日期：2026-10-20）"
+      ],
+      [
+        "入场条件",
+        "PE分位低于30%且收盘高于60日均价才进入买入阶段"
+      ],
+      [
+        "买入确认",
+        "价格不高于60日均价；用于初次进入，入场后不因跌回线下自动退出"
+      ],
+      [
+        "退出确认",
+        "价格不高于80日均价；PE分位至少90%且转弱才退出"
+      ],
+      [
+        "策略阶段",
+        "等待低估入场或保持退出"
+      ]
+    ],
+    "decision_conditions": [
+      {
+        "condition": "当前分位",
+        "result": "近5年PE分位36.89%（估值日期：2026-10-20）",
+        "met": null
+      },
+      {
+        "condition": "入场条件",
+        "result": "PE分位低于30%且收盘高于60日均价才进入买入阶段",
+        "met": null
+      },
+      {
+        "condition": "买入确认",
+        "result": "价格不高于60日均价；用于初次进入，入场后不因跌回线下自动退出",
+        "met": null
+      },
+      {
+        "condition": "退出确认",
+        "result": "价格不高于80日均价；PE分位至少90%且转弱才退出",
+        "met": null
+      },
+      {
+        "condition": "策略阶段",
+        "result": "等待低估入场或保持退出",
+        "met": null
+      }
+    ]
+  },
+  {
+    "symbol": "510500",
+    "name": "中证500ETF",
+    "asset_type": "broad_etf",
+    "subtype": "中证500",
+    "date": "2026-10-21",
+    "status": "exit",
+    "action": "退出",
+    "reason": "估值已离开低估区，且价格不高于120日均价；已有持仓考虑退出。",
+    "risk_level": "normal",
+    "metrics": {
+      "price": 6.864,
+      "day_change_pct": -0.1,
+      "historical_percentile": null,
+      "drawdown": -24.11,
+      "rsi14": 25.68,
+      "ma5": 6.8352,
+      "ma10": 6.9996,
+      "ma20": 7.3397,
+      "ma60": 7.6348,
+      "ma120": 8.029266666666667,
+      "ma20_slope": -0.20705000000000062,
+      "volatility": 0.015822960921339845,
+      "atr": 0.17280006635389475,
+      "volume_ratio": 1.0251037356070956,
+      "valuation_percentile": 79.51
+    },
+    "details": {
+      "trend": "weak",
+      "position": null,
+      "overheated": false,
+      "insufficient_history": false,
+      "history_days": 2863,
+      "holding": false,
+      "holding_return": null,
+      "parameters": {
+        "valuation_years": 5,
+        "entry_percentile": 30,
+        "exit_percentile": 30,
+        "ma_window": 120,
+        "trend_entry_ceiling": 60,
+        "valuation_lag": 1
+      },
+      "data_warning": null,
+      "fundamental_data_available": null,
+      "strategy_mode": "broad_individual",
+      "strategy_id": "value_or_trend120",
+      "strategy_version": "csi500_value_trend_v2",
+      "legacy": null,
+      "enabled_decisions": [
+        "buy",
+        "watch",
+        "exit"
+      ],
+      "strategy_options": {
+        "3": {
+          "status": "exit",
+          "action": "退出",
+          "reason": "估值已离开低估区，且价格不高于120日均价；已有持仓考虑退出。",
+          "decision_basis": [
+            [
+              "当前分位",
+              "近3年PE分位66.22%（估值日期：2026-10-20）"
+            ],
+            [
+              "入场条件",
+              "PE分位低于30%允许买入，否则须低于60%且高于120日均价"
+            ],
+            [
+              "退出条件",
+              "价格不高于120日均价；PE分位至少30%且价格转弱才退出"
+            ],
+            [
+              "策略阶段",
+              "等待入场条件或保持退出"
+            ]
+          ],
+          "decision_conditions": [
+            {
+              "condition": "当前分位",
+              "result": "近3年PE分位66.22%（估值日期：2026-10-20）",
+              "met": null
+            },
+            {
+              "condition": "入场条件",
+              "result": "PE分位低于30%允许买入，否则须低于60%且高于120日均价",
+              "met": null
+            },
+            {
+              "condition": "退出条件",
+              "result": "价格不高于120日均价；PE分位至少30%且价格转弱才退出",
+              "met": null
+            },
+            {
+              "condition": "策略阶段",
+              "result": "等待入场条件或保持退出",
+              "met": null
+            }
+          ],
+          "valuation": {
+            "metric": "PE",
+            "value": 41.51,
+            "date": "2026-10-20",
+            "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+            "source_url": "https://legulegu.com/stockdata/index-basic",
+            "frequency": "monthly",
+            "window_years": 3,
+            "samples": 37,
+            "history_start": "2023-10-31",
+            "percentile": 66.22
+          },
+          "valuation_percentile": 66.22,
+          "insufficient_history": false,
+          "average": 8.029266666666667
+        },
+        "5": {
+          "status": "exit",
+          "action": "退出",
+          "reason": "估值已离开低估区，且价格不高于120日均价；已有持仓考虑退出。",
+          "decision_basis": [
+            [
+              "当前分位",
+              "近5年PE分位79.51%（估值日期：2026-10-20）"
+            ],
+            [
+              "入场条件",
+              "PE分位低于30%允许买入，否则须低于60%且高于120日均价"
+            ],
+            [
+              "退出条件",
+              "价格不高于120日均价；PE分位至少30%且价格转弱才退出"
+            ],
+            [
+              "策略阶段",
+              "等待入场条件或保持退出"
+            ]
+          ],
+          "decision_conditions": [
+            {
+              "condition": "当前分位",
+              "result": "近5年PE分位79.51%（估值日期：2026-10-20）",
+              "met": null
+            },
+            {
+              "condition": "入场条件",
+              "result": "PE分位低于30%允许买入，否则须低于60%且高于120日均价",
+              "met": null
+            },
+            {
+              "condition": "退出条件",
+              "result": "价格不高于120日均价；PE分位至少30%且价格转弱才退出",
+              "met": null
+            },
+            {
+              "condition": "策略阶段",
+              "result": "等待入场条件或保持退出",
+              "met": null
+            }
+          ],
+          "valuation": {
+            "metric": "PE",
+            "value": 41.51,
+            "date": "2026-10-20",
+            "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+            "source_url": "https://legulegu.com/stockdata/index-basic",
+            "frequency": "monthly",
+            "window_years": 5,
+            "samples": 61,
+            "history_start": "2021-10-29",
+            "percentile": 79.51
+          },
+          "valuation_percentile": 79.51,
+          "insufficient_history": false,
+          "average": 8.029266666666667
+        },
+        "10": {
+          "status": "exit",
+          "action": "退出",
+          "reason": "估值已离开低估区，且价格不高于120日均价；已有持仓考虑退出。",
+          "decision_basis": [
+            [
+              "当前分位",
+              "近10年PE分位66.53%（估值日期：2026-10-20）"
+            ],
+            [
+              "入场条件",
+              "PE分位低于30%允许买入，否则须低于60%且高于120日均价"
+            ],
+            [
+              "退出条件",
+              "价格不高于120日均价；PE分位至少30%且价格转弱才退出"
+            ],
+            [
+              "策略阶段",
+              "等待入场条件或保持退出"
+            ]
+          ],
+          "decision_conditions": [
+            {
+              "condition": "当前分位",
+              "result": "近10年PE分位66.53%（估值日期：2026-10-20）",
+              "met": null
+            },
+            {
+              "condition": "入场条件",
+              "result": "PE分位低于30%允许买入，否则须低于60%且高于120日均价",
+              "met": null
+            },
+            {
+              "condition": "退出条件",
+              "result": "价格不高于120日均价；PE分位至少30%且价格转弱才退出",
+              "met": null
+            },
+            {
+              "condition": "策略阶段",
+              "result": "等待入场条件或保持退出",
+              "met": null
+            }
+          ],
+          "valuation": {
+            "metric": "PE",
+            "value": 41.51,
+            "date": "2026-10-20",
+            "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+            "source_url": "https://legulegu.com/stockdata/index-basic",
+            "frequency": "monthly",
+            "window_years": 10,
+            "samples": 121,
+            "history_start": "2016-10-31",
+            "percentile": 66.53
+          },
+          "valuation_percentile": 66.53,
+          "insufficient_history": false,
+          "average": 8.029266666666667
+        }
+      },
+      "valuation": {
+        "metric": "PE",
+        "value": 41.51,
+        "date": "2026-10-20",
+        "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+        "source_url": "https://legulegu.com/stockdata/index-basic",
+        "frequency": "monthly",
+        "window_years": 5,
+        "samples": 61,
+        "history_start": "2021-10-29",
+        "percentile": 79.51
+      },
+      "valuation_options": {
+        "3": {
+          "metric": "PE",
+          "value": 41.51,
+          "date": "2026-10-20",
+          "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+          "source_url": "https://legulegu.com/stockdata/index-basic",
+          "frequency": "monthly",
+          "window_years": 3,
+          "samples": 37,
+          "history_start": "2023-10-31",
+          "percentile": 66.22
+        },
+        "5": {
+          "metric": "PE",
+          "value": 41.51,
+          "date": "2026-10-20",
+          "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+          "source_url": "https://legulegu.com/stockdata/index-basic",
+          "frequency": "monthly",
+          "window_years": 5,
+          "samples": 61,
+          "history_start": "2021-10-29",
+          "percentile": 79.51
+        },
+        "10": {
+          "metric": "PE",
+          "value": 41.51,
+          "date": "2026-10-20",
+          "source": "乐咕乐股 · 指数加权滚动市盈率（月度）",
+          "source_url": "https://legulegu.com/stockdata/index-basic",
+          "frequency": "monthly",
+          "window_years": 10,
+          "samples": 121,
+          "history_start": "2016-10-31",
+          "percentile": 66.53
+        }
+      },
+      "new_money_fraction": 0.0
+    },
+    "decision_basis": [
+      [
+        "当前分位",
+        "近5年PE分位79.51%（估值日期：2026-10-20）"
+      ],
+      [
+        "入场条件",
+        "PE分位低于30%允许买入，否则须低于60%且高于120日均价"
+      ],
+      [
+        "退出条件",
+        "价格不高于120日均价；PE分位至少30%且价格转弱才退出"
+      ],
+      [
+        "策略阶段",
+        "等待入场条件或保持退出"
+      ]
+    ],
+    "decision_conditions": [
+      {
+        "condition": "当前分位",
+        "result": "近5年PE分位79.51%（估值日期：2026-10-20）",
+        "met": null
+      },
+      {
+        "condition": "入场条件",
+        "result": "PE分位低于30%允许买入，否则须低于60%且高于120日均价",
+        "met": null
+      },
+      {
+        "condition": "退出条件",
+        "result": "价格不高于120日均价；PE分位至少30%且价格转弱才退出",
+        "met": null
+      },
+      {
+        "condition": "策略阶段",
+        "result": "等待入场条件或保持退出",
+        "met": null
+      }
+    ]
+  },
+  {
+    "symbol": "588000",
+    "name": "科创50ETF",
+    "asset_type": "broad_etf",
+    "subtype": "科创50",
+    "date": "2026-10-21",
+    "status": "exit",
+    "action": "退出",
+    "reason": "收盘跌到16日均价下方2%或更低；已有持仓考虑退出。",
+    "risk_level": "normal",
+    "metrics": {
+      "price": 1.418,
+      "day_change_pct": 0.07,
+      "historical_percentile": null,
+      "drawdown": -39.51,
+      "rsi14": 26.38,
+      "ma5": 1.4216,
+      "ma10": 1.4657,
+      "ma20": 1.5848,
+      "ma60": 1.7005,
+      "ma120": 1.8038,
+      "ma20_slope": -0.05534999999999979,
+      "volatility": 0.026102929832066496,
+      "atr": 0.0546313122805368,
+      "volume_ratio": 1.057347813144261,
+      "valuation_percentile": null,
+      "ma16": 1.5499375
+    },
+    "details": {
+      "trend": "weak",
+      "position": null,
+      "overheated": false,
+      "insufficient_history": false,
+      "history_days": 1437,
       "holding": false,
       "holding_return": null,
       "parameters": {
@@ -481,33 +1150,33 @@
     "name": "科创半导体ETF华夏",
     "asset_type": "sector_etf",
     "subtype": null,
-    "date": "2026-10-20",
+    "date": "2026-10-21",
     "status": "exit",
     "action": "退出",
-    "reason": "收盘价连续12个交易日在20日均线或下方，退出剩余持仓；未持有无需卖出。",
+    "reason": "收盘价连续13个交易日在20日均线或下方，退出剩余持仓；未持有无需卖出。",
     "risk_level": "high",
     "metrics": {
-      "price": 0.778,
-      "day_change_pct": -1.52,
+      "price": 0.767,
+      "day_change_pct": -1.41,
       "historical_percentile": null,
-      "drawdown": -44.31,
-      "rsi14": 27.37,
-      "ma5": 0.8164,
-      "ma10": 0.8475,
-      "ma20": 0.9121,
-      "ma60": 0.9565,
-      "ma120": 0.945,
-      "ma20_slope": -0.022300000000000098,
-      "volatility": 0.04463790498806622,
-      "atr": 0.04431685306837205,
-      "volume_ratio": 1.2610319724306571
+      "drawdown": -45.1,
+      "rsi14": 26.32,
+      "ma5": 0.8018,
+      "ma10": 0.8332,
+      "ma20": 0.9043,
+      "ma60": 0.9514,
+      "ma120": 0.9464,
+      "ma20_slope": -0.026100000000000123,
+      "volatility": 0.03688956561210429,
+      "atr": 0.0432227921349169,
+      "volume_ratio": 0.8306553769385995
     },
     "details": {
       "trend": "weak",
       "position": null,
       "overheated": false,
       "insufficient_history": false,
-      "history_days": 372,
+      "history_days": 373,
       "holding": false,
       "holding_return": null,
       "parameters": {
@@ -522,7 +1191,7 @@
       "fresh_entry": false,
       "crossed_down": false,
       "target_exposure": 0.0,
-      "below_days": 12,
+      "below_days": 13,
       "enabled_decisions": [
         "buy",
         "watch",
@@ -532,22 +1201,22 @@
       "legacy": {
         "strategy_type": "industry",
         "strategy_version": "sector_ma20_partial_v2",
-        "date": "2026-10-20",
-        "close": 0.778,
-        "ma20": 0.9121,
-        "ma_value": 0.9121,
+        "date": "2026-10-21",
+        "close": 0.767,
+        "ma20": 0.9043,
+        "ma_value": 0.90435,
         "previous_above": false,
         "previous_ready": true,
         "above_ma": false,
         "fresh_entry": false,
         "crossed_down": false,
         "target_exposure": 0.0,
-        "below_days": 12,
+        "below_days": 13,
         "insufficient_history": false,
-        "history_days": 372,
+        "history_days": 373,
         "status": "exit",
         "action": "退出",
-        "reason": "收盘价连续12个交易日在20日均线或下方，退出剩余持仓；未持有无需卖出。",
+        "reason": "收盘价连续13个交易日在20日均线或下方，退出剩余持仓；未持有无需卖出。",
         "profile": {
           "ma_fast": 20,
           "min_history": 20
