@@ -98,7 +98,7 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
     return f"""<!DOCTYPE html>
 <!-- 自动生成文件：请勿直接编辑。账户页面在 templates/_invest_tools.html，研究数据由 workspace_data/manifest.json 指定。 -->
 <html lang="zh-CN"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#202e4b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">

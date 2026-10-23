@@ -1,7 +1,12 @@
 /* Four-page account workspace. All writes are explicit manual records, never orders. */
 (function(){
+ for(const type of ['gesturestart','gesturechange','gestureend'])document.addEventListener(type,event=>event.preventDefault(),{passive:false});
  const S=window.XingxunStore,D=window.WORKSPACE_DATA,V=window.PortfolioValuation,C=window.CapitalPool,A=window.ProductAssets;
  const $=id=>document.getElementById(id);if(!$('investmentPlan'))return;
+ let activePage='today';const pageScroll={};let workspaceReady=false;
+ try {
+ document.querySelectorAll('#topnav a').forEach(a=>{a.onclick=()=>{const name=a.dataset.t||a.dataset.page;navigate(name);if(name==='today'&&window.loadAlerts)window.loadAlerts();};a.setAttribute('role','button');a.tabIndex=0;a.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();a.click();}});});
+ // Safari standalone storage or rendering failures must not disable navigation.
  if(!D?.research?.strategies?.length){$('workspaceStatus').textContent='版本化研究或净值文件不可用，已停止计算。';return;}
  S.setContext('real','strategy');let alipayRepairMessage='';try{if(window.AccountFunding.restoreAlipayCosts(S))alipayRepairMessage='已按原支付宝记录恢复转入净额与计收益成本，份额保持不变。';}catch(e){alipayRepairMessage=e.message;}
  let accountFunds=A.catalog(D,window.FUND_ACCESS_MONITOR,S.profile()),quoteMessage='',quotesLoading=false,reviewAutoDate=true;
@@ -152,7 +157,6 @@
  }
  function renderResearch(){window.StrategyLab.init(D);}
  function download(value,name){const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
- let activePage="today";const pageScroll={};
  function navigate(name){
   document.body.classList.remove('scorecard-capture');$('scoreCapture').textContent='截图视图';
   name=({diary:'review',guide:'lab'}[name]||name);
@@ -160,8 +164,10 @@
   for(const id of ['plan','review','lab'])$('invest-'+id).classList.toggle('hidden',id!==name);
   for(const id of ['sec-today','page-today']){const el=$(id);if(el)el.classList.toggle('hidden',name!=='today');}
   document.querySelectorAll('#topnav a').forEach(a=>{const n=a.dataset.t||a.dataset.page;a.classList.toggle('active',n===name);a.setAttribute('aria-current',n===name?'page':'false');});
-  if(name==='review')renderReview();if(name==='plan'){renderAccount();renderReview();}
-  status('');activePage=name;requestAnimationFrame(()=>window.scrollTo({top:pageScroll[name]||0,behavior:'instant'}));
+  activePage=name;requestAnimationFrame(()=>window.scrollTo({top:pageScroll[name]||0,behavior:'instant'}));
+  if(!workspaceReady)return;
+  try{if(name==='review')renderReview();if(name==='plan'){renderAccount();renderReview();}status('');}
+  catch(error){$('workspaceStatus').textContent='页面计算暂不可用：'+error.message;}
  }
  $('incomeDate').value=today();
  $('candidateSelect').innerHTML=options(strategies.map(s=>[s.id,window.StrategyLabels.label(s.id)]));
@@ -206,10 +212,11 @@
  if(S.profile().researchSelection&&strategies.some(s=>s.id===S.profile().researchSelection))$('candidateSelect').value=S.profile().researchSelection;
  if(window.ACCOUNT_NAV_SNAPSHOT)try{applyAccountQuotes(window.ACCOUNT_NAV_SNAPSHOT);}catch(error){quoteMessage='保存净值异常，沿用研究快照。';}
  window.XingxunWorkspace={navigate,renderAccount,renderReview,chart,get actualFunds(){return accountFunds;},get plan(){return activePlan;},get report(){return latestReport;}};
+ workspaceReady=true;
  renderAccount();renderReview();renderResearch();if(alipayRepairMessage)status(alipayRepairMessage);
  refreshAccountQuotes();
  setInterval(()=>{if(document.visibilityState!=='hidden'){if(reviewAutoDate)reviewEnd=today();renderReview();refreshAccountQuotes();}},300000);
  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshAccountQuotes();});
- document.querySelectorAll('#topnav a').forEach(a=>{a.onclick=()=>{const name=a.dataset.t||a.dataset.page;navigate(name);if(name==='today'&&window.loadAlerts)window.loadAlerts();};a.setAttribute('role','button');a.tabIndex=0;a.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();a.click();}});});
 
+ }catch(error){$('workspaceStatus').textContent='账户初始化暂不可用：'+error.message+'。可切换页面查看，请勿清除浏览器数据。';}
 })();

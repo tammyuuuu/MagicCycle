@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- 自动生成文件：请勿直接编辑。账户页面在 templates/_invest_tools.html，研究数据由 workspace_data/manifest.json 指定。 -->
 <html lang="zh-CN"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#202e4b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -15,6 +15,7 @@
 /* Shared critical styles: parsed in head before any application content. */
 :root{--select-arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23202e4b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");--night:#202e4b;--ultra:#253e69;--cobalt:#345a8b;--gold:#c3a15d;--gold-lt:#dbc595;--amber:#916522;--crimson:#a04c42;--cypress:#416858;--canvas:#f5f4ef;--card:#fffefa;--ink:#293344;--line:#e4e5de;}
 *{box-sizing:border-box;}
+html{touch-action:pan-x pan-y;-webkit-text-size-adjust:100%;text-size-adjust:100%;}
 body{color:var(--ink);font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;}
 header{background:var(--night);color:rgb(248, 245, 233);border:0px;overflow:hidden;}
 header h1,h1{position:relative;font-family:Georgia, "Songti SC", SimSun, serif;font-size:28px;font-weight:500;letter-spacing:2px;line-height:1.5;margin:0px 0px 10px;}
@@ -1480,8 +1481,13 @@ window.ACCOUNT_NAV_SNAPSHOT={"schema":"xingxun-account-nav-v1","source":"https:/
 
 /* Four-page account workspace. All writes are explicit manual records, never orders. */
 (function(){
+ for(const type of ['gesturestart','gesturechange','gestureend'])document.addEventListener(type,event=>event.preventDefault(),{passive:false});
  const S=window.XingxunStore,D=window.WORKSPACE_DATA,V=window.PortfolioValuation,C=window.CapitalPool,A=window.ProductAssets;
  const $=id=>document.getElementById(id);if(!$('investmentPlan'))return;
+ let activePage='today';const pageScroll={};let workspaceReady=false;
+ try {
+ document.querySelectorAll('#topnav a').forEach(a=>{a.onclick=()=>{const name=a.dataset.t||a.dataset.page;navigate(name);if(name==='today'&&window.loadAlerts)window.loadAlerts();};a.setAttribute('role','button');a.tabIndex=0;a.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();a.click();}});});
+ // Safari standalone storage or rendering failures must not disable navigation.
  if(!D?.research?.strategies?.length){$('workspaceStatus').textContent='版本化研究或净值文件不可用，已停止计算。';return;}
  S.setContext('real','strategy');let alipayRepairMessage='';try{if(window.AccountFunding.restoreAlipayCosts(S))alipayRepairMessage='已按原支付宝记录恢复转入净额与计收益成本，份额保持不变。';}catch(e){alipayRepairMessage=e.message;}
  let accountFunds=A.catalog(D,window.FUND_ACCESS_MONITOR,S.profile()),quoteMessage='',quotesLoading=false,reviewAutoDate=true;
@@ -1632,7 +1638,6 @@ window.ACCOUNT_NAV_SNAPSHOT={"schema":"xingxun-account-nav-v1","source":"https:/
  }
  function renderResearch(){window.StrategyLab.init(D);}
  function download(value,name){const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
- let activePage="today";const pageScroll={};
  function navigate(name){
   document.body.classList.remove('scorecard-capture');$('scoreCapture').textContent='截图视图';
   name=({diary:'review',guide:'lab'}[name]||name);
@@ -1640,8 +1645,10 @@ window.ACCOUNT_NAV_SNAPSHOT={"schema":"xingxun-account-nav-v1","source":"https:/
   for(const id of ['plan','review','lab'])$('invest-'+id).classList.toggle('hidden',id!==name);
   for(const id of ['sec-today','page-today']){const el=$(id);if(el)el.classList.toggle('hidden',name!=='today');}
   document.querySelectorAll('#topnav a').forEach(a=>{const n=a.dataset.t||a.dataset.page;a.classList.toggle('active',n===name);a.setAttribute('aria-current',n===name?'page':'false');});
-  if(name==='review')renderReview();if(name==='plan'){renderAccount();renderReview();}
-  status('');activePage=name;requestAnimationFrame(()=>window.scrollTo({top:pageScroll[name]||0,behavior:'instant'}));
+  activePage=name;requestAnimationFrame(()=>window.scrollTo({top:pageScroll[name]||0,behavior:'instant'}));
+  if(!workspaceReady)return;
+  try{if(name==='review')renderReview();if(name==='plan'){renderAccount();renderReview();}status('');}
+  catch(error){$('workspaceStatus').textContent='页面计算暂不可用：'+error.message;}
  }
  $('incomeDate').value=today();
  $('candidateSelect').innerHTML=options(strategies.map(s=>[s.id,window.StrategyLabels.label(s.id)]));
@@ -1686,12 +1693,13 @@ window.ACCOUNT_NAV_SNAPSHOT={"schema":"xingxun-account-nav-v1","source":"https:/
  if(S.profile().researchSelection&&strategies.some(s=>s.id===S.profile().researchSelection))$('candidateSelect').value=S.profile().researchSelection;
  if(window.ACCOUNT_NAV_SNAPSHOT)try{applyAccountQuotes(window.ACCOUNT_NAV_SNAPSHOT);}catch(error){quoteMessage='保存净值异常，沿用研究快照。';}
  window.XingxunWorkspace={navigate,renderAccount,renderReview,chart,get actualFunds(){return accountFunds;},get plan(){return activePlan;},get report(){return latestReport;}};
+ workspaceReady=true;
  renderAccount();renderReview();renderResearch();if(alipayRepairMessage)status(alipayRepairMessage);
  refreshAccountQuotes();
  setInterval(()=>{if(document.visibilityState!=='hidden'){if(reviewAutoDate)reviewEnd=today();renderReview();refreshAccountQuotes();}},300000);
  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshAccountQuotes();});
- document.querySelectorAll('#topnav a').forEach(a=>{a.onclick=()=>{const name=a.dataset.t||a.dataset.page;navigate(name);if(name==='today'&&window.loadAlerts)window.loadAlerts();};a.setAttribute('role','button');a.tabIndex=0;a.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();a.click();}});});
 
+ }catch(error){$('workspaceStatus').textContent='账户初始化暂不可用：'+error.message+'。可切换页面查看，请勿清除浏览器数据。';}
 })();</script>
 
 <footer>数据：AkShare（东方财富/新浪）· 仅供策略研究，非投资建议</footer></div>
