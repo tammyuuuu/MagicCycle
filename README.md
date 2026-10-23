@@ -118,3 +118,13 @@ python -B maintenance/archive_catalog.py --restore results --destination mainten
 正式入口仍为 `docs/index.html`，使用 `python export_alerts.py --offline` 重新生成。完整检查使用 `python run_tests.py --browser`；首屏检查使用 `node ui_cleanup/check_first_paint.js`。
 
 历史UI基线的未压缩HTML已转为可校验恢复的ZIP；可选历史探针通过 `maintenance/read_html_snapshot.js` 读取，当前网站不加载该工具。仍被测试引用的旧模块、Flask预览文件、原静态预览路径、所有研究数据和既有依赖均保留。详情与恢复清单见 [清理验收报告](maintenance/20261022/cleanup_latest/REPORT.md)。
+
+## 加载与 PWA 更新（2026-10-23）
+
+静态首页由现有 `export_alerts.py` 生成。HTML 只包含今日提醒和轻量导航；账户数据及工作区脚本在打开投资配置/复盘时加载，研究曲线仅在打开策略实验时解析。所有完整公开历史数据仍保留在内容哈希命名的 `docs/assets/*.js` 中。
+
+导出会自动生成 `docs/bundle-assets.json`、`docs/pwa-manifest.json`，并更新 `docs/sw.js` 的发布版本，无需人工递增。必须将 HTML、清单、SW 和所有引用的 assets 同批提交；`update_alerts.ps1` 已同步支持这一发布范围。旧的已发布哈希资源保留给尚未刷新的页面使用。
+
+PWA 从当前版本缓存立即启动，后台检查更新。新版本的全部离线资源通过 SHA-256 验证后显示“刷新更新”，点击后激活并刷新；未保存填写会再次确认。更新失败继续保留旧版。不会清除 localStorage 或 IndexedDB，账本、设置及交易使用原存储键和原地址。首次完整离线包就绪仍需联网下载；之后未变化的曲线直接复用已有缓存。
+
+验证：`node maintenance/20261022/test_pwa.js` 测试真实旧版提交到新版的升级、二次更新、安装失败保留旧版、未保存内容取消刷新、账户/交易/设置逐字保留、子目录托管及全部四页离线。`maintenance/pwa_load/` 保存同条件前后测速结果和说明。

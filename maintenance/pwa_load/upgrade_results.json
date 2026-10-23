@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "legacy": "v50",
+  "release": "c3bcca7a06c3609634ab",
+  "localStorageKeys": [
+    "unrelated-user-setting",
+    "valuationYears",
+    "xingxun_ledger_v2_real_strategy"
+  ],
+  "offlineAllPages": true,
+  "failedInstallRetainsOld": true
+}

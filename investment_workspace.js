@@ -34,7 +34,7 @@
    const updates=await Promise.allSettled(codes.map(code=>window.FundLookup.refresh(code)));if(updates.some(item=>item.status==='fulfilled')){const fresh=S.profile();for(const result of updates){if(result.status!=='fulfilled')continue;const f=result.value,old=fresh.productData?.[f.code];if(!old)continue;const points=new Map(old.nav||[]);for(const point of f.nav||[]){if(points.has(point[0])&&points.get(point[0])!==point[1]){quoteMessage='实际产品同日净值出现冲突，沿用原值，待核实。';continue;}points.set(point[0],point[1]);}fresh.productData[f.code]={...old,...f,nav:[...points].sort(([a],[b])=>a.localeCompare(b))};}S.saveProfile(fresh);}
 
   }catch(error){quoteMessage='最新净值暂未更新，按已保存净值计算。';}
-  finally{quotesLoading=false;if(reviewAutoDate)reviewEnd=today();renderAccount();renderReview();}
+  finally{quotesLoading=false;if(reviewAutoDate)reviewEnd=today();renderAccount();if(activePage==='review')renderReview();}
  }
  const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const money=x=>Number.isFinite(x)?'¥'+x.toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2}):'待核对';
@@ -155,9 +155,14 @@
   $('allTransactionHistory').innerHTML=tx.slice(3).map(record).join('');$('allTransactionHistory').hidden=!allTradesExpanded;$('allTransactions').hidden=tx.length<=3;$('allTransactions').textContent=allTradesExpanded?'收起较早交易':`查看全部交易（${tx.length}笔）`;
   for(const id of ['transactionHistory','allTransactionHistory'])$(id).querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteTrade(b.dataset.delete));
  }
- function renderResearch(){window.StrategyLab.init(D);}
+ let researchReady=false,researchLoading;
+ async function renderResearch(){
+  if(researchReady)return;
+  if(!researchLoading)researchLoading=(async()=>{await window.XingxunAssets?.research();window.StrategyLab.init(D);researchReady=true;})().catch(error=>{researchLoading=null;throw error;});
+  return researchLoading;
+ }
  function download(value,name){const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
- function navigate(name){
+ async function navigate(name){
   document.body.classList.remove('scorecard-capture');$('scoreCapture').textContent='截图视图';
   name=({diary:'review',guide:'lab'}[name]||name);
   pageScroll[activePage]=window.scrollY;
@@ -166,7 +171,7 @@
   document.querySelectorAll('#topnav a').forEach(a=>{const n=a.dataset.t||a.dataset.page;a.classList.toggle('active',n===name);a.setAttribute('aria-current',n===name?'page':'false');});
   activePage=name;requestAnimationFrame(()=>window.scrollTo({top:pageScroll[name]||0,behavior:'instant'}));
   if(!workspaceReady)return;
-  try{if(name==='review')renderReview();if(name==='plan'){renderAccount();renderReview();}status('');}
+  try{if(name==='review')renderReview();if(name==='plan')renderAccount();if(name==='lab'){status('正在加载研究数据…');await renderResearch();}status('');}
   catch(error){$('workspaceStatus').textContent='页面计算暂不可用：'+error.message;}
  }
  $('incomeDate').value=today();
@@ -206,16 +211,16 @@
  $('candidateSelect').onchange=()=>act(()=>{const p=S.profile();p.researchSelection=$('candidateSelect').value;if(!S.saveProfile(p))throw Error('无法保存策略选择');},'已保存研究方案选择；正式配置未改变。');
  $('reviewMonth').max=today().slice(0,7);
  $('reviewMonth').onchange=()=>{const month=$('reviewMonth').value;if(!/^\d{4}-\d{2}$/.test(month)||month>today().slice(0,7)){status('请选择当前或过去的月份',true);$('reviewMonth').value=reviewEnd.slice(0,7);return;}reviewAutoDate=month===today().slice(0,7);reviewEnd=reviewAutoDate?today():new Date(Date.UTC(Number(month.slice(0,4)),Number(month.slice(5,7)),0)).toISOString().slice(0,10);allTradesExpanded=false;renderReview();};
- $('refreshReview').onclick=()=>{if(reviewAutoDate)reviewEnd=today();renderReview();refreshAccountQuotes();};
+ $('refreshReview').onclick=()=>{if(reviewAutoDate)reviewEnd=today();if(activePage==='review')renderReview();refreshAccountQuotes();};
  $('exportAccount').onclick=()=>download(S.exportBackup(),'星循-新策略账本-'+today()+'.json');
  $('importAccount').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;S.restoreBackup(JSON.parse(await file.text()));budgetDraftDirty=false;buyDrafts.clear();$('investmentPlan').querySelectorAll('.inline-buy').forEach(form=>form.dataset.saved='true');renderAccount();renderReview();status('完整账本已恢复。');}catch(err){status(err.message,true);}e.target.value='';};
  if(S.profile().researchSelection&&strategies.some(s=>s.id===S.profile().researchSelection))$('candidateSelect').value=S.profile().researchSelection;
  if(window.ACCOUNT_NAV_SNAPSHOT)try{applyAccountQuotes(window.ACCOUNT_NAV_SNAPSHOT);}catch(error){quoteMessage='保存净值异常，沿用研究快照。';}
  window.XingxunWorkspace={navigate,renderAccount,renderReview,chart,get actualFunds(){return accountFunds;},get plan(){return activePlan;},get report(){return latestReport;}};
  workspaceReady=true;
- renderAccount();renderReview();renderResearch();if(alipayRepairMessage)status(alipayRepairMessage);
+ renderAccount();if(alipayRepairMessage)status(alipayRepairMessage);
  refreshAccountQuotes();
- setInterval(()=>{if(document.visibilityState!=='hidden'){if(reviewAutoDate)reviewEnd=today();renderReview();refreshAccountQuotes();}},300000);
+ setInterval(()=>{if(document.visibilityState!=='hidden'){if(reviewAutoDate)reviewEnd=today();if(activePage==='review')renderReview();refreshAccountQuotes();}},300000);
  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshAccountQuotes();});
 
  }catch(error){$('workspaceStatus').textContent='账户初始化暂不可用：'+error.message+'。可切换页面查看，请勿清除浏览器数据。';}

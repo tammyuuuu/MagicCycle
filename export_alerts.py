@@ -56,7 +56,7 @@ def _summary_card(summary, extra=""):
 
 
 def _build_page(etfs_reps, gen_time: str, using_saved: bool,
-                stale_note: str = None, access_snapshot=None) -> str:
+                stale_note: str = None, access_snapshot=None, *, output_dir=None) -> str:
     """生成单文件 HTML 字符串。etfs_reps 结构见下方 main()。
 
     stale_note: 有 ETF 因网络故障沿用旧缓存时的提示文案（正常情况为 None）。
@@ -80,9 +80,14 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
         # Legacy card fields are not part of the current signal UI.
         cards.append('<div class="card"><p class="err">信号摘要暂不可用，请重新生成。</p></div>')
     from correlation_data import investment_script as build_investment_script
-    investment_script = build_investment_script(access_snapshot)
+    investment_script = build_investment_script(access_snapshot) if output_dir is None else ''
     with open(os.path.join(BASE_DIR, "templates", "_invest_tools.html"), encoding="utf-8") as f:
         investment_tools = f.read().replace("{{ investment_script | safe }}", investment_script)
+    if output_dir is not None:
+        from correlation_data import static_investment_scripts
+        tags,assets=static_investment_scripts(access_snapshot,output_dir)
+        investment_tools=investment_tools.replace('<script></script>',tags)
+        Path(output_dir,'bundle-assets.json').write_text(json.dumps(assets),encoding='utf8')
     categories = {'broad': [], 'us': [], 'industry': [], 'macro': []}
     for card, item in zip(cards, etfs_reps):
         key = ('us' if item.get('strategy_mode') == 'us_monthly_trend' else
@@ -172,7 +177,7 @@ def main(out_path: str = DEFAULT_OUT, offline: bool = False, *, _local_only: boo
     access_snapshot = update_snapshot(os.path.join(os.path.dirname(os.path.abspath(out_path)), 'purchase_monitor.json'))
     from account_nav import build_snapshot
     account_quotes = build_snapshot(refresh=not _local_only)
-    html = _build_page(etfs_reps, gen_time, using_saved, stale_note, access_snapshot)
+    html = _build_page(etfs_reps, gen_time, using_saved, stale_note, access_snapshot, output_dir=os.path.dirname(os.path.abspath(out_path)))
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     # PWA resources live beside the exported HTML, including for --out.
     output_dir = os.path.dirname(os.path.abspath(out_path))
@@ -186,6 +191,8 @@ def main(out_path: str = DEFAULT_OUT, offline: bool = False, *, _local_only: boo
         json.dump(account_quotes, f, ensure_ascii=False, allow_nan=False)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
+    from build_pwa_release import build_release
+    build_release(output_dir)
     json_path = os.path.splitext(out_path)[0] + ".json"
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump([i.get("summary") or {"symbol": i["code"], "name": i["name"], "asset_type": i.get("asset_type"), "status": "error", "action": "数据暂不可用", "reason": "行情获取或计算失败，请稍后刷新。", "risk_level": "unknown", "metrics": {}, "details": {"error": i["rep"].get("error")}} for i in etfs_reps], f, ensure_ascii=False, indent=2, allow_nan=False)

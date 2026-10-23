@@ -1,57 +1,68 @@
-/* Bump this version when changing the offline shell or caching behavior. */
-const CACHE = 'magiccycle-pwa-v50-brand-serif';
+/* Generated release changes whenever exported content changes. */
+const RELEASE = 'c3bcca7a06c3609634ab';
+const CACHE = 'magiccycle-pwa-' + RELEASE;
 const ROOT = new URL('./', self.location.href);
 const PAGE = new URL('index.html', ROOT).href;
-const SHELL = ['index.html', 'pwa.js', 'manifest.webmanifest',
-  'assets/header-background.webp', 'assets/brand-badge.png', 'assets/xingxun-serif-650.woff', 'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/favicon-32.png'];
 self.addEventListener('install', event => {
-  event.waitUntil((async () => {
-    const cache = await caches.open(CACHE);
-    await cache.addAll(SHELL.map(path => new Request(new URL(path, ROOT), { cache: 'reload' })));
-    await self.skipWaiting();
-  })());
-});
-self.addEventListener('activate', event => {
-  event.waitUntil((async () => {
-    for (const key of await caches.keys()) {
-      if (key.startsWith('magiccycle-pwa-') && key !== CACHE) await caches.delete(key);
+ event.waitUntil((async()=>{
+  const response=await fetch(new URL('pwa-manifest.json',ROOT),{cache:'no-store'});
+  if(!response.ok)throw Error('Offline manifest unavailable');
+  const manifest=await response.json();
+  if(manifest.version!==RELEASE)throw Error('Deployment still publishing; retain previous version');
+  const cache=await caches.open(CACHE);
+  try{await Promise.all(manifest.files.map(async path=>{
+   const request=new Request(new URL(path,ROOT),{cache:'reload'});
+   let response;
+   // Unchanged, content-addressed research is reused without another download.
+   if(/^assets\/[\w-]+\.[a-f0-9]{16}\.js$/.test(path)){
+    for(const name of (await caches.keys()).filter(k=>k.startsWith('magiccycle-pwa-')&&k!==CACHE)){
+     response=await (await caches.open(name)).match(request);if(response)break;
     }
-    await self.clients.claim();
-  })());
+   }
+   response=response||await fetch(request);
+   if(!response.ok)throw Error('Incomplete release: '+path);
+   const bytes=await response.clone().arrayBuffer();
+   const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');
+   if(hash!==manifest.hashes[path])throw Error('Release hash mismatch: '+path);
+   await cache.put(request,response);
+  }));}
+  catch(error){await caches.delete(CACHE);throw error;}
+  // Updates wait for the user's refresh action; first install activates normally.
+ })());
 });
-async function networkFirst(request, navigation) {
-  const cache = await caches.open(CACHE);
-  const key = navigation ? PAGE : request;
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 8000);
-  try {
-    const response = await fetch(request, { cache: 'no-store', signal: controller.signal });
-    if (!response.ok) throw new Error('HTTP ' + response.status);
-    await cache.put(key, response.clone());
-    return response;
-  } catch (error) {
-    const stored = await cache.match(key);
-    if (!stored) {
-      if (!navigation) return Response.error();
-      return new Response('<!doctype html><meta charset="utf-8"><p>暂时无法连接网站，请联网后重试。</p>', {
-        status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8' }
-      });
-    }
-    if (!navigation) return stored;
-    // Mark the actual cached response, including when navigator.onLine is misleading.
-    const html = (await stored.text()).replace('</head>',
-      '<script>window.__magicCycleOffline=true;</script></head>');
-    return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
-  } finally {
-    clearTimeout(timer);
+self.addEventListener('message',event=>{
+ if(event.data?.type==='ACTIVATE_UPDATE')event.waitUntil(self.skipWaiting());
+ if(event.data?.type==='GET_RELEASE')event.ports[0]?.postMessage({version:RELEASE});
+});
+self.addEventListener('activate',event=>{
+ event.waitUntil((async()=>{
+  // CacheStorage contains only public resources; never touch localStorage or IndexedDB.
+  // Keep the preceding cache so open tabs can finish loading their immutable bundles.
+  const keys=(await caches.keys()).filter(k=>k.startsWith('magiccycle-pwa-')&&k!==CACHE);
+  for(const key of keys.slice(0,-1))await caches.delete(key);
+  await self.clients.claim();
+ })());
+});
+async function cachedResponse(request,navigation){
+ const cache=await caches.open(CACHE),key=navigation?PAGE:request;
+ let stored=await cache.match(key);
+ if(!stored&&!navigation){
+  for(const name of (await caches.keys()).filter(k=>k.startsWith('magiccycle-pwa-')).reverse()){
+   stored=await (await caches.open(name)).match(key);if(stored)break;
   }
+ }
+ if(stored)return stored;
+ const response=await fetch(request);
+ if(response.ok)await cache.put(key,response.clone());
+ return response;
 }
-self.addEventListener('fetch', event => {
-  const request = event.request;
-  const url = new URL(request.url);
-  if (request.method !== 'GET' || url.origin !== ROOT.origin || !url.pathname.startsWith(ROOT.pathname)) return;
-  const navigation = request.mode === 'navigate' &&
-    (url.pathname === ROOT.pathname || url.pathname === new URL(PAGE).pathname);
-  const asset = SHELL.some(path => url.pathname === new URL(path, ROOT).pathname);
-  if (navigation || asset) event.respondWith(networkFirst(request, navigation));
+self.addEventListener('fetch',event=>{
+ const request=event.request,url=new URL(request.url);
+ if(request.method!=='GET'||url.origin!==ROOT.origin||!url.pathname.startsWith(ROOT.pathname))return;
+ const navigation=request.mode==='navigate'&&(url.pathname===ROOT.pathname||url.pathname===new URL(PAGE).pathname);
+ const relative=url.pathname.slice(ROOT.pathname.length);
+ // Update checks and live quotes bypass the offline shell. A stale quote never becomes today's data.
+ if(['sw.js','pwa-manifest.json','account_nav.json'].includes(relative))return;
+ if(navigation||relative.startsWith('assets/')||relative.startsWith('icons/')||['pwa.js','manifest.webmanifest'].includes(relative))
+  event.respondWith(cachedResponse(request,navigation));
 });

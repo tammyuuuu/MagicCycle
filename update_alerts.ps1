@@ -56,11 +56,13 @@ try {
     Write-Log ('Snapshot data dates: ' + ($dates -join ', '))
     $html = [IO.File]::ReadAllText((Join-Path $proj 'docs/index.html'))
     if ($html.Contains('stale') -or $html.Contains([string][char]0x26A0)) { Write-Log 'WARNING: see page for cached-data or other warnings; generation time is not market-data time.' }
-    Invoke-Logged 'git' @('add', '--', 'docs/index.html', 'docs/index.json', 'docs/purchase_monitor.json')
-    & git diff --cached --quiet -- docs/index.html docs/index.json docs/purchase_monitor.json
+    # The HTML references immutable bundles; publish the complete offline release together.
+    $publishPaths = @('docs/index.html', 'docs/index.json', 'docs/purchase_monitor.json', 'docs/account_nav.json', 'docs/assets', 'docs/bundle-assets.json', 'docs/pwa-manifest.json', 'docs/sw.js', 'docs/pwa.js')
+    Invoke-Logged 'git' (@('add', '--') + $publishPaths)
+    & git diff --cached --quiet -- @publishPaths
     $diffCode = $LASTEXITCODE
     if ($diffCode -eq 1) {
-        Invoke-Logged 'git' @('commit', '--only', '-m', "auto update alerts $(Get-Date -Format 'yyyy-MM-dd HH:mm')", '--', 'docs/index.html', 'docs/index.json', 'docs/purchase_monitor.json')
+        Invoke-Logged 'git' (@('commit', '--only', '-m', "auto update alerts $(Get-Date -Format 'yyyy-MM-dd HH:mm')", '--') + $publishPaths)
     } elseif ($diffCode -ne 0) { throw 'git diff failed' }
     Invoke-Logged 'git' @('push')
     Write-Log 'SUCCESS: snapshot pushed to GitHub; Pages deployment follows.'

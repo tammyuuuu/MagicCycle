@@ -10,7 +10,7 @@
 </head>
 <body>
 {% include "_status_rail.html" %}
-<header class="site-header" style="--header-image:url('{{ url_for('static', filename='assets/header-background.webp') }}')">
+<header class="site-header">
   <div class="brand-lockup"><img class="brand-emblem" src="{{ url_for('static', filename='assets/brand-badge.png') }}" width="64" height="64" alt="" aria-hidden="true"><div class="brand-copy"><div class="brand-heading"><h1>星循</h1><span class="brand-tagline">观察周期，记录投资</span></div></div></div>
   <nav id="topnav">
     <a data-t="today" class="active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2m6 2V2M8 10h8m-8 4h5"/></svg><span>今日提醒</span></a>

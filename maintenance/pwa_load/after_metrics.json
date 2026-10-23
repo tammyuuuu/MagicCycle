@@ -1,0 +1,26 @@
+{
+  "profile": "375px, cold cache, 80ms latency, ~1.5 MB/s per connection, Chrome headless, 3 runs",
+  "runs": [
+    {
+      "dom": 319,
+      "fcp": 320,
+      "longTasks": 0,
+      "html": 109255,
+      "bytes": 390716
+    },
+    {
+      "dom": 333,
+      "fcp": 208,
+      "longTasks": 0,
+      "html": 109255,
+      "bytes": 390716
+    },
+    {
+      "dom": 331,
+      "fcp": 188,
+      "longTasks": 0,
+      "html": 109255,
+      "bytes": 390716
+    }
+  ]
+}

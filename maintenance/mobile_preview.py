@@ -30,12 +30,14 @@ class Handler(SimpleHTTPRequestHandler):
         if route == '/preview/index.html':
             html = SOURCES[0].read_text(encoding='utf-8')
             html = re.sub(r'<style>.*?</style>', lambda _: SOURCES[1].read_text(encoding='utf-8'), html, count=1, flags=re.S)
-            start = html.index('/* Four-page account workspace.')
-            end = html.index('})();', start) + len('})();')
-            html = html[:start] + SOURCES[2].read_text(encoding='utf-8') + html[end:]
+            if '/* Four-page account workspace.' in html:
+                start = html.index('/* Four-page account workspace.')
+                end = html.index('})();', start) + len('})();')
+                html = html[:start] + SOURCES[2].read_text(encoding='utf-8') + html[end:]
             # Keep preview independent of the production offline shell.
             html = html.replace('<script src="./pwa.js" defer></script>', '')
             return self.send_content(html, 'text/html')
+        # Immutable bundle URLs are relative to the exported page.
         if route.startswith('/preview/'):
             self.path = self.path.replace('/preview/', '/', 1)
         return super().do_GET()

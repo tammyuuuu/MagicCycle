@@ -364,22 +364,22 @@ header .brand-heading h1{color:var(--gold-lt);}
 #assetSnapshotForm .actions{width:100%;}
 #assetSnapshotForm #assetSave{width:100%;min-height:48px;margin:0;text-align:center;}
 /* Compact navy-and-gold masthead, inspired by the reference banner. */
-.site-header{padding:18px 16px 19px;background-color:#0b1b35;background-image:linear-gradient(#0b183344,#0b183344),var(--header-image,url("./assets/header-background.webp"));background-size:cover;background-position:center 46%;background-repeat:no-repeat;border-top:1px solid #c5ac7780;border-bottom:1px solid #c5ac7740;box-shadow:0 3px 14px #15274118;}
-.site-header::before{content:none;}
+.site-header{padding:19px 16px 20px;background:#202E4B linear-gradient(135deg,#202E4B 0%,#243550 50%,#202E4B 100%);border:0;box-shadow:0 3px 14px #15274118;}
+.site-header::before,.site-header::after{content:none;}
 .brand-lockup{display:flex;align-items:center;gap:0;padding-left:76px;position:relative;z-index:1;}
 .brand-emblem{position:absolute;left:0;top:50%;transform:translateY(-50%);width:64px;height:64px;object-fit:contain;background:none;border:0;border-radius:0;box-shadow:none;filter:none;}
 .brand-copy{min-width:0;flex:1;}
 .site-header .brand-heading{display:flex;align-items:center;flex-wrap:nowrap;gap:12px;}
 @font-face{font-family:"Xingxun Brand Serif";src:url("./assets/xingxun-serif-650.woff") format("woff");font-style:normal;font-weight:650;font-display:swap;unicode-range:U+661F,U+5FAA;}
-.site-header .brand-heading h1{font-family:"Xingxun Brand Serif","Noto Serif SC","Songti SC","Noto Serif CJK SC","Source Han Serif SC",STSong,SimSun,serif;font-size:28px;font-weight:650;letter-spacing:3px;line-height:1.4;color:#e5cc94;}
+.site-header .brand-heading h1{font-family:"Xingxun Brand Serif","Noto Serif SC","Songti SC","Noto Serif CJK SC","Source Han Serif SC",STSong,SimSun,serif;font-size:28px;font-weight:650;letter-spacing:3px;line-height:1.4;color:#C7A15B;}
 @supports ((background-clip:text) or (-webkit-background-clip:text)){
- .site-header .brand-heading h1{background:linear-gradient(180deg,#fff5d9 0%,#f3dfaf 25%,#dec18a 52%,#f0d8a3 69%,#b68c52 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 1px #060f2440);}
+ .site-header .brand-heading h1{background:linear-gradient(180deg,#ecd8ad 0%,#C7A15B 60%,#b58d4e 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 1px #060f2440);}
 }
 .site-header .brand-tagline{font-family:inherit;color:#bdcadd;padding-left:0;white-space:nowrap;font-size:13px!important;line-height:1.5;}
 .brand-updated{display:flex;align-items:center;gap:5px;margin-top:4px;font-size:12px;line-height:1.5;letter-spacing:0;color:#b7c7dd;}
-.brand-clock{position:relative;display:inline-block;width:12px;height:12px;flex:none;border:1px solid #dbc18b;border-radius:50%;margin-right:2px;}
-.brand-clock::after{content:"";position:absolute;left:5px;top:2px;width:3px;height:4px;border-left:1px solid #dbc18b;border-bottom:1px solid #dbc18b;}
-@media(max-width:350px){.site-header{padding:16px 12px;}.brand-lockup{gap:0;padding-left:72px;}.site-header .brand-heading{gap:8px;}.site-header .brand-heading h1{font-size:25px;}.site-header .brand-tagline{padding-left:0;font-size:12px!important;}.brand-updated{font-size:11px;}}
+.brand-clock{position:relative;display:inline-block;width:12px;height:12px;flex:none;border:1px solid #C7A15B;border-radius:50%;margin-right:2px;}
+.brand-clock::after{content:"";position:absolute;left:5px;top:2px;width:3px;height:4px;border-left:1px solid #C7A15B;border-bottom:1px solid #C7A15B;}
+@media(max-width:350px){.site-header{padding:17px 12px;}.brand-lockup{gap:0;padding-left:72px;}.site-header .brand-heading{gap:8px;}.site-header .brand-heading h1{font-size:25px;}.site-header .brand-tagline{padding-left:0;font-size:12px!important;}.brand-updated{font-size:11px;}}
 /* Shared section hierarchy: card titles 18/600, child titles 16/600. */
 .workspace .card > .card-title,.etf-monitor > .etf-monitor-title,#usPurchaseMonitor > h2{
  font-family:inherit;font-size:18px;font-weight:600;line-height:1.5;color:var(--ultra);margin:0 0 14px;

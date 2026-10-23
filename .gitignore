@@ -41,3 +41,8 @@ venv/
 !/data_cache/*.csv
 !/data_cache/*.json
 !/data_cache/research_etfrun_*.html
+
+# Local before/after PWA benchmarking fixtures (recovered from Git by tests).
+/maintenance/pwa_load/before.html
+/maintenance/pwa_load/before_sw.js
+/maintenance/pwa_load/before_pwa.js

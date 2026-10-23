@@ -7,14 +7,25 @@ const assert=require('node:assert/strict');
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto('http://127.0.0.1:8765/mobile');
   const frame=page.frames().find(f=>f.url().includes('/preview/index.html'));
-  await frame.waitForFunction(()=>!!window.XingxunWorkspace);
+  await frame.waitForFunction(()=>!!window.XingxunLoader||!!window.XingxunWorkspace);
   for(const width of [320,375,390,430]){
    await page.locator('#size').selectOption({value:width+','+({320:740,375:812,390:844,430:932}[width])});
    for(const tab of ['today','plan','review','lab']){
     await page.locator('.tabs [data-page='+tab+']').click();
+    if(tab!=='today')await frame.waitForFunction(()=>!!window.XingxunWorkspace);
+    if(tab==='lab')await frame.waitForFunction(()=>document.querySelectorAll('#labLegend button').length===10);
     assert.ok(await frame.locator(tab==='today'?'#page-today':'#invest-'+tab).isVisible());
     const measure=await frame.evaluate(()=>({width:innerWidth,overflow:document.documentElement.scrollWidth>innerWidth,body:getComputedStyle(document.body).fontSize,caption:getComputedStyle(document.querySelector('.fine')||document.body).fontSize}));
     assert.equal(measure.width,width);assert.equal(measure.overflow,false,`${width} ${tab} horizontal overflow`);
+    if(tab==='today'){
+     const header=await frame.locator('.site-header').evaluate(el=>{const s=getComputedStyle(el);return {height:el.getBoundingClientRect().height,background:s.backgroundImage,top:s.borderTopWidth,bottom:s.borderBottomWidth,before:getComputedStyle(el,'::before').content,after:getComputedStyle(el,'::after').content};});
+     assert.ok(header.background.includes('linear-gradient'));assert.ok(!header.background.includes('url('));assert.equal(header.top,'0px');assert.equal(header.bottom,'0px');assert.equal(header.before,'none');assert.equal(header.after,'none');
+     const previous=await frame.addStyleTag({content:'.site-header{padding:18px 16px 19px;border-top:1px solid transparent;border-bottom:1px solid transparent;}@media(max-width:350px){.site-header{padding:16px 12px;}}'});
+     const oldHeight=await frame.locator('.site-header').evaluate(el=>el.getBoundingClientRect().height);await previous.evaluate(el=>el.remove());
+     assert.ok(Math.abs(header.height-oldHeight)<.1,'Header height unchanged');
+     assert.equal(await frame.evaluate(()=>performance.getEntriesByType('resource').some(r=>r.name.includes('header-background.webp'))),false);
+    }
+
     assert.equal(measure.body,'14px');assert.equal(measure.caption,'14px');
     if(tab==='plan'){
      const widths=await frame.evaluate(()=>['#assetTotal','#budgetRatio + .select-trigger','#ledgerStartDate'].map(id=>{const el=document.querySelector(id),r=el.getBoundingClientRect();return {left:r.left,width:r.width,height:r.height};}));
