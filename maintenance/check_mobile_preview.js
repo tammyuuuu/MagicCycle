@@ -22,7 +22,7 @@ const assert=require('node:assert/strict');
      assert.equal(header.background,'none');assert.ok(!header.background.includes('url('));assert.equal(header.top,'0px');assert.equal(header.bottom,'0px');assert.equal(header.before,'none');assert.equal(header.after,'none');
      const previous=await frame.addStyleTag({content:'.site-header{padding:18px 16px 19px;border-top:1px solid transparent;border-bottom:1px solid transparent;}@media(max-width:350px){.site-header{padding:16px 12px;}}'});
      const oldHeight=await frame.locator('.site-header').evaluate(el=>el.getBoundingClientRect().height);await previous.evaluate(el=>el.remove());
-     assert.ok(Math.abs(oldHeight-header.height-20)<.1,'Header compacted by 20px');
+     assert.ok(Math.abs(oldHeight-header.height-(width<=350?22:23))<.1,'Header compacted by 23px');
      await frame.locator('.site-header').evaluate(el=>el.style.setProperty('--header-safe-top','59px'));
      const safe=await frame.locator('.site-header').evaluate(el=>({height:el.getBoundingClientRect().height,iconTop:el.querySelector('.brand-emblem').getBoundingClientRect().top-el.getBoundingClientRect().top,color:getComputedStyle(el).backgroundColor,root:getComputedStyle(document.documentElement).backgroundColor}));
      assert.ok(Math.abs(safe.height-header.height-59)<.1);assert.ok(safe.iconTop>=59,'icon below Dynamic Island safe area');assert.equal(safe.color,'rgb(32, 46, 75)');assert.equal(safe.root,safe.color);
