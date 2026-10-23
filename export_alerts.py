@@ -109,7 +109,7 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
 <script src="./pwa.js" defer></script>
 <title>星循 · 观察周期，记录投资</title>
 {page_styles}</head><body>{status_assets}
-<header><div class="brand-heading"><h1>星循</h1><span class="brand-tagline">观察周期，记录投资</span></div><div style="font-size:12px;opacity:.8">生成于 {gen_time}{' · 使用网页保存的规则' if using_saved else ' · 使用内置默认规则'}</div>
+<header class="site-header"><div class="brand-lockup"><img class="brand-emblem" src="./assets/brand-badge.png" width="64" height="64" alt="" aria-hidden="true"><div class="brand-copy"><div class="brand-heading"><h1>星循</h1><span class="brand-tagline">观察周期，记录投资</span></div><div class="brand-updated"><span class="brand-clock" aria-hidden="true"></span>更新于 <time>{gen_time}</time></div></div></div>
 <nav id="topnav"><a data-page="today" class="active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2m6 2V2M8 10h8m-8 4h5"/></svg><span>今日提醒</span></a><a data-page="plan"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M6 16v-5m6 5V5m6 11V8"/></svg><span>投资配置</span></a><a data-page="review"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6C9 4 5 4 3 5v15c3-1 6-1 9 1 3-2 6-2 9-1V5c-2-1-6-1-9 1v15Z"/></svg><span>投资复盘</span></a><a data-page="lab"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2 6-6 2 2-6 6-2Z"/></svg><span>策略实验</span></a></nav></header>
 <div class="wrap">{notice}{body}
 <footer>数据：AkShare（东方财富/新浪）· 仅供策略研究，非投资建议</footer></div>
@@ -181,6 +181,7 @@ def main(out_path: str = DEFAULT_OUT, offline: bool = False, *, _local_only: boo
         for asset in ("pwa.js", "sw.js", "manifest.webmanifest"):
             shutil.copy2(os.path.join(source_dir, asset), output_dir)
         shutil.copytree(os.path.join(source_dir, "icons"), os.path.join(output_dir, "icons"), dirs_exist_ok=True)
+        shutil.copytree(os.path.join(source_dir, "assets"), os.path.join(output_dir, "assets"), dirs_exist_ok=True)
     with open(os.path.join(output_dir, "account_nav.json"), "w", encoding="utf8") as f:
         json.dump(account_quotes, f, ensure_ascii=False, allow_nan=False)
     with open(out_path, "w", encoding="utf-8") as f:

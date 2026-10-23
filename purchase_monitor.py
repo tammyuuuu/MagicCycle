@@ -72,8 +72,53 @@ def fetch_nav(fund):
                    headers={'Referer':f'https://fundf10.eastmoney.com/jjjz_{code}.html','User-Agent':'Mozilla/5.0'},timeout=10)
     r.raise_for_status();return parse_nav(r.json(),fund['kind'])
 
+
+def parse_terms(html):
+    soup=BeautifulSoup(html,'html.parser')
+    text=soup.get_text(' ',strip=True)
+    result={}
+    for label,key in [('管理费率','management_pct'),('托管费率','custody_pct'),('销售服务费率','service_pct')]:
+        match=re.search(label+r'\s*([\d.]+)\s*%',text)
+        if match:result[key]=float(match[1])
+    match=re.search(r'申购状态\s*(暂停申购|限制大额申购|限大额|开放申购)',text)
+    if match:result['purchase_status']='限制大额申购' if match[1]=='限大额' else match[1]
+    for heading in soup.find_all(['h3','h4']):
+        if heading.get_text(strip=True) not in ('申购费率','申购费率（前端）'):continue
+        table=heading.find_next('table')
+        if table:
+            for tr in table.find_all('tr'):
+                cells=tr.find_all('td')
+                if len(cells)<2:continue
+                values=re.findall(r'([\d.]+)\s*%',cells[-1].get_text(' ',strip=True))
+                if values:
+                    result['subscription_pct']=float(values[-1])
+                    result['subscription_basis']=cells[0].get_text(' ',strip=True)
+                    result['subscription_channel']='天天基金页面参考'
+                    break
+        break
+    if not result:raise ValueError('未识别申购状态或费用')
+    return result
+
+
+def fetch_terms(fund):
+    url=f'https://fundf10.eastmoney.com/jjfl_{fund["code"]}.html'
+    response=requests.get(url,headers={'User-Agent':'Mozilla/5.0'},timeout=10)
+    response.raise_for_status()
+    # Let the declared page charset decode Chinese; never reuse garbled research text.
+    soup=BeautifulSoup(response.content,'html.parser')
+    return dict(**parse_terms(str(soup)),terms_source=url,terms_as_of=datetime.now(ZONE).date().isoformat())
+
+
+def monitored_funds():
+    return FUNDS+[
+        dict(code='161130',name='易方达纳指100联接A',kind='us',index='纳指100',channel='天天基金等代销',product_url='https://fundf10.eastmoney.com/jjfl_161130.html'),
+        dict(code='050025',name='博时标普500联接A',kind='us',index='标普500',channel='天天基金等代销',product_url='https://fundf10.eastmoney.com/jjfl_050025.html'),
+    ]
+
 def update_snapshot(path=None):
     path=Path(path) if path else ROOT/'docs'/'purchase_monitor.json'
+    try:previous={r['code']:r for r in json.loads(path.read_text(encoding='utf-8')).get('rows',[])}
+    except (OSError,ValueError,KeyError):previous={}
     now=datetime.now(ZONE);today=now.date().isoformat();quota={};alerts=[];errors=[]
     try:
         response=requests.get(QUOTA_SOURCE,headers={'User-Agent':'Mozilla/5.0'},timeout=12)
@@ -89,8 +134,15 @@ def update_snapshot(path=None):
             age=(now.date()-date).days
             row['nav_state']='近期披露' if 0<=age<=7 else '净值过旧或日期异常，仅供核对'
         except Exception as exc:row['nav_state']='获取失败';row['nav_error']=str(exc)
+        if fund['kind']=='us':
+            try:row.update(fetch_terms(fund))
+            except Exception as exc:
+                row['terms_error']=str(exc)
+                old=previous.get(fund['code'],{})
+                for key in ('purchase_status','management_pct','custody_pct','service_pct','subscription_pct','subscription_basis','subscription_channel','terms_source','terms_as_of'):
+                    if key in old:row[key]=old[key]
         return row
-    with ThreadPoolExecutor(max_workers=4) as pool:rows=list(pool.map(build,FUNDS))
+    with ThreadPoolExecutor(max_workers=4) as pool:rows=list(pool.map(build,monitored_funds()))
     snapshot=dict(version=1,updated_at=now.isoformat(timespec='seconds'),quota_source=QUOTA_SOURCE,source_type='第三方公开公告汇总；并非渠道交易确认',
                   rows=rows,future_alerts=alerts,errors=errors)
     path.parent.mkdir(parents=True,exist_ok=True)

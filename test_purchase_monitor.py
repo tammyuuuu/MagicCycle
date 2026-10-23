@@ -2,9 +2,20 @@ import unittest
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
-from purchase_monitor import parse_quota,parse_nav,FUNDS
+from purchase_monitor import parse_quota,parse_nav,parse_terms,FUNDS
 
 class PurchaseMonitorTests(unittest.TestCase):
+    def test_terms_separate_purchase_fee_and_annual_costs(self):
+        terms=parse_terms('<table><tr><td>申购状态</td><td>暂停申购</td></tr><tr><td>管理费率</td><td>0.50%</td><td>托管费率</td><td>0.10%</td><td>销售服务费率</td><td>0.00%</td></tr></table><h4>认购费率</h4><table><tr><td>小于100万元</td><td>1.00%</td></tr></table><h4>申购费率</h4><table><tr><td>小于100万元</td><td>1.20%</td><td>0.12%</td></tr></table>')
+        self.assertEqual(terms['purchase_status'],'暂停申购')
+        self.assertEqual(terms['subscription_pct'],.12)
+        self.assertEqual(terms['management_pct'],.5)
+        self.assertEqual(terms['custody_pct'],.1)
+        self.assertEqual(terms['service_pct'],0)
+    def test_terms_missing_fee_is_not_zero(self):
+        terms=parse_terms('<p>申购状态 限大额</p>')
+        self.assertEqual(terms['purchase_status'],'限制大额申购')
+        self.assertNotIn('subscription_pct',terms)
     html='''<h1>2026年10月14日额度表</h1><table><tr><th>基金代码</th><th>代销限额(元/日)</th><th>直销限额(元/日)</th><th>备注(公告日期)</th></tr><tr><td>021000</td><td>无代销</td><td>200</td><td>仅直销</td></tr><tr><td>017641</td><td>10</td><td>10</td><td>合并按公告</td></tr></table><li>广发F暂停，2026-10-15 生效</li>'''
     def test_quota_channels_and_future(self):
         rows,alerts=parse_quota(self.html,'2026-10-14')

@@ -1,9 +1,9 @@
 /* Bump this version when changing the offline shell or caching behavior. */
-const CACHE = 'magiccycle-pwa-v43-mobile-navigation';
+const CACHE = 'magiccycle-pwa-v50-brand-serif';
 const ROOT = new URL('./', self.location.href);
 const PAGE = new URL('index.html', ROOT).href;
 const SHELL = ['index.html', 'pwa.js', 'manifest.webmanifest',
-  'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/favicon-32.png'];
+  'assets/header-background.webp', 'assets/brand-badge.png', 'assets/xingxun-serif-650.woff', 'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/favicon-32.png'];
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE);

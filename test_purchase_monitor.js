@@ -5,6 +5,6 @@ function render(updated){const card={dataset:{}};const root={prepend(){}};class 
  vm.runInNewContext(source,{window:{addEventListener(){},FUND_ACCESS_MONITOR:{updated_at:updated,rows:[row],errors:[],future_alerts:['2026-10-15 暂停申购'],quota_source:'https://example.com'}},document:{addEventListener(){},getElementById:id=>id==='sec-today'?root:id==='usPurchaseMonitor'?card:null,createElement:()=>card},Intl,Date:FixedDate});return card.innerHTML;}
 assert.ok(render('2026-10-14T11:00:00+08:00').includes('直销 200'));
 assert.ok(render('2026-10-14T11:00:00+08:00').includes('2026-10-15 暂停申购'));
-assert.ok(render('2026-10-13T11:00:00+08:00').includes('待核实'));
-assert.ok(render('2026-10-13T11:00:00+08:00').includes('无今日公开额度'));
+assert.ok(render('2026-10-13T11:00:00+08:00').includes('保存额度'));assert.ok(!render('2026-10-14T11:00:00+08:00').includes('额度与执行'));assert.ok(!render('2026-10-14T11:00:00+08:00').includes('是否值得买'));
+assert.ok(render('2026-10-13T11:00:00+08:00').includes('额度更新 2026-10-13'));
 console.log('Purchase monitor page: current quota, future notices and expired snapshot OK');

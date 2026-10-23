@@ -37,16 +37,16 @@
  }
  function render({profile:p,data:D,funds,valuation:V,store:S,report:r,end,quoteMessage}){
   const $=id=>document.getElementById(id),context=provenance(p,D,end),has=(p.opening?.positions||[]).length&&p.opening.date<=end||(p.entries||[]).some(e=>e.status==='confirmed'&&e.confirmedDate<=end),m=r.ready&&has?r.summary:null,rows=m?r.rows:[],month=end.slice(0,7),monthly=m?r.months.find(x=>x.month===month):null;
-  $('scoreStrategy').textContent='未启用正式策略';
-  $('scoreStrategyDetail').textContent=context.last?'已确认成交关联：'+context.last.label+'（研究方案）':'暂无已确认的策略关联交易';
-  $('scoreDates').innerHTML='策略启用：未启用<br>复盘起止：'+esc(p.opening?.date||'—')+' — '+esc(end)+(context.first?'<br>首次关联成交：'+esc(context.first):'');
+  $('scoreStrategy').textContent=context.last?context.last.label:'尚无策略关联成交';
+  $('scoreStrategyDetail').textContent=context.last?'关联依据：已确认成交':'确认成交后显示对应策略';
+  $('scoreDates').innerHTML='复盘起止：'+esc(p.opening?.date||'—')+' — '+esc(end)+(context.first?'<br>首次关联成交：'+esc(context.first):'');
   $('scoreEquity').textContent=r.ready?money(r.summary.equity):'—';$('scoreMonthLabel').textContent=month+' 投资盈亏';$('monthlyPnl').textContent=monthly?money(monthly.pnl):'—';
   $('reviewMetrics').innerHTML=[['累计投资盈亏',m?money(m.cumulativePnl):'—'],['累计收益率',m?pct(m.returnRate):'—'],['最大回撤',m?pct(m.mdd):'—'],['累计交易费用',m?money(m.fees):'—']].map(([name,value])=>`<div class="metric"><span>${name}</span><b>${value}</b></div>`).join('');
   $('reviewNotice').textContent=!m?(r.ready&&r.summary.frozen>0?'有待确认申购，尚无有效收益数据。':'暂无有效收益数据。'):(m.estimated?'含沿用净值或待确认款暂估。':'按确认交易与有效净值计算，已剔除外部净流入。');
   if(!r.ready&&p.opening)$('reviewNotice').textContent='净值不足或账本待核对，暂停显示收益。';
   $('scoreAllocation').innerHTML=allocation(p,D,funds,V,S,end,r,context);
   $('accountCurve').innerHTML=plot(rows,'cumulativePnl',false,context.events);$('accountDrawdown').innerHTML=plot(rows,'drawdown',true,context.events);bind(rows);
-  $('scoreSwitches').innerHTML=context.events.length?'<span>图中金线：已确认成交关联方案记录，非正式策略启用。</span>'+context.events.map((e,i)=>`<div>${i+1}. ${esc(e.date)} · ${esc(e.label)}</div>`).join(''):'';
+  $('scoreSwitches').innerHTML=context.events.length?'<span>图中金线：已确认成交关联的策略记录。</span>'+context.events.map((e,i)=>`<div>${i+1}. ${esc(e.date)} · ${esc(e.label)}</div>`).join(''):'';
   $('scoreDataDate').textContent=r.ready?'净值截至 '+([...new Set(Object.values(r.latestMarks||{}))].sort().join(' / ')||'暂无已确认持仓净值')+' · 待确认 '+money(r.summary.frozen||0)+' · 应收 '+money((r.summary.receivable||0)+(r.summary.dividendReceivable||0)):'无有效估值';
  }
  window.ReviewScorecard={render,provenance};
