@@ -19,10 +19,14 @@ const assert=require('node:assert/strict');
     assert.equal(measure.width,width);assert.equal(measure.overflow,false,`${width} ${tab} horizontal overflow`);
     if(tab==='today'){
      const header=await frame.locator('.site-header').evaluate(el=>{const s=getComputedStyle(el);return {height:el.getBoundingClientRect().height,background:s.backgroundImage,top:s.borderTopWidth,bottom:s.borderBottomWidth,before:getComputedStyle(el,'::before').content,after:getComputedStyle(el,'::after').content};});
-     assert.ok(header.background.includes('linear-gradient'));assert.ok(!header.background.includes('url('));assert.equal(header.top,'0px');assert.equal(header.bottom,'0px');assert.equal(header.before,'none');assert.equal(header.after,'none');
+     assert.equal(header.background,'none');assert.ok(!header.background.includes('url('));assert.equal(header.top,'0px');assert.equal(header.bottom,'0px');assert.equal(header.before,'none');assert.equal(header.after,'none');
      const previous=await frame.addStyleTag({content:'.site-header{padding:18px 16px 19px;border-top:1px solid transparent;border-bottom:1px solid transparent;}@media(max-width:350px){.site-header{padding:16px 12px;}}'});
      const oldHeight=await frame.locator('.site-header').evaluate(el=>el.getBoundingClientRect().height);await previous.evaluate(el=>el.remove());
-     assert.ok(Math.abs(header.height-oldHeight)<.1,'Header height unchanged');
+     assert.ok(Math.abs(oldHeight-header.height-20)<.1,'Header compacted by 20px');
+     await frame.locator('.site-header').evaluate(el=>el.style.setProperty('--header-safe-top','59px'));
+     const safe=await frame.locator('.site-header').evaluate(el=>({height:el.getBoundingClientRect().height,iconTop:el.querySelector('.brand-emblem').getBoundingClientRect().top-el.getBoundingClientRect().top,color:getComputedStyle(el).backgroundColor,root:getComputedStyle(document.documentElement).backgroundColor}));
+     assert.ok(Math.abs(safe.height-header.height-59)<.1);assert.ok(safe.iconTop>=59,'icon below Dynamic Island safe area');assert.equal(safe.color,'rgb(32, 46, 75)');assert.equal(safe.root,safe.color);
+     await frame.locator('.site-header').evaluate(el=>el.style.removeProperty('--header-safe-top'));
      assert.equal(await frame.evaluate(()=>performance.getEntriesByType('resource').some(r=>r.name.includes('header-background.webp'))),false);
     }
 

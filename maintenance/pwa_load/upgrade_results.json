@@ -1,7 +1,7 @@
 {
   "passed": true,
   "legacy": "v50",
-  "release": "c3bcca7a06c3609634ab",
+  "release": "dfefddf5e3cbd6dfa086",
   "localStorageKeys": [
     "unrelated-user-setting",
     "valuationYears",

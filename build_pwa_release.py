@@ -14,6 +14,13 @@ def build_release(directory):
            'icons/apple-touch-icon.png','icons/icon-192.png','icons/icon-512.png','icons/favicon-32.png']
     files += [url.removeprefix('./') for url in bundles]
     files=[name for name in files if (root/name).exists()]
+    # Git's Windows line-ending normalization must not invalidate deployed hashes.
+    for name in files:
+        if Path(name).suffix in ('.html','.js','.webmanifest'):
+            asset=root/name
+            data=asset.read_bytes()
+            canonical=data.replace(b'\r\n',b'\n')
+            if canonical!=data:asset.write_bytes(canonical)
     digest=hashlib.sha256()
     for name in files:
         digest.update(name.encode());digest.update((root/name).read_bytes())
