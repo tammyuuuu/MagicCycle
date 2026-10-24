@@ -33,5 +33,6 @@
    setInterval(()=>{if(document.visibilityState==='visible')check();},60000);
   }catch{}
  }
- if('requestIdleCallback' in window)requestIdleCallback(start,{timeout:2500});else setTimeout(start,500);
+ // This script is deferred: the shell is parsed, so start offline preparation now.
+ start();
 })();
