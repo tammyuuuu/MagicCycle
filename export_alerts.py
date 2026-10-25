@@ -13,6 +13,7 @@ https://<你的用户名>.github.io/<仓库名>/ 查看。
 """
 
 import valuation_data
+import base64
 import json
 import os
 import sys
@@ -100,6 +101,9 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
     with open(os.path.join(BASE_DIR, "templates", "_status_rail.html"), encoding="utf-8") as f:
         status_assets = f.read().replace("{{ asset_state_catalog | tojson }}", json.dumps(STATE_CATALOG, ensure_ascii=False)).replace("{{ asset_state_map | tojson }}", json.dumps(DISPLAY_STATUS_MAP, ensure_ascii=False))
     page_styles = Path(BASE_DIR, "templates", "_styles.html").read_text(encoding="utf8")
+    # Embed the header emblem so it needs no separate cache/network request.
+    badge = base64.b64encode(Path(BASE_DIR, "docs", "assets", "brand-badge.png").read_bytes()).decode("ascii")
+    badge_src = f"data:image/png;base64,{badge}"
     return f"""<!DOCTYPE html>
 <!-- 自动生成文件：请勿直接编辑。账户页面在 templates/_invest_tools.html，研究数据由 workspace_data/manifest.json 指定。 -->
 <html lang="zh-CN"><head><meta charset="UTF-8">
@@ -110,13 +114,12 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
 <meta name="apple-mobile-web-app-title" content="星循">
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
-<link rel="preload" as="image" href="./assets/brand-badge.png" fetchpriority="high">
 <link rel="preload" as="font" href="./assets/xingxun-serif-650.woff" type="font/woff" crossorigin>
 <link rel="manifest" href="./manifest.webmanifest">
 <script src="./pwa.js" defer></script>
 <title>星循 · 观察周期，记录投资</title>
 {page_styles}</head><body>{status_assets}
-<header class="site-header"><div class="brand-lockup"><img class="brand-emblem" src="./assets/brand-badge.png" loading="eager" fetchpriority="high" width="64" height="64" alt="" aria-hidden="true"><div class="brand-copy"><div class="brand-heading"><h1>星循</h1><span class="brand-tagline">观察周期，记录投资</span></div><div class="brand-updated"><span class="brand-clock" aria-hidden="true"></span>更新于 <time>{gen_time}</time></div></div></div>
+<header class="site-header"><div class="brand-lockup"><img class="brand-emblem" src="{badge_src}" loading="eager" fetchpriority="high" width="64" height="64" alt="" aria-hidden="true"><div class="brand-copy"><div class="brand-heading"><h1>星循</h1><span class="brand-tagline">观察周期，记录投资</span></div><div class="brand-updated"><span class="brand-clock" aria-hidden="true"></span>更新于 <time>{gen_time}</time></div></div></div>
 <nav id="topnav"><a data-page="today" class="active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2m6 2V2M8 10h8m-8 4h5"/></svg><span>今日提醒</span></a><a data-page="plan"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M6 16v-5m6 5V5m6 11V8"/></svg><span>投资配置</span></a><a data-page="review"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6C9 4 5 4 3 5v15c3-1 6-1 9 1 3-2 6-2 9-1V5c-2-1-6-1-9 1v15Z"/></svg><span>投资复盘</span></a><a data-page="lab"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2 6-6 2 2-6 6-2Z"/></svg><span>策略实验</span></a></nav></header>
 <div class="wrap">{notice}{body}
 <footer>数据：AkShare（东方财富/新浪）· 仅供策略研究，非投资建议</footer></div>
