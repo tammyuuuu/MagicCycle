@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-25T10:42:13+08:00",
+  "updated_at": "2026-10-26T12:49:28+08:00",
   "quota_source": "https://qdiilimit.com/",
   "source_type": "第三方公开公告汇总；并非渠道交易确认",
   "rows": [
@@ -17,17 +17,12 @@
         "retail_limit": "无代销",
         "direct_limit": "200",
         "notice": "仅直销·无代销渠道 直销 2026-07-20",
-        "source_date": "2026-10-25"
+        "source_date": "2026-10-26"
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_021000.html",
-      "nav_date": "2026-10-22",
-      "unit_nav": 2.2295,
-      "income_per_10000": null,
-      "yield_7d_pct": null,
-      "nav_purchase_status": "限制大额申购",
-      "nav_redeem_status": "开放赎回",
-      "nav_state": "近期披露",
+      "nav_state": "获取失败",
+      "nav_error": "HTTPSConnectionPool(host='api.fund.eastmoney.com', port=443): Read timed out. (read timeout=10)",
       "management_pct": 0.5,
       "custody_pct": 0.15,
       "service_pct": 0.01,
@@ -36,7 +31,7 @@
       "subscription_basis": "---",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_021000.html",
-      "terms_as_of": "2026-10-25"
+      "terms_as_of": "2026-10-26"
     },
     {
       "code": "019441",
@@ -51,7 +46,7 @@
         "retail_limit": "5",
         "direct_limit": "100",
         "notice": "代销 2026-10-21 直销 2026-10-21",
-        "source_date": "2026-10-25"
+        "source_date": "2026-10-26"
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_019441.html",
@@ -70,7 +65,7 @@
       "subscription_basis": "小于100万元",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_019441.html",
-      "terms_as_of": "2026-10-25"
+      "terms_as_of": "2026-10-26"
     },
     {
       "code": "022525",
@@ -85,17 +80,12 @@
         "retail_limit": "100",
         "direct_limit": "无直销",
         "notice": "代销 2026-09-01 仅代销·无直销渠道",
-        "source_date": "2026-10-25"
+        "source_date": "2026-10-26"
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_022525.html",
-      "nav_date": "2026-10-22",
-      "unit_nav": 1.9606,
-      "income_per_10000": null,
-      "yield_7d_pct": null,
-      "nav_purchase_status": "限制大额申购",
-      "nav_redeem_status": "开放赎回",
-      "nav_state": "近期披露",
+      "nav_state": "获取失败",
+      "nav_error": "HTTPSConnectionPool(host='api.fund.eastmoney.com', port=443): Read timed out. (read timeout=10)",
       "management_pct": 0.5,
       "custody_pct": 0.1,
       "service_pct": 0.2,
@@ -104,7 +94,7 @@
       "subscription_basis": "---",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_022525.html",
-      "terms_as_of": "2026-10-25"
+      "terms_as_of": "2026-10-26"
     },
     {
       "code": "017641",
@@ -119,7 +109,7 @@
         "retail_limit": "10",
         "direct_limit": "10",
         "notice": "代销 2026-07-27 直销 2026-07-27",
-        "source_date": "2026-10-25"
+        "source_date": "2026-10-26"
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_017641.html",
@@ -138,7 +128,7 @@
       "subscription_basis": "小于50万元",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_017641.html",
-      "terms_as_of": "2026-10-25"
+      "terms_as_of": "2026-10-26"
     },
     {
       "code": "022523",
@@ -153,7 +143,7 @@
         "retail_limit": "100",
         "direct_limit": "无直销",
         "notice": "代销 2026-09-01 仅代销·无直销渠道",
-        "source_date": "2026-10-25"
+        "source_date": "2026-10-26"
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_022523.html",
@@ -172,7 +162,7 @@
       "subscription_basis": "---",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_022523.html",
-      "terms_as_of": "2026-10-25"
+      "terms_as_of": "2026-10-26"
     },
     {
       "code": "006484",
@@ -204,7 +194,7 @@
         "retail_limit": "暂停",
         "direct_limit": "暂停",
         "notice": "代销 2026-03-19 直销 2026-03-19",
-        "source_date": "2026-10-25"
+        "source_date": "2026-10-26"
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_161130.html",
@@ -223,7 +213,7 @@
       "subscription_basis": "小于100万元",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_161130.html",
-      "terms_as_of": "2026-10-25"
+      "terms_as_of": "2026-10-26"
     },
     {
       "code": "050025",
@@ -236,7 +226,7 @@
         "retail_limit": "暂停",
         "direct_limit": "暂停",
         "notice": "代销 2026-05-08 直销 2026-05-08",
-        "source_date": "2026-10-25"
+        "source_date": "2026-10-26"
       },
       "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_050025.html",
@@ -255,7 +245,7 @@
       "subscription_basis": "小于50万元",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_050025.html",
-      "terms_as_of": "2026-10-25"
+      "terms_as_of": "2026-10-26"
     }
   ],
   "future_alerts": [],
