@@ -1,5 +1,5 @@
 /* Generated release changes whenever exported content changes. */
-const RELEASE = 'e4b9f298613b340dd755';
+const RELEASE = '230a86a441a4bb42d670';
 const CACHE = 'magiccycle-pwa-' + RELEASE;
 const ROOT = new URL('./', self.location.href);
 const PAGE = new URL('index.html', ROOT).href;
