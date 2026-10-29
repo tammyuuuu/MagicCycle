@@ -90,7 +90,11 @@ for strategy_id,buy,exit_ in [
   ('reduce','减仓','red','本轮不单独触发减仓。'),('exit','退出','red',exit_)]
 
 
+STATE_CATALOG['bond_fund']=[('buy','买入／持有','blue','长期持有是当前主要策略；辅助指标不触发等待、减仓或退出。')]
+
+
 def display_status(summary):
+ if summary['asset_type']=='bond_fund':return 'buy'
  if summary['asset_type']=='macro_asset':
   return 'watch' if summary.get('details',{}).get('insufficient_history') else 'reduce' if summary.get('details',{}).get('heat_phase') else 'buy'
  code=DISPLAY_STATUS_MAP.get(summary['asset_type'],{}).get(summary['status'],summary['status'])
@@ -118,17 +122,22 @@ def render_rail(summary):
  catalog=STATE_CATALOG.get(summary.get('details',{}).get('strategy_id') or ('us_equity' if summary.get('details',{}).get('strategy_mode')=='us_monthly_trend' else summary['asset_type']),[])
  current_status=display_status(summary)
  if summary['asset_type']=='macro_asset':colors=['#5265b6','#e8bd4b']
+ if summary['asset_type']=='bond_fund':colors=['#5265b6']
  current_index=next((i for i,e in enumerate(catalog) if e[0]==current_status),0)
  active=next((e for e in catalog if e[0]==current_status),None)
  buttons=''.join(f'<button type="button" class="state-step{ " is-current" if code==current_status else ""}" style="--axis-pos:{i/max(1,len(catalog)-1)*100:.1f}%;--axis-color:{colors[i]}" data-meaning="{escape(meaning,quote=True)}" data-label="{escape(label,quote=True)}" onclick="inspectAssetState(this)"'+(' aria-current="step"' if code==current_status else '')+f'><span class="state-dot" aria-hidden="true"></span>{escape(display_action(summary) if code==current_status else label)}'+('<span class="current-arrow" aria-hidden="true"></span>' if code==current_status else '')+'</button>' for i,(code,label,tone,meaning) in enumerate(catalog))
  risk_badge=''
- return f'<div class="state-position" style="--current-pos:{current_index/max(1,len(catalog)-1)*100:.1f}%;--axis-color:{colors[current_index]}"><div class="axis-labels"><b>买入</b><span>卖出</span></div>'+risk_badge+'<div class="axis-scroll"><div class="state-rail">'+buttons+'</div></div><p class="current-reason"><b>当前判断：</b>'+escape(summary['reason'])+'</p><p class="state-explanation" aria-live="polite">'+escape(active[3] if active else summary['reason'])+'</p></div>'
+ axis_labels='<b>买入／持有</b><span>减仓</span>' if summary['asset_type']=='macro_asset' else '<b>买入</b><span>卖出</span>'
+ if summary['asset_type']=='bond_fund':axis_labels='<b>长期持有策略</b>'
+ return f'<div class="state-position" style="--current-pos:{current_index/max(1,len(catalog)-1)*100:.1f}%;--axis-color:{colors[current_index]}"><div class="axis-labels">{axis_labels}</div>'+risk_badge+'<div class="axis-scroll"><div class="state-rail">'+buttons+'</div></div><p class="current-reason"><b>当前判断：</b>'+escape(summary['reason'])+'</p><p class="state-explanation" aria-live="polite">'+escape('' if summary['asset_type'] in ('macro_asset','bond_fund') else active[3] if active else summary['reason'])+'</p></div>'
 
 
 def render_today_categories(contents=None):
  from html import escape
  contents=contents or {}
- categories=[('broad','宽基 ETF'),('us','美股宽基 ETF'),('industry','行业 ETF'),('macro','黄金/大类资产')]
+ from bond_monitor import render_bond_monitor
+ contents={**contents, 'bond':render_bond_monitor()}
+ categories=[('broad','宽基 ETF'),('us','美股宽基 ETF'),('industry','行业 ETF'),('macro','黄金/大类资产'),('bond','债券监测')]
  output='<div class="today-categories etf-monitor" style="grid-column:1/-1"><h2 class="etf-monitor-title">ETF买卖监测</h2><nav class="guide-tabs" aria-label="今日提醒资产类别">'
  for index,(key,label) in enumerate(categories):
   output+=f'<button type="button" data-category="{key}" aria-pressed="'+('true' if index==0 else 'false')+f'" aria-controls="today-category-{key}" onclick="selectTodayCategory(this)">{escape(label)}</button>'
