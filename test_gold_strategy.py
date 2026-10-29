@@ -25,10 +25,10 @@ class GoldStrategyTests(unittest.TestCase):
             r=strategies.analyze_asset(frame(values+[131.]*n),ITEM)
             if r['details']['fresh_add']:
                 self.assertEqual(r['status'],'add')
-                self.assertIn('加仓',r['reason'])
+                self.assertIn('买回',r['reason'])
                 held=strategies.analyze_asset(frame(values+[131.]*n),ITEM,{'holding':True,'current_return':-50})
                 self.assertEqual(held['decision_basis'],r['decision_basis'])
-                self.assertEqual(display_status(held),'add')
+                self.assertEqual(display_status(held),'buy')
                 self.assertNotIn('target_exposure',r['details'])
                 self.assertEqual(strategies.analyze_asset(frame(values+[131.]*(n+1)),ITEM)['status'],'watch')
                 break
@@ -41,7 +41,7 @@ class GoldStrategyTests(unittest.TestCase):
                 held=strategies.analyze_asset(frame(values),ITEM,h)
                 self.assertEqual(held['status'],base['status'])
                 self.assertEqual(held['decision_basis'],base['decision_basis'])
-                self.assertEqual(display_status(held),base['status'])
+                self.assertEqual(display_status(held),display_status(base))
 
     def test_warmup_and_initial_buy(self):
         self.assertEqual(strategies.analyze_asset(frame([100.]*119),ITEM)['status'],'watch')
@@ -63,6 +63,18 @@ class GoldStrategyTests(unittest.TestCase):
         self.assertEqual(gold_strategy.analyze_latest(data,{'heat_threshold':boundary-1e-10})['status'],'reduce')
         self.assertEqual(gold_strategy.analyze_latest(data,{'heat_threshold':boundary+1e-10})['status'],'watch')
 
+    def test_gold_two_node_rail_and_waiting(self):
+        from bs4 import BeautifulSoup
+        from asset_states import render_rail
+        for values,expected in [([100.]*130,'buy'),([100.]*130+[130.],'reduce'),([100.]*130+[130.,131.],'reduce')]:
+            summary=strategies.analyze_asset(frame(values),ITEM)
+            soup=BeautifulSoup(render_rail(summary),'html.parser')
+            self.assertEqual(len(soup.select('.state-step')),2)
+            self.assertEqual(display_status(summary),expected)
+            self.assertIn('买入／持有',soup.get_text())
+            self.assertNotIn('预算',soup.get_text())
+            if len(values)==132:self.assertIn('等待冷却，暂不买回',soup.get_text())
+
     def test_api_consistency(self):
         with patch.dict(app._DATA,{'518850':frame([100.]*130+[130.])}),app.app.test_client() as client:
             alerts=client.post('/api/alerts',json={'etf':'518850'}).json[0]['summary']
@@ -80,8 +92,8 @@ class GoldStrategyTests(unittest.TestCase):
         self.assertIn('5%',text)
         self.assertNotIn('RSI',text)
         self.assertNotIn('盈利',text)
-        self.assertNotIn('买回',text)
-        self.assertIn('本期预算',text)
+        self.assertIn('买回',text)
+        self.assertNotIn('预算',text)
 
 
 if __name__=='__main__':unittest.main()

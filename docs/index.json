@@ -4,35 +4,35 @@
     "name": "博时标普500ETF",
     "asset_type": "broad_etf",
     "subtype": "us_equity",
-    "date": "2026-10-29",
-    "status": "buy",
-    "action": "买入",
-    "reason": "长期方向向上，价格高于20日均价且未过热；本期新资金可买入，已有持仓不必重复交易。",
+    "date": "2026-10-19",
+    "status": "watch",
+    "action": "观察",
+    "reason": "行情更新受限，先观察；待数据更新后再按策略判断。",
     "risk_level": "normal",
     "metrics": {
-      "price": 2.688,
-      "day_change_pct": -0.52,
+      "price": 2.677,
+      "day_change_pct": -0.07,
       "historical_percentile": null,
-      "drawdown": -3.24,
-      "rsi14": 52.49,
-      "ma5": 2.6524,
-      "ma10": 2.6557,
-      "ma20": 2.681,
-      "ma60": 2.676083333333333,
-      "ma120": 2.597,
-      "ma20_slope": -0.010949999999999793,
-      "volatility": 0.011378230696629804,
-      "atr": 0.03694962918111435,
-      "volume_ratio": 0.4859353223192871,
+      "drawdown": -3.64,
+      "rsi14": 47.31,
+      "ma5": 2.7018,
+      "ma10": 2.7051,
+      "ma20": 2.6928,
+      "ma60": 2.6576,
+      "ma120": 2.5795,
+      "ma20_slope": 0.005850000000000133,
+      "volatility": 0.010962492703435318,
+      "atr": 0.03434754378184914,
+      "volume_ratio": 0.862006252370777,
       "momentum12_pct": 17.69,
-      "ma60_deviation_pct": 0.45
+      "ma60_deviation_pct": 0.73
     },
     "details": {
       "trend": "strong",
       "position": null,
       "overheated": false,
       "insufficient_history": false,
-      "history_days": 3106,
+      "history_days": 3098,
       "holding": false,
       "holding_return": null,
       "parameters": {
@@ -43,7 +43,7 @@
         "recovery_window": 20,
         "reduce_fraction": 0.5
       },
-      "data_warning": null,
+      "data_warning": "513500 缓存截至 2026-10-19",
       "fundamental_data_available": null,
       "strategy_mode": "us_monthly_trend",
       "strategy_version": "us_momentum_heat_v2",
@@ -59,25 +59,34 @@
       "heat_active": false,
       "fresh_add": false,
       "fresh_reduce": false,
-      "new_money_action": "buy",
-      "new_money_fraction": 0.5,
+      "new_money_action": "watch",
+      "new_money_fraction": 0.0,
       "premium_notice": null
     },
     "decision_basis": [
+      [
+        "行情前提",
+        "更新受限，先等待数据更新"
+      ],
       [
         "长期方向",
         "2026-09-30过去12个月涨幅+17.69%，方向向上"
       ],
       [
         "短期热度",
-        "价格较60日均价偏离+0.45%，未处于过热阶段"
+        "价格较60日均价偏离+0.73%，未处于过热阶段"
       ],
       [
         "价格恢复",
-        "价格高于20日均价"
+        "价格尚未高于20日均价"
       ]
     ],
     "decision_conditions": [
+      {
+        "condition": "行情前提",
+        "result": "更新受限，先等待数据更新",
+        "met": null
+      },
       {
         "condition": "长期方向",
         "result": "2026-09-30过去12个月涨幅+17.69%，方向向上",
@@ -85,12 +94,12 @@
       },
       {
         "condition": "短期热度",
-        "result": "价格较60日均价偏离+0.45%，未处于过热阶段",
+        "result": "价格较60日均价偏离+0.73%，未处于过热阶段",
         "met": null
       },
       {
         "condition": "价格恢复",
-        "result": "价格高于20日均价",
+        "result": "价格尚未高于20日均价",
         "met": null
       }
     ]
@@ -103,7 +112,7 @@
     "date": "2026-10-28",
     "status": "watch",
     "action": "观察",
-    "reason": "价格尚未高于20日均价，先等短期恢复；这一条件本身不要求卖出已有持仓。",
+    "reason": "行情更新受限，先观察；待数据更新后再按策略判断。",
     "risk_level": "normal",
     "metrics": {
       "price": 2.315,
@@ -139,7 +148,7 @@
         "recovery_window": 20,
         "reduce_fraction": 0.5
       },
-      "data_warning": null,
+      "data_warning": "513100 缓存截至 2026-10-28",
       "fundamental_data_available": null,
       "strategy_mode": "us_monthly_trend",
       "strategy_version": "us_momentum_heat_v2",
@@ -161,6 +170,10 @@
     },
     "decision_basis": [
       [
+        "行情前提",
+        "更新受限，先等待数据更新"
+      ],
+      [
         "长期方向",
         "2026-09-30过去12个月涨幅+29.73%，方向向上"
       ],
@@ -174,6 +187,11 @@
       ]
     ],
     "decision_conditions": [
+      {
+        "condition": "行情前提",
+        "result": "更新受限，先等待数据更新",
+        "met": null
+      },
       {
         "condition": "长期方向",
         "result": "2026-09-30过去12个月涨幅+29.73%，方向向上",
@@ -198,8 +216,8 @@
     "subtype": "gold",
     "date": "2026-10-29",
     "status": "watch",
-    "action": "观察",
-    "reason": "未出现新的买卖信号，已有持仓保持；本策略允许普通波动中长期持有。",
+    "action": "买入／持有",
+    "reason": "买入／持有，允许长期持有。",
     "risk_level": "normal",
     "metrics": {
       "price": 8.315,
@@ -234,7 +252,7 @@
         "heat_threshold": 0.15,
         "cooling_threshold": 0.05
       },
-      "data_warning": null,
+      "data_warning": "518850 缓存截至 2026-10-29",
       "fundamental_data_available": null,
       "strategy_version": "gold_heat_actions_v2",
       "return_20d_pct": -7.508342602892116,
@@ -253,14 +271,14 @@
     },
     "decision_conditions": [
       {
-        "condition": "观察条件：未出现新的过热减仓或冷却加仓信号；普通波动不自动退出",
+        "condition": "买入／持有：允许长期持有，普通回调不单独触发买入；双15%过热减半，双5%冷却买回",
         "met": true,
         "result": "满足"
       }
     ],
     "decision_basis": [
       [
-        "观察条件：未出现新的过热减仓或冷却加仓信号；普通波动不自动退出",
+        "买入／持有：允许长期持有，普通回调不单独触发买入；双15%过热减半，双5%冷却买回",
         "满足"
       ]
     ]
@@ -273,7 +291,7 @@
     "date": "2026-10-28",
     "status": "watch",
     "action": "观察",
-    "reason": "等待低估与价格恢复同时出现：PE分位低于30%，且收盘高于60日均价才开始买入。",
+    "reason": "行情更新受限，待数据更新后再判断。",
     "risk_level": "normal",
     "metrics": {
       "price": 4.152,
@@ -309,7 +327,7 @@
         "entry_ma_window": 60,
         "valuation_lag": 1
       },
-      "data_warning": null,
+      "data_warning": "510300 缓存截至 2026-10-28",
       "fundamental_data_available": null,
       "strategy_mode": "broad_individual",
       "strategy_id": "value_confirmed_exit",
@@ -324,8 +342,12 @@
         "3": {
           "status": "watch",
           "action": "观察",
-          "reason": "等待低估与价格恢复同时出现：PE分位低于30%，且收盘高于60日均价才开始买入。",
+          "reason": "行情更新受限，待数据更新后再判断。",
           "decision_basis": [
+            [
+              "行情前提",
+              "更新受限，先观察"
+            ],
             [
               "当前分位",
               "近3年PE分位31.08%（估值日期：2026-10-27）"
@@ -348,6 +370,11 @@
             ]
           ],
           "decision_conditions": [
+            {
+              "condition": "行情前提",
+              "result": "更新受限，先观察",
+              "met": null
+            },
             {
               "condition": "当前分位",
               "result": "近3年PE分位31.08%（估值日期：2026-10-27）",
@@ -393,8 +420,12 @@
         "5": {
           "status": "watch",
           "action": "观察",
-          "reason": "等待低估与价格恢复同时出现：PE分位低于30%，且收盘高于60日均价才开始买入。",
+          "reason": "行情更新受限，待数据更新后再判断。",
           "decision_basis": [
+            [
+              "行情前提",
+              "更新受限，先观察"
+            ],
             [
               "当前分位",
               "近5年PE分位23.77%（估值日期：2026-10-27）"
@@ -417,6 +448,11 @@
             ]
           ],
           "decision_conditions": [
+            {
+              "condition": "行情前提",
+              "result": "更新受限，先观察",
+              "met": null
+            },
             {
               "condition": "当前分位",
               "result": "近5年PE分位23.77%（估值日期：2026-10-27）",
@@ -460,10 +496,14 @@
           "average": 4.5994
         },
         "10": {
-          "status": "buy",
-          "action": "买入",
-          "reason": "低估且价格恢复后进入买入阶段，尚未触发“高估且转弱”退出；本期新资金可买入，已有持仓不必重复交易。",
+          "status": "watch",
+          "action": "观察",
+          "reason": "行情更新受限，待数据更新后再判断。",
           "decision_basis": [
+            [
+              "行情前提",
+              "更新受限，先观察"
+            ],
             [
               "当前分位",
               "近10年PE分位20.25%（估值日期：2026-10-27）"
@@ -486,6 +526,11 @@
             ]
           ],
           "decision_conditions": [
+            {
+              "condition": "行情前提",
+              "result": "更新受限，先观察",
+              "met": null
+            },
             {
               "condition": "当前分位",
               "result": "近10年PE分位20.25%（估值日期：2026-10-27）",
@@ -583,6 +628,10 @@
     },
     "decision_basis": [
       [
+        "行情前提",
+        "更新受限，先观察"
+      ],
+      [
         "当前分位",
         "近5年PE分位23.77%（估值日期：2026-10-27）"
       ],
@@ -604,6 +653,11 @@
       ]
     ],
     "decision_conditions": [
+      {
+        "condition": "行情前提",
+        "result": "更新受限，先观察",
+        "met": null
+      },
       {
         "condition": "当前分位",
         "result": "近5年PE分位23.77%（估值日期：2026-10-27）",
@@ -637,9 +691,9 @@
     "asset_type": "broad_etf",
     "subtype": "中证500",
     "date": "2026-10-28",
-    "status": "exit",
-    "action": "退出",
-    "reason": "估值已离开低估区，且价格不高于120日均价；已有持仓考虑退出。",
+    "status": "watch",
+    "action": "观察",
+    "reason": "行情更新受限，待数据更新后再判断。",
     "risk_level": "normal",
     "metrics": {
       "price": 6.672,
@@ -674,7 +728,7 @@
         "trend_entry_ceiling": 60,
         "valuation_lag": 1
       },
-      "data_warning": null,
+      "data_warning": "510500 缓存截至 2026-10-28",
       "fundamental_data_available": null,
       "strategy_mode": "broad_individual",
       "strategy_id": "value_or_trend120",
@@ -687,10 +741,14 @@
       ],
       "strategy_options": {
         "3": {
-          "status": "exit",
-          "action": "退出",
-          "reason": "估值已离开低估区，且价格不高于120日均价；已有持仓考虑退出。",
+          "status": "watch",
+          "action": "观察",
+          "reason": "行情更新受限，待数据更新后再判断。",
           "decision_basis": [
+            [
+              "行情前提",
+              "更新受限，先观察"
+            ],
             [
               "当前分位",
               "近3年PE分位52.7%（估值日期：2026-10-27）"
@@ -709,6 +767,11 @@
             ]
           ],
           "decision_conditions": [
+            {
+              "condition": "行情前提",
+              "result": "更新受限，先观察",
+              "met": null
+            },
             {
               "condition": "当前分位",
               "result": "近3年PE分位52.7%（估值日期：2026-10-27）",
@@ -747,10 +810,14 @@
           "average": 7.966691666666667
         },
         "5": {
-          "status": "exit",
-          "action": "退出",
-          "reason": "估值已离开低估区，且价格不高于120日均价；已有持仓考虑退出。",
+          "status": "watch",
+          "action": "观察",
+          "reason": "行情更新受限，待数据更新后再判断。",
           "decision_basis": [
+            [
+              "行情前提",
+              "更新受限，先观察"
+            ],
             [
               "当前分位",
               "近5年PE分位69.67%（估值日期：2026-10-27）"
@@ -769,6 +836,11 @@
             ]
           ],
           "decision_conditions": [
+            {
+              "condition": "行情前提",
+              "result": "更新受限，先观察",
+              "met": null
+            },
             {
               "condition": "当前分位",
               "result": "近5年PE分位69.67%（估值日期：2026-10-27）",
@@ -807,10 +879,14 @@
           "average": 7.966691666666667
         },
         "10": {
-          "status": "exit",
-          "action": "退出",
-          "reason": "估值已离开低估区，且价格不高于120日均价；已有持仓考虑退出。",
+          "status": "watch",
+          "action": "观察",
+          "reason": "行情更新受限，待数据更新后再判断。",
           "decision_basis": [
+            [
+              "行情前提",
+              "更新受限，先观察"
+            ],
             [
               "当前分位",
               "近10年PE分位55.79%（估值日期：2026-10-27）"
@@ -829,6 +905,11 @@
             ]
           ],
           "decision_conditions": [
+            {
+              "condition": "行情前提",
+              "result": "更新受限，先观察",
+              "met": null
+            },
             {
               "condition": "当前分位",
               "result": "近10年PE分位55.79%（估值日期：2026-10-27）",
@@ -921,6 +1002,10 @@
     },
     "decision_basis": [
       [
+        "行情前提",
+        "更新受限，先观察"
+      ],
+      [
         "当前分位",
         "近5年PE分位69.67%（估值日期：2026-10-27）"
       ],
@@ -938,6 +1023,11 @@
       ]
     ],
     "decision_conditions": [
+      {
+        "condition": "行情前提",
+        "result": "更新受限，先观察",
+        "met": null
+      },
       {
         "condition": "当前分位",
         "result": "近5年PE分位69.67%（估值日期：2026-10-27）",
@@ -966,9 +1056,9 @@
     "asset_type": "broad_etf",
     "subtype": "科创50",
     "date": "2026-10-28",
-    "status": "exit",
-    "action": "退出",
-    "reason": "收盘跌到16日均价下方2%或更低；已有持仓考虑退出。",
+    "status": "watch",
+    "action": "观察",
+    "reason": "行情更新受限，待数据更新后再判断。",
     "risk_level": "normal",
     "metrics": {
       "price": 1.354,
@@ -1004,7 +1094,7 @@
         "price_buffer": 0.02,
         "valuation_lag": 1
       },
-      "data_warning": null,
+      "data_warning": "588000 缓存截至 2026-10-28",
       "fundamental_data_available": null,
       "strategy_mode": "broad_individual",
       "strategy_id": "trend16_buffer2",
@@ -1021,6 +1111,10 @@
       "new_money_fraction": 0.0
     },
     "decision_basis": [
+      [
+        "行情前提",
+        "更新受限，先观察"
+      ],
       [
         "入场条件",
         "收盘高于16日均价的102%才进入买入阶段"
@@ -1039,6 +1133,11 @@
       ]
     ],
     "decision_conditions": [
+      {
+        "condition": "行情前提",
+        "result": "更新受限，先观察",
+        "met": null
+      },
       {
         "condition": "入场条件",
         "result": "收盘高于16日均价的102%才进入买入阶段",
@@ -1099,7 +1198,7 @@
         "ma_fast": 20,
         "min_history": 20
       },
-      "data_warning": null,
+      "data_warning": "588170 缓存截至 2026-10-29",
       "fundamental_data_available": null,
       "strategy_version": "sector_ma20_partial_v2",
       "ma_window": 20,

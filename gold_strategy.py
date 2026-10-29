@@ -36,15 +36,15 @@ def analyze_latest(df,profile=None):
     fresh_add=ready and target==1 and previous==.5
     if not ready:status,reason='watch','历史数据不足，先观察。'
     elif target==.5 and previous==1:
-        status,reason='reduce','短期涨幅和均线偏离均达到过热线，下一交易日减半一次；未持有无需卖出。'
+        status,reason='reduce','双指标均达到15%过热线，减持一半；同一阶段只提醒一次。'
     elif target==1 and previous!=1:
         status='add' if fresh_add else 'buy'
-        reason='短期涨幅与均线偏离均已冷却，可按本期预算加仓；未持有可买入，不要求之前卖出过。' if fresh_add else '指标已就绪，未进入过热阶段，可按计划开始配置；已有持仓不重复买入。'
+        reason='已满足双5%冷却条件，可买回并恢复仓位。' if fresh_add else '买入／持有，允许长期持有。'
     elif target==.5:
-        status,reason='watch','仍处于过热后的减仓阶段，不重复减半，等待两个指标都冷却；未持有先不追买。'
-    else:status,reason='watch','未出现新的买卖信号，已有持仓保持；本策略允许普通波动中长期持有。'
+        status,reason='watch','等待冷却，暂不买回；不重复减仓。'
+    else:status,reason='watch','买入／持有，允许长期持有。'
     def number(value):return float(value) if pd.notna(value) else None
-    return {'status':status,'action':{'add':'加仓','buy':'买入','reduce':'减仓','watch':'观察'}[status],
+    return {'status':status,'action':('观察' if not ready else '减仓' if status=='reduce' else '等待冷却，暂不买回' if target==.5 else '买入／持有'),
             'reason':reason,'strategy_version':STRATEGY_VERSION,
             'return_20d_pct':number(current.rise*100),'deviation60_pct':number(current.deviation*100),
             'heat_phase':target==.5 if ready else None,'hot_now':bool(current.hot),'cold_now':bool(current.cold),

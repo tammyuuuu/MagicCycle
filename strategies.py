@@ -323,11 +323,11 @@ def analyze_asset(df, item, holding=None, overrides=None, sell_rules=None):
             record(f"减仓条件：近{p['return_window']}个交易日涨幅至少{p['heat_threshold']*100:g}%",True)
             record(f"减仓条件：高于{p['ma_window']}日均价至少{p['heat_threshold']*100:g}%；同一过热阶段减半一次",True)
         elif gold['fresh_add']:
-            record(f"加仓条件：过热阶段结束，短期涨幅与均线偏离均不高于{p['cooling_threshold']*100:g}%；金额按本期预算",True)
+            record(f"买回条件：过热阶段结束，短期涨幅与均线偏离均不高于{p['cooling_threshold']*100:g}%；可买回并恢复仓位",True)
         elif gold['heat_phase']:
             record(f"观察条件：过热阶段尚未冷却，等待两个指标均不高于{p['cooling_threshold']*100:g}%；不重复减仓",True)
         else:
-            record("观察条件：未出现新的过热减仓或冷却加仓信号；普通波动不自动退出",True)
+            record("买入／持有：允许长期持有，普通回调不单独触发买入；双15%过热减半，双5%冷却买回",True)
     # 仅调整解释顺序，不改变买卖逻辑。风险/暂停条件先于机会确认。
     basis_order = {
         'broad_etf': [0, 1],
