@@ -16,7 +16,7 @@
   const navAge=(Date.parse(day)-Date.parse(r.nav_date))/86400000,navOK=Number.isFinite(r.unit_nav)&&r.unit_nav>0&&navAge>=0&&navAge<=7;
   const channel=!current?'待核实：无今日公开额度':known.length===0?'待核实：额度格式不明确':needed<=0?'已取得公开额度；当前策略无此指数的申购目标':needed>0&&!enough?(known.length===2?'公开渠道额度均不足本次参考金额':'已知额度不足；其他渠道待核实'):'公开额度可覆盖参考金额，个人渠道仍待核实';
   if(/暂停申购/.test(r.purchase_status||r.nav_purchase_status||''))return {label:'暂停申购',channel:'暂停申购',selected,reason:'披露申购状态为暂停申购。'};
-  if(!current||!navOK)return {label:'待核实',channel,selected,reason:!current?'额度快照过期或缺失；不判断当前可买性。':'净值缺失、过旧或日期异常。'};
+  if(!current||!navOK)return {label:'待核实',channel,selected,reason:'暂不判断当前可买性。'};
   if(needed>0&&known.length===2&&!enough)return {label:'额度不足',channel,selected,reason:'每个渠道的公开日额度都不足'+needed.toFixed(2)+'元，不合并渠道额度。'};
   if(!matching)return {label:'观察',channel,selected,reason:groupMatch?'指数类别相近不等于同一产品；不自动替换当前策略的基金。':'该基金不在当前选定的研究策略中。'};
   if(strategy.simulation_validation!=='passed')return {label:'观察',channel,selected,reason:'选定策略仅为条件性研究，尚未获得模拟执行验收。'};
@@ -29,7 +29,7 @@
  function opportunity(signal,day){
   const age=(Date.parse(day)-Date.parse(signal?.date))/86400000;
   if(!signal||signal.details?.strategy_mode!=='us_monthly_trend'||!Number.isFinite(age)||age<0||age>7||signal.details.insufficient_history)
-   return {label:'买点待核实',rank:2,reason:'买点行情缺失、过旧或历史不足，先等待有效数据。'};
+   return {label:'买点待核实',rank:2,reason:'暂不判断当前买点。'};
   const buy=['buy','add'].includes(signal.status)&&['buy','add'].includes(signal.details.new_money_action);
   return {label:buy?'可考虑买入':'暂不买入',rank:buy?0:1,reason:signal.reason||'按现有美股趋势与热度策略判断。',date:signal.date};
  }
@@ -80,7 +80,7 @@
     const date=status.date&&status.date!==day?'（'+status.date+'）':'';
     const quotaText=/暂停申购/.test(status.text)?'暂停期间不可申购':q?`直销 ${q.direct_limit??'未公布'} / 代销 ${q.retail_limit??'未公布'} 元/日${q.source_date!==day||snap?.updated_at?.slice(0,10)!==day?'（保存额度 '+q.source_date+'）':''}`:/暂停申购/.test(status.text)?'暂停期间不可申购':'未取得公开额度';
     const annual=feeLines(r,peers)||(!Number.isFinite(r.management_pct)&&Number.isFinite(r.fee_pct)?`<div><dt>年费合计参考</dt><dd>${r.fee_pct}%</dd></div>`:'');
-    return `<article class="monitor-row" data-monitor-code="${esc(r.code)}"><div class="monitor-heading"><a href="${esc(r.product_url)}" target="_blank" rel="noopener">${esc(r.name)} <small>${esc(r.code)}</small></a><strong class="monitor-decision">${tradeLabel(result)}</strong></div><dl class="monitor-facts"><div><dt>额度</dt><dd>${esc(quotaText)}</dd></div><div><dt>申购状态</dt><dd>${esc(status.text+date)}</dd></div><div><dt>申购费</dt><dd>${Number.isFinite(sub)?esc(sub)+'%'+(r.subscription_channel?'（页面参考）':'（保存参考）'):'未取得费率'}</dd></div>${annual}</dl>${r.note?.includes('主动')?'<p class="monitor-exception">主动FOF，另有底层基金费用</p>':''}<details class="monitor-source"><summary>来源</summary><p>申购状态、费率：${esc(r.terms_as_of||r.nav_date||'日期缺失')} · ${esc(r.subscription_channel||'保存资料')}。${esc(r.subscription_basis||'')}<br>${esc(r.channel||'')}<br>买卖信号：${esc(result.opportunity.date||'数据缺失')}，指数策略参考。</p><a href="${esc(r.terms_source||r.nav_source)}" target="_blank" rel="noopener">申购与费率来源</a></details></article>`;
+    return `<article class="monitor-row" data-monitor-code="${esc(r.code)}"><div class="monitor-heading"><a href="${esc(r.product_url)}" target="_blank" rel="noopener">${esc(r.name)} <small>${esc(r.code)}</small></a><strong class="monitor-decision">${tradeLabel(result)}</strong></div><dl class="monitor-facts"><div><dt>额度</dt><dd>${esc(quotaText)}</dd></div><div><dt>申购状态</dt><dd>${esc(status.text+date)}</dd></div><div><dt>申购费</dt><dd>${Number.isFinite(sub)?esc(sub)+'%'+(r.subscription_channel?'（页面参考）':'（保存参考）'):'未取得费率'}</dd></div>${annual}</dl>${r.note?.includes('主动')?'<p class="monitor-exception">主动FOF，另有底层基金费用</p>':''}<details class="monitor-source"><summary>来源</summary><p>申购状态、费率：${esc(r.terms_as_of||r.nav_date||'—')} · ${esc(r.subscription_channel||'保存资料')}。${esc(r.subscription_basis||'')}<br>${esc(r.channel||'')}<br>买卖信号：${esc(result.opportunity.date||'—')}，指数策略参考。</p><a href="${esc(r.terms_source||r.nav_source)}" target="_blank" rel="noopener">申购与费率来源</a></details></article>`;
    }).join('')}</div>`;
   }).join('')}</div><p class="monitor-common">额度更新 ${esc(snap?.updated_at?.slice(0,10)||'日期缺失')} · <a href="${esc(snap?.quota_source||'https://qdiilimit.com/')}" target="_blank" rel="noopener">公开额度来源</a></p>${(snap?.future_alerts||[]).map(t=>`<p class="monitor-exception">${esc(t)}</p>`).join('')}`;
  }

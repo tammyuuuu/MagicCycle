@@ -137,6 +137,11 @@ def generate_signals(df: pd.DataFrame, name: str, params: dict = None) -> pd.Ser
 
 # 四类资产提醒入口。原有信号序列策略与回测接口保持不变。
 def analyze_asset(df, item, holding=None, overrides=None, sell_rules=None):
+    from strategy_presentation import attach
+    return attach(_analyze_asset(df, item, holding, overrides, sell_rules))
+
+
+def _analyze_asset(df, item, holding=None, overrides=None, sell_rules=None):
     """纯计算，无网络。收益率/仓位为小数；current_return 为百分数兼容旧接口。
 
     输出百分比指标采用百分点，缺失值为 None，严格 JSON 可序列化。

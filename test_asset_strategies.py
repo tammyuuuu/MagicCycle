@@ -76,7 +76,7 @@ class AssetTests(unittest.TestCase):
         items.append({'code':'000000','name':'missing','asset_type':'broad_etf','index':'','rep':{'error':'数据不足'}})
         html=export_alerts._build_page(items,'2026-09-30 16:00',False)
         self.assertIn('策略实验',html)
-        self.assertIn('数据不足',html)
+        self.assertIn('行情暂无',html)
     def test_export_and_api_schema(self):
         items=[]
         for item in config.TARGET_ETFS:

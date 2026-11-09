@@ -1,0 +1,10 @@
+2026-10-26
+19 tests passed: test_bond_entry, test_asset_strategies, test_decide_api.
+Final rebuild: 5 bond tests passed.
+PWA manifest hashes verified.
+ETF reminder JSON and account NAV snapshot byte-identical to original HEAD.
+No changes to strategies, ledger code, workspace_data, or existing backtest outputs.
+Existing data_cache working changes were present before this task and left in place.
+No Git commit or push performed.
+Browser visual inspection not run.
+Existing pandas deprecation and asyncio resource warnings observed; all tests passed.

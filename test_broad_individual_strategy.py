@@ -27,8 +27,8 @@ class IndividualStrategyTests(unittest.TestCase):
         self.assertEqual(permission.iloc[7],1.) # 低估仍可直接进入
         prices,history,_=load('510500','000905')
         s=strategies.analyze_asset(prices,self.item('510500',history))
-        self.assertEqual(s['details']['strategy_version'],'csi500_value_trend_v2')
-        self.assertEqual(s['details']['parameters']['trend_entry_ceiling'],60)
+        self.assertEqual(s['details']['strategy_version'],'csi500_pe_or_pb5_pe_exit_v4')
+        self.assertEqual(s['details']['parameters']['pb_entry_percentile'],10)
 
     def test_csi300_confirmation_and_permission_persistence(self):
         index=pd.bdate_range('2020-01-01',periods=100)
@@ -60,8 +60,9 @@ class IndividualStrategyTests(unittest.TestCase):
                 from research_star50_search import confirmed_ma
                 rules[key]=confirmed_ma(prices.close,16,buffer=.02)
             if code=='510500':
-                from broad_signal_rules import low_value_or_trend,signal_frame
-                rules[key]=low_value_or_trend(prices.close,signal_frame(prices,history,5).percentile,120,ceiling=60)
+                from csi500_pe_pb_strategy import frame
+                from valuation_data import load_pb_cache
+                rules[key]=frame(prices,history,load_pb_cache()).position
             actual=individual_frame(prices,history,item['broad_strategy'])
             pd.testing.assert_series_equal(actual.position,rules[key],check_names=False)
             for n in (int(len(prices)*.6),len(prices)):
@@ -70,7 +71,7 @@ class IndividualStrategyTests(unittest.TestCase):
                 row=actual.iloc[n-1]
                 if row.ready and row.position:
                     self.assertEqual(summary['status'],'buy')
-                self.assertEqual(summary['details']['strategy_version'],'csi300_value_confirm_v2' if code=='510300' else 'csi500_value_trend_v2' if code=='510500' else 'star50_buffer_v2')
+                self.assertEqual(summary['details']['strategy_version'],'csi300_value_confirm_v2' if code=='510300' else 'csi500_pe_or_pb5_pe_exit_v4' if code=='510500' else 'star50_buffer_v2')
                 self.assertEqual(summary['details']['enabled_decisions'],['buy','watch','exit'])
 
     def test_holding_and_old_overrides_do_not_change_new_decisions(self):

@@ -5,7 +5,7 @@ from pathlib import Path
 import hashlib,json,sys,ast
 import pandas as pd
 ROOT=Path(__file__).resolve().parent
-VERSION='daily_causal_v3_def_20261022'
+VERSION='continuous_dynamic_l56_20261031'
 WEIGHTS={'A':{'000015':1/3,'008701':1/3,'161130':1/3},'B':{'000015':.4,'008701':.3,'161130':.3},'C':{'000015':.6,'008701':.2,'161130':.2},'L1':{'000015':.5,'008701':.5},'L2':{'000015':1/3,'008701':1/3,'090010':1/3}}
 WEIGHTS.update({'L3':{'000015':1/3,'008701':1/3,'001214':1/3},'L4':{'000015':1/3,'008701':1/3,'160706':1/3}})
 for a,b in [('A','D'),('B','E'),('C','F')]:WEIGHTS[b]={('050025' if c=='161130' else c):v for c,v in WEIGHTS[a].items()}
@@ -60,6 +60,27 @@ def build_payload():
   if code=='050025':events=json.loads((ROOT/'research_def_20261022/050025_dividends.json').read_text(encoding='utf8'));error='已按三次基金分红公告补正；研究按除息日自动再投，真实账户以渠道确认单为准'
   funds[code]=dict(name=name,source=str(file.relative_to(ROOT)),sha256=hashlib.sha256(file.read_bytes()).hexdigest(),
     nav=[[str(r.date),float(r.nav)] for r in d.itertuples()],dividends=events,dividend_warning=error,as_of=str(d.date.iloc[-1]))
+ # Add frozen dynamic targets and continuous account curves without replacing old runs.
+ source=ROOT/'maintenance/portfolio_dynamic_20261031'
+ for sid in ['L5','L6']:
+  strategies.append(dict(id=sid,version=f'dynamic_{sid}_frozen_v1',status='research_conditional',scenario='nasdaq_unavailable',
+   weights={'000015':.5,'008701':.5,'001214':0.,'160706':0.},dynamic=True,runs=[],source=str(source.relative_to(ROOT)),lab_only=False,
+   simulation_validation='conditional',unavailable=[]))
+ for strategy in strategies:
+  sid=strategy['id']
+  if sid not in ['L1','L2','L3','L4','L5','L6']:continue
+  path=source/f'{sid}_daily.csv.gz';trades_path=source/f'{sid}_trades.csv'
+  d=pd.read_csv(path,index_col=0,parse_dates=True);t=pd.read_csv(trades_path,parse_dates=['date'])
+  eq=d.equity;unit=eq/eq.iloc[0];years=(d.index[-1]-d.index[0]).days/365.25
+  strategy['continuous_run']=dict(first=str(d.index[0].date()),last=str(d.index[-1].date()),mode='rebalance',data_type='actual_fund',
+   cagr=float(unit.iloc[-1]**(1/years)-1),mdd=float((unit/unit.cummax()-1).min()),fees=float(t.fee.sum()),
+   curve=[[str(date.date()),round(float(value),10),round(float(value/peak-1),10)] for date,value,peak in zip(d.index,unit,unit.cummax())],
+   trade_fees=[[str(r.date.date()),float(r.fee)] for r in t.itertuples()],source=str(path.relative_to(ROOT)),sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+  digest.update(path.read_bytes());digest.update(trades_path.read_bytes())
+ version=VERSION+'_'+digest.hexdigest()[:10];research['version']=version
+ research['default_strategy']='L5';research['default_period']='trailing5'
+ research['history_end']='2026-10-21'
+ research['segments']=[dict(id=f'trailing{years}',label=f'近{years}年',years=years,data_type='actual_fund') for years in [1,3,5]]
  return {'trading_conditions':conditions,'research':research,'funds':funds,'schema_version':1,'as_of':max(f['as_of'] for f in funds.values()),'calendar':[p[0] for p in funds['000015']['nav']]}
 def main():
  payload=build_payload();out=ROOT/'workspace_data';out.mkdir(exist_ok=True)

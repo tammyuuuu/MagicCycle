@@ -58,7 +58,7 @@ async function loadAlerts(){
       const card=document.createElement('div'); card.className='card';card.dataset.assetSymbol=it.code;
       const meta=STATE.etfs.find(e=>e.code===it.code)||it;
       const target=meta.strategy_mode==='us_monthly_trend'?$('#usList'):meta.asset_type==='macro_asset'?$('#macroList'):meta.asset_type==='sector_etf'?$('#industryList'):$('#broadList');
-      if(it.error){ card.innerHTML=`<b>${it.code} ${it.name}</b><div class="err">${it.error}</div>`; target.appendChild(card); continue; }
+      if(it.error){ card.innerHTML=`<b>${safeText(it.code)} ${safeText(it.name)}</b><div>行情暂无</div>`; target.appendChild(card); continue; }
       const s=it.summary, m=s.metrics;
       card.innerHTML=`<h2>${safeText(it.name)} <span class="muted">${safeText(it.code)}</span></h2>
         <p>数据日 ${s.date} · 当前 ${m.price} · 当日涨跌 ${m.day_change_pct==null?'暂无':m.day_change_pct.toFixed(2)+'%'}</p>
@@ -69,6 +69,9 @@ async function loadAlerts(){
     }
     refreshValuationPreference();
     window.renderPurchaseMonitor?.();
+    for(const [symbol,url] of [['MSFT','/api/msft-monitor'],['NVDA','/api/nvda-monitor'],['AAPL','/api/aapl-monitor']]){
+      fetch(url).then(r=>r.json()).then(data=>{const card=$('#stockList [data-asset-symbol="'+symbol+'"]');if(card)card.outerHTML=data.html;}).catch(()=>{});
+    }
   }catch(e){ box.innerHTML='<div class="err">'+e+'</div>'; }
 }
 

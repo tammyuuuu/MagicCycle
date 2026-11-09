@@ -36,7 +36,7 @@
   let index=-1,search='',lastKey=0;
   function sync(){const value=select.selectedOptions[0]?.textContent||'请选择';if(text.textContent!==value)text.textContent=value;if(button.disabled!==select.disabled)button.disabled=select.disabled;}
   function close(){menu.hidden=true;button.setAttribute('aria-expanded','false');button.removeAttribute('aria-activedescendant');if(activeSelect===entry)activeSelect=null;}
-  function highlight(next){index=next;[...menu.children].forEach((el,i)=>el.classList.toggle('is-active',i===index));const item=menu.children[index];if(item){button.setAttribute('aria-activedescendant',item.id);item.scrollIntoView({block:'nearest'});}}
+  function highlight(next){index=next;[...menu.children].forEach((el,i)=>el.classList.toggle('is-active',i===index));const item=menu.children[index];if(item){button.setAttribute('aria-activedescendant',item.id);const top=item.offsetTop,bottom=top+item.offsetHeight;if(top<menu.scrollTop)menu.scrollTop=top;else if(bottom>menu.scrollTop+menu.clientHeight)menu.scrollTop=bottom-menu.clientHeight;}}
   function choose(next){const option=select.options[next];if(!option||option.disabled||option.parentElement.disabled)return;select.value=option.value;sync();close();button.focus();select.dispatchEvent(new Event('input',{bubbles:true}));select.dispatchEvent(new Event('change',{bubbles:true}));}
   function show(){
    if(select.disabled)return;if(activeSelect)activeSelect.close();for(const picker of [...opened])picker.close();sync();menu.replaceChildren();

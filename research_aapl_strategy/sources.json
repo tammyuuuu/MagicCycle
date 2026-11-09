@@ -1,0 +1,21 @@
+{
+  "frozen_at_utc": "2026-11-09T08:32:32.749147+00:00",
+  "sample_end": "2026-11-06",
+  "files": [
+    {
+      "file": "AAPL_chart.json",
+      "source": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL",
+      "sha256": "92c1b91ea408090ec39f68c98bf64ebc1ffa90caf1ea5d1914bb025ab0f88744"
+    },
+    {
+      "file": "AAPL_facts.json",
+      "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+      "sha256": "f085735b4d08fb116ade18d24247ffabe11df8eb52eae6556b165831f15ef1ad"
+    },
+    {
+      "file": "BIL_chart.json",
+      "source": "research_nvda_strategy/raw/BIL_chart.json",
+      "sha256": "935c1ac1e3a3916755cb7bd41b6e63fc6736a57d84112f3860d2ef43fe889b0f"
+    }
+  ]
+}

@@ -4,7 +4,7 @@
  const dateOK=d=>typeof d==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(d)&&Number.isFinite(Date.parse(d))&&new Date(d).toISOString().slice(0,10)===d;
  function mapping(code,p={}){const known=registry.products[code],own=p.productMappings?.[code];return known?.verified?known:own?.verified&&own.currency==='CNY'&&assets[own.asset]&&/^https:\/\//.test(own.source||'')&&dateOK(own.date)?own:null;}
  const assetOf=(code,p)=>mapping(code,p)?.asset||'unmapped-'+code;
- function weights(strategy){const out={};for(const [code,w] of Object.entries(strategy.weights)){const asset=assetOf(code);out[asset]=(out[asset]||0)+w;}return out;}
+ function weights(strategy,resolved){const out={};const raw=resolved||window.DynamicAllocation?.resolve(strategy)?.weights||strategy.weights;for(const [code,w] of Object.entries(raw)){const asset=assetOf(code);out[asset]=(out[asset]||0)+w;}return out;}
  function selected(asset,p={}){return p.productChoices?.[asset]||assets[asset]?.default_code;}
  function catalog(D,snapshot,p={}){
   const out=Object.fromEntries(Object.entries(D.funds).map(([c,f])=>[c,{...f,nav:f.nav.map(n=>[...n])}]));
@@ -33,7 +33,7 @@
   const fee=source?.buy_pct??(base?.as_of===day?base.buy_pct:null),minimum=source?.minimum??base?.minimum;
   const status=source?.status||(base?.as_of===day?base.status:row?.nav_date===day?row.nav_purchase_status:null);
   let reason='';if(!Number.isFinite(fee)||fee<0||fee>100)reason='申购手续费待核实（年费不作为申购费）';else if(!Number.isFinite(minimum)||minimum<=0)reason='最低申购金额待核实';else if(limit==null)reason='当日渠道额度待核实';else if(!source&&row&&!base)reason='个人渠道当日申购状态待核实';else if(!['开放申购','限大额','限制大额申购'].includes(status))reason='申购暂停或状态待核实';
-  return {code,row,channel,buy_pct:fee,minimum,limit,status:status||'待核实',as_of:source?.date||base?.as_of||row?.quota?.source_date,redeem_tiers:base?.redeem_tiers,ready:!reason,reason,source};
+  return {code,row,channel,buy_pct:fee,minimum,limit,status:status||'待核实',as_of:source?.date||base?.as_of||row?.quota?.source_date,redeem_tiers:base?.redeem_tiers,settle_days:source?.settle_days??base?.settle_days??2,minimum_redeem:source?.minimum_redeem??(code==='160706'?0:1),minimum_residual:source?.minimum_residual??(code==='160706'?0:1),ready:!reason,reason,source};
  }
  window.ProductAssets={assets,mapping,assetOf,weights,selected,catalog,candidates,terms,dateOK};
 })();

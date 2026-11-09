@@ -57,7 +57,7 @@ def _summary_card(summary, extra=""):
 
 
 def _build_page(etfs_reps, gen_time: str, using_saved: bool,
-                stale_note: str = None, access_snapshot=None, *, output_dir=None) -> str:
+                stale_note: str = None, access_snapshot=None, *, output_dir=None, msft_html=None, nvda_html=None, aapl_html=None) -> str:
     """生成单文件 HTML 字符串。etfs_reps 结构见下方 main()。
 
     stale_note: 有 ETF 因网络故障沿用旧缓存时的提示文案（正常情况为 None）。
@@ -69,7 +69,7 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
         rep = item["rep"]
         if rep.get("error"):
             cards.append(f'<div class="card"><h2>{code} {name}</h2>'
-                         f'<div class="err">数据/计算失败：{rep["error"]}</div></div>')
+                         f'<div>行情暂无</div></div>')
             continue
         summary = item.get("summary")
         if summary:
@@ -94,7 +94,10 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
         key = ('us' if item.get('strategy_mode') == 'us_monthly_trend' else
                {'sector_etf': 'industry', 'macro_asset': 'macro'}.get(item.get('asset_type'), 'broad'))
         categories[key].append(card)
-    today_page = render_today_categories({key: ''.join(value) for key, value in categories.items()})
+    contents={key: ''.join(value) for key, value in categories.items()}
+    from stock_monitor import render as render_stocks
+    contents['stock'] = render_stocks()
+    today_page = render_today_categories(contents)
     body = (f'<section id="page-today" class="page-section">{today_page}</section>'
             f'{investment_tools}')
     notice = ""  # Dates and stale-data state are shown on each asset card.
@@ -182,6 +185,9 @@ def main(out_path: str = DEFAULT_OUT, offline: bool = False, *, _local_only: boo
     access_snapshot = update_snapshot(os.path.join(os.path.dirname(os.path.abspath(out_path)), 'purchase_monitor.json'))
     from account_nav import build_snapshot
     account_quotes = build_snapshot(refresh=not _local_only)
+    from stock_monitor import refresh as refresh_stocks
+    if not _local_only:
+        refresh_stocks()
     html = _build_page(etfs_reps, gen_time, using_saved, stale_note, access_snapshot, output_dir=os.path.dirname(os.path.abspath(out_path)))
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     # PWA resources live beside the exported HTML, including for --out.

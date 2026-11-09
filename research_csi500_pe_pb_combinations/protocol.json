@@ -1,0 +1,233 @@
+{
+  "date": "2026-10-31",
+  "cutoff": "2026-10-30",
+  "parameters": {
+    "A_buy": 60,
+    "A_sell": 30,
+    "B_buy": 10,
+    "B_sell": 60,
+    "C_buy": 10,
+    "C_sell": 60
+  },
+  "components": {
+    "A": "Actual official PE5year: PE<60 AND close>MA120 enter; PE>=30 AND close<=MA120 exit.",
+    "B": "Frozen equal-PB10year: PB<10 AND close>MA120 enter; PB>=60 AND close<=MA120 exit.",
+    "C": "Frozen equal-PB5year pure value: PB<10 enter; PB>=60 exit."
+  },
+  "combinations": [
+    {
+      "id": "P10_AND_in_A_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "AND",
+      "exit": "A"
+    },
+    {
+      "id": "P10_OR_in_A_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "OR",
+      "exit": "A"
+    },
+    {
+      "id": "P10_AND_in_OR_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "AND",
+      "exit": "OR"
+    },
+    {
+      "id": "P10_OR_in_OR_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "OR",
+      "exit": "OR"
+    },
+    {
+      "id": "P10_AND_in_AND_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "AND",
+      "exit": "AND"
+    },
+    {
+      "id": "P10_OR_in_AND_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "OR",
+      "exit": "AND"
+    },
+    {
+      "id": "P10_A_in_B_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "A",
+      "exit": "B"
+    },
+    {
+      "id": "P10_B_in_A_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "B",
+      "exit": "A"
+    },
+    {
+      "id": "P5_AND_in_A_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "AND",
+      "exit": "A"
+    },
+    {
+      "id": "P5_OR_in_A_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "OR",
+      "exit": "A"
+    },
+    {
+      "id": "P5_AND_in_OR_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "AND",
+      "exit": "OR"
+    },
+    {
+      "id": "P5_OR_in_OR_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "OR",
+      "exit": "OR"
+    },
+    {
+      "id": "P5_AND_in_AND_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "AND",
+      "exit": "AND"
+    },
+    {
+      "id": "P5_OR_in_AND_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "OR",
+      "exit": "AND"
+    },
+    {
+      "id": "P5_A_in_C_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "A",
+      "exit": "C"
+    },
+    {
+      "id": "P5_C_in_A_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "C",
+      "exit": "A"
+    },
+    {
+      "id": "TRI_AND_in_OR_out",
+      "group": "TRI",
+      "components": [
+        "A",
+        "B",
+        "C"
+      ],
+      "entry": "AND",
+      "exit": "OR"
+    },
+    {
+      "id": "TRI_OR_in_OR_out",
+      "group": "TRI",
+      "components": [
+        "A",
+        "B",
+        "C"
+      ],
+      "entry": "OR",
+      "exit": "OR"
+    },
+    {
+      "id": "TRI_AND_in_AND_out",
+      "group": "TRI",
+      "components": [
+        "A",
+        "B",
+        "C"
+      ],
+      "entry": "AND",
+      "exit": "AND"
+    },
+    {
+      "id": "TRI_OR_in_AND_out",
+      "group": "TRI",
+      "components": [
+        "A",
+        "B",
+        "C"
+      ],
+      "entry": "OR",
+      "exit": "AND"
+    }
+  ],
+  "signals": "Combine current raw entry/exit predicates, NOT independent strategy historical position bits. Each combination owns state. Same-day AND exits require all current exit predicates, no remembered confirmations.",
+  "state": "Valid data: exit dominates. If chosen exit predicate true, remain/go flat; otherwise if flat and chosen entry true, enter. Otherwise hold state. Can reenter when conditions recover; no cooldown or special stop. Missing needed valuation: retain state.",
+  "startup": "Each continuous account starts next session after250-price-day warmup and complete valuation history for all used inputs. PB10 combinations start2017-01-04; PE+PB5 start2014-03-31. Near10year unavailable if no anchor equity; never backfill invalid years with cash.",
+  "execution": "100000 initial, next open, lot100, slippage10bp each leg, commission1bp min5, cash yield0, no allocation cap/inflows, end marked not liquidated.",
+  "train": "Structure comparison only:2017-01-04 to2020-12-31 common fresh100000 accounts, indicators/state use prehistory. Select highest training annual, then smaller maxDD, fewer components, lexical id. All thresholds fixed. Write selection before running holdout.",
+  "holdout": "2020-12-31 close to2026-10-30; history previously seen, retrospective pseudo-OOS only. Rank recent5year outcomes diagnostic, never reselect structure from holdout.",
+  "sensitivity": "For each structure perturb ONLY parameters actually used, one-at-time +/-5pp, plus two all-active-parameter +/-5pp scenarios. Do not select best neighbor. Recompute perturbed standalone references too. Report scenario count and unique paths; no full high-dimensional robustness claim.",
+  "increment": "Compare each combined account with BOTH standalone components replayed from same valid inception and cost. Also retain original standalone continuous portfolios. Annual differences<=0.05pp treated as numerical ties, not meaningful alpha. Three-way compared to all3 components.",
+  "acceptance": "Frozen training-selected structure needs recent3/recent5/holdout annual greater than every matched standalone by0.05pp, recent5 maxDD no larger than best-annual standalone by0.05pp, and majority of parameter scenarios retain positive recent5 increment. Record failures; no retuning.",
+  "no_website_modifications": true
+}

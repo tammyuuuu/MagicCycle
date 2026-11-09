@@ -28,9 +28,10 @@ def investment_script(access_snapshot=None):
     quote_snapshot=json.loads(quote_path.read_text(encoding='utf8')) if quote_path.exists() else None
     account_quotes=_script_json(quote_snapshot)
     product_assets=_script_json(json.loads((ROOT/'product_assets.json').read_text(encoding='utf8')))
-    scripts = ['window.PRODUCT_ASSETS='+product_assets+';','window.WORKSPACE_DATA=' + encoded + ';','window.FUND_ACCESS_MONITOR='+monitor+';','window.ACCOUNT_NAV_SNAPSHOT='+account_quotes+';']
+    calendar=_script_json(json.loads((ROOT/'ashare_calendar.json').read_text(encoding='utf8')))
+    scripts = ['window.ASHARE_CALENDAR='+calendar+';','window.PRODUCT_ASSETS='+product_assets+';','window.WORKSPACE_DATA=' + encoded + ';','window.FUND_ACCESS_MONITOR='+monitor+';','window.ACCOUNT_NAV_SNAPSHOT='+account_quotes+';']
     scripts.extend((ROOT / name).read_text(encoding='utf-8') for name in
-                   ['strategy_labels.js', 'portfolio_store.js', 'capital_pool.js', 'portfolio_valuation.js', 'investment_planner.js', 'purchase_monitor.js', 'product_assets.js', 'asset_planner.js', 'fund_lookup.js', 'fund_picker.js', 'user_purchase_fees.js', 'account_funding.js', 'strategy_lab.js', 'review_scorecard.js', 'investment_workspace.js'])
+                   ['strategy_labels.js', 'dynamic_allocation.js', 'portfolio_store.js', 'capital_pool.js', 'portfolio_valuation.js', 'investment_planner.js', 'purchase_monitor.js', 'product_assets.js', 'asset_planner.js', 'dynamic_account_plan.js', 'fund_lookup.js', 'fund_picker.js', 'user_purchase_fees.js', 'account_funding.js', 'strategy_lab.js', 'review_scorecard.js', 'investment_workspace.js'])
     return chr(10).join(scripts)
 
 
@@ -41,7 +42,16 @@ def static_investment_scripts(access_snapshot, output_dir):
     manifest=json.loads((ROOT/'workspace_data/manifest.json').read_text(encoding='utf8'))
     payload=json.loads((ROOT/'workspace_data'/manifest['current']).read_text(encoding='utf8'))
     account=copy.deepcopy(payload)
-    runs={s['id']:s.pop('runs',{}) for s in account['research']['strategies']}
+    # The mobile page only offers trailing1/3/5 years. Export one continuously
+    # running actual-fund account per strategy, not every legacy segment/mode.
+    # Original archived research runs stay in workspace_data unchanged.
+    runs={}
+    for strategy in account['research']['strategies']:
+        archived=strategy.pop('runs',[])
+        continuous=strategy.pop('continuous_run',None)
+        if continuous is None:
+            continuous=next((r for r in archived if r['segment']=='real_2020' and r['mode']=='rebalance'),None)
+        runs[strategy['id']]={'runs':[],'continuous_run':continuous}
     light={**account,'calendar':[],'funds':{c:{**f,'nav':f['nav'][-1:]} for c,f in account['funds'].items()}}
     quotes=json.loads((ROOT/'docs/account_nav.json').read_text(encoding='utf8'))
     products=json.loads((ROOT/'product_assets.json').read_text(encoding='utf8'))
@@ -49,14 +59,16 @@ def static_investment_scripts(access_snapshot, output_dir):
         data=text.encode('utf8');name=f'{label}.{hashlib.sha256(data).hexdigest()[:16]}.js'
         (output/name).write_bytes(data)
         return './assets/'+name
-    core='\n'.join(['window.PRODUCT_ASSETS='+_script_json(products)+';',
+    calendar=json.loads((ROOT/'ashare_calendar.json').read_text(encoding='utf8'))
+    core='\n'.join(['window.ASHARE_CALENDAR='+_script_json(calendar)+';','window.PRODUCT_ASSETS='+_script_json(products)+';',
         'window.WORKSPACE_DATA='+_script_json(light)+';',
         'window.FUND_ACCESS_MONITOR='+_script_json(access_snapshot)+';']+
-        [(ROOT/f).read_text(encoding='utf8') for f in ['strategy_labels.js','portfolio_store.js']]+["try{window.XingxunStore.setContext('real','strategy')}catch{}"]+[(ROOT/f).read_text(encoding='utf8') for f in ['purchase_monitor.js','product_assets.js']])
-    data=bundle('account-data','window.WORKSPACE_DATA='+_script_json(account)+';\nwindow.ACCOUNT_NAV_SNAPSHOT='+_script_json(quotes)+';')
-    runtime=bundle('workspace','\n'.join((ROOT/f).read_text(encoding='utf8') for f in ['capital_pool.js','portfolio_valuation.js','investment_planner.js','asset_planner.js','fund_lookup.js','fund_picker.js','user_purchase_fees.js','account_funding.js','strategy_lab.js','review_scorecard.js','investment_workspace.js']))
-    research=bundle('research','(()=>{const runs='+_script_json(runs)+';for(const s of window.WORKSPACE_DATA.research.strategies)s.runs=runs[s.id]||{};})();')
+        [(ROOT/f).read_text(encoding='utf8') for f in ['strategy_labels.js','dynamic_allocation.js','portfolio_store.js']]+["try{window.XingxunStore.setContext('real','strategy')}catch{}"]+[(ROOT/f).read_text(encoding='utf8') for f in ['purchase_monitor.js','product_assets.js']])
+    data=bundle('account-data','window.WORKSPACE_DATA='+_script_json(account)+';\nwindow.ACCOUNT_NAV_SNAPSHOT='+_script_json(quotes)+';\nif(window.XINGXUN_RESEARCH_RUNS)for(const s of window.WORKSPACE_DATA.research.strategies)Object.assign(s,window.XINGXUN_RESEARCH_RUNS[s.id]||{});')
+    runtime=bundle('workspace','\n'.join((ROOT/f).read_text(encoding='utf8') for f in ['capital_pool.js','portfolio_valuation.js','investment_planner.js','asset_planner.js','dynamic_account_plan.js','fund_lookup.js','fund_picker.js','user_purchase_fees.js','account_funding.js','review_scorecard.js','investment_workspace.js']))
+    research=bundle('research','(()=>{const runs='+_script_json(runs)+';window.XINGXUN_RESEARCH_RUNS=runs;for(const s of window.WORKSPACE_DATA.research.strategies)Object.assign(s,runs[s.id]||{runs:[]});})();')
+    lab=bundle('strategy-lab',(ROOT/'strategy_lab.js').read_text(encoding='utf8'))
     core_url=bundle('today',core)
-    loader=bundle('loader','window.XINGXUN_ASSETS='+_script_json(dict(data=data,runtime=runtime,research=research))+';\n'+(ROOT/'static_loader.js').read_text(encoding='utf8'))
-    urls=[core_url,loader,data,runtime,research]
+    loader=bundle('loader','window.XINGXUN_ASSETS='+_script_json(dict(data=data,runtime=runtime,research=research,lab=lab))+';\n'+(ROOT/'static_loader.js').read_text(encoding='utf8'))
+    urls=[core_url,loader,data,runtime,research,lab]
     return ''.join(f'<script src="{url}" defer></script>' for url in [core_url,loader]),urls

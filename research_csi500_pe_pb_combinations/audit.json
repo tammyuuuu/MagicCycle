@@ -1,0 +1,41 @@
+{
+  "inputs_and_site_before": {
+    "research_csi500_valuation_grid\\stock_input.csv": "4076e2ab25e97248eef5fba951e2f5ba7a784175270d9a042fc34645c0772b68",
+    "research_csi500_valuation_grid\\current_pe_input.csv": "be2416adfd376a851b5b0988434d80dc73371b41323f85a6d3b24c8d7dfb2a80",
+    "research_csi500_valuation_grid\\features.csv": "d2756dc32bd9635d163f3f8df05a2f9e3c858efc8e7d22e904a8a1be288fa212",
+    "research_csi500_valuation_grid\\frozen_parameters.json": "f885c5e98bf9ad6fc1e90482b1871ad6a0beb00ff44154afeda2b643a6fddd81",
+    "research_csi500_trailing_fixed\\trailing_metrics_ALL.csv": "fbf22f84f141570875aff6220a93be82563dccaa12df719379ad73746cf3292c",
+    "docs\\index.html": "cfc6591275d039de135c01b730bb69cee4dcb743f5d615165cb73e4648c442f0",
+    "docs\\index.json": "a219fa084ccb6d7bac95c0cd0ce4ff87ef0c2f4c54d0db3fbc34c3d81cea0a8c",
+    "docs\\pwa-manifest.json": "3d785a928d0d6f34a1c2459def73aac614656451a7772c279f48407e77a81eb8",
+    "config.py": "e08aa12884a60167c18c3c4c804f8a0cd4eb184a648257f08bb43653a236ac4d",
+    "broad_signal_rules.py": "6118d7848b17ecc3068a824706ff91d7d549f6b519e9b6b347bb3fe2e6696352",
+    "broad_individual_strategy.py": "e0b47fdf4e73d72c1b476a1362c0500dd1a93e773a189ab2b31fea1289e076ca",
+    "valuation_data.py": "173cb41b7062e4489abe382a0c8cae95e7a4231534772a77e43a477d9fa7dc71"
+  },
+  "inputs_and_site_after": {
+    "research_csi500_valuation_grid\\stock_input.csv": "4076e2ab25e97248eef5fba951e2f5ba7a784175270d9a042fc34645c0772b68",
+    "research_csi500_valuation_grid\\current_pe_input.csv": "be2416adfd376a851b5b0988434d80dc73371b41323f85a6d3b24c8d7dfb2a80",
+    "research_csi500_valuation_grid\\features.csv": "d2756dc32bd9635d163f3f8df05a2f9e3c858efc8e7d22e904a8a1be288fa212",
+    "research_csi500_valuation_grid\\frozen_parameters.json": "f885c5e98bf9ad6fc1e90482b1871ad6a0beb00ff44154afeda2b643a6fddd81",
+    "research_csi500_trailing_fixed\\trailing_metrics_ALL.csv": "fbf22f84f141570875aff6220a93be82563dccaa12df719379ad73746cf3292c",
+    "docs\\index.html": "cfc6591275d039de135c01b730bb69cee4dcb743f5d615165cb73e4648c442f0",
+    "docs\\index.json": "a219fa084ccb6d7bac95c0cd0ce4ff87ef0c2f4c54d0db3fbc34c3d81cea0a8c",
+    "docs\\pwa-manifest.json": "3d785a928d0d6f34a1c2459def73aac614656451a7772c279f48407e77a81eb8",
+    "config.py": "e08aa12884a60167c18c3c4c804f8a0cd4eb184a648257f08bb43653a236ac4d",
+    "broad_signal_rules.py": "6118d7848b17ecc3068a824706ff91d7d549f6b519e9b6b347bb3fe2e6696352",
+    "broad_individual_strategy.py": "e0b47fdf4e73d72c1b476a1362c0500dd1a93e773a189ab2b31fea1289e076ca",
+    "valuation_data.py": "173cb41b7062e4489abe382a0c8cae95e7a4231534772a77e43a477d9fa7dc71"
+  },
+  "parameters_unchanged": true,
+  "independent_original_accounts_reproduced": true,
+  "all_center_prefix_checks": true,
+  "all_center_campaign_pnl_reconciled": true,
+  "structure_choice_frozen_before_holdout": true,
+  "selected_structure": "P10_AND_in_AND_out",
+  "fixed_structures_hash": "01eb7a87e469889691f519b45a9e69a921b1b616161027e92d9e4bdb7a02459d",
+  "selected_hash": "8502470ff55deac64ca82edad8f41c23b842f8c59d91bd24410db15ffe8ca8b3",
+  "no_site_modifications": true,
+  "structures": 20,
+  "sensitivity_scenarios": 192
+}

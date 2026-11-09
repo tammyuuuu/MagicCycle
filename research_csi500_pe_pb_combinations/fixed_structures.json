@@ -1,0 +1,216 @@
+{
+  "parameters": {
+    "A_buy": 60,
+    "A_sell": 30,
+    "B_buy": 10,
+    "B_sell": 60,
+    "C_buy": 10,
+    "C_sell": 60
+  },
+  "structures": [
+    {
+      "id": "P10_AND_in_A_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "AND",
+      "exit": "A"
+    },
+    {
+      "id": "P10_OR_in_A_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "OR",
+      "exit": "A"
+    },
+    {
+      "id": "P10_AND_in_OR_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "AND",
+      "exit": "OR"
+    },
+    {
+      "id": "P10_OR_in_OR_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "OR",
+      "exit": "OR"
+    },
+    {
+      "id": "P10_AND_in_AND_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "AND",
+      "exit": "AND"
+    },
+    {
+      "id": "P10_OR_in_AND_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "OR",
+      "exit": "AND"
+    },
+    {
+      "id": "P10_A_in_B_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "A",
+      "exit": "B"
+    },
+    {
+      "id": "P10_B_in_A_out",
+      "group": "P10",
+      "components": [
+        "A",
+        "B"
+      ],
+      "entry": "B",
+      "exit": "A"
+    },
+    {
+      "id": "P5_AND_in_A_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "AND",
+      "exit": "A"
+    },
+    {
+      "id": "P5_OR_in_A_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "OR",
+      "exit": "A"
+    },
+    {
+      "id": "P5_AND_in_OR_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "AND",
+      "exit": "OR"
+    },
+    {
+      "id": "P5_OR_in_OR_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "OR",
+      "exit": "OR"
+    },
+    {
+      "id": "P5_AND_in_AND_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "AND",
+      "exit": "AND"
+    },
+    {
+      "id": "P5_OR_in_AND_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "OR",
+      "exit": "AND"
+    },
+    {
+      "id": "P5_A_in_C_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "A",
+      "exit": "C"
+    },
+    {
+      "id": "P5_C_in_A_out",
+      "group": "P5",
+      "components": [
+        "A",
+        "C"
+      ],
+      "entry": "C",
+      "exit": "A"
+    },
+    {
+      "id": "TRI_AND_in_OR_out",
+      "group": "TRI",
+      "components": [
+        "A",
+        "B",
+        "C"
+      ],
+      "entry": "AND",
+      "exit": "OR"
+    },
+    {
+      "id": "TRI_OR_in_OR_out",
+      "group": "TRI",
+      "components": [
+        "A",
+        "B",
+        "C"
+      ],
+      "entry": "OR",
+      "exit": "OR"
+    },
+    {
+      "id": "TRI_AND_in_AND_out",
+      "group": "TRI",
+      "components": [
+        "A",
+        "B",
+        "C"
+      ],
+      "entry": "AND",
+      "exit": "AND"
+    },
+    {
+      "id": "TRI_OR_in_AND_out",
+      "group": "TRI",
+      "components": [
+        "A",
+        "B",
+        "C"
+      ],
+      "entry": "OR",
+      "exit": "AND"
+    }
+  ]
+}

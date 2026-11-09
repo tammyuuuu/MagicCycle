@@ -1,0 +1,15 @@
+{
+  "id": "P5_OR_in_A_out",
+  "nomination": "Post-holdout research candidate only",
+  "parameters": {
+    "A_buy": 60,
+    "A_sell": 30,
+    "B_buy": 10,
+    "B_sell": 60,
+    "C_buy": 10,
+    "C_sell": 60
+  },
+  "no_deployment": true,
+  "requires_new_forward_data": true,
+  "formula": "Entry: (EA OR EC) AND NOT XA; exit: XA; own persistent position; next-open execution."
+}

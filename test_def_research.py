@@ -22,6 +22,9 @@ class DefResearchTests(unittest.TestCase):
     for key in old:self.assertEqual(old[key],new[key])
  def test_actual_fund_history_is_not_silently_truncated(self):
   for s in self.strategies.values():
+   if s.get('dynamic'):
+    self.assertGreaterEqual(s['continuous_run']['first'],'2020-07-30')
+    continue
    for segment in ['real_2013','real_2017','real_2019']:
     self.assertFalse(any(r['segment']==segment for r in s['runs']))
     self.assertIn('008701',next(r['reason'] for r in s['unavailable'] if r['segment']==segment))

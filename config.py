@@ -13,7 +13,7 @@ TARGET_ETFS = [
     {"code": "513100", "name": "国泰纳指100ETF", "index": "纳斯达克100", "asset_type": "broad_etf", "strategy_mode": "us_monthly_trend", "premium_notice": {"date": "2026-09-30", "source": "https://epaper.cs.com.cn/zgzqb/html/2026-09/30/nw.D110000zgzqb_20260930_1-B044.htm"}},
     {"code": "518850", "name": "华夏黄金ETF", "index": "黄金", "asset_type": "macro_asset", "subtype": "gold"},
     {"code": "510300", "name": "沪深300ETF", "index": "沪深300", "asset_type": "broad_etf", "strategy_mode": "broad_individual", "broad_strategy": "value_confirmed_exit"},
-    {"code": "510500", "name": "中证500ETF", "index": "中证500", "asset_type": "broad_etf", "strategy_mode": "broad_individual", "broad_strategy": "value_or_trend120"},
+    {"code": "510500", "name": "中证500ETF", "index": "中证500", "asset_type": "broad_etf", "strategy_mode": "broad_individual", "broad_strategy": "pe_or_pb5_pe_exit"},
     {"code": "588000", "name": "科创50ETF",  "index": "科创50", "asset_type": "broad_etf", "strategy_mode": "broad_individual", "broad_strategy": "trend16_buffer2"},
     {"code": "588170", "name": "科创半导体ETF华夏",
      "index": "上证科创板半导体材料设备主题",

@@ -1,0 +1,12 @@
+{
+  "selected": "P10_AND_in_AND_out",
+  "parameters": {
+    "A_buy": 60,
+    "A_sell": 30,
+    "B_buy": 10,
+    "B_sell": 60,
+    "C_buy": 10,
+    "C_sell": 60
+  },
+  "selection": "Training only, annual priority; no threshold tuning"
+}

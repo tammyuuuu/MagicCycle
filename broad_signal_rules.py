@@ -70,6 +70,21 @@ def low_value_or_trend(close, pct, window, entry=30, ceiling=90):
     return pd.Series(states, index=close.index)
 
 
+def confirmed_value_trend(close, pct, window=120, entry=30, ceiling=60):
+    """低估分支也等待趋势确认；进入后仅按原PE>=30且MA120转弱退出。"""
+    average = close.rolling(window, min_periods=window).mean()
+    held = False
+    states = []
+    for value, price, ma in zip(pct, close, average):
+        if np.isfinite(value) and np.isfinite(ma):
+            if held and value >= entry and price <= ma:
+                held = False
+            elif not held and value < ceiling and price > ma:
+                held = True
+        states.append(float(held))
+    return pd.Series(states, index=close.index)
+
+
 def price_band_positions(close, window=16, buffer=.02):
     """价格突破上沿进入、跌到下沿退出；中间保持行情许可。"""
     average = close.rolling(window, min_periods=window).mean()

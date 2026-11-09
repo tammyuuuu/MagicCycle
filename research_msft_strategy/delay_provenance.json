@@ -1,0 +1,10 @@
+{
+  "end": "2026-11-06",
+  "sha256": {
+    "BIL_chart.json": "935c1ac1e3a3916755cb7bd41b6e63fc6736a57d84112f3860d2ef43fe889b0f",
+    "MSFT_chart.json": "f870e6c1f71c425b298cdd6f80072a9aecf46d3e67c3100239ef26f8588f3586",
+    "MSFT_facts.json": "8c1903c041f5c27e86ed15f37debb1f41882b7904bba129ef9edc76478b1e8ea"
+  },
+  "cost_per_leg": 0.001,
+  "semantics": "extra sessions after original next-session open; monthly decisions unchanged"
+}

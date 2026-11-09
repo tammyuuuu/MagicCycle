@@ -2,15 +2,20 @@
 import numpy as np
 import pandas as pd
 
-from broad_signal_rules import signal_frame, valuation_positions, low_value_or_trend, price_band_positions
+from broad_signal_rules import signal_frame, valuation_positions, low_value_or_trend, price_band_positions, confirmed_value_trend
 from valuation_data import SOURCE, SOURCE_URL, summarize
 
 VERSION = 'broad_individual_v1'
+CSI500_VERSION = 'csi500_value_trend_confirm_v3'  # Legacy only; active version lives in csi500_pe_pb_strategy.
 
 
-def individual_frame(data, history, strategy_id, years=5):
+def individual_frame(data, history, strategy_id, years=5, pb_history=None):
+    if strategy_id == 'pe_or_pb5_pe_exit':
+        from csi500_pe_pb_strategy import frame
+        from valuation_data import load_pb_cache
+        return frame(data, history, pb_history if pb_history is not None else load_pb_cache(data.index[-1]))
     close = data.close
-    window = {'value_confirmed_exit': 80, 'value_or_trend120': 120, 'trend20': 20, 'trend16_buffer2': 16}[strategy_id]
+    window = {'value_confirmed_exit': 80, 'value_or_trend120': 120, 'value_trend_confirm120': 120, 'trend20': 20, 'trend16_buffer2': 16}[strategy_id]
     average = close.rolling(window, min_periods=window).mean()
     if strategy_id.startswith('trend'):
         position = price_band_positions(close,16,.02) if strategy_id=='trend16_buffer2' else (close>average).astype(float)
@@ -21,7 +26,8 @@ def individual_frame(data, history, strategy_id, years=5):
                              'average': average}, index=data.index)
     frame = signal_frame(data, history, years, lag=1)
     position = (valuation_positions(frame.percentile, close, confirm_exit=True, entry_ma=60, exit_ma=80)
-                if strategy_id == 'value_confirmed_exit' else low_value_or_trend(close, frame.percentile, 120, ceiling=60))
+                if strategy_id == 'value_confirmed_exit' else confirmed_value_trend(close, frame.percentile)
+                if strategy_id == 'value_trend_confirm120' else low_value_or_trend(close, frame.percentile, 120, ceiling=60))
     return pd.DataFrame({'ready': frame.ready & average.notna(), 'position': position,
                          'percentile': frame.percentile, 'average': average}, index=data.index)
 
@@ -58,7 +64,7 @@ def snapshot(data, history, strategy_id, years):
                       ('买入确认', '价格'+('高于' if entry_above else '不高于')+'60日均价；用于初次进入，入场后不因跌回线下自动退出'),
                       ('退出确认', '价格'+('高于' if above else '不高于')+'80日均价；PE分位至少90%且转弱才退出'),
                       ('策略阶段', '允许持有与本期新资金买入' if allowed else '等待低估入场或保持退出')]
-        elif strategy_id == 'value_or_trend120':
+        elif strategy_id in ('value_or_trend120', 'value_trend_confirm120'):
             reason = ('已由低估或估值分位低于60%且趋势恢复进入买入阶段，尚未触发退出；本期新资金可买入。' if allowed else
                       '估值已离开低估区，且价格不高于120日均价；已有持仓考虑退出。' if exit_condition else
                       '估值与趋势尚未满足入场条件，先观察。')
@@ -66,6 +72,13 @@ def snapshot(data, history, strategy_id, years):
                       ('入场条件', 'PE分位低于30%允许买入，否则须低于60%且高于120日均价'),
                       ('退出条件', '价格'+('高于' if above else '不高于')+'120日均价；PE分位至少30%且价格转弱才退出'),
                       ('策略阶段', '退出前保持买入许可；分位升到60%以上不单独卖出' if allowed else '等待入场条件或保持退出')]
+            if strategy_id == 'value_trend_confirm120':
+                reason = ('当前仍处于策略允许买入和持有的阶段，尚未触发退出条件。已有持仓继续持有，尚未买入可按策略买入。' if allowed else
+                          '当前估值不算低，价格也不高于120日均线，因此策略建议退出。如果尚未买入，继续等待即可。' if exit_condition else
+                          '当前估值尚未满足买入要求，继续等待即可。' if percentile >= 60 else
+                          '当前估值较低，但价格尚未站上120日均线，暂不买入，继续等待趋势确认。')
+                checks[1] = ('入场条件', 'PE分位低于60%且收盘高于120日均价；低于30%也等待确认')
+                checks[3] = ('策略阶段', '持有至原退出条件；低于30%时跌回均线下不单独退出' if allowed else '等待估值与趋势同时满足')
         elif strategy_id == 'trend16_buffer2':
             reason = ('价格已突破16日均线的上方2%进入买入阶段，尚未跌到下方2%；本期新资金可买入。' if allowed else
                       '收盘跌到16日均价下方2%或更低；已有持仓考虑退出。' if exit_condition else
@@ -87,6 +100,9 @@ def snapshot(data, history, strategy_id, years):
 
 def analyze(data, item, metrics, details):
     strategy_id = item['broad_strategy']
+    if strategy_id == 'pe_or_pb5_pe_exit':
+        from csi500_pe_pb_strategy import analyze as analyze_combo
+        return analyze_combo(data, item, metrics, details)
     history = pd.DataFrame(item.get('valuation_history') or [], columns=['date','pe'])
     if not history.empty:
         history.date = pd.to_datetime(history.date)
@@ -104,15 +120,16 @@ def analyze(data, item, metrics, details):
             option['decision_basis'].insert(0, ('行情前提','更新受限，先观察'))
             option['decision_conditions'] = [{'condition':title,'result':text,'met':None} for title,text in option['decision_basis']]
     details.update(strategy_mode='broad_individual', strategy_id=strategy_id,
-                   strategy_version='csi300_value_confirm_v2' if strategy_id=='value_confirmed_exit' else 'csi500_value_trend_v2' if strategy_id=='value_or_trend120' else 'star50_buffer_v2' if strategy_id=='trend16_buffer2' else VERSION,
+                   strategy_version=CSI500_VERSION if strategy_id=='value_trend_confirm120' else 'csi300_value_confirm_v2' if strategy_id=='value_confirmed_exit' else 'csi500_value_trend_v2' if strategy_id=='value_or_trend120' else 'star50_buffer_v2' if strategy_id=='trend16_buffer2' else VERSION,
                    legacy=None, enabled_decisions=['buy','watch','exit'],
                    insufficient_history=current['insufficient_history'], strategy_options=options,
                    valuation=current['valuation'],
                    valuation_options={key:value['valuation'] for key,value in options.items()},
-                   parameters={'valuation_years':5,'entry_percentile':30,'exit_percentile':30 if strategy_id=='value_or_trend120' else 90,
+                   parameters={'valuation_years':5,'entry_percentile':60 if strategy_id=='value_trend_confirm120' else 30,'exit_percentile':30 if strategy_id in ('value_or_trend120','value_trend_confirm120') else 90,
                                'ma_window':16 if strategy_id=='trend16_buffer2' else 20 if strategy_id=='trend20' else 80 if strategy_id=='value_confirmed_exit' else 120,
-                               **({'entry_ma_window':60} if strategy_id=='value_confirmed_exit' else {}),
-                               **({'trend_entry_ceiling':60} if strategy_id=='value_or_trend120' else {}),
+                               **({'entry_ma_window':60} if strategy_id=='value_confirmed_exit' else {'entry_ma_window':120} if strategy_id=='value_trend_confirm120' else {}),
+                               **({'trend_entry_ceiling':60} if strategy_id in ('value_or_trend120','value_trend_confirm120') else {}),
+                               **({'low_percentile':30,'entry_requires_trend':True} if strategy_id=='value_trend_confirm120' else {}),
                                **({'price_buffer':.02} if strategy_id=='trend16_buffer2' else {}), 'valuation_lag':1}, new_money_fraction=.5 if current['status']=='buy' else 0.)
     return {'symbol':item['code'],'name':item['name'],'asset_type':'broad_etf','subtype':item.get('index'),
             'date':data.index[-1].date().isoformat(),'status':current['status'],'action':current['action'],

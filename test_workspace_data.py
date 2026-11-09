@@ -10,6 +10,10 @@ class WorkspaceDataTests(unittest.TestCase):
  def test_metrics_come_from_reaccepted_versioned_results(self):
   df=pd.read_csv(R/'correctness_20261022/results/summary.csv')
   for s in self.data['research']['strategies']:
+   if s.get('dynamic'):
+    self.assertEqual(s['runs'],[])
+    self.assertIn('continuous_run',s)
+    continue
    df=pd.read_csv(R/s['source']/'summary.csv')
    self.assertEqual(s['status'],'research_conditional')
    for r in s['runs']:
@@ -37,6 +41,17 @@ class WorkspaceDataTests(unittest.TestCase):
   for s in self.data['research']['strategies']:
    self.assertAlmostEqual(sum(s['weights'].values()),1)
    self.assertEqual(any(c in s['weights'] for c in ['161130','050025']),s['scenario']=='nasdaq_available')
+ def test_continuous_dynamic_accounts_match_frozen_acceptance(self):
+  current={s['id']:s for s in self.data['research']['strategies']}
+  self.assertEqual(self.data['research']['default_strategy'],'L5')
+  self.assertEqual([s['years'] for s in self.data['research']['segments']],[1,3,5])
+  for sid in ['L1','L2','L3','L4','L5','L6']:
+   run=current[sid]['continuous_run'];source=R/run['source']
+   self.assertEqual(run['sha256'],hashlib.sha256(source.read_bytes()).hexdigest())
+   self.assertEqual(run['first'],'2020-07-30');self.assertEqual(run['last'],'2026-10-21')
+   d=pd.read_csv(source,index_col=0);self.assertAlmostEqual(run['curve'][-1][1],d.equity.iloc[-1]/d.equity.iloc[0],places=9)
+  accepted=pd.read_csv(R/'research_portfolio_final_acceptance/accounts/reinvest_rounded_PRIOR_300_daily.csv.gz',index_col=0)
+  self.assertAlmostEqual(current['L5']['continuous_run']['curve'][-1][1],accepted.equity.iloc[-1]/2000,places=9)
  def test_nav_source_hashes_and_no_account_data(self):
   for f in self.data['funds'].values():self.assertEqual(f['sha256'],hashlib.sha256((R/f['source']).read_bytes()).hexdigest())
   self.assertNotIn('profile',self.data);self.assertNotIn('journal',self.data)

@@ -1,5 +1,6 @@
 # 数据获取
 akshare>=1.16.0
+requests>=2.31
 # 数据处理（注意：pandas 3.0 与 akshare 兼容性不稳定，先锁定 2.x）
 pandas>=2.2,<3.0
 numpy>=1.26

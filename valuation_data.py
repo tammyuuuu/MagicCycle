@@ -4,7 +4,10 @@ from datetime import datetime
 import json
 import pandas as pd
 import requests
-from config import CACHE_DIR
+from config import CACHE_DIR as CONFIGURED_CACHE_DIR
+
+# Resolve relative cache configuration against the project, independent of cwd.
+CACHE_DIR = Path(__file__).resolve().parent / CONFIGURED_CACHE_DIR
 
 INDEX_CODES = {'中证500': '000905.SH', '科创50': '000688.SH',
                '沪深300': '000300.SH', '上证50': '000016.SH',
@@ -123,7 +126,83 @@ def attach_valuation(item, as_of):
             history = history[history.date <= pd.Timestamp(as_of)].copy()
             history.date = history.date.dt.strftime('%Y-%m-%d')
             result['valuation_history'] = history.to_dict('records')
+    if item.get('broad_strategy') == 'pe_or_pb5_pe_exit' and 'pb_valuation_history' not in item:
+        pb = get_pb_history(as_of)
+        result['pb_valuation_history'] = pb['history']
+        if pb.get('warning'):
+            result['pb_data_warning'] = pb['warning']
     return result
+
+
+PB_SOURCE = '乐咕乐股 · 指数等权市净率（pb，月度快照）'
+PB_SOURCE_URL = 'https://legulegu.com/api/stockdata/index-basic-pb'
+
+
+def normalize_pb_history(rows):
+    data = pd.DataFrame(rows)
+    if data.empty or not {'date', 'pb'}.issubset(data.columns):
+        return pd.DataFrame(columns=['date', 'pb'])
+    data = data[['date', 'pb']].copy()
+    if pd.api.types.is_numeric_dtype(data.date):
+        data['date'] = pd.to_datetime(data.date, unit='ms', utc=True).dt.tz_convert('Asia/Shanghai').dt.tz_localize(None)
+    else:
+        data['date'] = pd.to_datetime(data.date, errors='coerce', utc=True).dt.tz_convert('Asia/Shanghai').dt.tz_localize(None)
+    data['date'] = data.date.dt.normalize()
+    data['pb'] = pd.to_numeric(data.pb, errors='coerce')
+    data = data.dropna(subset=['date', 'pb'])
+    return data[data.pb.between(0, float('inf'), inclusive='neither')].drop_duplicates('date', keep='last').sort_values('date')
+
+
+def load_pb_cache(as_of=None):
+    path = Path(CACHE_DIR) / 'valuation_pb_000905_SH.csv'
+    try:
+        data = normalize_pb_history(pd.read_csv(path).to_dict('records'))
+    except (OSError, ValueError) as exc:
+        raise OSError(f'无法读取PB估值缓存 {path}: {exc}') from exc
+    if data.empty:
+        raise ValueError(f'PB估值缓存无有效数据: {path}')
+    return data[data.date <= pd.Timestamp(as_of)] if as_of is not None else data
+
+
+def get_pb_history(as_of, force=False):
+    """Append dated provider observations; retain past cached values for replay."""
+    directory = Path(CACHE_DIR)
+    path = directory / 'valuation_pb_000905_SH.csv'
+    meta_path = path.with_suffix('.json')
+    cache_error = None
+    try:
+        history = load_pb_cache()
+    except (OSError, ValueError) as exc:
+        cache_error = str(exc)
+        history = pd.DataFrame({'date': pd.Series(dtype='datetime64[ns]'), 'pb': pd.Series(dtype=float)})
+    try:
+        metadata = json.loads(meta_path.read_text(encoding='utf8'))
+    except (OSError, ValueError):
+        metadata = {}
+    warning = None
+    if force or history.empty or metadata.get('checked_as_of') != str(as_of):
+        try:
+            import akshare.stock_feature.stock_a_pe_and_pb as upstream
+            js = upstream.py_mini_racer.MiniRacer()
+            js.eval(upstream.hash_code)
+            token = js.call('hex', datetime.now().date().isoformat()).lower()
+            cookies = upstream.get_cookie_csrf(url='https://legulegu.com/stockdata/zz500-ttm-lyr')
+            response = requests.get(PB_SOURCE_URL, params={'token': token, 'indexCode': '000905.SH'}, timeout=20, **cookies)
+            response.raise_for_status()
+            fresh = normalize_pb_history(response.json().get('data', []))
+            fresh = fresh[fresh.date <= pd.Timestamp(as_of)]
+            if fresh.empty:
+                raise ValueError('PB历史为空')
+            # Preserve old observations, including earlier snapshots within a month.
+            history = pd.concat([fresh, history], ignore_index=True).drop_duplicates('date', keep='last').sort_values('date')
+            directory.mkdir(parents=True, exist_ok=True)
+            history.to_csv(path, index=False)
+            meta_path.write_text(json.dumps({'checked_as_of': str(as_of), 'source': PB_SOURCE, 'field': 'pb', 'merge': 'append dates; preserve existing observations'}, ensure_ascii=False), encoding='utf8')
+        except Exception as exc:
+            warning = ('PB缓存读取错误：' + cache_error + '；' if cache_error else '') + 'PB接口暂不可用：' + type(exc).__name__ + ('；使用已缓存记录' if not history.empty else '；PB数据不足，暂停判断')
+    past = history[history.date <= pd.Timestamp(as_of)].copy()
+    past.date = past.date.dt.strftime('%Y-%m-%d')
+    return {'history': past.to_dict('records'), 'warning': warning}
 
 
 if __name__ == '__main__':

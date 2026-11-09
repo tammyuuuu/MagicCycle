@@ -1,0 +1,21 @@
+id,strategy,entry,exit
+P10_AND_in_A_out,PE＋PB10：共同买／PE退,EA ∧ EB,XA
+P10_OR_in_A_out,PE＋PB10：任一买／PE退,EA ∨ EB,XA
+P10_AND_in_OR_out,PE＋PB10：共同买／任一退,EA ∧ EB,XA ∨ XB
+P10_OR_in_OR_out,PE＋PB10：任一买／任一退,EA ∨ EB,XA ∨ XB
+P10_AND_in_AND_out,PE＋PB10：共同买／共同退,EA ∧ EB,XA ∧ XB
+P10_OR_in_AND_out,PE＋PB10：任一买／共同退,EA ∨ EB,XA ∧ XB
+P10_A_in_B_out,PE＋PB10：PE买／PB退,EA,XB
+P10_B_in_A_out,PE＋PB10：PB买／PE退,EB,XA
+P5_AND_in_A_out,PE＋PB5：共同买／PE退,EA ∧ EC,XA
+P5_OR_in_A_out,PE＋PB5：任一买／PE退,EA ∨ EC,XA
+P5_AND_in_OR_out,PE＋PB5：共同买／任一退,EA ∧ EC,XA ∨ XC
+P5_OR_in_OR_out,PE＋PB5：任一买／任一退,EA ∨ EC,XA ∨ XC
+P5_AND_in_AND_out,PE＋PB5：共同买／共同退,EA ∧ EC,XA ∧ XC
+P5_OR_in_AND_out,PE＋PB5：任一买／共同退,EA ∨ EC,XA ∧ XC
+P5_A_in_C_out,PE＋PB5：PE买／PB退,EA,XC
+P5_C_in_A_out,PE＋PB5：PB买／PE退,EC,XA
+TRI_AND_in_OR_out,三策略：共同买／任一退,EA ∧ EB ∧ EC,XA ∨ XB ∨ XC
+TRI_OR_in_OR_out,三策略：任一买／任一退,EA ∨ EB ∨ EC,XA ∨ XB ∨ XC
+TRI_AND_in_AND_out,三策略：共同买／共同退,EA ∧ EB ∧ EC,XA ∧ XB ∧ XC
+TRI_OR_in_AND_out,三策略：任一买／共同退,EA ∨ EB ∨ EC,XA ∧ XB ∧ XC

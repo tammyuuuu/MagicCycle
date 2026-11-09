@@ -128,7 +128,7 @@
       }
       if (delta >= Math.max(o.minAmount, o.buyBand * investable)) {
         buys.push({ row, delta, frac: Number((o.scores || {})[code] || 0) });
-      } else if (delta <= -Math.max(o.minAmount, o.sellBand * investable)) {
+      } else if (delta <= -Math.max(o.minAmount, o.sellBand * investable) || (o.liquidateZero && Number(targets[code])===0 && current>0)) {
         if (pos && pos.sellable !== false) {
           sells.push({ row, gap: -delta, pos });
         } else {

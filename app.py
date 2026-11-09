@@ -87,6 +87,27 @@ def api_account_nav():
     return jsonify(build_snapshot(refresh=True))
 
 
+@app.route('/api/msft-monitor')
+def api_msft_monitor():
+    from msft_monitor import refresh, render
+    snapshot, error = refresh()
+    return jsonify({'html': render(snapshot, error), 'error': bool(error)})
+
+
+@app.route('/api/nvda-monitor')
+def api_nvda_monitor():
+    from nvda_monitor import refresh, render
+    snapshot, error = refresh()
+    return jsonify({'html': render(snapshot, error), 'error': bool(error)})
+
+
+@app.route('/api/aapl-monitor')
+def api_aapl_monitor():
+    from aapl_monitor import refresh, render
+    snapshot, error = refresh()
+    return jsonify({'html': render(snapshot, error), 'error': bool(error)})
+
+
 @app.route("/api/state")
 def api_state():
     return jsonify(_as_plain({

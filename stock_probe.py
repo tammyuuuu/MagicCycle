@@ -1,0 +1,6 @@
+import akshare as a, json, sys, time
+cases={'a_value':('stock_individual_info_em',{'symbol':'600519','timeout':12}),'hk_value':('stock_hk_valuation_baidu',{'symbol':'00700','indicator':'市盈率','period':'近一年'}),'us_value':('stock_us_valuation_baidu',{'symbol':'AAPL','indicator':'市盈率','period':'近一年'}),'hk_growth':('stock_hk_financial_indicator_em',{'symbol':'00700'}),'us_price':('stock_us_hist',{'symbol':'105.AAPL','start_date':'20261001','end_date':'20261106'}),'a_price':('stock_zh_a_hist',{'symbol':'600519','start_date':'20261001','end_date':'20261106'}),'hk_price':('stock_hk_hist',{'symbol':'00700','start_date':'20261001','end_date':'20261106'}),'hk_list':('stock_hk_spot',{}),'us_list':('stock_us_spot',{})}
+k=sys.argv[1]; f,kw=cases[k]; t=time.monotonic()
+try:
+ d=getattr(a,f)(**kw); print(json.dumps({'case':k,'function':f,'args':kw,'ok':True,'seconds':round(time.monotonic()-t,2),'rows':len(d),'columns':list(d.columns),'first':d.head(1).astype(str).to_dict('records'),'last':d.tail(1).astype(str).to_dict('records')},ensure_ascii=False,default=str))
+except Exception as e: print(json.dumps({'case':k,'function':f,'ok':False,'seconds':round(time.monotonic()-t,2),'error':str(e)[:350]},ensure_ascii=False))

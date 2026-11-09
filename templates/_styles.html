@@ -145,6 +145,9 @@ button{cursor:pointer;}
 .state-rail::before{top:13px;}
 .current-reason{background:rgb(227, 237, 243);border-left-color:rgb(52, 126, 176);color:rgb(37, 75, 105);padding:12px;font-size:var(--text-body);line-height:1.8;}
 .state-explanation{margin:6px 0px;}
+.state-explanation:empty{display:none}
+.current-reason>b{display:block;margin-bottom:4px}
+.current-reason .recommendation-reason{display:block;font-weight:400}
 #topnav{position:fixed;left:50%;right:auto;transform:translateX(-50%);bottom:0px;width:min(460px, 100%);display:grid;grid-template-columns:repeat(4, minmax(0px, 1fr));gap:0px;margin:0px;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:var(--night);border-top:1px solid rgba(255, 255, 255, 0.094);z-index:1000;box-shadow:rgba(32, 46, 75, 0.07) 0px -3px 14px;}
 #topnav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:54px;padding:5px 0px;font-size:var(--text-caption);line-height:1.4;border:0px;border-radius:10px;color:rgb(166, 179, 200);white-space:nowrap;background:transparent;}
 #topnav .tab-icon{display:block;width:23px;height:23px;}
@@ -427,4 +430,18 @@ button,.btn,.workspace .btn,.workspace .link-button,
 .score-tools > label{flex:0 0 100%;width:100%;}
 .score-tools #reviewMonth{display:block;width:100%;max-width:100%;}
 @media(max-width:460px){html{background:#202E4B;}}
+.strategy-summary{padding:6px 0;border-bottom:1px solid #e5e3dc;margin-bottom:6px}
+.strategy-summary .strategy-name{font-size:14px;font-weight:700;color:#263957;margin:0 0 5px}
+.strategy-summary .strategy-method{font-size:13px;line-height:1.65;margin:0 0 10px}
+.strategy-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 4px}
+.strategy-stats>div{background:#f4f5f2;border-radius:7px;padding:6px 10px}
+.strategy-stats dt{font-size:11px;color:#697586}.strategy-stats dd{font-size:20px;font-weight:650;font-variant-numeric:tabular-nums;margin:3px 0 0;color:#263957}
+.strategy-summary .strategy-period{font-size:12px;color:#526174;margin:3px 0}
+.strategy-summary .strategy-note{font-size:11px;line-height:1.6;color:#78818c;margin:4px 0}
+.strategy-basis{font-size:12px;line-height:1.65;padding-left:18px;margin:6px 0}.strategy-basis li{margin:4px 0}
+@media(max-width:460px){.strategy-stats{gap:8px}.strategy-stats dd{font-size:19px}}
+
+.lab-period-tabs{display:flex;gap:6px;max-width:380px;width:100%}.lab-period-tabs button{flex:1;min-height:42px;padding:8px 12px;border:1px solid #d9dfeb;border-radius:8px;background:transparent;color:var(--ink);font:inherit;white-space:nowrap}.lab-period-tabs button[aria-pressed=true]{background:var(--ultra,#202e4b);border-color:var(--ultra,#202e4b);color:#fff}.lab-period-tabs button:focus-visible{outline:2px solid #4b83ba;outline-offset:2px}
+
+.account-strategy-tabs{display:flex;gap:6px;margin-bottom:10px}.account-strategy-tabs button{flex:1;min-height:44px;padding:8px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--ink);font:inherit;font-size:13px}.account-strategy-tabs button[aria-pressed=true]{background:var(--ultra,#202e4b);color:white}.account-operation{padding:12px 0;border-bottom:1px solid var(--line)}.account-operation h4{font-size:15px;margin:0 0 8px;overflow-wrap:anywhere}.account-operation h4 small{font-size:12px;font-weight:400;color:var(--muted,#78818a)}.account-operation dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:8px 0}.account-operation dt{font-size:11px;color:var(--muted,#78818a)}.account-operation dd{font-size:14px;font-weight:600;margin:2px 0 0;overflow-wrap:anywhere}.account-operation-action{display:block;font-size:15px;margin-top:8px}.account-operation .score-footnote{margin:5px 0}
 </style>
