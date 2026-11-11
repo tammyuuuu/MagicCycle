@@ -7,6 +7,9 @@
 ## 入口和日常使用
 
 - 正式本地页面：`docs/index.html`。直接打开可查看；PWA需要HTTP本机地址或HTTPS。
+- 正式线上入口：https://tammyuuuu.github.io/MagicCycle/ 。GitHub Pages 从 `main` 分支的 `/docs` 发布，仓库无需自定义 Actions 工作流；由 GitHub 自动运行 `pages-build-deployment`。
+- `update_alerts.ps1` 生成并推送快照后，会等待线上发布版本、清单内全部离线资源、Service Worker 和公开 JSON 数据核对通过才报告成功。可单独运行 `python verify_pages_release.py --url https://tammyuuuu.github.io/MagicCycle/` 复查，省略 `--url` 仅检查本地产物，不更新行情缓存。
+- 若 Git 推送失败，检查本仓库 `origin` 的 HTTPS 地址、Git 凭据和本机代理；若推送成功但校验失败，检查 GitHub Actions 的部署日志。PWA 已安装用户看到“新版本已就绪”后，保存填写内容并点“刷新更新”，无需清除账本或浏览器数据。
 - 静态本地服务：项目根目录运行 `python -B -m http.server 8000 --bind 127.0.0.1 --directory docs`，访问 `http://127.0.0.1:8000/index.html`。这不会发布到互联网。
 - Flask开发入口：`python -B app.py`，访问 `http://127.0.0.1:5000`，源模板为 `templates/index.html`。
 - `workspace_ui_20261022/static_preview.html`及Flask预览仅为测试产物，不是正式入口。保留原路径以免打断旧浏览器存储使用；新改动只在正式导出后生效。

@@ -34,16 +34,8 @@ try {
     } while ($true)
     if (-not $ready) { throw 'Network unavailable; no snapshot published. Retry update_alerts.bat after connecting.' }
     $env:GIT_TERMINAL_PROMPT = '0'
-    $gitExe = (Get-Command git -ErrorAction Stop).Source
-    $gitRoot = Split-Path (Split-Path $gitExe -Parent) -Parent
-    $bundledSsh = Join-Path $gitRoot 'usr\bin\ssh.exe'
-    if (Test-Path -LiteralPath $bundledSsh) {
-        $env:SHELL = (Join-Path $gitRoot 'usr\bin\sh.exe').Replace('\', '/')
-        $sshPath = $bundledSsh.Replace('\', '/')
-        $env:GIT_SSH_COMMAND = '"' + $sshPath + '" -o BatchMode=yes -o ConnectTimeout=20'
-    } else {
-        $env:GIT_SSH_COMMAND = 'ssh -o BatchMode=yes -o ConnectTimeout=20'
-    }
+    # Use the repository's configured transport and credential helper.
+    # Do not force SSH through a machine-specific relay.
     $env:PYTHONIOENCODING = 'utf-8'
     [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
     $OutputEncoding = [Console]::OutputEncoding
@@ -64,8 +56,11 @@ try {
     if ($diffCode -eq 1) {
         Invoke-Logged 'git' (@('commit', '--only', '-m', "auto update alerts $(Get-Date -Format 'yyyy-MM-dd HH:mm')", '--') + $publishPaths)
     } elseif ($diffCode -ne 0) { throw 'git diff failed' }
+    Invoke-Logged $py @('-u', (Join-Path $proj 'verify_pages_release.py'))
     Invoke-Logged 'git' @('push')
-    Write-Log 'SUCCESS: snapshot pushed to GitHub; Pages deployment follows.'
+    Write-Log 'Snapshot pushed; waiting for the published release and data to match...'
+    Invoke-Logged $py @('-u', (Join-Path $proj 'verify_pages_release.py'), '--url', 'https://tammyuuuu.github.io/MagicCycle/', '--attempts', '40', '--interval', '15')
+    Write-Log 'SUCCESS: GitHub Pages release, resources and snapshot data verified online.'
 } catch {
     Write-Log "FAILED: $_"
     exit 1
