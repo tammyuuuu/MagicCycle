@@ -66,16 +66,7 @@
         "title": "长期方向与热度",
         "method": "完整月份12个月涨幅为正、未过热且高于MA20时可买；首次偏离MA60至少15%减半，冷却至5%且恢复MA20后买回；长期方向转弱退出。",
         "version": "us_momentum_heat_v2",
-        "backtest": {
-          "start": "2015-02-03",
-          "end": "2026-10-30",
-          "annual_pct": 12.912432094749127,
-          "annual_method": "CAGR",
-          "max_drawdown_pct": 29.693210726678842,
-          "total_pct": 315.94780182409005,
-          "orders": 15,
-          "note": "10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
-        }
+        "backtest": null
       }
     },
     "decision_basis": [
@@ -177,16 +168,7 @@
         "title": "长期方向与热度",
         "method": "完整月份12个月涨幅为正、未过热且高于MA20时可买；首次偏离MA60至少15%减半，冷却至5%且恢复MA20后买回；长期方向转弱退出。",
         "version": "us_momentum_heat_v2",
-        "backtest": {
-          "start": "2014-06-04",
-          "end": "2026-10-28",
-          "annual_pct": 19.438419240640204,
-          "annual_method": "CAGR",
-          "max_drawdown_pct": 24.012547423379726,
-          "total_pct": 804.82597743632,
-          "orders": 9,
-          "note": "10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
-        }
+        "backtest": null
       }
     },
     "decision_basis": [
@@ -284,16 +266,7 @@
         "title": "长期持有与过热减仓",
         "method": "允许长期持有；20日涨幅与MA60偏离均至少15%时减半一次，两者均冷却至5%以内后买回；等待期间不重复减仓。",
         "version": "gold_heat_actions_v2",
-        "backtest": {
-          "start": "2020-12-02",
-          "end": "2026-10-29",
-          "annual_pct": 16.657429385874956,
-          "annual_method": "CAGR",
-          "max_drawdown_pct": 27.03426556894881,
-          "total_pct": 148.4014608705301,
-          "orders": 7,
-          "note": "10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
-        }
+        "backtest": null
       }
     },
     "decision_conditions": [
@@ -438,16 +411,7 @@
             "title": "估值与趋势确认 · 3年估值参考",
             "method": "PE分位低于30%且收盘高于MA60时进入；持有至PE分位至少90%且收盘不高于MA80时退出。",
             "version": "csi300_value_confirm_v2",
-            "backtest": {
-              "start": "2013-06-07",
-              "end": "2026-10-29",
-              "annual_pct": 10.45161840628046,
-              "annual_method": "CAGR",
-              "max_drawdown_pct": 36.33974707608778,
-              "total_pct": 278.64145126587,
-              "orders": 6,
-              "note": "近3年估值参考。10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
-            }
+            "backtest": null
           }
         },
         "5": {
@@ -522,16 +486,7 @@
             "title": "估值与趋势确认 · 5年估值参考",
             "method": "PE分位低于30%且收盘高于MA60时进入；持有至PE分位至少90%且收盘不高于MA80时退出。",
             "version": "csi300_value_confirm_v2",
-            "backtest": {
-              "start": "2013-06-07",
-              "end": "2026-10-29",
-              "annual_pct": 12.297739660602192,
-              "annual_method": "CAGR",
-              "max_drawdown_pct": 31.429087519891773,
-              "total_pct": 372.76739164544017,
-              "orders": 6,
-              "note": "近5年估值参考。10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
-            }
+            "backtest": null
           }
         },
         "10": {
@@ -606,16 +561,7 @@
             "title": "估值与趋势确认 · 10年估值参考",
             "method": "PE分位低于30%且收盘高于MA60时进入；持有至PE分位至少90%且收盘不高于MA80时退出。",
             "version": "csi300_value_confirm_v2",
-            "backtest": {
-              "start": "2015-04-02",
-              "end": "2026-10-29",
-              "annual_pct": 5.668824050296983,
-              "annual_method": "CAGR",
-              "max_drawdown_pct": 27.718881264933525,
-              "total_pct": 89.32162870856008,
-              "orders": 3,
-              "note": "近10年估值参考。10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
-            }
+            "backtest": null
           }
         }
       },
@@ -674,16 +620,7 @@
         "title": "估值与趋势确认 · 5年估值参考",
         "method": "PE分位低于30%且收盘高于MA60时进入；持有至PE分位至少90%且收盘不高于MA80时退出。",
         "version": "csi300_value_confirm_v2",
-        "backtest": {
-          "start": "2013-06-07",
-          "end": "2026-10-29",
-          "annual_pct": 12.297739660602192,
-          "annual_method": "CAGR",
-          "max_drawdown_pct": 31.429087519891773,
-          "total_pct": 372.76739164544017,
-          "orders": 6,
-          "note": "近5年估值参考。10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
-        }
+        "backtest": null
       }
     },
     "decision_basis": [
@@ -822,22 +759,13 @@
       },
       "strategy_options": {},
       "valuation_options": {},
-      "pb_data_warning": null,
+      "pb_data_warning": "PB接口暂不可用：ModuleNotFoundError；使用已缓存记录",
       "new_money_fraction": 0.0,
       "strategy_presentation": {
         "title": "PE或PB5买入、PE退出 · PE/PB固定5年",
         "method": "PE、PB固定5年。PE分位低于60%且收盘高于MA120，或PB分位低于10%时进入；PE分位至少30%且收盘不高于MA120时退出。退出优先，其余时间保持原状态。",
         "version": "csi500_pe_or_pb5_pe_exit_v4",
-        "backtest": {
-          "start": "2014-03-31",
-          "end": "2026-10-30",
-          "annual_pct": 12.209329116607105,
-          "annual_method": "CAGR",
-          "max_drawdown_pct": 56.094470163923106,
-          "total_pct": 326.1108494347008,
-          "orders": 60,
-          "note": "近5年估值参考。10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
-        }
+        "backtest": null
       }
     },
     "decision_basis": [
@@ -962,16 +890,7 @@
         "title": "16日均线缓冲",
         "method": "收盘高于MA16的102%时进入；不高于MA16的98%时退出；缓冲区内保持原阶段。",
         "version": "star50_buffer_v2",
-        "backtest": {
-          "start": "2020-12-08",
-          "end": "2026-10-30",
-          "annual_pct": 14.487158157767954,
-          "annual_method": "CAGR",
-          "max_drawdown_pct": 23.56330356699675,
-          "total_pct": 121.91486476510045,
-          "orders": 58,
-          "note": "10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
-        }
+        "backtest": null
       }
     },
     "decision_basis": [
@@ -1096,16 +1015,7 @@
         "title": "20日趋势分步退出",
         "method": "转到MA20上方时买入；首次回到均线或下方减半，连续两日线下退出；减半后恢复线上只买回减掉部分。",
         "version": "sector_ma20_partial_v2",
-        "backtest": {
-          "start": "2025-05-09",
-          "end": "2026-10-30",
-          "annual_pct": 62.67467952028678,
-          "annual_method": "CAGR",
-          "max_drawdown_pct": 30.356249628156473,
-          "total_pct": 105.04311801268025,
-          "orders": 49,
-          "note": "10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
-        }
+        "backtest": null
       }
     },
     "decision_conditions": [
