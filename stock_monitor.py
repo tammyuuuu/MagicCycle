@@ -1,6 +1,7 @@
 """Long-horizon stock research display; no automated trade signals."""
 import datetime as dt
 import json
+import time
 from html import escape
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -17,27 +18,52 @@ INFO = {
     'GOOGL': ('Alphabet', '研究区间 $210–240；并非独立 DCF', '2026-11-06'),
     'BWXT': ('BWX Technologies', '研究区间 $75–95；须重估业务剥离与净债', '2026-11-06'),
 }
+UPDATE_ERRORS = {}
 
 def refresh():
     ROOT.mkdir(exist_ok=True)
+    UPDATE_ERRORS.clear()
     for symbol in INFO:
         try:
-            response = requests.get(f'https://query1.finance.yahoo.com/v8/finance/chart/{symbol}',
-                params={'period1': 1262304000, 'period2': int(dt.datetime.now(dt.timezone.utc).timestamp()) + 86400, 'interval': '1d', 'events': 'div,splits'},
-                headers={'User-Agent': 'Mozilla/5.0'}, timeout=12)
-            response.raise_for_status()
-            data = response.json()
-            result = data['chart']['result'][0]
-            if result['meta']['symbol'] != symbol or not result.get('timestamp'):
-                raise ValueError('行情校验失败')
+            import msft_monitor
+            expected = msft_monitor.expected_date(dt.datetime.now(dt.timezone.utc))
+            errors = []
+            for host in ('query1.finance.yahoo.com', 'query2.finance.yahoo.com', 'query1.finance.yahoo.com', 'query2.finance.yahoo.com'):
+                try:
+                    response = requests.get(f'https://{host}/v8/finance/chart/{symbol}',
+                        params={'period1': 1262304000, 'period2': int(dt.datetime.now(dt.timezone.utc).timestamp()) + 86400, 'interval': '1d', 'events': 'div,splits'},
+                        headers={'User-Agent': 'Mozilla/5.0'}, timeout=20)
+                    response.raise_for_status()
+                    data = response.json()
+                    result = data['chart']['result'][0]
+                    if result['meta']['symbol'] != symbol or not result.get('timestamp'):
+                        raise ValueError('行情校验失败')
+                    closes = result['indicators']['quote'][0]['close']
+                    adjusted = result['indicators']['adjclose'][0]['adjclose']
+                    dates = [dt.datetime.fromtimestamp(t, ZoneInfo('America/New_York')).date()
+                             for t, c, a in zip(result['timestamp'], closes, adjusted)
+                             if c is not None and a is not None and c > 0 and a > 0]
+                    if not dates or dates[-1] != expected:
+                        raise ValueError(f'行情日期 {dates[-1] if dates else "无"}，预期 {expected}')
+                    break
+                except (requests.RequestException, ValueError, KeyError, TypeError, IndexError) as exc:
+                    errors.append(f'{host}: {type(exc).__name__}: {exc}')
+                    print(f'[美股行情重试] {symbol}: {errors[-1]}', flush=True)
+                    time.sleep(2)
+            else:
+                raise ValueError('; '.join(errors))
             (ROOT / f'{symbol}.json').write_text(json.dumps(data), encoding='utf8')
             raw = ROOT / 'raw'; raw.mkdir(exist_ok=True)
             (raw / f'{symbol}_chart.json').write_text(json.dumps(data), encoding='utf8')
-            facts = requests.get(f'https://data.sec.gov/api/xbrl/companyfacts/CIK{CIK[symbol]}.json', headers={'User-Agent':'Xingxun research research@example.org'}, timeout=20)
-            facts.raise_for_status(); facts.json()
-            (raw / f'{symbol}_facts.json').write_bytes(facts.content)
-        except (requests.RequestException, ValueError, KeyError, TypeError, IndexError):
-            pass
+            try:
+                facts = requests.get(f'https://data.sec.gov/api/xbrl/companyfacts/CIK{CIK[symbol]}.json', headers={'User-Agent':'Xingxun research research@example.org'}, timeout=20)
+                facts.raise_for_status(); facts.json()
+                (raw / f'{symbol}_facts.json').write_bytes(facts.content)
+            except (requests.RequestException, ValueError) as exc:
+                print(f'[基本面更新失败] {symbol}: {type(exc).__name__}: {exc}', flush=True)
+        except (requests.RequestException, ValueError, KeyError, TypeError, IndexError) as exc:
+            UPDATE_ERRORS[symbol] = str(exc)
+            print(f'[美股更新失败] {symbol}: {type(exc).__name__}: {exc}', flush=True)
 
 def reference_price(symbol):
     try:
@@ -70,7 +96,10 @@ def render():
             if symbol == 'BWXT':
                 rows = [row for row in rows if row[0] >= dt.date(2015, 7, 1)]
             end, price, _ = rows[-1]
-            price_text = f'行情日 {end} · 收盘 ${price:.2f}（缓存行情，是否最新须核对）'
+            import msft_monitor
+            expected = msft_monitor.expected_date(dt.datetime.now(dt.timezone.utc))
+            warning = '更新异常，沿用上次有效收盘价' if symbol in UPDATE_ERRORS or end != expected else '已核对最新收盘日'
+            price_text = f'行情日 {end} · 收盘 ${price:.2f}（{warning}）'
             historical = ''
             backtest = None
             for years in (1, 3, 5):

@@ -25,7 +25,17 @@ def main():
     expected_stock = msft_monitor.expected_date(dt.datetime.now(dt.timezone.utc))
     page = Path('docs/index.html').read_text(encoding='utf8')
     for symbol in stock_monitor.INFO:
-        result = json.loads((stock_monitor.ROOT / f'{symbol}.json').read_text(encoding='utf8'))['chart']['result'][0]
+        marker = f'data-asset-symbol="{symbol}"'
+        if marker not in page:
+            raise ValueError(f'{symbol}: missing card')
+        card = page.split(marker, 1)[1].split('</p>', 1)[0]
+        path = stock_monitor.ROOT / f'{symbol}.json'
+        if not path.exists():
+            if '行情数据不可用' not in card:
+                raise ValueError(f'{symbol}: missing data is not disclosed')
+            print(f'{symbol}: unavailable; disclosed on page')
+            continue
+        result = json.loads(path.read_text(encoding='utf8'))['chart']['result'][0]
         if result['meta']['symbol'] != symbol:
             raise ValueError(f'{symbol}: wrong provider symbol')
         timestamps = result['timestamp']
@@ -35,13 +45,15 @@ def main():
             raise ValueError(f'{symbol}: incomplete quote arrays')
         valid = [(dt.datetime.fromtimestamp(t, ZoneInfo('America/New_York')).date(), float(c), float(a))
                  for t, c, a in zip(timestamps, closes, adjusted) if c is not None and a is not None]
-        if not valid or valid[-1][0] != expected_stock or any(not math.isfinite(n) or n <= 0 for n in valid[-1][1:]):
-            raise ValueError(f'{symbol}: stale or invalid stock close; expected {expected_stock}')
+        if not valid or valid[-1][0] > expected_stock or any(not math.isfinite(n) or n <= 0 for n in valid[-1][1:]):
+            raise ValueError(f'{symbol}: invalid stock close; expected at most {expected_stock}')
         if len(valid) < 1000 or len({d for d, _, _ in valid}) != len(valid):
             raise ValueError(f'{symbol}: incomplete or duplicate history')
-        if f'data-asset-symbol="{symbol}"' not in page or f'行情日 {expected_stock} · 收盘 ${valid[-1][1]:.2f}' not in page:
+        if f'行情日 {valid[-1][0]} · 收盘 ${valid[-1][1]:.2f}' not in card:
             raise ValueError(f'{symbol}: rendered page does not match quote')
-        print(f'{symbol}: {expected_stock} {valid[-1][1]:.2f}')
+        if valid[-1][0] != expected_stock and '更新异常，沿用上次有效收盘价' not in card:
+            raise ValueError(f'{symbol}: stale quote is not disclosed')
+        print(f'{symbol}: {valid[-1][0]} {valid[-1][1]:.2f}; expected {expected_stock}')
     print(f'ETF: {len(rows)} verified at {expected_etf}')
 
 
