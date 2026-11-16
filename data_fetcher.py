@@ -27,7 +27,7 @@ import pandas as pd
 import requests
 
 from config import ADJUST, CACHE_DIR
-from close_validation import validate_bar
+from close_validation import validate_bar, previous_session
 
 # akshare 内部有请求不带 timeout（如新浪源），网络半死时会一直挂着不返回。
 # 设一个全局 socket 默认超时，保证任何请求最终都会失败退出，而不是卡死整个刷新。
@@ -242,6 +242,22 @@ def _fetch_tencent(code: str, start: str, end: str) -> pd.DataFrame:
 
     if not rows:
         return pd.DataFrame(columns=_KEEP)
+
+    # Some range responses omit the last completed session although the same
+    # provider's exact-day endpoint has it. Only fill one missing session;
+    # never skip a gap or combine different adjustment/source conventions.
+    expected = _expected_latest_trade_date()
+    last = max(datetime.strptime(r[0], '%Y-%m-%d').date() for r in rows)
+    if s <= expected <= e and last == previous_session(expected):
+        url = _TENCENT_URL.format(symbol=symbol, start=expected.isoformat(),
+                                  end=expected.isoformat(), count=_TENCENT_MAX_ROWS, fq=fq)
+        response = requests.get(url, timeout=15, headers=_TENCENT_HEADERS)
+        response.raise_for_status()
+        node = ((response.json().get('data') or {}).get(symbol) or {})
+        tail = node.get(key) or node.get('day') or []
+        rows += [r for r in tail if r[0] == expected.isoformat()]
+        if rows[-1][0] == expected.isoformat():
+            print(f'    [行情尾部补查] {code}: {expected} ({fq})', flush=True)
 
     df = pd.DataFrame([r[:6] for r in rows])
     df.columns = ["date", "open", "close", "high", "low", "volume"]
