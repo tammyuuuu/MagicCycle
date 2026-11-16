@@ -9,6 +9,24 @@ import stock_monitor
 
 
 class StockUpdateTests(unittest.TestCase):
+    def test_intraday_bar_is_removed_from_all_arrays_without_mutation(self):
+        data = {'chart': {'result': [{'meta': {'symbol': 'NVDA'},
+            'timestamp': [1794578400, 1794837600],
+            'indicators': {'quote': [{'close': [10, 11], 'volume': [100, 120]}],
+                           'adjclose': [{'adjclose': [9, 10]}]}}]}}
+        result = stock_monitor.completed_chart(data, 'NVDA', dt.date(2026, 11, 13))['chart']['result'][0]
+        self.assertEqual(len(result['timestamp']), 1)
+        self.assertEqual(result['indicators']['quote'][0]['close'], [10])
+        self.assertEqual(result['indicators']['quote'][0]['volume'], [100])
+        self.assertEqual(result['indicators']['adjclose'][0]['adjclose'], [9])
+        self.assertEqual(len(data['chart']['result'][0]['timestamp']), 2)
+
+    def test_rejects_misaligned_chart_before_cache_write(self):
+        data = {'chart': {'result': [{'meta': {'symbol': 'NVDA'}, 'timestamp': [1794578400],
+                'indicators': {'quote': [{'close': []}]}}]}}
+        with self.assertRaises(ValueError):
+            stock_monitor.completed_chart(data, 'NVDA', dt.date(2026, 11, 13))
+
     def test_failed_sources_preserve_cache_and_report_each_stock(self):
         with tempfile.TemporaryDirectory(dir='.') as directory:
             root = Path(directory)

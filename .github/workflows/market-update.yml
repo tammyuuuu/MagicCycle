@@ -59,9 +59,15 @@ jobs:
       - name: Generate and validate
         if: steps.due.outputs.due == 'true'
         run: |
-          python -u export_alerts.py
-          python cloud_market_check.py
-          python verify_pages_release.py
+          for attempt in 1 2 3; do
+            echo "Market generation attempt ${attempt}/3"
+            if python -u export_alerts.py && python cloud_market_check.py && python verify_pages_release.py; then
+              exit 0
+            fi
+            if [ "$attempt" = 3 ]; then exit 1; fi
+            echo 'Generation or validation failed; retain existing published release and retry in 45 seconds'
+            sleep 45
+          done
       - uses: actions/cache/save@v4
         if: steps.due.outputs.due == 'true'
         with:

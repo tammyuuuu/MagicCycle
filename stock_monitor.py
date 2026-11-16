@@ -2,6 +2,7 @@
 import datetime as dt
 import json
 import time
+import copy
 from html import escape
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -20,6 +21,25 @@ INFO = {
 }
 UPDATE_ERRORS = {}
 
+
+def completed_chart(data, symbol, expected):
+    """Exclude Yahoo's in-progress daily bar without discarding completed history."""
+    data = copy.deepcopy(data)
+    result = data['chart']['result'][0]
+    if result['meta']['symbol'] != symbol:
+        raise ValueError('行情代码不匹配')
+    timestamps = result['timestamp']
+    keep = [i for i, t in enumerate(timestamps)
+            if dt.datetime.fromtimestamp(t, ZoneInfo('America/New_York')).date() <= expected]
+    for group in result['indicators'].values():
+        for series in group:
+            for key, values in series.items():
+                if len(values) != len(timestamps):
+                    raise ValueError(f'行情数组长度不一致: {key}')
+                series[key] = [values[i] for i in keep]
+    result['timestamp'] = [timestamps[i] for i in keep]
+    return data
+
 def refresh():
     ROOT.mkdir(exist_ok=True)
     UPDATE_ERRORS.clear()
@@ -34,7 +54,7 @@ def refresh():
                         params={'period1': 1262304000, 'period2': int(dt.datetime.now(dt.timezone.utc).timestamp()) + 86400, 'interval': '1d', 'events': 'div,splits'},
                         headers={'User-Agent': 'Mozilla/5.0'}, timeout=20)
                     response.raise_for_status()
-                    data = response.json()
+                    data = completed_chart(response.json(), symbol, expected)
                     result = data['chart']['result'][0]
                     if result['meta']['symbol'] != symbol or not result.get('timestamp'):
                         raise ValueError('行情校验失败')
