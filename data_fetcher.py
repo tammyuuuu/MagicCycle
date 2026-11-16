@@ -378,6 +378,7 @@ def fetch_etf_daily(code: str, start: str = "20150101", end: str = "20500101",
             note = f"{code} 截至 {last}"
             print(f"    [警告] 数据源均不可用，改用本地旧缓存：{code}“{src_name}”"
                   f"（数据截至 {last}）")
+            print(f"    [行情源错误] {code}: " + "；".join(errors), flush=True)
             valid, reason = validate_bar(stale, last)
             if not valid:
                 raise ValueError("历史缓存未通过校验: " + reason)
