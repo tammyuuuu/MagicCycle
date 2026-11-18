@@ -12,7 +12,7 @@
   }
   Promise.resolve(window.INVESTOR_DATA).then(data => {
     container.replaceChildren();
-    ['ackman', 'zhu', 'berkshire'].forEach(key => {
+    ['berkshire', 'zhu'].forEach(key => {
       const info = data[key]; const card = make('article', undefined, 'investor-card'); const head = make('div', undefined, 'investor-card-head');
       head.append(make('h3', titles[key])); head.append(make('span', '报告期 ' + info.period, 'investor-date')); card.append(head);
       // Only compare the same disclosed security across both quarters. A 13F option is not stock.
