@@ -163,7 +163,8 @@ def render_today_categories(contents=None):
  if 'stock' not in contents:
   from stock_monitor import render as render_stocks
   contents={**contents, 'stock':render_stocks()}
- categories=[('broad','宽基 ETF'),('us','美股宽基 ETF'),('industry','行业 ETF'),('macro','黄金/大类资产'),('bond','债券监测'),('stock','个股')]
+ contents['investor'] = __import__('pathlib').Path(__file__).with_name('templates').joinpath('investor_section.html').read_text(encoding='utf8')
+ categories=[('broad','宽基 ETF'),('us','美股宽基 ETF'),('industry','行业 ETF'),('macro','黄金/大类资产'),('bond','债券监测'),('stock','个股'),('investor','投资人')]
  output='<div class="today-categories etf-monitor" style="grid-column:1/-1"><h2 class="etf-monitor-title">买卖监测</h2><nav class="guide-tabs" aria-label="今日提醒资产类别">'
  for index,(key,label) in enumerate(categories):
   output+=f'<button type="button" data-category="{key}" aria-pressed="'+('true' if index==0 else 'false')+f'" aria-controls="today-category-{key}" onclick="selectTodayCategory(this)">{escape(label)}</button>'

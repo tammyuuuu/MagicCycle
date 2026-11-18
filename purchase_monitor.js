@@ -55,7 +55,7 @@
  window.PurchaseMonitorPolicy.tradeLabel=tradeLabel;
  window.PurchaseMonitorPolicy.feeLines=feeLines;
  function render(){
-  const root=document.getElementById('sec-today')||document.getElementById('page-today');if(!root)return;
+  const root=document.getElementById('today-category-us');if(!root)return;
   let card=document.getElementById('usPurchaseMonitor');if(!card){card=document.createElement('section');card.id='usPurchaseMonitor';card.className='workspace card';root.appendChild(card);}
   const snap=window.FUND_ACCESS_MONITOR,D=window.WORKSPACE_DATA,selection=document.getElementById('candidateSelect')?.value;
   const strategy=D?.research?.strategies.find(s=>s.id===selection),S=window.XingxunStore,profile=S?.profile(),budget=(S?.latestSnapshot()?.total_assets??0)*(profile?.ratio??.1);

@@ -1,0 +1,727 @@
+{
+  "ackman": {
+    "period": "2026-09-30",
+    "disclosures": [
+      {
+        "date": "2026-11-16",
+        "accepted": "2026-11-16T22:02:35.000Z",
+        "url": "https://www.sec.gov/Archives/edgar/data/2026053/000117266126005427/0001172661-26-005427-index.html",
+        "form": "13F-HR"
+      }
+    ],
+    "rows": [
+      {
+        "name": "PERSHING SQUARE INC",
+        "code": "71531U102",
+        "class": "COM",
+        "option": "",
+        "shares": 184289699,
+        "unit": "SH",
+        "value": 10309165762,
+        "previous": 184289699,
+        "current": 184289699,
+        "change": "股数未变"
+      },
+      {
+        "name": "UBER TECHNOLOGIES INC",
+        "code": "90353T100",
+        "class": "COM",
+        "option": "",
+        "shares": 34268279,
+        "unit": "SH",
+        "value": 2347719794,
+        "previous": 34326200,
+        "current": 34268279,
+        "change": "股数减少，待核公司行为"
+      },
+      {
+        "name": "AMAZON COM INC",
+        "code": "023135106",
+        "class": "COM",
+        "option": "",
+        "shares": 8505779,
+        "unit": "SH",
+        "value": 2119214838,
+        "previous": 8563857,
+        "current": 8505779,
+        "change": "股数减少，待核公司行为"
+      },
+      {
+        "name": "MICROSOFT CORP",
+        "code": "594918104",
+        "class": "COM",
+        "option": "",
+        "shares": 4064779,
+        "unit": "SH",
+        "value": 2084825149,
+        "previous": 6206730,
+        "current": 4064779,
+        "change": "股数减少，待核公司行为"
+      },
+      {
+        "name": "META PLATFORMS INC",
+        "code": "30303M102",
+        "class": "CL A",
+        "option": "",
+        "shares": 2833299,
+        "unit": "SH",
+        "value": 2054651769,
+        "previous": 3196062,
+        "current": 2833299,
+        "change": "股数减少，待核公司行为"
+      },
+      {
+        "name": "BROOKFIELD CORP",
+        "code": "11271J107",
+        "class": "CL A LTD VT SH",
+        "option": "",
+        "shares": 51331099,
+        "unit": "SH",
+        "value": 1871531870,
+        "previous": 57481047,
+        "current": 51331099,
+        "change": "股数减少，待核公司行为"
+      },
+      {
+        "name": "RESTAURANT BRANDS INTL INC",
+        "code": "76131D103",
+        "class": "COM",
+        "option": "",
+        "shares": 22007079,
+        "unit": "SH",
+        "value": 1564263175,
+        "previous": 25821284,
+        "current": 22007079,
+        "change": "股数减少，待核公司行为"
+      },
+      {
+        "name": "NETFLIX INC.",
+        "code": "64110L106",
+        "class": "COM",
+        "option": "",
+        "shares": 15412744,
+        "unit": "SH",
+        "value": 1072418728,
+        "previous": 13081465,
+        "current": 15412744,
+        "change": "股数增加，待核公司行为"
+      },
+      {
+        "name": "MASTERCARD INCORPORATED",
+        "code": "57636Q104",
+        "class": "CL A",
+        "option": "",
+        "shares": 1888419,
+        "unit": "SH",
+        "value": 1041406426,
+        "previous": 2124646,
+        "current": 1888419,
+        "change": "股数减少，待核公司行为"
+      },
+      {
+        "name": "VISA INC",
+        "code": "92826C839",
+        "class": "COM CL A",
+        "option": "",
+        "shares": 2870720,
+        "unit": "SH",
+        "value": 1031535818,
+        "previous": 3270470,
+        "current": 2870720,
+        "change": "股数减少，待核公司行为"
+      },
+      {
+        "name": "S&P GLOBAL INC",
+        "code": "78409V104",
+        "class": "COM",
+        "option": "",
+        "shares": 2593155,
+        "unit": "SH",
+        "value": 1022921853,
+        "previous": 2593155,
+        "current": 2593155,
+        "change": "股数未变"
+      },
+      {
+        "name": "INTERCONTINENTAL EXCHANGE IN",
+        "code": "45866F104",
+        "class": "COM",
+        "option": "",
+        "shares": 6635899,
+        "unit": "SH",
+        "value": 1008855725,
+        "previous": null,
+        "current": 6635899,
+        "change": "首次申报，是否新建仓未知"
+      },
+      {
+        "name": "ALCON AG",
+        "code": "H01301128",
+        "class": "ORD SHS",
+        "option": "",
+        "shares": 14736308,
+        "unit": "SH",
+        "value": 954175943,
+        "previous": null,
+        "current": 14736308,
+        "change": "首次申报，是否新建仓未知"
+      },
+      {
+        "name": "HOWARD HUGHES HOLDINGS INC",
+        "code": "44267T102",
+        "class": "COM",
+        "option": "",
+        "shares": 9000000,
+        "unit": "SH",
+        "value": 662580000,
+        "previous": 9000000,
+        "current": 9000000,
+        "change": "股数未变"
+      },
+      {
+        "name": "PERSHING SQUARE USA LTD",
+        "code": "71531T105",
+        "class": "COM SHS",
+        "option": "",
+        "shares": 4000000,
+        "unit": "SH",
+        "value": 148400000,
+        "previous": 4000000,
+        "current": 4000000,
+        "change": "股数未变"
+      },
+      {
+        "name": "SEAPORT ENTMT GROUP INC",
+        "code": "812215200",
+        "class": "COMMON STOCK",
+        "option": "",
+        "shares": 5023780,
+        "unit": "SH",
+        "value": 114994324,
+        "previous": 5023780,
+        "current": 5023780,
+        "change": "股数未变"
+      },
+      {
+        "name": "HERTZ GLOBAL HLDGS INC",
+        "code": "42806J700",
+        "class": "COM NEW",
+        "option": "",
+        "shares": 14991599,
+        "unit": "SH",
+        "value": 33955972,
+        "previous": 14991599,
+        "current": null,
+        "change": "未再申报，是否退出未知"
+      }
+    ],
+    "prior_period": "2026-06-30"
+  },
+  "berkshire": {
+    "period": "2026-09-30",
+    "disclosures": [
+      {
+        "date": "2026-11-16",
+        "accepted": "2026-11-16T21:00:04.000Z",
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526463399/0001193125-26-463399-index.html",
+        "form": "13F-HR"
+      }
+    ],
+    "rows": [
+      {
+        "name": "ALPHABET INC",
+        "code": "02079K305",
+        "class": "CAP STK CL A",
+        "option": "",
+        "shares": 65824467,
+        "unit": "SH",
+        "value": 22648882605,
+        "previous": 65824467,
+        "current": 65824467,
+        "change": "股数未变"
+      },
+      {
+        "name": "OCCIDENTAL PETE CORP",
+        "code": "674599105",
+        "class": "COM",
+        "option": "",
+        "shares": 264941431,
+        "unit": "SH",
+        "value": 14656559963,
+        "previous": 264941431,
+        "current": 264941431,
+        "change": "股数未变"
+      },
+      {
+        "name": "CHEVRON CORPORATION",
+        "code": "166764100",
+        "class": "COM",
+        "option": "",
+        "shares": 58251749,
+        "unit": "SH",
+        "value": 11895589663,
+        "previous": 58251749,
+        "current": 58251749,
+        "change": "股数未变"
+      },
+      {
+        "name": "CHUBB LIMITED",
+        "code": "H1467J104",
+        "class": "COM",
+        "option": "",
+        "shares": 34249183,
+        "unit": "SH",
+        "value": 11139546771,
+        "previous": 34249183,
+        "current": 34249183,
+        "change": "股数未变"
+      },
+      {
+        "name": "ALPHABET INC",
+        "code": "02079K107",
+        "class": "CAP STK CL C",
+        "option": "",
+        "shares": 27188433,
+        "unit": "SH",
+        "value": 9264186660,
+        "previous": 27188433,
+        "current": 27188433,
+        "change": "股数未变"
+      },
+      {
+        "name": "KRAFT HEINZ CO",
+        "code": "500754106",
+        "class": "COM",
+        "option": "",
+        "shares": 325634818,
+        "unit": "SH",
+        "value": 7398423065,
+        "previous": 325634818,
+        "current": 325634818,
+        "change": "股数未变"
+      },
+      {
+        "name": "MOODYS CORP",
+        "code": "615369105",
+        "class": "COM",
+        "option": "",
+        "shares": 12623750,
+        "unit": "SH",
+        "value": 5732823588,
+        "previous": 12623750,
+        "current": 12623750,
+        "change": "股数未变"
+      },
+      {
+        "name": "DELTA AIR LINES INC",
+        "code": "247361702",
+        "class": "COM NEW",
+        "option": "",
+        "shares": 64450000,
+        "unit": "SH",
+        "value": 5378997000,
+        "previous": 57320000,
+        "current": 64450000,
+        "change": "股数增加，待核公司行为"
+      },
+      {
+        "name": "SIRIUSXM HOLDINGS INC",
+        "code": "829933100",
+        "class": "COMMON STOCK",
+        "option": "",
+        "shares": 108822227,
+        "unit": "SH",
+        "value": 2816319235,
+        "previous": 108822227,
+        "current": 108822227,
+        "change": "股数未变"
+      },
+      {
+        "name": "DAVITA INC",
+        "code": "23918K108",
+        "class": "COM",
+        "option": "",
+        "shares": 13723621,
+        "unit": "SH",
+        "value": 2400535785,
+        "previous": 13906601,
+        "current": 13723621,
+        "change": "股数减少，待核公司行为"
+      },
+      {
+        "name": "VERISIGN INC",
+        "code": "92343E102",
+        "class": "COM",
+        "option": "",
+        "shares": 5922136,
+        "unit": "SH",
+        "value": 1670101573,
+        "previous": 8016933,
+        "current": 5922136,
+        "change": "股数减少，待核公司行为"
+      },
+      {
+        "name": "KROGER CO",
+        "code": "501044101",
+        "class": "COM",
+        "option": "",
+        "shares": 27257260,
+        "unit": "SH",
+        "value": 1597820581,
+        "previous": 27257260,
+        "current": 27257260,
+        "change": "股数未变"
+      },
+      {
+        "name": "LENNAR CORP",
+        "code": "526057104",
+        "class": "CL A",
+        "option": "",
+        "shares": 17877349,
+        "unit": "SH",
+        "value": 1458612905,
+        "previous": 12366349,
+        "current": 17877349,
+        "change": "股数增加，待核公司行为"
+      },
+      {
+        "name": "APPLE INC",
+        "code": "037833100",
+        "class": "COM",
+        "option": "",
+        "shares": 3776000,
+        "unit": "SH",
+        "value": 1257483520,
+        "previous": 3776000,
+        "current": 3776000,
+        "change": "股数未变"
+      },
+      {
+        "name": "NEW YORK TIMES CO MTN BE",
+        "code": "650111107",
+        "class": "CL A",
+        "option": "",
+        "shares": 14300000,
+        "unit": "SH",
+        "value": 910910000,
+        "previous": 14300000,
+        "current": 14300000,
+        "change": "股数未变"
+      },
+      {
+        "name": "BENDING SPOONS SPA",
+        "code": "T19377109",
+        "class": "COM SHS",
+        "option": "",
+        "shares": 20689655,
+        "unit": "SH",
+        "value": 689379305,
+        "previous": null,
+        "current": 20689655,
+        "change": "首次申报，是否新建仓未知"
+      },
+      {
+        "name": "BANK OF AMER CORP",
+        "code": "060505104",
+        "class": "COM",
+        "option": "",
+        "shares": 9800000,
+        "unit": "SH",
+        "value": 533414000,
+        "previous": 9800000,
+        "current": 9800000,
+        "change": "股数未变"
+      },
+      {
+        "name": "AMERICAN EXPRESS CO",
+        "code": "025816109",
+        "class": "COM",
+        "option": "",
+        "shares": 1399713,
+        "unit": "SH",
+        "value": 425652723,
+        "previous": 1399713,
+        "current": 1399713,
+        "change": "股数未变"
+      },
+      {
+        "name": "NUCOR CORP",
+        "code": "670346105",
+        "class": "COM",
+        "option": "",
+        "shares": 1580776,
+        "unit": "SH",
+        "value": 369506390,
+        "previous": 1857752,
+        "current": 1580776,
+        "change": "股数减少，待核公司行为"
+      },
+      {
+        "name": "LOUISIANA PAC CORP",
+        "code": "546347105",
+        "class": "COM",
+        "option": "",
+        "shares": 4344909,
+        "unit": "SH",
+        "value": 280463876,
+        "previous": 4344909,
+        "current": 4344909,
+        "change": "股数未变"
+      },
+      {
+        "name": "CAPITAL ONE FINL CORP",
+        "code": "14040H105",
+        "class": "COM",
+        "option": "",
+        "shares": 1150000,
+        "unit": "SH",
+        "value": 222030500,
+        "previous": 1861888,
+        "current": 1150000,
+        "change": "股数减少，待核公司行为"
+      },
+      {
+        "name": "LIBERTY LIVE HOLDINGS INC",
+        "code": "530909308",
+        "class": "COM SHS SER C",
+        "option": "",
+        "shares": 1437289,
+        "unit": "SH",
+        "value": 139776355,
+        "previous": 1437289,
+        "current": 1437289,
+        "change": "股数未变"
+      },
+      {
+        "name": "MACYS INC",
+        "code": "55616P104",
+        "class": "COM",
+        "option": "",
+        "shares": 5527401,
+        "unit": "SH",
+        "value": 125858921,
+        "previous": 5527401,
+        "current": 5527401,
+        "change": "股数未变"
+      },
+      {
+        "name": "COCA COLA CO",
+        "code": "191216100",
+        "class": "COM",
+        "option": "",
+        "shares": 960000,
+        "unit": "SH",
+        "value": 82636800,
+        "previous": 960000,
+        "current": 960000,
+        "change": "股数未变"
+      },
+      {
+        "name": "NVR INC",
+        "code": "62944T105",
+        "class": "COM",
+        "option": "",
+        "shares": 11112,
+        "unit": "SH",
+        "value": 68387582,
+        "previous": 11112,
+        "current": 11112,
+        "change": "股数未变"
+      },
+      {
+        "name": "ALLY FINL INC",
+        "code": "02005N100",
+        "class": "COM",
+        "option": "",
+        "shares": 1275000,
+        "unit": "SH",
+        "value": 47965500,
+        "previous": 1275000,
+        "current": 1275000,
+        "change": "股数未变"
+      },
+      {
+        "name": "LENNAR CORP",
+        "code": "526057302",
+        "class": "CL B",
+        "option": "",
+        "shares": 553000,
+        "unit": "SH",
+        "value": 44234470,
+        "previous": 298117,
+        "current": 553000,
+        "change": "股数增加，待核公司行为"
+      },
+      {
+        "name": "LIBERTY LIVE HOLDINGS INC",
+        "code": "530909100",
+        "class": "COM SER A",
+        "option": "",
+        "shares": 456768,
+        "unit": "SH",
+        "value": 43228524,
+        "previous": 456768,
+        "current": 456768,
+        "change": "股数未变"
+      },
+      {
+        "name": "JEFFERIES FINANCIAL GROUP IN",
+        "code": "47233W109",
+        "class": "COM",
+        "option": "",
+        "shares": 433558,
+        "unit": "SH",
+        "value": 19826607,
+        "previous": 433558,
+        "current": 433558,
+        "change": "股数未变"
+      },
+      {
+        "name": "D R HORTON INC",
+        "code": "23331A109",
+        "class": "COM",
+        "option": "",
+        "shares": 3564,
+        "unit": "SH",
+        "value": 487021,
+        "previous": 3564,
+        "current": 3564,
+        "change": "股数未变"
+      }
+    ],
+    "prior_period": "2026-06-30"
+  },
+  "zhu": {
+    "period": "2026Q3",
+    "prior_period": "2026Q2",
+    "disclosures": [
+      {
+        "date": "2026-10-27",
+        "url": "https://fund.eastmoney.com/gonggao/161005,AN202610261830944083.html"
+      }
+    ],
+    "rows": [
+      {
+        "code": "002142",
+        "name": "宁波银行",
+        "shares": 47000000,
+        "unit": "股（约数）",
+        "value": 1665210000.0,
+        "current": 47000000,
+        "previous": 50000000,
+        "change": "股数减少（约数），待核公司行为"
+      },
+      {
+        "code": "002353",
+        "name": "杰瑞股份",
+        "shares": 11800000,
+        "unit": "股（约数）",
+        "value": 1300596000.0,
+        "current": 11800000,
+        "previous": 11000000,
+        "change": "股数增加（约数），待核公司行为"
+      },
+      {
+        "code": "300308",
+        "name": "中际旭创",
+        "shares": 950000,
+        "unit": "股（约数）",
+        "value": 768018000.0,
+        "current": 950000,
+        "previous": 560200,
+        "change": "股数增加（约数），待核公司行为"
+      },
+      {
+        "code": "603129",
+        "name": "春风动力",
+        "shares": 2560600,
+        "unit": "股（约数）",
+        "value": 735045800.0,
+        "current": 2560600,
+        "previous": 2900500,
+        "change": "股数减少（约数），待核公司行为"
+      },
+      {
+        "code": "688266",
+        "name": "泽璟制药",
+        "shares": 5600000,
+        "unit": "股（约数）",
+        "value": 616000000.0,
+        "current": 5600000,
+        "previous": 4300200,
+        "change": "股数增加（约数），待核公司行为"
+      },
+      {
+        "code": "688548",
+        "name": "广钢气体",
+        "shares": 20000000,
+        "unit": "股（约数）",
+        "value": 614400000.0,
+        "current": 20000000,
+        "previous": 23000000,
+        "change": "股数减少（约数），待核公司行为"
+      },
+      {
+        "code": "688825",
+        "name": "长鑫科技",
+        "shares": 10000000,
+        "unit": "股（约数）",
+        "value": 547900000.0,
+        "current": 10000000,
+        "previous": null,
+        "change": "进入前十，是否新建仓未知"
+      },
+      {
+        "code": "300750",
+        "name": "宁德时代",
+        "shares": 1650000,
+        "unit": "股（约数）",
+        "value": 480331500.0,
+        "current": 1650000,
+        "previous": 3100000,
+        "change": "股数减少（约数），待核公司行为"
+      },
+      {
+        "code": "300285",
+        "name": "国瓷材料",
+        "shares": 3800000,
+        "unit": "股（约数）",
+        "value": 392084000.0,
+        "current": null,
+        "previous": 3800000,
+        "change": "退出前十，是否清仓未知"
+      },
+      {
+        "code": "601318",
+        "name": "中国平安",
+        "shares": 8100000,
+        "unit": "股（约数）",
+        "value": 386694000.0,
+        "current": null,
+        "previous": 8100000,
+        "change": "退出前十，是否清仓未知"
+      },
+      {
+        "code": "600519",
+        "name": "贵州茅台",
+        "shares": 300000,
+        "unit": "股（约数）",
+        "value": 377586000.0,
+        "current": 300000,
+        "previous": null,
+        "change": "进入前十，是否新建仓未知"
+      },
+      {
+        "code": "002244",
+        "name": "滨江集团",
+        "shares": 35805100,
+        "unit": "股（约数）",
+        "value": 363063700.0,
+        "current": 35805100,
+        "previous": 50160100,
+        "change": "股数减少（约数），待核公司行为"
+      }
+    ]
+  },
+  "updated": "2026-11-17T14:17:03.729613+00:00"
+}

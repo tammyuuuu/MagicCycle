@@ -56,6 +56,12 @@ jobs:
             stock_monitor_data
           key: cycle-market-v1-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: cycle-market-v1-
+      - name: Check quarterly investor disclosures weekly
+        if: steps.due.outputs.due == 'true'
+        run: |
+          if [ "$(date +%u)" = 1 ]; then
+            python -u update_investors.py || echo 'Investor update failed; retaining the last successful snapshot'
+          fi
       - name: Generate and validate
         if: steps.due.outputs.due == 'true'
         run: |

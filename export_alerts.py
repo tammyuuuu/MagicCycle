@@ -104,6 +104,9 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
     with open(os.path.join(BASE_DIR, "templates", "_status_rail.html"), encoding="utf-8") as f:
         status_assets = f.read().replace("{{ asset_state_catalog | tojson }}", json.dumps(STATE_CATALOG, ensure_ascii=False)).replace("{{ asset_state_map | tojson }}", json.dumps(DISPLAY_STATUS_MAP, ensure_ascii=False))
     page_styles = Path(BASE_DIR, "templates", "_styles.html").read_text(encoding="utf8")
+    investor_css = Path(BASE_DIR, 'static', 'investors.css').read_text(encoding='utf8')
+    investor_js = Path(BASE_DIR, 'static', 'investors.js').read_text(encoding='utf8')
+    investor_data = json.dumps(json.loads(Path(BASE_DIR, 'docs', 'investors.json').read_text(encoding='utf8')), ensure_ascii=False).replace('</', r'<\/')
     # Embed the header emblem so it needs no separate cache/network request.
     badge = base64.b64encode(Path(BASE_DIR, "docs", "assets", "brand-badge.png").read_bytes()).decode("ascii")
     badge_src = f"data:image/png;base64,{badge}"
@@ -121,7 +124,7 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
 <link rel="manifest" href="./manifest.webmanifest">
 <script src="./pwa.js" defer></script>
 <title>星循 · 观察周期，记录投资</title>
-{page_styles}</head><body>{status_assets}
+{page_styles}<style>{investor_css}</style></head><body>{status_assets}
 <header class="site-header"><div class="brand-lockup"><img class="brand-emblem" src="{badge_src}" loading="eager" fetchpriority="high" width="64" height="64" alt="" aria-hidden="true"><div class="brand-copy"><div class="brand-heading"><h1>星循</h1><span class="brand-tagline">观察周期，记录投资</span></div><div class="brand-updated"><span class="brand-clock" aria-hidden="true"></span>更新于 <time>{gen_time}</time></div></div></div>
 <nav id="topnav"><a data-page="today" class="active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2m6 2V2M8 10h8m-8 4h5"/></svg><span>今日提醒</span></a><a data-page="plan"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M6 16v-5m6 5V5m6 11V8"/></svg><span>投资配置</span></a><a data-page="review"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6C9 4 5 4 3 5v15c3-1 6-1 9 1 3-2 6-2 9-1V5c-2-1-6-1-9 1v15Z"/></svg><span>投资复盘</span></a><a data-page="lab"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2 6-6 2 2-6 6-2Z"/></svg><span>策略实验</span></a></nav></header>
 <div class="wrap">{notice}{body}
@@ -129,6 +132,8 @@ def _build_page(etfs_reps, gen_time: str, using_saved: bool,
 <script>
 window.STRATEGY_SUMMARIES={json.dumps([i.get("summary") for i in etfs_reps], ensure_ascii=False)};
 refreshValuationPreference();
+window.INVESTOR_DATA={investor_data};
+{investor_js}
 </script></body></html>"""
 
 
