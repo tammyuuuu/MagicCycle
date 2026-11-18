@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-18T01:44:52+08:00",
+  "updated_at": "2026-11-18T13:51:43+08:00",
   "quota_source": "https://qdiilimit.com/",
   "source_type": "第三方公开公告汇总；并非渠道交易确认",
   "rows": [
@@ -13,8 +13,13 @@
       "fee_pct": 0.66,
       "product_url": "https://www.nffund.com/new/personal-financing/detail.html?fundCode=021000",
       "note": "被动指数；销售服务费含现行优惠，可能调整",
-      "quota": null,
-      "quota_state": "未取得当日额度，不判断可买",
+      "quota": {
+        "retail_limit": "无代销",
+        "direct_limit": "200",
+        "notice": "仅直销·无代销渠道 直销 2026-07-20",
+        "source_date": "2026-11-18"
+      },
+      "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_021000.html",
       "nav_date": "2026-11-16",
       "unit_nav": 2.0986,
@@ -23,16 +28,15 @@
       "nav_purchase_status": "限制大额申购",
       "nav_redeem_status": "开放赎回",
       "nav_state": "近期披露",
-      "terms_error": "HTTPSConnectionPool(host='fundf10.eastmoney.com', port=443): Read timed out. (read timeout=10)",
-      "purchase_status": "限制大额申购",
       "management_pct": 0.5,
       "custody_pct": 0.15,
       "service_pct": 0.01,
+      "purchase_status": "限制大额申购",
       "subscription_pct": 0.0,
       "subscription_basis": "---",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_021000.html",
-      "terms_as_of": "2026-11-17"
+      "terms_as_of": "2026-11-18"
     },
     {
       "code": "019441",
@@ -43,8 +47,13 @@
       "fee_pct": 0.65,
       "product_url": "https://www.wjasset.com/products/qdii/019441/",
       "note": "被动指数；另计申购费，A/C额度合并",
-      "quota": null,
-      "quota_state": "未取得当日额度，不判断可买",
+      "quota": {
+        "retail_limit": "5",
+        "direct_limit": "100",
+        "notice": "代销 2026-10-21 直销 2026-10-21",
+        "source_date": "2026-11-18"
+      },
+      "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_019441.html",
       "nav_date": "2026-11-16",
       "unit_nav": 1.5501,
@@ -72,8 +81,13 @@
       "fee_pct": 0.8,
       "product_url": "https://fund.stockstar.com/funds/f10/fundbuy_022525.html",
       "note": "被动指数；未登录代销渠道确认个人可买状态",
-      "quota": null,
-      "quota_state": "未取得当日额度，不判断可买",
+      "quota": {
+        "retail_limit": "100",
+        "direct_limit": "无直销",
+        "notice": "代销 2026-09-01 仅代销·无直销渠道",
+        "source_date": "2026-11-18"
+      },
+      "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_022525.html",
       "nav_date": "2026-11-16",
       "unit_nav": 1.8454,
@@ -102,8 +116,13 @@
       "fee_pct": 0.65,
       "product_url": "https://ecmob.cifm.com/lcsm/mall/fundDetail?product_code=017641",
       "note": "被动指数；另计申购费",
-      "quota": null,
-      "quota_state": "未取得当日额度，不判断可买",
+      "quota": {
+        "retail_limit": "10",
+        "direct_limit": "10",
+        "notice": "代销 2026-07-27 直销 2026-07-27",
+        "source_date": "2026-11-18"
+      },
+      "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_017641.html",
       "nav_date": "2026-11-16",
       "unit_nav": 1.6376,
@@ -131,8 +150,13 @@
       "fee_pct": 1.05,
       "product_url": "https://www.howbuy.com/fund/info/dtl/0225235315675.htm",
       "note": "主动管理QDII-FOF；另有底层基金费用，不等同纯被动指数",
-      "quota": null,
-      "quota_state": "未取得当日额度，不判断可买",
+      "quota": {
+        "retail_limit": "100",
+        "direct_limit": "无直销",
+        "notice": "代销 2026-09-01 仅代销·无直销渠道",
+        "source_date": "2026-11-18"
+      },
+      "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_022523.html",
       "nav_date": "2026-11-16",
       "unit_nav": 2.1286,
@@ -177,8 +201,13 @@
       "index": "纳指100",
       "channel": "天天基金等代销",
       "product_url": "https://fundf10.eastmoney.com/jjfl_161130.html",
-      "quota": null,
-      "quota_state": "未取得当日额度，不判断可买",
+      "quota": {
+        "retail_limit": "暂停",
+        "direct_limit": "暂停",
+        "notice": "代销 2026-03-19 直销 2026-03-19",
+        "source_date": "2026-11-18"
+      },
+      "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_161130.html",
       "nav_date": "2026-11-16",
       "unit_nav": 4.0857,
@@ -204,8 +233,13 @@
       "index": "标普500",
       "channel": "天天基金等代销",
       "product_url": "https://fundf10.eastmoney.com/jjfl_050025.html",
-      "quota": null,
-      "quota_state": "未取得当日额度，不判断可买",
+      "quota": {
+        "retail_limit": "暂停",
+        "direct_limit": "暂停",
+        "notice": "代销 2026-05-08 直销 2026-05-08",
+        "source_date": "2026-11-18"
+      },
+      "quota_state": "当日公开额度，未登录渠道确认",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_050025.html",
       "nav_date": "2026-11-16",
       "unit_nav": 5.3712,
@@ -226,7 +260,5 @@
     }
   ],
   "future_alerts": [],
-  "errors": [
-    "额度更新失败：额度来源日期2026-11-17不是今天2026-11-18"
-  ]
+  "errors": []
 }
