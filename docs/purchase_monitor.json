@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-20T01:32:54+08:00",
+  "updated_at": "2026-11-21T01:06:29+08:00",
   "quota_source": "https://qdiilimit.com/",
   "source_type": "第三方公开公告汇总；并非渠道交易确认",
   "rows": [
@@ -16,8 +16,8 @@
       "quota": null,
       "quota_state": "未取得当日额度，不判断可买",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_021000.html",
-      "nav_date": "2026-11-18",
-      "unit_nav": 2.0919,
+      "nav_date": "2026-11-19",
+      "unit_nav": 2.0483,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -31,7 +31,7 @@
       "subscription_basis": "---",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_021000.html",
-      "terms_as_of": "2026-11-20"
+      "terms_as_of": "2026-11-21"
     },
     {
       "code": "019441",
@@ -45,8 +45,8 @@
       "quota": null,
       "quota_state": "未取得当日额度，不判断可买",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_019441.html",
-      "nav_date": "2026-11-18",
-      "unit_nav": 1.5453,
+      "nav_date": "2026-11-19",
+      "unit_nav": 1.5134,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -60,7 +60,7 @@
       "subscription_basis": "小于100万元",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_019441.html",
-      "terms_as_of": "2026-11-20"
+      "terms_as_of": "2026-11-21"
     },
     {
       "code": "022525",
@@ -74,8 +74,8 @@
       "quota": null,
       "quota_state": "未取得当日额度，不判断可买",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_022525.html",
-      "nav_date": "2026-11-18",
-      "unit_nav": 1.8395,
+      "nav_date": "2026-11-19",
+      "unit_nav": 1.8013,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -89,7 +89,7 @@
       "subscription_basis": "---",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_022525.html",
-      "terms_as_of": "2026-11-20"
+      "terms_as_of": "2026-11-21"
     },
     {
       "code": "017641",
@@ -103,8 +103,8 @@
       "quota": null,
       "quota_state": "未取得当日额度，不判断可买",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_017641.html",
-      "nav_date": "2026-11-18",
-      "unit_nav": 1.6186,
+      "nav_date": "2026-11-19",
+      "unit_nav": 1.5893,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -118,7 +118,7 @@
       "subscription_basis": "小于50万元",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_017641.html",
-      "terms_as_of": "2026-11-20"
+      "terms_as_of": "2026-11-21"
     },
     {
       "code": "022523",
@@ -132,8 +132,8 @@
       "quota": null,
       "quota_state": "未取得当日额度，不判断可买",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_022523.html",
-      "nav_date": "2026-11-18",
-      "unit_nav": 2.0993,
+      "nav_date": "2026-11-19",
+      "unit_nav": 2.0663,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -147,7 +147,7 @@
       "subscription_basis": "---",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_022523.html",
-      "terms_as_of": "2026-11-20"
+      "terms_as_of": "2026-11-21"
     },
     {
       "code": "006484",
@@ -160,8 +160,8 @@
       "quota": null,
       "quota_state": "未取得当日额度，不判断可买",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_006484.html",
-      "nav_date": "2026-11-19",
-      "unit_nav": 1.0615,
+      "nav_date": "2026-11-20",
+      "unit_nav": 1.0617,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "限制大额申购",
@@ -178,8 +178,8 @@
       "quota": null,
       "quota_state": "未取得当日额度，不判断可买",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_161130.html",
-      "nav_date": "2026-11-18",
-      "unit_nav": 4.0731,
+      "nav_date": "2026-11-19",
+      "unit_nav": 3.9887,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "暂停申购",
@@ -193,7 +193,7 @@
       "subscription_basis": "小于100万元",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_161130.html",
-      "terms_as_of": "2026-11-20"
+      "terms_as_of": "2026-11-21"
     },
     {
       "code": "050025",
@@ -205,27 +205,26 @@
       "quota": null,
       "quota_state": "未取得当日额度，不判断可买",
       "nav_source": "https://fundf10.eastmoney.com/jjjz_050025.html",
-      "nav_date": "2026-11-18",
-      "unit_nav": 5.305,
+      "nav_date": "2026-11-19",
+      "unit_nav": 5.2047,
       "income_per_10000": null,
       "yield_7d_pct": null,
       "nav_purchase_status": "暂停申购",
       "nav_redeem_status": "开放赎回",
       "nav_state": "近期披露",
-      "terms_error": "HTTPSConnectionPool(host='fundf10.eastmoney.com', port=443): Read timed out. (read timeout=10)",
-      "purchase_status": "暂停申购",
       "management_pct": 0.6,
       "custody_pct": 0.2,
       "service_pct": 0.0,
+      "purchase_status": "暂停申购",
       "subscription_pct": 0.12,
       "subscription_basis": "小于50万元",
       "subscription_channel": "天天基金页面参考",
       "terms_source": "https://fundf10.eastmoney.com/jjfl_050025.html",
-      "terms_as_of": "2026-11-19"
+      "terms_as_of": "2026-11-21"
     }
   ],
   "future_alerts": [],
   "errors": [
-    "额度更新失败：额度来源日期2026-11-19不是今天2026-11-20"
+    "额度更新失败：额度来源日期2026-11-20不是今天2026-11-21"
   ]
 }
