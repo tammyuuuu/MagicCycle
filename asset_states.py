@@ -66,9 +66,9 @@ STATE_CATALOG['sector_etf']=[
 
 
 STATE_CATALOG['macro_asset']=[
- ('buy','回补','blue','下一交易日收盘买回此前卖出的黄金 ETF。'),
+ ('buy','买回／增持','blue','下一交易日收盘买入黄金 ETF 至当时的仓位上限。'),
  ('watch','保持仓位','blue','保持当前策略仓位，等待新的交易条件。'),
- ('reduce','减仓','amber','下一交易日收盘卖出年度规则指定的部分仓位。'),
+ ('reduce','减仓','amber','月度上限下调时，下一交易日收盘将持仓减至半仓。'),
  ('exit','卖出','red','下一交易日收盘卖出全部黄金 ETF 仓位。')]
 
 STATE_CATALOG['us_equity']=[

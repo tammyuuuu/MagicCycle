@@ -10,7 +10,7 @@ import shutil
 from research_broad_individual import execute
 from research_sector_partial_exit import backtest_partial
 from us_guidance import guidance_frame,VERSION as US_VERSION
-from gold_rolling_strategy import ROOT as GOLD_ROOT, replay as replay_gold, backtest_summary,STRATEGY_VERSION as GOLD_VERSION
+from gold_combination_strategy import ROOT as GOLD_ROOT, replay as replay_gold, backtest_summary,STRATEGY_VERSION as GOLD_VERSION
 from industry_strategy import partial_exit_targets,trend_positions,STRATEGY_VERSION as SECTOR_VERSION
 
 ROOT=Path(__file__).resolve().parent;OUT=ROOT/'results/active_strategy_backtests'

@@ -4,6 +4,7 @@ from unittest.mock import patch
 import numpy as np
 import pandas as pd
 
+import gold_combination_strategy as combo
 import gold_quotes
 import gold_rolling_strategy as gold
 import strategies
@@ -51,8 +52,8 @@ class RollingGoldTests(unittest.TestCase):
 
     def test_site_and_api_show_position_before_next_close(self):
         import app
-        for day,status,pos in [("2026-11-06","exit","持金"),("2026-11-09","watch","空仓"),
-                                ("2026-11-10","buy","空仓"),("2026-11-11","watch","持金")]:
+        for day,status,pos in [("2026-11-06","exit","半仓"),("2026-11-09","watch","空仓"),
+                                ("2026-11-10","buy","空仓"),("2026-11-11","watch","半仓")]:
             idx = self.close.loc[:day].index[-60:]
             etf = pd.DataFrame({"close":np.full(len(idx),7.)},index=idx)
             with patch.object(app,"_load_data",return_value=(etf,ITEM)),app.app.test_client() as client:
@@ -113,5 +114,58 @@ class RollingGoldTests(unittest.TestCase):
             basis = BeautifulSoup(render_basis(summary), "html.parser")
             self.assertEqual(basis.strong.get_text(), f"{year} 年黄金买卖规则")
             self.assertEqual([li.get_text() for li in basis.select("li")],
-                             [f"{label}：{text}" for label,text in gold.rule_rows(rule)])
+                             [f"{label}：{text}" for label,text in combo.rule_rows(rule)])
             self.assertEqual(basis.small.get_text(), "每年根据过去五年数据选择规则。")
+
+    def test_combination_every_session_order_and_signal(self):
+        out = gold.ROOT/"combination"
+        p = combo.replay(self.close)
+        ref = pd.read_csv(out/"daily.csv",index_col="date",parse_dates=True)
+        pd.testing.assert_index_equal(p.index,ref.index)
+        for prod, research in [("nav","nav"),("close","close"),("weight","weight"),("signed_trade","order1")]:
+            np.testing.assert_allclose(p[prod],ref[research],rtol=1e-10,atol=1e-13)
+        schedule = pd.read_csv(out/"schedule.csv",index_col="year").heat
+        np.testing.assert_array_equal(schedule.loc[p.index.year], p.rule)
+        orders = pd.read_csv(out/"instructions.csv",parse_dates=["date","signal_cutoff"]).set_index("date")
+        fills = p.loc[p.signed_trade.abs().gt(1e-12)]
+        self.assertEqual(len(fills),101)
+        pd.testing.assert_index_equal(fills.index, orders.index)
+        self.assertEqual(list(p.index[p.pending.ne("")]),list(orders.signal_cutoff))
+        np.testing.assert_array_equal(p.loc[orders.signal_cutoff,"next_target"], orders.combined_target)
+        np.testing.assert_array_equal(fills.cap,orders.limit)
+        np.testing.assert_array_equal(fills.executed.eq("sell"),orders.heat_sale)
+        restored = fills.executed.isin(["above_sale","discount","bounce","timeout"])
+        np.testing.assert_array_equal(restored,orders.heat_restore)
+        self.assertEqual(sum(restored & fills.cap.eq(.5)),12)
+
+    def test_month_end_tie_restores_full_and_midmonth_cannot_anticipate(self):
+        dates = pd.date_range("2025-01-31",periods=9,freq="BME")
+        close = pd.Series([100.,100.,100.,100.,100.,100.,80.,100.,70.],index=dates)
+        caps,next_cap = combo.monthly_limits(close.iloc[:8],dates[8])
+        self.assertEqual(caps.iloc[-1],.5)
+        self.assertEqual(next_cap,1.)
+        partial = pd.concat([close.iloc[:8],pd.Series([70.],index=pd.to_datetime(["2025-09-15"]))])
+        self.assertEqual(combo.monthly_limits(partial,pd.Timestamp("2025-09-16"))[1],1.)
+        self.assertEqual(combo.next_session(pd.Timestamp("2026-09-30")),pd.Timestamp("2026-10-08"))
+
+    def test_combination_trade_dates_have_stable_cutoff_signals(self):
+        full = combo.replay(self.close)
+        for day in ["2013-07-31","2026-04-30","2026-11-06","2026-11-10","2026-11-20"]:
+            end = combo.replay(self.close.loc[:day]).iloc[-1]
+            for key in ["nav","weight","target","next_cap","next_target","pending"]:
+                self.assertEqual(end[key],full.at[end.name,key])
+
+    def test_monthly_and_heat_signals_net_to_one_order(self):
+        dates = pd.bdate_range("2012-01-02", periods=5)
+        close = pd.Series([100.,100.,105.,110.,90.],index=dates)
+        signals = pd.DataFrame(dict(close=close.iloc[1:],origin=[0,4,4,0],
+            pending=["sell","","timeout",""],executed=["initial","sell","","timeout"]))
+        # Sell and lower the limit together, raise it during the exit, then
+        # lower it on the restoration close. Only two net trades are due.
+        caps = pd.Series([1.,1.,.5,1.,.5],index=dates)
+        with patch.object(gold,"replay",return_value=signals), patch.object(combo,"monthly_limits",return_value=(caps,.5)):
+            actual = combo.replay(close)
+        self.assertEqual(actual.target.tolist(),[1.,0.,0.,.5])
+        self.assertEqual(actual.pending.tolist(),["sell","","timeout",""])
+        self.assertEqual(np.sign(actual.signed_trade).tolist(),[0,-1,0,1])
+        self.assertAlmostEqual(actual.weight.iloc[-1],.5)

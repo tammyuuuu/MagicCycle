@@ -57,7 +57,7 @@ for(const status of ['buy','watch','reduce','exit']){
  assert.equal((html.match(/aria-current="step"/g)||[]).length,1);
 }
 const gold=context.STRATEGY_SUMMARIES.find(s=>s.symbol==='518850');
-assert.equal(gold.details.strategy_version,'au9999_trim5_v1');
+assert.equal(gold.details.strategy_version,'au9999_heat_cap6_v1');
 
 for(const code of ['513500','513100']){
  const summary=context.STRATEGY_SUMMARIES.find(s=>s.symbol===code);

@@ -210,8 +210,8 @@
     "subtype": "gold",
     "date": "2026-11-23",
     "status": "watch",
-    "action": "持金",
-    "reason": "Au99.99 收盘 781.4 元/克，策略当前持金。下一交易日无买卖提醒。",
+    "action": "半仓",
+    "reason": "Au99.99 收盘 781.4 元/克，上限50%，策略当前半仓（实际模拟仓位47.23%）。下一交易日无买卖提醒。",
     "risk_level": "normal",
     "metrics": {
       "price": 7.479,
@@ -238,24 +238,30 @@
       "holding": false,
       "holding_return": null,
       "parameters": {
-        "training_years": 5
+        "training_years": 5,
+        "momentum_months": 6,
+        "weak_cap": 0.5
       },
       "data_warning": null,
       "fundamental_data_available": null,
-      "strategy_version": "au9999_trim5_v1",
+      "strategy_version": "au9999_heat_cap6_v1",
       "signal_source": "上金所 Au99.99",
       "signal_date": "2026-11-23",
       "signal_price": 781.4,
-      "target_exposure": 1.0,
-      "model_position": "持金",
-      "rule_year": 2026,
+      "model_position": "半仓",
+      "actual_exposure": 0.47232195747047234,
+      "target_exposure": 0.5,
+      "next_target_exposure": 0.5,
+      "momentum_cap": 0.5,
+      "next_momentum_cap": 0.5,
       "annual_rule": 4,
       "next_rule": 4,
-      "rule_text": "平时保持满仓。前3日累计上涨至少3%，随后收跌，下一交易日卖出全部。金价跌至卖价的98%或重新超过卖价，下一交易日全部买回。最迟第10个交易日买回。",
-      "pending": "",
-      "executed": "",
+      "rule_year": 2026,
       "origin_rule": 0,
       "sell_price": null,
+      "pending": "",
+      "executed": "",
+      "rule_text": "按月度上限持仓，急涨卖出后空仓等待买回。月末金价低于六个月前月末时降至50%，否则恢复100%。下一交易日收盘执行。前3日累计上涨至少3%，随后收跌，下一交易日清仓。金价跌至卖价的98%或重新超过卖价，下一交易日买回至当时的仓位上限。最迟第10个交易日买回。",
       "enabled_decisions": [
         "watch",
         "buy",
@@ -263,64 +269,73 @@
         "exit"
       ],
       "legacy": null,
+      "rule_heading": "2026 年黄金买卖规则",
+      "rule_note": "每年根据过去五年数据选择规则。",
       "strategy_presentation": {
-        "title": "Au99.99 五年滚动策略",
-        "method": "以上金所收盘价确认信号，下一交易日收盘操作 518850。每年按前五个完整年份剔除最佳单笔正贡献后的成绩选定规则。",
-        "version": "au9999_trim5_v1",
+        "title": "急涨卖出＋六个月动量仓位上限",
+        "method": "用 Au99.99 判断急涨和六个月动量，下一交易日收盘操作 518850；急涨清仓，回补至当时的上限。",
+        "version": "au9999_heat_cap6_v1",
         "backtest": {
           "start": "2012-01-04",
           "end": "2026-11-20",
-          "annual_pct": 6.5199802889,
+          "annual_pct": 7.313725374250001,
+          "max_drawdown_pct": 30.4166601408,
+          "total_pct": 186.089716529,
+          "orders": 101,
           "annual_method": "CAGR",
-          "max_drawdown_pct": 40.6459078717,
-          "total_pct": 155.969854526,
-          "orders": 75,
-          "period_label": "Au99.99 现货回测 2012-01-04 — 2026-11-20",
-          "note": "按上金所收盘价模拟，单边费率0.10%，现金无息。"
+          "period_label": "Au99.99 组合回测 2012-01-04 — 2026-11-20",
+          "note": "期初承接持金，以上金所收盘价模拟，单边费率0.10%，现金无息。"
         }
-      },
-      "rule_heading": "2026 年黄金买卖规则",
-      "rule_note": "每年根据过去五年数据选择规则。"
+      }
     },
+    "decision_basis": [
+      [
+        "持有",
+        "按月度上限持仓，急涨卖出后空仓等待买回。"
+      ],
+      [
+        "上限",
+        "月末金价低于六个月前月末时降至50%，否则恢复100%。下一交易日收盘执行。"
+      ],
+      [
+        "卖出",
+        "前3日累计上涨至少3%，随后收跌，下一交易日清仓。"
+      ],
+      [
+        "买回",
+        "金价跌至卖价的98%或重新超过卖价，下一交易日买回至当时的仓位上限。"
+      ],
+      [
+        "期限",
+        "最迟第10个交易日买回。"
+      ]
+    ],
     "decision_conditions": [
       {
         "condition": "持有",
         "met": null,
-        "result": "平时保持满仓。"
+        "result": "按月度上限持仓，急涨卖出后空仓等待买回。"
+      },
+      {
+        "condition": "上限",
+        "met": null,
+        "result": "月末金价低于六个月前月末时降至50%，否则恢复100%。下一交易日收盘执行。"
       },
       {
         "condition": "卖出",
         "met": null,
-        "result": "前3日累计上涨至少3%，随后收跌，下一交易日卖出全部。"
+        "result": "前3日累计上涨至少3%，随后收跌，下一交易日清仓。"
       },
       {
         "condition": "买回",
         "met": null,
-        "result": "金价跌至卖价的98%或重新超过卖价，下一交易日全部买回。"
+        "result": "金价跌至卖价的98%或重新超过卖价，下一交易日买回至当时的仓位上限。"
       },
       {
         "condition": "期限",
         "met": null,
         "result": "最迟第10个交易日买回。"
       }
-    ],
-    "decision_basis": [
-      [
-        "持有",
-        "平时保持满仓。"
-      ],
-      [
-        "卖出",
-        "前3日累计上涨至少3%，随后收跌，下一交易日卖出全部。"
-      ],
-      [
-        "买回",
-        "金价跌至卖价的98%或重新超过卖价，下一交易日全部买回。"
-      ],
-      [
-        "期限",
-        "最迟第10个交易日买回。"
-      ]
     ]
   },
   {

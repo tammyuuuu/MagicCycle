@@ -10,7 +10,7 @@ RULES = {
  '513500': ('长期方向与热度', '完整月份12个月涨幅为正、未过热且高于MA20时可买；首次偏离MA60至少15%减半，冷却至5%且恢复MA20后买回；长期方向转弱退出。'),
  '513100': ('长期方向与热度', '完整月份12个月涨幅为正、未过热且高于MA20时可买；首次偏离MA60至少15%减半，冷却至5%且恢复MA20后买回；长期方向转弱退出。'),
  '588170': ('20日趋势分步退出', '转到MA20上方时买入；首次回到均线或下方减半，连续两日线下退出；减半后恢复线上只买回减掉部分。'),
- '518850': ('Au99.99 五年滚动策略', '以上金所收盘价确认信号，下一交易日收盘操作 518850。每年按前五个完整年份剔除最佳单笔正贡献后的成绩选定规则。'),
+ '518850': ('急涨卖出＋六个月动量仓位上限', '用 Au99.99 判断急涨和六个月动量，下一交易日收盘操作 518850；急涨清仓，回补至当时的上限。'),
  '000015': ('长期持有', '以长期持有为主；利率、净值回撤和趋势仅作参考，不自动触发等待、减仓或退出。'),
 }
 
@@ -37,7 +37,7 @@ def presentation(summary, years=5):
         out['method'] = '历史版本；不展示新版本的回测数字。'
     params = summary.get('details', {}).get('parameters', {})
     if code == '518850':
-        from gold_rolling_strategy import STRATEGY_VERSION, backtest_summary
+        from gold_combination_strategy import STRATEGY_VERSION, backtest_summary
         out['backtest'] = backtest_summary() if version == STRATEGY_VERSION else None
     if code == '588170' and params.get('ma_fast',20) != 20:
         out.update(method=f'当前使用{params["ma_fast"]}日均线分步退出，以本次判断条件为准。',backtest=None)
@@ -83,7 +83,7 @@ def render_guide():
             asset = assets.get(code,{})
             summary = dict(symbol=code,details={'strategy_version':asset.get('version')})
             if code == '518850':
-                from gold_rolling_strategy import STRATEGY_VERSION
+                from gold_combination_strategy import STRATEGY_VERSION
                 summary['details']['strategy_version'] = STRATEGY_VERSION
             output += f'<table><caption>{escape(code)}</caption><tbody><tr><td>'+render(presentation(summary))+'</td></tr></tbody></table>'
         output += '</section>'

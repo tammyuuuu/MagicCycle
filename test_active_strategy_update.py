@@ -73,7 +73,7 @@ class ActiveStrategyUpdateTests(unittest.TestCase):
     h=pd.read_csv(ROOT/f'data_cache/valuation_{"000300" if code=="510300" else "000905"}_SH.csv')
     target['valuation_history']=h.to_dict('records')
    s=strategies.analyze_asset(p,target);info=s['details']['strategy_presentation']
-   expected_version='au9999_trim5_v1' if code=='518850' else registry[code]['version']
+   expected_version='au9999_heat_cap6_v1' if code=='518850' else registry[code]['version']
    self.assertEqual(info['version'],expected_version);self.assertIsNotNone(info['backtest'])
    self.assertIn(info['backtest']['end'],render(info))
 

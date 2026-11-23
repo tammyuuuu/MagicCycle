@@ -280,13 +280,13 @@ def _analyze_asset(df, item, holding=None, overrides=None, sell_rules=None):
         metrics['ma20'] = legacy['ma20']
     elif asset == 'macro_asset':
         import gold_quotes
-        import gold_rolling_strategy
+        import gold_combination_strategy
         spot = item.get("gold_closes")
         if spot is None:
             spot = gold_quotes.history().close
-        status, action, reason, gold = gold_rolling_strategy.analyze(spot, d.index[-1])
+        status, action, reason, gold = gold_combination_strategy.analyze(spot, d.index[-1])
         insufficient = gold["insufficient_history"]
-        details.update(gold, parameters={"training_years":5}, enabled_decisions=["watch","buy","reduce","exit"])
+        details.update(gold, parameters={"training_years":5, "momentum_months":gold_combination_strategy.MONTHS, "weak_cap":gold_combination_strategy.WEAK_CAP}, enabled_decisions=["watch","buy","reduce","exit"])
         risk = "elevated" if insufficient else "normal"
     details['legacy'] = legacy
     result = {'symbol': item['code'], 'name': item['name'], 'asset_type': asset,
@@ -324,7 +324,7 @@ def _analyze_asset(df, item, holding=None, overrides=None, sell_rules=None):
         if insufficient:
             record(reason,None)
         else:
-            rows = gold_rolling_strategy.rule_rows(gold['annual_rule'])
+            rows = gold_combination_strategy.rule_rows(gold['annual_rule'])
             details['rule_heading'] = f"{gold['rule_year']} 年黄金买卖规则"
             details['rule_note'] = "每年根据过去五年数据选择规则。"
             result['decision_basis'] = rows
