@@ -49,11 +49,12 @@ for(const [status,expected] of [['buy',500],['watch',0],['exit',0]]){
  assert.equal(calculation.spent,expected);
 }
 console.log('Sector axis, holding independence and plan signal amounts: OK');
-context.ASSET_STATE_CATALOG.macro_asset=[[0,'空仓'],[.5,'半仓'],[1,'满仓']];
+context.ASSET_STATE_CATALOG.macro_asset=[[1,'满仓'],[.5,'半仓'],[0,'空仓']];
 for(const [status,target,label] of [['buy',0,'空仓'],['watch',.5,'半仓'],['reduce',1,'满仓'],['exit',.5,'半仓']]){
  const summary={asset_type:'macro_asset',status,reason:'次日提醒',details:{target_exposure:target}};
  const html=context.assetStateRail(summary);
  assert(html.includes('当前策略仓位'));
+ assert(html.includes('--current-pos:'+(1-target)*100+'%'));
  assert(html.includes('次日提醒'));
  assert(html.includes('data-label="'+label+'" onclick="inspectAssetState(this)" aria-current="step"'));
  assert.equal((html.match(/aria-current="step"/g)||[]).length,1);

@@ -68,7 +68,7 @@ class RollingGoldTests(unittest.TestCase):
                 self.assertEqual(summary["details"]["annual_rule"],4)
                 from bs4 import BeautifulSoup
                 rail = BeautifulSoup(render_rail(summary),"html.parser")
-                self.assertEqual([step.get_text() for step in rail.select(".state-step")], ["空仓","半仓","满仓"])
+                self.assertEqual([step.get_text() for step in rail.select(".state-step")], ["满仓","半仓","空仓"])
                 self.assertEqual(rail.select_one('[aria-current="step"]').get_text(), pos)
                 self.assertIn("策略当前"+pos,rail.get_text())
 
