@@ -14,7 +14,13 @@ window.strategySummaryHtml=function(info){
  const b=info.backtest,stats=b?`<dl class="strategy-stats"><div><dt>历史年化（CAGR）</dt><dd>${Number(b.annual_pct).toFixed(2)}%</dd></div><div><dt>最大回撤</dt><dd>${Number(b.max_drawdown_pct).toFixed(2)}%</dd></div></dl><p class="strategy-period">回测 ${esc(b.start)} — ${esc(b.end)}</p>`:'<p class="strategy-note">当前版本尚无已核对回测，不展示其他策略数字。</p>';
  return `<div class="strategy-summary"><p class="strategy-name">${esc(info.title)}</p>${stats}</div>`;
 };
-window.assetStrategyBasis=function(summary){const escape=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));return strategySummaryHtml(summary.details?.strategy_presentation)+'<ul class="strategy-basis">'+(summary.decision_basis||[]).map(([title,text])=>'<li><b>'+escape(title)+(text==='满足'?'</b>':'：</b>'+escape(text))+'</li>').join('')+'</ul>';};
+window.assetStrategyBasis=function(summary){const escape=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const stats=strategySummaryHtml(summary.details?.strategy_presentation);
+ const items='<ul class="strategy-basis">'+(summary.decision_basis||[]).map(([title,text])=>'<li><b>'+escape(title)+(text==='满足'?'</b>':'：</b>'+escape(text))+'</li>').join('')+'</ul>';
+ const details=summary.details;
+ if(details?.rule_heading)return stats+'<p><strong>'+escape(details.rule_heading)+'</strong></p>'+items+'<small>'+escape(details.rule_note)+'</small>';
+ return stats+items;
+};
 // Display preference only: keep the original summary and safety flags intact.
 window.isUpdateNotice=value=>/未更新|待更新|更新失败|更新受限|等待数据更新|待数据更新|过期|过旧|网络异常/.test(String(value??''));
 {const rail=window.assetStateRail,basis=window.assetStrategyBasis;

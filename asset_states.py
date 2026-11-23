@@ -132,7 +132,12 @@ def processed_basis(summary):
 def render_basis(summary):
  from html import escape
  from strategy_presentation import presentation,render
- return render(summary.get('details',{}).get('strategy_presentation') or presentation(summary))+'<ul class="strategy-basis">'+''.join('<li><b>'+escape(k)+('</b>' if v=='满足' else '：</b>'+escape(v))+'</li>' for k,v in processed_basis(summary))+'</ul>'
+ details=summary.get('details',{})
+ stats=render(details.get('strategy_presentation') or presentation(summary))
+ items='<ul class="strategy-basis">'+''.join('<li><b>'+escape(k)+('</b>' if v=='满足' else '：</b>'+escape(v))+'</li>' for k,v in processed_basis(summary))+'</ul>'
+ if details.get('rule_heading'):
+  return stats+'<p><strong>'+escape(details['rule_heading'])+'</strong></p>'+items+'<small>'+escape(details['rule_note'])+'</small>'
+ return stats+items
 
 
 def render_rail(summary):

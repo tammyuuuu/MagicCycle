@@ -88,3 +88,30 @@ class RollingGoldTests(unittest.TestCase):
                 "<tr><td>2026-11-23</td><td>Au99.99</td><td>781.40</td></tr></table>").encode()
             new = gold_quotes.update(sessions)
             self.assertEqual(new.loc[sessions].tolist(),[764.55,781.40,780.20])
+
+    def test_rule_description_tracks_the_selected_parameters(self):
+        from asset_states import render_basis
+        from bs4 import BeautifulSoup
+
+        rows = dict(gold.rule_rows(4))
+        self.assertEqual(rows["卖出"], "前3日累计上涨至少3%，随后收跌，下一交易日卖出全部。")
+        self.assertEqual(rows["买回"], "金价跌至卖价的98%或重新超过卖价，下一交易日全部买回。")
+        self.assertEqual(gold.rule_rows(0), [("持有", "全年保持满仓。")])
+        for key, (signal, method, fraction) in enumerate(gold.RULES[1:], 1):
+            rows = dict(gold.rule_rows(key))
+            (days, rise), confirm = gold.SIGNALS[signal]
+            self.assertIn(f"前{days}日累计上涨至少{rise:.0%}", rows["卖出"])
+            self.assertIn("随后收跌" if confirm == "down" else "回落至少1%", rows["卖出"])
+            self.assertIn("卖出全部" if fraction == 1 else "卖出一半", rows["卖出"])
+            self.assertEqual("98%" in rows["买回"], method == "discount10")
+            self.assertEqual("反弹" in rows["买回"], method == "bounce15")
+            self.assertEqual(rows["期限"], f"最迟第{gold.LIMITS[method]}个交易日买回。")
+
+        for year, rule in [(2012,64),(2014,0),(2015,14),(2026,4)]:
+            idx = self.close.loc[str(year)].index[:1]
+            summary = strategies.analyze_asset(pd.DataFrame({"close":[7.]},index=idx),ITEM)
+            basis = BeautifulSoup(render_basis(summary), "html.parser")
+            self.assertEqual(basis.strong.get_text(), f"{year} 年黄金买卖规则")
+            self.assertEqual([li.get_text() for li in basis.select("li")],
+                             [f"{label}：{text}" for label,text in gold.rule_rows(rule)])
+            self.assertEqual(basis.small.get_text(), "每年根据过去五年数据选择规则。")

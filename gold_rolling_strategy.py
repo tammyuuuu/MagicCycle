@@ -8,6 +8,11 @@ import pandas as pd
 ROOT = Path(__file__).with_name("gold_au9999")
 STRATEGY_VERSION = "au9999_trim5_v1"
 FEE = .001
+DISCOUNT = .98
+BOUNCE = .01
+PULLBACK = .01
+PULLBACK_DAYS = 3
+LIMITS = {"hold": 0, "recover5": 5, "discount10": 10, "bounce15": 15}
 HEAT=[(3,.03),(5,.03),(5,.04),(5,.06),(10,.05),(20,.08)]
 SIGNALS=list(product(HEAT,("down","pullback1")))
 RULES=[(None,"hold",0.)]+list(product(range(len(SIGNALS)),("recover5","discount10","bounce15"),(.5,1.)))
@@ -21,8 +26,8 @@ def confirmations(c):
             flag=heat.shift(1,fill_value=False) & c.diff().lt(0)
         else:
             # Only reference actual heat-day closes from the preceding three sessions.
-            peak=pd.concat([c.where(heat).shift(j) for j in (1,2,3)],axis=1).max(axis=1)
-            flag=c.le(.99*peak) & c.rolling(4).count().eq(4)
+            peak=pd.concat([c.where(heat).shift(j) for j in range(1, PULLBACK_DAYS + 1)],axis=1).max(axis=1)
+            flag=c.le((1 - PULLBACK)*peak) & c.rolling(PULLBACK_DAYS + 1).count().eq(PULLBACK_DAYS + 1)
         signals.append(flag & ~flag.shift(1,fill_value=False))
     return np.column_stack([np.zeros(len(c),bool),*signals])
 
@@ -39,7 +44,7 @@ class Market:
         self.feature=np.array([0 if i is None else i+1 for i,_,_ in RULES])
         self.fraction=np.array([f for _,_,f in RULES])
         self.method=np.array([m for _,m,_ in RULES])
-        self.limit=np.array([{"hold":0,"recover5":5,"discount10":10,"bounce15":15}[m] for m in self.method])
+        self.limit=np.array([LIMITS[m] for m in self.method])
 
     def select(self,year):
         start, end, fee = year-5, year-1, FEE
@@ -63,8 +68,8 @@ class Market:
             prev=self.price[i-1]
             # Decision only uses the previous close or the previously scheduled expiry.
             if available: trough=np.minimum(trough,prev)
-            recover=(prev>sale) | ((self.method[origin]=="discount10") & (prev<=.98*sale))
-            bounce=(self.method[origin]=="bounce15") & (prev>=1.01*trough)
+            recover=(prev>sale) | ((self.method[origin]=="discount10") & (prev<=DISCOUNT*sale))
+            bounce=(self.method[origin]=="bounce15") & (prev>=(1 + BOUNCE)*trough)
             due=j-at>=self.limit[origin]
             buy=active & available & (recover|bounce|due)
             sell=~active & self.flags[i,self.feature[keys]] & (j>0)
@@ -90,17 +95,26 @@ class Market:
         score=wealth/np.maximum(best,marked)
         return int(np.round(score,12).argmax())
 
-def rule_text(key):
+def rule_rows(key):
     signal, method, fraction = RULES[key]
     if signal is None:
-        return "全年持金。"
+        return [("持有", "全年保持满仓。")]
     (days, rise), confirm = SIGNALS[signal]
-    trigger = "次日收跌" if confirm == "down" else "其后三日内收盘较急涨日最高收盘回落至少1%"
-    restore = {"recover5":"高于卖价，最迟第5个交易日",
-               "discount10":"高于卖价或不高于卖价的98%，最迟第10个交易日",
-               "bounce15":"高于卖价或较离场以来最低收盘反弹至少1%，最迟第15个交易日"}[method]
-    return (f"{days}日涨幅达到{rise:.0%}，{trigger}首次确认，下一交易日收盘卖出{fraction:.0%}。"
-            f"收盘{restore}回补。价格触发均在下一交易日收盘执行。")
+    reversal = ("随后收跌" if confirm == "down" else
+                f"随后{PULLBACK_DAYS}个交易日内，收盘价较近期急涨日的最高收盘价回落至少{PULLBACK:.0%}")
+    sell = "全部" if fraction == 1 else "一半"
+    buy = "全部买回" if fraction == 1 else "买回卖出的部分"
+    triggers = {
+        "recover5": "金价重新超过卖价",
+        "discount10": f"金价跌至卖价的{DISCOUNT:.0%}或重新超过卖价",
+        "bounce15": f"金价重新超过卖价，或较卖出以来的最低收盘价反弹至少{BOUNCE:.0%}",
+    }
+    return [
+        ("持有", "平时保持满仓。"),
+        ("卖出", f"前{days}日累计上涨至少{rise:.0%}，{reversal}，下一交易日卖出{sell}。"),
+        ("买回", f"{triggers[method]}，下一交易日{buy}。"),
+        ("期限", f"最迟第{LIMITS[method]}个交易日买回。"),
+    ]
 
 
 def replay(close):
@@ -142,9 +156,9 @@ def replay(close):
             method = market.method[origin]
             if price > sale:
                 pending = "above_sale"
-            elif method == "discount10" and price <= .98*sale:
+            elif method == "discount10" and price <= DISCOUNT*sale:
                 pending = "discount"
-            elif method == "bounce15" and price >= 1.01*trough:
+            elif method == "bounce15" and price >= (1 + BOUNCE)*trough:
                 pending = "bounce"
             elif i+1-sold_at >= market.limit[origin]:
                 pending = "timeout"
@@ -180,7 +194,7 @@ def analyze(close, as_of):
     reason = f"Au99.99 收盘 {row.close:g} 元/克，策略当前{position}。{next_action}"
     return status, action, reason, dict(details,insufficient_history=False,target_exposure=weight,
             model_position=position,rule_year=as_of.year,annual_rule=int(row.rule),next_rule=int(row.next_rule),
-            rule_text=rule_text(row.rule),pending=row.pending,executed=row.executed,origin_rule=int(row.origin),
+            rule_text="".join(text for _, text in rule_rows(row.rule)),pending=row.pending,executed=row.executed,origin_rule=int(row.origin),
             sell_price=float(row.sell_price) if row.origin else None)
 
 def backtest_summary():

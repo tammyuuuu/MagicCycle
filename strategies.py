@@ -324,10 +324,14 @@ def _analyze_asset(df, item, holding=None, overrides=None, sell_rules=None):
         if insufficient:
             record(reason,None)
         else:
-            record(f"{gold['rule_year']} 年规则 {gold['annual_rule']} · {gold['rule_text']}",True)
-            record("每年按此前五个完整年份选参，训练时剔除最佳单笔正贡献；交易标的为 518850。",True)
-            if gold['origin_rule']:
-                record(f"当前离场来自规则 {gold['origin_rule']}，Au99.99 卖价 {gold['sell_price']:g} 元/克。",True)
+            rows = gold_rolling_strategy.rule_rows(gold['annual_rule'])
+            details['rule_heading'] = f"{gold['rule_year']} 年黄金买卖规则"
+            details['rule_note'] = "每年根据过去五年数据选择规则。"
+            result['decision_basis'] = rows
+            result['decision_conditions'] = [
+                {"condition": label, "met": None, "result": text} for label, text in rows
+            ]
+            return result
     # 仅调整解释顺序，不改变买卖逻辑。风险/暂停条件先于机会确认。
     basis_order = {
         'broad_etf': [0, 1],
