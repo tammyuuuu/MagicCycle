@@ -66,7 +66,11 @@ class RollingGoldTests(unittest.TestCase):
                 self.assertEqual(summary["details"]["signal_price"],self.close.at[day])
                 self.assertEqual(summary["details"]["model_position"],pos)
                 self.assertEqual(summary["details"]["annual_rule"],4)
-                self.assertIn("策略当前"+pos,render_rail(summary))
+                from bs4 import BeautifulSoup
+                rail = BeautifulSoup(render_rail(summary),"html.parser")
+                self.assertEqual([step.get_text() for step in rail.select(".state-step")], ["空仓","半仓","满仓"])
+                self.assertEqual(rail.select_one('[aria-current="step"]').get_text(), pos)
+                self.assertIn("策略当前"+pos,rail.get_text())
 
     def test_missing_spot_never_trades_on_etf(self):
         status,_,_,details = gold.analyze(self.close,pd.Timestamp("2026-11-23"))
@@ -169,3 +173,23 @@ class RollingGoldTests(unittest.TestCase):
         self.assertEqual(actual.pending.tolist(),["sell","","timeout",""])
         self.assertEqual(np.sign(actual.signed_trade).tolist(),[0,-1,0,1])
         self.assertAlmostEqual(actual.weight.iloc[-1],.5)
+
+    def test_cap_recovery_while_flat_waits_for_heat_reentry(self):
+        # Synthetic extension of the frozen research series across a month end.
+        extension = pd.Series(
+            [781.40, 1100., 1150., 1145., 1140., 1140., 1140., 1141., 1143.],
+            index=pd.bdate_range("2026-11-23", "2026-12-03"),
+        )
+        close = pd.concat([self.close, extension])
+        path = combo.replay(close)
+        self.assertEqual(path.at["2026-11-27", "executed"], "sell")
+        self.assertEqual(path.at["2026-11-30", "cap"], .5)
+        self.assertEqual(path.at["2026-11-30", "next_cap"], 1.)
+        for day in ("2026-11-30", "2026-12-01"):
+            status, _, _, details = combo.analyze(close, pd.Timestamp(day))
+            self.assertEqual(status, "watch")
+            self.assertEqual(details["pending"], "")
+            self.assertEqual(details["next_target_exposure"], 0.)
+            self.assertEqual(path.at[day, "signed_trade"], 0.)
+        self.assertEqual(path.at["2026-12-02", "pending"], "above_sale")
+        self.assertAlmostEqual(path.at["2026-12-03", "weight"], 1.)

@@ -80,11 +80,10 @@ def replay(close):
 
 
 def rule_rows(key):
-    rows = [("持有", "按月度上限持仓，急涨卖出后空仓等待买回。"),
-            ("上限", f"月末金价低于六个月前月末时降至{WEAK_CAP:.0%}，否则恢复100%。下一交易日收盘执行。")]
+    rows = [("持有", "实际仓位随金价浮动，不每天调仓。"),
+            ("上限", f"月末金价低于六个月前月末，仓位上限为{WEAK_CAP:.0%}，否则为100%。上限变更于下一交易日收盘生效。")]
     signal, method, _ = heat.RULES[key]
     if signal is None:
-        rows[0] = ("持有", "本年按月度上限持仓。")
         return rows
     (days, rise), confirm = heat.SIGNALS[signal]
     reversal = ("随后收跌" if confirm == "down" else
@@ -95,7 +94,7 @@ def rule_rows(key):
         "bounce15": f"金价重新超过卖价，或较卖出以来的最低收盘价反弹至少{heat.BOUNCE:.0%}",
     }[method]
     rows.extend([
-        ("卖出", f"前{days}日累计上涨至少{rise:.0%}，{reversal}，下一交易日清仓。"),
+        ("卖出", f"前{days}日累计上涨至少{rise:.0%}，{reversal}，下一交易日清仓。等待买回期间，上限提高也保持空仓。"),
         ("买回", f"{recovery}，下一交易日买回至当时的仓位上限。"),
         ("期限", f"最迟第{heat.LIMITS[method]}个交易日买回。"),
     ])
