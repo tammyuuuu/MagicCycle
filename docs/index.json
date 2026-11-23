@@ -208,77 +208,97 @@
     "name": "华夏黄金ETF",
     "asset_type": "macro_asset",
     "subtype": "gold",
-    "date": "2026-11-20",
+    "date": "2026-11-23",
     "status": "watch",
-    "action": "买入／持有",
-    "reason": "买入／持有，允许长期持有。",
+    "action": "持金",
+    "reason": "Au99.99 收盘 781.4 元/克，策略当前持金。下一交易日无买卖提醒。",
     "risk_level": "normal",
     "metrics": {
-      "price": 7.364,
-      "day_change_pct": -4.24,
+      "price": 7.479,
+      "day_change_pct": 1.56,
       "historical_percentile": null,
-      "drawdown": -38.56,
-      "rsi14": 23.88,
-      "ma5": 7.7552,
-      "ma10": 8.0334,
-      "ma20": 8.1494,
-      "ma60": 8.6941,
-      "ma120": 8.7485,
-      "ma20_slope": -0.1828000000000003,
-      "volatility": 0.014454318485999653,
-      "atr": 0.16459925015276916,
-      "volume_ratio": 2.5731678094240467,
-      "return_20d_pct": -11.14,
-      "deviation60_pct": -15.3
+      "drawdown": -37.6,
+      "rsi14": 28.91,
+      "ma5": 7.6634,
+      "ma10": 7.9344,
+      "ma20": 8.1097,
+      "ma60": 8.6608,
+      "ma120": 8.734,
+      "ma20_slope": -0.18719999999999892,
+      "volatility": 0.014428150558946943,
+      "atr": 0.16191358942757136,
+      "volume_ratio": 1.5265151258132872
     },
     "details": {
       "trend": "weak",
       "position": null,
       "overheated": false,
       "insufficient_history": false,
-      "history_days": 1567,
+      "history_days": 1568,
       "holding": false,
       "holding_return": null,
       "parameters": {
-        "min_history": 120,
-        "return_window": 20,
-        "ma_window": 60,
-        "heat_threshold": 0.15,
-        "cooling_threshold": 0.05
+        "training_years": 5
       },
       "data_warning": null,
       "fundamental_data_available": null,
-      "strategy_version": "gold_heat_actions_v2",
-      "return_20d_pct": -11.137926873416204,
-      "deviation60_pct": -15.299043222715735,
-      "heat_phase": false,
-      "hot_now": false,
-      "cold_now": true,
-      "fresh_add": false,
+      "strategy_version": "au9999_trim5_v1",
+      "signal_source": "上金所 Au99.99",
+      "signal_date": "2026-11-23",
+      "signal_price": 781.4,
+      "target_exposure": 1.0,
+      "model_position": "持金",
+      "rule_year": 2026,
+      "annual_rule": 4,
+      "next_rule": 4,
+      "rule_text": "3日涨幅达到3%，次日收跌首次确认，下一交易日收盘卖出100%。收盘高于卖价或不高于卖价的98%，最迟第10个交易日回补。价格触发均在下一交易日收盘执行。",
+      "pending": "",
+      "executed": "",
+      "origin_rule": 0,
+      "sell_price": null,
       "enabled_decisions": [
-        "add",
-        "buy",
         "watch",
-        "reduce"
+        "buy",
+        "reduce",
+        "exit"
       ],
       "legacy": null,
       "strategy_presentation": {
-        "title": "长期持有与过热减仓",
-        "method": "允许长期持有；20日涨幅与MA60偏离均至少15%时减半一次，两者均冷却至5%以内后买回；等待期间不重复减仓。",
-        "version": "gold_heat_actions_v2",
-        "backtest": null
+        "title": "Au99.99 五年滚动策略",
+        "method": "以上金所收盘价确认信号，下一交易日收盘操作 518850。每年按前五个完整年份剔除最佳单笔正贡献后的成绩选定规则。",
+        "version": "au9999_trim5_v1",
+        "backtest": {
+          "start": "2012-01-04",
+          "end": "2026-11-20",
+          "annual_pct": 6.5199802889,
+          "annual_method": "CAGR",
+          "max_drawdown_pct": 40.6459078717,
+          "total_pct": 155.969854526,
+          "orders": 75,
+          "period_label": "Au99.99 现货回测 2012-01-04 — 2026-11-20",
+          "note": "按上金所收盘价模拟，单边费率0.10%，现金无息。"
+        }
       }
     },
     "decision_conditions": [
       {
-        "condition": "买入／持有：允许长期持有，普通回调不单独触发买入；双15%过热减半，双5%冷却买回",
+        "condition": "2026 年规则 4 · 3日涨幅达到3%，次日收跌首次确认，下一交易日收盘卖出100%。收盘高于卖价或不高于卖价的98%，最迟第10个交易日回补。价格触发均在下一交易日收盘执行。",
+        "met": true,
+        "result": "满足"
+      },
+      {
+        "condition": "每年按此前五个完整年份选参，训练时剔除最佳单笔正贡献；交易标的为 518850。",
         "met": true,
         "result": "满足"
       }
     ],
     "decision_basis": [
       [
-        "买入／持有：允许长期持有，普通回调不单独触发买入；双15%过热减半，双5%冷却买回",
+        "2026 年规则 4 · 3日涨幅达到3%，次日收跌首次确认，下一交易日收盘卖出100%。收盘高于卖价或不高于卖价的98%，最迟第10个交易日回补。价格触发均在下一交易日收盘执行。",
+        "满足"
+      ],
+      [
+        "每年按此前五个完整年份选参，训练时剔除最佳单笔正贡献；交易标的为 518850。",
         "满足"
       ]
     ]

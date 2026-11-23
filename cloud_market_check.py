@@ -19,6 +19,9 @@ def main():
     if len(rows) != len(expected_symbols) or set(by_symbol) != expected_symbols:
         raise ValueError('ETF snapshot symbols incomplete')
     for code, row in by_symbol.items():
+        if code == "518850" and (row.get("details", {}).get("signal_date") != row.get("date")
+                                  or row.get("details", {}).get("insufficient_history", True)):
+            raise ValueError("黄金信号缺少同日 Au99.99 收盘价")
         price = float(row.get('metrics', {}).get('price') or 0)
         if row.get('status') == 'error' or row.get('date') != expected_etf.isoformat() or not math.isfinite(price) or price <= 0:
             raise ValueError(f'ETF {code}: invalid or stale snapshot: {row.get("date")}')

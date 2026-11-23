@@ -1,99 +1,90 @@
 import unittest
 from unittest.mock import patch
+
 import numpy as np
 import pandas as pd
-import app
+
+import gold_quotes
+import gold_rolling_strategy as gold
 import strategies
-import gold_strategy
-from research_gold_heat import heat_targets
-from test_asset_strategies import frame
-from asset_states import display_status, render_guide
+from asset_states import render_rail
 
-ITEM={'code':'518850','name':'华夏黄金ETF','asset_type':'macro_asset','subtype':'gold'}
+ITEM = dict(code="518850",name="华夏黄金ETF",index="黄金",asset_type="macro_asset",subtype="gold")
 
 
-class GoldStrategyTests(unittest.TestCase):
-    def test_reduce_once_then_restore(self):
-        values=[100.]*130+[130.]
-        reduced=strategies.analyze_asset(frame(values),ITEM)
-        self.assertEqual(reduced['status'],'reduce')
-        self.assertEqual(reduced['details']['heat_phase'],True)
-        self.assertEqual(len(reduced['decision_basis']),2)
-        later=strategies.analyze_asset(frame(values+[131.]),ITEM)
-        self.assertEqual(later['status'],'watch')
-        for n in range(1,81):
-            r=strategies.analyze_asset(frame(values+[131.]*n),ITEM)
-            if r['details']['fresh_add']:
-                self.assertEqual(r['status'],'add')
-                self.assertIn('买回',r['reason'])
-                held=strategies.analyze_asset(frame(values+[131.]*n),ITEM,{'holding':True,'current_return':-50})
-                self.assertEqual(held['decision_basis'],r['decision_basis'])
-                self.assertEqual(display_status(held),'buy')
-                self.assertNotIn('target_exposure',r['details'])
-                self.assertEqual(strategies.analyze_asset(frame(values+[131.]*(n+1)),ITEM)['status'],'watch')
-                break
-        else:self.fail('未冷却加仓')
+class RollingGoldTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.close = gold_quotes.read_quotes(gold_quotes.SEED).loc["2007":].close
+        cls.path = gold.replay(cls.close)
 
-    def test_holding_and_profit_do_not_change_conditions(self):
-        for values in ([100.]*130+[130.],[100.]*130+[90.]):
-            base=strategies.analyze_asset(frame(values),ITEM)
-            for h in ({'holding':True,'current_return':-80},{'holding':True,'current_return':80}):
-                held=strategies.analyze_asset(frame(values),ITEM,h)
-                self.assertEqual(held['status'],base['status'])
-                self.assertEqual(held['decision_basis'],base['decision_basis'])
-                self.assertEqual(display_status(held),display_status(base))
+    def test_all_daily_balances_and_75_fills(self):
+        ref = pd.read_csv(gold.ROOT/"account_daily.csv",parse_dates=["date"]).set_index("date")
+        self.assertTrue(self.path.index.equals(ref.index))
+        for col in ["rule","close","weight","nav","cash","grams","signed_trade"]:
+            np.testing.assert_allclose(self.path[col],ref[col],rtol=1e-10,atol=1e-13)
+        self.assertEqual(len(self.path[self.path.signed_trade.ne(0)]),75)
 
-    def test_warmup_and_initial_buy(self):
-        self.assertEqual(strategies.analyze_asset(frame([100.]*119),ITEM)['status'],'watch')
-        self.assertEqual(strategies.analyze_asset(frame([100.]*120),ITEM)['status'],'buy')
-        self.assertEqual(strategies.analyze_asset(frame([100.]*121),ITEM)['status'],'watch')
+    def test_every_confirmation_execution_and_reentry_reason(self):
+        ep = pd.read_csv(gold.ROOT/"episodes.csv",parse_dates=["signal","sold","end"])
+        p = self.path
+        self.assertEqual(list(p.index[p.pending.eq("sell")]),list(ep.signal))
+        self.assertEqual(list(p.index[p.signed_trade.lt(0)]),list(ep.sold))
+        self.assertEqual(list(p.index[p.signed_trade.gt(0)])[1:],list(ep.end))
+        for e in ep.itertuples():
+            self.assertEqual(p.at[e.sold,"origin"],e.rule)
+            self.assertEqual(p.at[e.sold,"close"],e.sell_price)
+            self.assertEqual(p.at[e.end,"close"],e.end_price)
+            before = p.index[p.index.get_loc(e.end)-1]
+            self.assertEqual(p.at[before,"pending"],e.reason)
+            self.assertEqual(p.at[e.end,"executed"],e.reason)
 
-    def test_live_and_research_all_stages_match(self):
-        values=np.r_[np.full(130,100.),130.,131.,np.full(90,131.),100.,160.]
-        data=frame(values)
-        expected=heat_targets(data.close,use_trend=False,exit_on_weak=False)
-        pd.testing.assert_series_equal(gold_strategy.stages(data.close).target,expected)
-        for end in range(120,len(data)+1):
-            result=gold_strategy.analyze_latest(data.iloc[:end])
-            self.assertEqual(result['heat_phase'],expected.iloc[end-1]==.5)
+    def test_annual_choice_uses_only_prior_years(self):
+        schedule = pd.read_csv(gold.ROOT/"schedule.csv")
+        for row in schedule.itertuples():
+            self.assertEqual(gold.Market(self.close.loc[:str(row.year-1)]).select(row.year),row.rule)
+        extra = pd.Series(764.55,index=pd.bdate_range("2026-11-23","2027-01-04"))
+        extended = pd.concat([self.close,extra])
+        path = gold.replay(extended)
+        self.assertEqual(path.iloc[-1].rule,gold.Market(extended.loc[:"2026"]).select(2027))
+        np.testing.assert_allclose(path.nav.loc[self.path.index],self.path.nav)
 
-    def test_unrounded_threshold(self):
-        data=frame([100.]*130+[130.])
-        boundary=gold_strategy.stages(data.close).deviation.iloc[-1]
-        self.assertEqual(gold_strategy.analyze_latest(data,{'heat_threshold':boundary-1e-10})['status'],'reduce')
-        self.assertEqual(gold_strategy.analyze_latest(data,{'heat_threshold':boundary+1e-10})['status'],'watch')
+    def test_site_and_api_show_position_before_next_close(self):
+        import app
+        for day,status,pos in [("2026-11-06","exit","持金"),("2026-11-09","watch","空仓"),
+                                ("2026-11-10","buy","空仓"),("2026-11-11","watch","持金")]:
+            idx = self.close.loc[:day].index[-60:]
+            etf = pd.DataFrame({"close":np.full(len(idx),7.)},index=idx)
+            with patch.object(app,"_load_data",return_value=(etf,ITEM)),app.app.test_client() as client:
+                res = client.post("/api/decide",json={"etf":"518850"}).get_json()
+                summary = res["summary"]
+                alerts = client.post("/api/alerts",json={"etf":"518850"}).get_json()[0]
+                self.assertEqual(alerts["summary"],summary)
+                self.assertEqual(res["decision"]["action"],status)
+                self.assertEqual(summary["metrics"]["price"],7.)
+                self.assertEqual(summary["details"]["signal_price"],self.close.at[day])
+                self.assertEqual(summary["details"]["model_position"],pos)
+                self.assertEqual(summary["details"]["annual_rule"],4)
+                self.assertIn("策略当前"+pos,render_rail(summary))
 
-    def test_gold_two_node_rail_and_waiting(self):
-        from bs4 import BeautifulSoup
-        from asset_states import render_rail
-        for values,expected in [([100.]*130,'buy'),([100.]*130+[130.],'reduce'),([100.]*130+[130.,131.],'reduce')]:
-            summary=strategies.analyze_asset(frame(values),ITEM)
-            soup=BeautifulSoup(render_rail(summary),'html.parser')
-            self.assertEqual(len(soup.select('.state-step')),2)
-            self.assertEqual(display_status(summary),expected)
-            self.assertIn('买入／持有',soup.get_text())
-            self.assertNotIn('预算',soup.get_text())
-            if len(values)==132:self.assertIn('等待冷却，暂不买回',soup.get_text())
+    def test_missing_spot_never_trades_on_etf(self):
+        status,_,_,details = gold.analyze(self.close,pd.Timestamp("2026-11-23"))
+        self.assertEqual(status,"watch")
+        self.assertTrue(details["insufficient_history"])
 
-    def test_api_consistency(self):
-        with patch.dict(app._DATA,{'518850':frame([100.]*130+[130.])}),app.app.test_client() as client:
-            alerts=client.post('/api/alerts',json={'etf':'518850'}).json[0]['summary']
-            decision=client.post('/api/decide',json={'etf':'518850','holding':True,'current_return':-80}).json
-            self.assertEqual(decision['summary']['status'],'reduce')
-            self.assertEqual(alerts['decision_basis'],decision['summary']['decision_basis'])
-            self.assertEqual(decision['decision']['action'],'reduce')
-
-    def test_guide_only_current_conditions(self):
-        from bs4 import BeautifulSoup
-        soup=BeautifulSoup(render_guide(),'html.parser')
-        heading=next(h for h in soup.find_all('h3') if h.get_text()=='黄金 ETF')
-        text=heading.find_next('table').get_text()
-        self.assertIn('15%',text)
-        self.assertIn('5%',text)
-        self.assertNotIn('RSI',text)
-        self.assertNotIn('盈利',text)
-        self.assertIn('买回',text)
-        self.assertNotIn('预算',text)
-
-
-if __name__=='__main__':unittest.main()
+    def test_quote_refresh_requires_every_new_session(self):
+        prior = self.close.iloc[-2:].to_frame()
+        prior["source"] = "fixture"
+        sessions = pd.to_datetime(["2026-11-20","2026-11-23","2026-11-24"])
+        table = """<table><tr><th>日期</th><th>合约</th><th>收盘价</th></tr>
+          <tr><td>2026-11-24</td><td>Au99.99</td><td>780.20</td></tr></table>"""
+        with patch.object(gold_quotes,"history",return_value=prior), patch.object(gold_quotes.requests,"get") as get:
+            response = get.return_value
+            response.content = table.encode()
+            response.url = gold_quotes.URL
+            with self.assertRaisesRegex(ValueError,"日线缺失"):
+                gold_quotes.update(sessions)
+            response.content = table.replace("</table>",
+                "<tr><td>2026-11-23</td><td>Au99.99</td><td>781.40</td></tr></table>").encode()
+            new = gold_quotes.update(sessions)
+            self.assertEqual(new.loc[sessions].tolist(),[764.55,781.40,780.20])

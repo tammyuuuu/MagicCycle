@@ -159,7 +159,11 @@ def _load_data(etf: str) -> pd.DataFrame:
     item = next((e for e in cfg.TARGET_ETFS if e["code"] == etf), None)
     if item is None:
         raise ValueError(f"未知 ETF：{etf}")
-    return _get_df(item["code"]), item
+    frame = _get_df(item["code"])
+    if item.get("subtype") == "gold":
+        from gold_quotes import update
+        item = {**item, "gold_closes": update(frame.index)}
+    return frame, item
 
 
 @app.route("/api/backtest", methods=["POST"])
@@ -215,7 +219,7 @@ def api_alerts():
     out = []
     for item in etfs:
         try:
-            df = _get_df(item["code"])
+            df, item = _load_data(item["code"])
             summary = strategies.analyze_asset(df, valuation_data.attach_valuation(item, df.index[-1].date().isoformat()), overrides=params if item.get("asset_type") == "broad_etf" else None, sell_rules=rules)
             rep = summary["details"]["legacy"] or {"date": summary["date"], "close": summary["metrics"]["price"]}
             out.append({"code": item["code"], "name": item["name"],

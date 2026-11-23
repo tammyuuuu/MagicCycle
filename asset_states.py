@@ -66,10 +66,10 @@ STATE_CATALOG['sector_etf']=[
 
 
 STATE_CATALOG['macro_asset']=[
- ('buy','买入／持有','blue','允许长期持有；双指标均冷却至5%以内后，可买回并恢复仓位。'),
- ('reduce','减仓','red','双指标均达到15%时减半一次；其后等待冷却，暂不买回，不重复减仓。')]
-
-
+ ('buy','回补','blue','下一交易日收盘买回此前卖出的黄金 ETF。'),
+ ('watch','保持仓位','blue','保持当前策略仓位，等待新的交易条件。'),
+ ('reduce','减仓','amber','下一交易日收盘卖出年度规则指定的部分仓位。'),
+ ('exit','卖出','red','下一交易日收盘卖出全部黄金 ETF 仓位。')]
 
 STATE_CATALOG['us_equity']=[
  ('add','加仓','green','长期方向向上；过热后偏离降至5%以内，且价格高于20日均价，可加大本期投入。'),
@@ -107,14 +107,13 @@ STATE_CATALOG['aapl_add']=[('watch','持有/观察','blue','维持基础仓位�
 
 def display_status(summary):
  if summary['asset_type']=='bond_fund':return 'buy'
- if summary['asset_type']=='macro_asset':
-  return 'watch' if summary.get('details',{}).get('insufficient_history') else 'reduce' if summary.get('details',{}).get('heat_phase') else 'buy'
  code=DISPLAY_STATUS_MAP.get(summary['asset_type'],{}).get(summary['status'],summary['status'])
  if summary['asset_type'] not in ('broad_etf','sector_etf','macro_asset') and code=='buy' and summary.get('details',{}).get('holding'):code='add'
  return code
 
 
 def display_action(summary):
+ if summary['asset_type']=='macro_asset':return summary['action']
  code=display_status(summary)
  return next((e[1] for e in STATE_CATALOG.get(summary['asset_type'],[]) if e[0]==code),summary['action'])
 
@@ -141,18 +140,17 @@ def render_rail(summary):
  colors=['#7146aa','#5265b6','#347ac2','#8faaa0','#e8bd4b']
  catalog=STATE_CATALOG.get(summary.get('details',{}).get('strategy_id') or ('us_equity' if summary.get('details',{}).get('strategy_mode')=='us_monthly_trend' else summary['asset_type']),[])
  current_status=display_status(summary)
- if summary['asset_type']=='macro_asset':colors=['#5265b6','#e8bd4b']
  if summary['asset_type']=='bond_fund':colors=['#5265b6']
  current_index=next((i for i,e in enumerate(catalog) if e[0]==current_status),0)
  active=next((e for e in catalog if e[0]==current_status),None)
  buttons=''.join(f'<button type="button" class="state-step{ " is-current" if code==current_status else ""}" style="--axis-pos:{i/max(1,len(catalog)-1)*100:.1f}%;--axis-color:{colors[i]}" data-meaning="{escape(meaning,quote=True)}" data-label="{escape(label,quote=True)}" onclick="inspectAssetState(this)"'+(' aria-current="step"' if code==current_status else '')+f'><span class="state-dot" aria-hidden="true"></span>{escape(display_action(summary) if code==current_status else label)}'+('<span class="current-arrow" aria-hidden="true"></span>' if code==current_status else '')+'</button>' for i,(code,label,tone,meaning) in enumerate(catalog))
  risk_badge=''
- axis_labels='<b>买入／持有</b><span>减仓</span>' if summary['asset_type']=='macro_asset' else '<b>买入</b><span>卖出</span>'
+ axis_labels='<b>买入</b><span>卖出</span>'
  if summary['asset_type'] in ('bond_fund','nvda_entry'):axis_labels='<b>长期持有策略</b>'
  if summary['asset_type']=='stock_long_term':axis_labels='<b>长期持有策略</b>'
  if summary['asset_type']=='aapl_observe':axis_labels='<b>研究观察</b>'
  if summary['asset_type']=='aapl_add':axis_labels='<b>候选加仓策略</b>'
- return f'<div class="state-position" style="--current-pos:{current_index/max(1,len(catalog)-1)*100:.1f}%;--axis-color:{colors[current_index]}"><div class="axis-labels">{axis_labels}</div>'+risk_badge+'<div class="axis-scroll"><div class="state-rail">'+buttons+'</div></div><p class="current-reason"><b>当前建议：'+escape(active[1] if active else summary['action'])+'</b><span class="recommendation-reason">'+escape(display_reason(summary['reason']))+'</span></p><p class="state-explanation" aria-live="polite"></p></div>'
+ return f'<div class="state-position" style="--current-pos:{current_index/max(1,len(catalog)-1)*100:.1f}%;--axis-color:{colors[current_index]}"><div class="axis-labels">{axis_labels}</div>'+risk_badge+'<div class="axis-scroll"><div class="state-rail">'+buttons+'</div></div><p class="current-reason"><b>当前建议：'+escape(display_action(summary) if summary['asset_type']=='macro_asset' else active[1] if active else summary['action'])+'</b><span class="recommendation-reason">'+escape(display_reason(summary['reason']))+'</span></p><p class="state-explanation" aria-live="polite"></p></div>'
 
 
 def render_today_categories(contents=None):

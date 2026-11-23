@@ -10,7 +10,7 @@ import shutil
 from research_broad_individual import execute
 from research_sector_partial_exit import backtest_partial
 from us_guidance import guidance_frame,VERSION as US_VERSION
-from gold_strategy import stages,STRATEGY_VERSION as GOLD_VERSION
+from gold_rolling_strategy import ROOT as GOLD_ROOT, replay as replay_gold, backtest_summary,STRATEGY_VERSION as GOLD_VERSION
 from industry_strategy import partial_exit_targets,trend_positions,STRATEGY_VERSION as SECTOR_VERSION
 
 ROOT=Path(__file__).resolve().parent;OUT=ROOT/'results/active_strategy_backtests'
@@ -23,7 +23,18 @@ def main():
    if old.is_file():shutil.copy2(old,archive/old.name)
  for item in config.TARGET_ETFS:
   code=item['code'];path=ROOT/f'data_cache/etf_{code}_tencent.csv';p=pd.read_csv(path,index_col='date',parse_dates=True).sort_index().loc[:'2026-10-30'];p.attrs['code']=code;hashes[str(path.relative_to(ROOT))]=hashlib.sha256(path.read_bytes()).hexdigest();tests={}
-  if item.get('strategy_mode')=='broad_individual':
+  if code=='518850':
+   version=GOLD_VERSION
+   tests['default']=backtest_summary()
+   date_end=tests['default']['end']
+   quotes=pd.read_csv(GOLD_ROOT/'verified_daily.csv',index_col='date',parse_dates=True).close.loc['2007':date_end]
+   curve=replay_gold(quotes)
+   curve.to_csv(OUT/f'{code}_daily.csv')
+   curve.loc[curve.signed_trade.ne(0)].to_csv(OUT/f'{code}_trades.csv')
+   for filename in ('verified_daily.csv','schedule.csv'):
+    source=GOLD_ROOT/filename
+    hashes[str(source.relative_to(ROOT))]=hashlib.sha256(source.read_bytes()).hexdigest()
+  elif item.get('strategy_mode')=='broad_individual':
    sid=item['broad_strategy'];version=COMBO_VERSION if code=='510500' else 'csi300_value_confirm_v2' if code=='510300' else 'star50_buffer_v2'
    if code!='588000':
     pe=ROOT/f'data_cache/valuation_{"000905" if code=="510500" else "000300"}_SH.csv';h=pd.read_csv(pe,parse_dates=['date']);hashes[str(pe.relative_to(ROOT))]=hashlib.sha256(pe.read_bytes()).hexdigest()
@@ -47,8 +58,6 @@ def main():
   else:
    if code in ['513500','513100']:
     f=guidance_frame(p.close);target=f.target;entry=f.entry_allowed;version=US_VERSION;start=int(np.flatnonzero(f.ready)[0])+1;limit=.10
-   elif code=='518850':
-    f=stages(p.close);target=f.target;entry=target==1.;version=GOLD_VERSION;start=120;limit=.10
    else:target=partial_exit_targets(p.close);entry=trend_positions(p.close);version=SECTOR_VERSION;start=20;limit=.20
    stats,curve,trades=backtest_partial(p,target,start,len(p),entry_allowed=entry,limit_pct=limit)
    tests['default']=pack(curve,version,len(trades));curve.to_csv(OUT/f'{code}_daily.csv');pd.DataFrame(trades).to_csv(OUT/f'{code}_trades.csv',index=False)

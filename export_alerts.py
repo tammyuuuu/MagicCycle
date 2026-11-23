@@ -176,6 +176,9 @@ def main(out_path: str = DEFAULT_OUT, offline: bool = False, *, _local_only: boo
             # 网络故障时 fetch_etf_daily 会退回本地旧缓存，并在 attrs 里留标记
             if df.attrs.get("stale_note"):
                 stale_notes.append(df.attrs["stale_note"])
+            if item.get("subtype") == "gold" and not _local_only:
+                from gold_quotes import update
+                item = {**item, "gold_closes": update(df.index, persist=True)}
             summary = strategies.analyze_asset(df, valuation_data.attach_valuation(item, df.index[-1].date().isoformat()), overrides=params if item.get("asset_type") == "broad_etf" else None, sell_rules=rules)
             rep = summary["details"]["legacy"] or {"date": summary["date"], "close": summary["metrics"]["price"]}
             etfs_reps.append({**item, "rep": rep, "summary": summary})

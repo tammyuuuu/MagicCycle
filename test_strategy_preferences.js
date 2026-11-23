@@ -1,7 +1,7 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
 const source=fs.readFileSync('templates/_status_rail.html','utf8').split('<script>')[1].split('</script>')[0].replace(/\{\{[^}]+\}\}/g,'{}');
 const storage=new Map(),select={value:''};
-const context={console,localStorage:{getItem:k=>storage.get(k),setItem:(k,v)=>storage.set(k,v)},
+const context={console,setInterval(){},localStorage:{getItem:k=>storage.get(k),setItem:(k,v)=>storage.set(k,v)},
  document:{addEventListener(){},getElementById:()=>select,querySelector:()=>null},Event,dispatchEvent(){},
  setInvestmentSummaries:list=>context.updated=list};
 context.window=context;vm.createContext(context);vm.runInContext(source,context);
@@ -26,8 +26,8 @@ assert.equal(context.summaryWithValuationYears(withoutLongHistory,10).status,'wa
 assert.equal(context.summaryWithValuationYears(withoutLongHistory,10).details.insufficient_history,true);
 assert.equal(context.updated.find(s=>s.symbol==='510300').details.strategy_version,'csi300_value_confirm_v2');
 assert.equal(context.updated.find(s=>s.symbol==='510500').details.strategy_version,'csi500_pe_or_pb5_pe_exit_v4');
-assert.equal(context.updated.find(s=>s.symbol==='510500').details.strategy_presentation.backtest.start,
- context.STRATEGY_SUMMARIES.find(s=>s.symbol==='510500').details.strategy_presentation.backtest.start);
+assert.deepStrictEqual(context.updated.find(s=>s.symbol==='510500').details.strategy_presentation.backtest,
+ context.STRATEGY_SUMMARIES.find(s=>s.symbol==='510500').details.strategy_presentation.backtest);
 assert.equal(context.updated.find(s=>s.symbol==='510500').details.parameters.pb_entry_percentile,10);
 // 行业买点不随持仓改成加仓，三个启用决策仍对应原轴线颜色。
 context.ASSET_STATE_CATALOG={sector_etf:[['add','加仓','','未启用'],['buy','买入','','新买点'],['watch','观察','','保持'],['reduce','减仓','','未启用'],['exit','退出','','线下']]};
@@ -49,18 +49,15 @@ for(const [status,expected] of [['buy',500],['watch',0],['exit',0]]){
  assert.equal(calculation.spent,expected);
 }
 console.log('Sector axis, holding independence and plan signal amounts: OK');
-context.ASSET_STATE_CATALOG.macro_asset=[['buy','买入／持有','','长期持有'],['reduce','减仓','','双指标过热']];
-for(const [status,phase,pos,color] of [['buy',false,0,'#5265b6'],['watch',false,0,'#5265b6'],['reduce',true,100,'#e8bd4b']]){
- const summary={asset_type:'macro_asset',status,reason:'test',details:{holding:true,heat_phase:phase}};
- assert(context.assetStateRail(summary).includes('--current-pos:'+pos+'%;--axis-color:'+color));
+context.ASSET_STATE_CATALOG.macro_asset=[['buy','回补'],['watch','保持仓位'],['reduce','减仓'],['exit','卖出']];
+for(const status of ['buy','watch','reduce','exit']){
+ const summary={asset_type:'macro_asset',status,action:'黄金操作',reason:'策略当前持金',details:{}};
+ const html=context.assetStateRail(summary);
+ assert(html.includes('当前建议：黄金操作'));
+ assert.equal((html.match(/aria-current="step"/g)||[]).length,1);
 }
 const gold=context.STRATEGY_SUMMARIES.find(s=>s.symbol==='518850');
-assert.equal(gold.details.strategy_version,'gold_heat_actions_v2');
-const restored={...gold,status:'add',risk_level:'normal',details:{...gold.details,fresh_add:true,insufficient_history:false,data_warning:null}};
-const goldPlan=context.InvestmentLogic.calculate(1000,[0,0,100,0,0],context.InvestmentLogic.defaults,[restored],{date:gold.date,tradingDay:true});
-assert.equal(goldPlan.spent,500);
-assert.equal(goldPlan.rows[2].allocations[0].reason,gold.reason);
-console.log('Gold axis and restoration budget: OK');
+assert.equal(gold.details.strategy_version,'au9999_trim5_v1');
 
 for(const code of ['513500','513100']){
  const summary=context.STRATEGY_SUMMARIES.find(s=>s.symbol===code);

@@ -279,16 +279,15 @@ def _analyze_asset(df, item, holding=None, overrides=None, sell_rules=None):
                        insufficient_history=insufficient, enabled_decisions=['buy','watch','reduce','exit'])
         metrics['ma20'] = legacy['ma20']
     elif asset == 'macro_asset':
-        import gold_strategy
-        gold = gold_strategy.analyze_latest(d, p)
-        status, action, reason = gold['status'], gold['action'], gold['reason']
-        insufficient = gold['insufficient_history']
-        details.update({k:v for k,v in gold.items() if k not in ('status','action','reason','profile')})
-        details['enabled_decisions'] = ['add','buy','watch','reduce']
-        details['overheated'] = bool(gold['heat_phase'])
-        metrics['return_20d_pct'] = round(gold['return_20d_pct'],2) if gold['return_20d_pct'] is not None else None
-        metrics['deviation60_pct'] = round(gold['deviation60_pct'],2) if gold['deviation60_pct'] is not None else None
-        risk = 'elevated' if insufficient or gold['heat_phase'] else 'normal'
+        import gold_quotes
+        import gold_rolling_strategy
+        spot = item.get("gold_closes")
+        if spot is None:
+            spot = gold_quotes.history().close
+        status, action, reason, gold = gold_rolling_strategy.analyze(spot, d.index[-1])
+        insufficient = gold["insufficient_history"]
+        details.update(gold, parameters={"training_years":5}, enabled_decisions=["watch","buy","reduce","exit"])
+        risk = "elevated" if insufficient else "normal"
     details['legacy'] = legacy
     result = {'symbol': item['code'], 'name': item['name'], 'asset_type': asset,
               'subtype': subtype, 'date': d.index[-1].date().isoformat(),
@@ -323,16 +322,12 @@ def _analyze_asset(df, item, holding=None, overrides=None, sell_rules=None):
     elif asset=='macro_asset':
         checks=[]
         if insufficient:
-            record(f"判断前提：至少{p['min_history']}个有效交易日",None)
-        elif status=='reduce':
-            record(f"减仓条件：近{p['return_window']}个交易日涨幅至少{p['heat_threshold']*100:g}%",True)
-            record(f"减仓条件：高于{p['ma_window']}日均价至少{p['heat_threshold']*100:g}%；同一过热阶段减半一次",True)
-        elif gold['fresh_add']:
-            record(f"买回条件：过热阶段结束，短期涨幅与均线偏离均不高于{p['cooling_threshold']*100:g}%；可买回并恢复仓位",True)
-        elif gold['heat_phase']:
-            record(f"观察条件：过热阶段尚未冷却，等待两个指标均不高于{p['cooling_threshold']*100:g}%；不重复减仓",True)
+            record(reason,None)
         else:
-            record("买入／持有：允许长期持有，普通回调不单独触发买入；双15%过热减半，双5%冷却买回",True)
+            record(f"{gold['rule_year']} 年规则 {gold['annual_rule']} · {gold['rule_text']}",True)
+            record("每年按此前五个完整年份选参，训练时剔除最佳单笔正贡献；交易标的为 518850。",True)
+            if gold['origin_rule']:
+                record(f"当前离场来自规则 {gold['origin_rule']}，Au99.99 卖价 {gold['sell_price']:g} 元/克。",True)
     # 仅调整解释顺序，不改变买卖逻辑。风险/暂停条件先于机会确认。
     basis_order = {
         'broad_etf': [0, 1],

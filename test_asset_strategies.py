@@ -21,7 +21,10 @@ class AssetTests(unittest.TestCase):
         for item in config.TARGET_ETFS:
             s=strategies.analyze_asset(frame([100,99,98]),item)
             self.assertNotIn(s['status'],['buy','buy_more','normal_buy','starter','small_buy','allocate'])
-            self.assertTrue(s['details']['insufficient_history'])
+            if item.get('subtype')=='gold':
+                self.assertEqual(s['details']['signal_source'],'上金所 Au99.99')
+            else:
+                self.assertTrue(s['details']['insufficient_history'])
             json.dumps(s,allow_nan=False)
     def test_broad_price_valuation_only(self):
         item={'code':'510500','name':'test','asset_type':'broad_etf'}
