@@ -66,9 +66,10 @@ STATE_CATALOG['sector_etf']=[
 
 
 STATE_CATALOG['macro_asset']=[
- (1.,'满仓','green','调仓时持有100%的黄金 ETF。'),
- (.5,'半仓','blue','调仓时买入或减至50%，此后实际比例随金价浮动。'),
- (0.,'空仓','amber','已卖出黄金 ETF，等待买回条件。')]
+ ('buy','买回/增持','blue','下一交易日收盘买入黄金 ETF 至当时的仓位上限。'),
+ ('watch','持有','blue','维持当前仓位，下一交易日无买卖提醒。'),
+ ('reduce','减仓','amber','下一交易日收盘将黄金 ETF 仓位调低至新的上限。'),
+ ('exit','卖出','red','下一交易日收盘卖出全部黄金 ETF。')]
 
 STATE_CATALOG['us_equity']=[
  ('add','加仓','green','长期方向向上；过热后偏离降至5%以内，且价格高于20日均价，可加大本期投入。'),
@@ -105,7 +106,7 @@ STATE_CATALOG['aapl_add']=[('watch','持有/观察','blue','维持基础仓位�
 
 
 def display_status(summary):
- if summary['asset_type']=='macro_asset':return summary.get('details',{}).get('target_exposure')
+ if summary['asset_type']=='macro_asset' and summary.get('details',{}).get('insufficient_history'):return None
  if summary['asset_type']=='bond_fund':return 'buy'
  code=DISPLAY_STATUS_MAP.get(summary['asset_type'],{}).get(summary['status'],summary['status'])
  if summary['asset_type'] not in ('broad_etf','sector_etf','macro_asset') and code=='buy' and summary.get('details',{}).get('holding'):code='add'
@@ -150,12 +151,11 @@ def render_rail(summary):
  buttons=''.join(f'<button type="button" class="state-step{ " is-current" if code==current_status else ""}" style="--axis-pos:{i/max(1,len(catalog)-1)*100:.1f}%;--axis-color:{colors[i]}" data-meaning="{escape(meaning,quote=True)}" data-label="{escape(label,quote=True)}" onclick="inspectAssetState(this)"'+(' aria-current="step"' if code==current_status else '')+f'><span class="state-dot" aria-hidden="true"></span>{escape(display_action(summary) if code==current_status else label)}'+('<span class="current-arrow" aria-hidden="true"></span>' if code==current_status else '')+'</button>' for i,(code,label,tone,meaning) in enumerate(catalog))
  risk_badge=''
  axis_labels='<b>买入</b><span>卖出</span>'
- if summary['asset_type']=='macro_asset':axis_labels='<b>当前策略仓位</b>'
  if summary['asset_type'] in ('bond_fund','nvda_entry'):axis_labels='<b>长期持有策略</b>'
  if summary['asset_type']=='stock_long_term':axis_labels='<b>长期持有策略</b>'
  if summary['asset_type']=='aapl_observe':axis_labels='<b>研究观察</b>'
  if summary['asset_type']=='aapl_add':axis_labels='<b>候选加仓策略</b>'
- recommendation='' if summary['asset_type']=='macro_asset' else '<b>当前建议：'+escape(active[1] if active else summary['action'])+'</b>'
+ recommendation='<b>当前建议：'+escape(active[1] if active else summary['action'])+'</b>'
  return f'<div class="state-position" style="--current-pos:{current_index/max(1,len(catalog)-1)*100:.1f}%;--axis-color:{colors[current_index]}"><div class="axis-labels">{axis_labels}</div>'+risk_badge+'<div class="axis-scroll"><div class="state-rail">'+buttons+'</div></div><p class="current-reason">'+recommendation+'<span class="recommendation-reason">'+escape(display_reason(summary['reason']))+'</span></p><p class="state-explanation" aria-live="polite"></p></div>'
 
 

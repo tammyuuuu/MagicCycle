@@ -68,8 +68,13 @@ class RollingGoldTests(unittest.TestCase):
                 self.assertEqual(summary["details"]["annual_rule"],4)
                 from bs4 import BeautifulSoup
                 rail = BeautifulSoup(render_rail(summary),"html.parser")
-                self.assertEqual([step.get_text() for step in rail.select(".state-step")], ["满仓","半仓","空仓"])
-                self.assertEqual(rail.select_one('[aria-current="step"]').get_text(), pos)
+                self.assertEqual([step.get_text() for step in rail.select(".state-step")], ["买回/增持","持有","减仓","卖出"])
+                label = {"exit":"卖出","watch":"持有","buy":"买回/增持","reduce":"减仓"}[status]
+                self.assertEqual(rail.select_one('[aria-current="step"]').get_text(), label)
+                advice = rail.select_one(".current-reason").get_text()
+                self.assertIn("当前建议："+label,advice)
+                self.assertIn(f"实际模拟仓位{summary['details']['actual_exposure']:.2%}",advice)
+                self.assertIn(f"上限{summary['details']['momentum_cap']:.0%}",advice)
                 self.assertIn("策略当前"+pos,rail.get_text())
 
     def test_missing_spot_never_trades_on_etf(self):
