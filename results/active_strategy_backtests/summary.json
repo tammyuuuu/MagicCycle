@@ -1,0 +1,159 @@
+{
+  "schema": "active-strategy-backtests-v1",
+  "as_of": "2026-10-31",
+  "assets": {
+    "513500": {
+      "version": "us_momentum_heat_v2",
+      "backtests": {
+        "default": {
+          "start": "2015-02-03",
+          "end": "2026-10-30",
+          "annual_pct": 12.912432094749127,
+          "annual_method": "CAGR",
+          "max_drawdown_pct": 29.693210726678842,
+          "total_pct": 315.94780182409005,
+          "orders": 15,
+          "note": "10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
+        }
+      }
+    },
+    "513100": {
+      "version": "us_momentum_heat_v2",
+      "backtests": {
+        "default": {
+          "start": "2014-06-04",
+          "end": "2026-10-28",
+          "annual_pct": 19.438419240640204,
+          "annual_method": "CAGR",
+          "max_drawdown_pct": 24.012547423379726,
+          "total_pct": 804.82597743632,
+          "orders": 9,
+          "note": "10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
+        }
+      }
+    },
+    "518850": {
+      "version": "gold_heat_actions_v2",
+      "backtests": {
+        "default": {
+          "start": "2020-12-02",
+          "end": "2026-10-29",
+          "annual_pct": 16.657429385874956,
+          "annual_method": "CAGR",
+          "max_drawdown_pct": 27.03426556894881,
+          "total_pct": 148.4014608705301,
+          "orders": 7,
+          "note": "10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
+        }
+      }
+    },
+    "510300": {
+      "version": "csi300_value_confirm_v2",
+      "backtests": {
+        "3": {
+          "start": "2013-06-07",
+          "end": "2026-10-29",
+          "annual_pct": 10.45161840628046,
+          "annual_method": "CAGR",
+          "max_drawdown_pct": 36.33974707608778,
+          "total_pct": 278.64145126587,
+          "orders": 6,
+          "note": "近3年估值参考。10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
+        },
+        "5": {
+          "start": "2013-06-07",
+          "end": "2026-10-29",
+          "annual_pct": 12.297739660602192,
+          "annual_method": "CAGR",
+          "max_drawdown_pct": 31.429087519891773,
+          "total_pct": 372.76739164544017,
+          "orders": 6,
+          "note": "近5年估值参考。10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
+        },
+        "10": {
+          "start": "2015-04-02",
+          "end": "2026-10-29",
+          "annual_pct": 5.668824050296983,
+          "annual_method": "CAGR",
+          "max_drawdown_pct": 27.718881264933525,
+          "total_pct": 89.32162870856008,
+          "orders": 3,
+          "note": "近10年估值参考。10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
+        }
+      }
+    },
+    "510500": {
+      "version": "csi500_pe_or_pb5_pe_exit_v4",
+      "backtests": {
+        "5": {
+          "start": "2014-03-31",
+          "end": "2026-10-30",
+          "annual_pct": 12.209329116607105,
+          "annual_method": "CAGR",
+          "max_drawdown_pct": 56.094470163923106,
+          "total_pct": 326.1108494347008,
+          "orders": 60,
+          "note": "近5年估值参考。10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
+        }
+      }
+    },
+    "588000": {
+      "version": "star50_buffer_v2",
+      "backtests": {
+        "5": {
+          "start": "2020-12-08",
+          "end": "2026-10-30",
+          "annual_pct": 14.487158157767954,
+          "annual_method": "CAGR",
+          "max_drawdown_pct": 23.56330356699675,
+          "total_pct": 121.91486476510045,
+          "orders": 58,
+          "note": "10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
+        }
+      }
+    },
+    "588170": {
+      "version": "sector_ma20_partial_v2",
+      "backtests": {
+        "default": {
+          "start": "2025-05-09",
+          "end": "2026-10-30",
+          "annual_pct": 62.67467952028678,
+          "annual_method": "CAGR",
+          "max_drawdown_pct": 30.356249628156473,
+          "total_pct": 105.04311801268025,
+          "orders": 49,
+          "note": "10万元固定本金；次日开盘，单边0.1%滑点、佣金万一最低5元，空仓现金收益0。历史条件模拟。"
+        }
+      }
+    },
+    "000015": {
+      "version": "bond_hold_v1",
+      "backtests": {
+        "default": {
+          "start": "2013-03-08",
+          "end": "2026-10-21",
+          "annual_pct": 3.844015806614287,
+          "annual_method": "CAGR",
+          "max_drawdown_pct": 4.205255545038444,
+          "total_pct": 67.15867306155079,
+          "orders": 1,
+          "note": "分红再投资长期持有；申购费0.08%，期末长期赎回费0；历史条件模拟。"
+        }
+      }
+    }
+  },
+  "input_hashes": {
+    "data_cache\\etf_513500_tencent.csv": "73b84277baaa84885cba0e560d61ab4c651784216f185ce1c7db4aaddbb336cc",
+    "data_cache\\etf_513100_tencent.csv": "ac0f60f216df36266d5eb883b8c1f78aef9daa50565bce7abad7bf260c0f0c33",
+    "data_cache\\etf_518850_tencent.csv": "ca2212e1b41e2d09c24bb56681c51525e41b1966e3586ba7181c825c108aec12",
+    "data_cache\\etf_510300_tencent.csv": "b63f017a9e609f904316961cb3201282aa1031ea3cea19cf66091bab8587c062",
+    "data_cache\\valuation_000300_SH.csv": "6ee725ac7d535deb7ce977785c60c8fe642b3cd91eb5988792087bb07f7bcb7c",
+    "data_cache\\etf_510500_tencent.csv": "4076e2ab25e97248eef5fba951e2f5ba7a784175270d9a042fc34645c0772b68",
+    "data_cache\\valuation_000905_SH.csv": "be2416adfd376a851b5b0988434d80dc73371b41323f85a6d3b24c8d7dfb2a80",
+    "data_cache\\valuation_pb_000905_SH.csv": "47896d57d41f13f631f0fb9447473fc4c4cd6fb10fe95588a1919c438ed6a631",
+    "data_cache\\etf_588000_tencent.csv": "b0de00109547d15d0ef56a8bd51cdcd00444eb2f3a4e70c05d935543a9977981",
+    "data_cache\\etf_588170_tencent.csv": "f42c4c2ce463acaf6f0b6bc697ffbabec4cd07de8b08118703e5ea68b112da7e",
+    "research_xingxun_v2\\clean_v2\\000015.csv": "859707e0a1cdc3ddd4509495d1c4eb2d9fce14490d50e2626f171d80737e4db2"
+  }
+}

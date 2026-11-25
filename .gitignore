@@ -1,7 +1,10 @@
 # 数据缓存
 /data_cache/
-# 回测输出
-/results/
+# 回测输出保留在本地，发布页面所需的策略摘要纳入版本管理。
+/results/*
+!/results/active_strategy_backtests/
+/results/active_strategy_backtests/*
+!/results/active_strategy_backtests/summary.json
 # Python
 __pycache__/
 *.pyc
